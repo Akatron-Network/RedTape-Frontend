@@ -1,6 +1,6 @@
 .login {
   overflow: hidden;
-  padding: 40px 30px 30px 30px;
+  padding: 30px;
   border-radius: 10px;
   position: absolute;
   top: 50%;
@@ -47,15 +47,25 @@
 }
 
 .login > input {
-  font-family: "Asap", sans-serif;
   display: block;
   border-radius: 5px;
   font-size: 16px;
-  background: white;
+  background: #EFEEE7;
   width: 100%;
   border: 0;
   padding: 10px 10px;
   margin-bottom: 15px;
+  color: #5A422C;
+  outline: none;
+  border: 1px solid #EFEEE7;
+}
+
+.login > input:focus {
+  border: 1px solid #936639;
+}
+
+.login > input::placeholder {
+  color: #B6AD90
 }
 
 .login > button {
@@ -69,10 +79,15 @@
   -webkit-transition: background-color 300ms;
   -moz-transition: background-color 300ms;
   transition: background-color 300ms;
+  outline: none;
+}
+
+.login > button:focus {
+  background-color: #89623E;
 }
 
 .login > button:hover {
-  background-color: #f24353;
+  background-color: #89623E;
 }
 
 @-webkit-keyframes wawes {

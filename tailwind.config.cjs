@@ -3,12 +3,14 @@
 module.exports = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx}",
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
   ],
 
   theme: {
     extend: {
       colors: {
         //* SOIL COLORS
+        cafe_noir: "#5A422C",
         dark_brown: "#765435",
         seal_brown: "#582F0E",
         russet: "#7F4F24",
@@ -25,13 +27,25 @@ module.exports = {
 
         //* LIGHT COLORS
         laurel_green_light: "#C2C5AA",
+        ash_gray: "#C8CEB6",
+        bone: "#DEDDCE",
+        alabaster: "#EFEEE7",
       },
 
       fontFamily: {
-        'raleway': ['Raleway' , 'cursive']
+        'raleway': ['Raleway' , 'cursive'],
+        'righteous': ['Righteous' , 'cursive'],
+        'roboto': ['Roboto Slab' , 'serif']
       },
+
+      boxShadow: {
+        'navbar': '0px 0px 10px 2px rgb(0 0 0 / 60%)',
+        'sidebar': '10px 0px 8px -4px rgb(0 0 0 / 35%)',
+      }
     },
     
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }
