@@ -1,7 +1,7 @@
 .login {
   overflow: hidden;
   padding: 30px;
-  border-radius: 10px;
+  border-radius: 7px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -31,7 +31,7 @@
 .login::before {
   left: 40%;
   bottom: -130%;
-  background-color: rgba(127, 79, 36, 0.15);
+  background-color: rgba(43, 48, 33, 0.2);
   -webkit-animation: wawes 6s infinite linear;
   -moz-animation: wawes 6s infinite linear;
   animation: wawes 6s infinite linear;
@@ -40,7 +40,7 @@
 .login::after {
   left: 35%;
   bottom: -125%;
-  background-color: rgba(147, 102, 57, 0.2);
+  background-color: rgba(54, 60, 42, 0.4);
   -webkit-animation: wawes 7s infinite;
   -moz-animation: wawes 7s infinite;
   animation: wawes 7s infinite;
@@ -49,45 +49,49 @@
 .login > input {
   display: block;
   border-radius: 5px;
-  font-size: 16px;
-  background: #EFEEE7;
+  font-size: 15px;
+  background: #BFC7AD;
   width: 100%;
   border: 0;
   padding: 10px 10px;
   margin-bottom: 15px;
-  color: #5A422C;
+  color: #363C2A;
   outline: none;
-  border: 1px solid #EFEEE7;
+  border: 1px solid #BFC7AD;
 }
 
 .login > input:focus {
-  border: 1px solid #936639;
+  border: 1px solid #525943;
 }
 
 .login > input::placeholder {
-  color: #B6AD90
+  color: #525943;
+  opacity: .6;
+  font-size: 15px;
 }
 
 .login > button {
   cursor: pointer;
-  color: #fff;
+  color: #ABB39A;
   font-size: 16px;
   border: 0;
   padding: 10px;
   border-radius: 5px;
-  background-color: #765435;
+  background-color: #2B3021;
   -webkit-transition: background-color 300ms;
   -moz-transition: background-color 300ms;
   transition: background-color 300ms;
   outline: none;
+  transition: .3s;
 }
 
 .login > button:focus {
-  background-color: #89623E;
+  transform: scale(.95);
 }
 
 .login > button:hover {
-  background-color: #89623E;
+  background-color: #363C2A;
+  color: #BFC7AD;
 }
 
 @-webkit-keyframes wawes {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
-import Navbar from '../js/components/Navbar';
-import Sidebar from '../js/components/Sidebar';
+import Navbar from '../js/components/main-items/Navbar';
+import Sidebar from '../js/components/main-items/Sidebar';
 
 export default function MainPage() {
   return (
@@ -9,7 +9,7 @@ export default function MainPage() {
       <Navbar />
       <Sidebar />
 
-      <div className='pt-12'>
+      <div className='py-16 px-6'>
         <Outlet />
       </div>
     </>
