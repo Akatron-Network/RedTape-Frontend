@@ -9,44 +9,43 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // //* SOIL COLORS
-        // cafe_noir: "#5A422C",
-        // dark_brown: "#765435",
-        // seal_brown: "#582F0E",
-        // russet: "#7F4F24",
-        // coyote_brown: "#936639",
-        // camel: "#A68A64",
-        // khaki_web: "#CFC9B4",
-
-        // //* GREEN COLORS
+        // //! Green Palette
         // pine_tree: "#2B3021",
-        // kombu_green: "#333D29",
+        // kombu_green: "#363C2A",
         // rifle_green: "#414833",
+        // ebony: "#525943",
+        // ebony_light: "#6B735C",
+        // xanadu: "#747C65",
+        // artichoke: "#868E76",
+        // laurel_green: "#ABB39A",
+        // laurel_green_light: "#BFC7AD",
+        // beige: "#D2DAC0",
+        // beige_light: "#DCE0CC",
+        // alabaster: "#E5E8D9",
+
         // dark_olive_green: "#656D4A",
-        // laurel_green: "#A4AC86",
 
-        // //* LIGHT COLORS
-        // laurel_green_light: "#C2C5AA",
-        // ash_gray: "#C8CEB6",
-        // bone: "#DEDDCE",
-        // alabaster: "#EFEEE7",
+        fogra_dark: "#0A131F",
+        fogra: "#0E1B2B",
+        oxford_blue: "#112236",
+        prussian_blue: "#1E3249",
+        indigo_dye: "#2A425B",
+        mn_blue: "#37526E",
+        queen_blue: "#426280",
+        shadow_blue: "#738EA9",
+        steel_blue: "#A3BAD2",
+        alica_blue: "#DBE4ED",
+        alica_blue_middle: "#E4EBF2",
+        alica_blue_light: "#EDF2F6",
+        ghost_white: "#F9FBFF",
 
-
-        //! Green Palette
-        pine_tree: "#2B3021",
-        kombu_green: "#363C2A",
-        rifle_green: "#414833",
-        ebony: "#525943",
-        ebony_light: "#6B735C",
-        xanadu: "#747C65",
-        artichoke: "#868E76",
-        laurel_green: "#ABB39A",
-        laurel_green_light: "#BFC7AD",
-        beige: "#D2DAC0",
-        beige_light: "#DCE0CC",
-        alabaster: "#E5E8D9",
-
-        dark_olive_green: "#656D4A",
+        dark_blue_gray: "#636792",
+        eggplant: "#C53030",
+        eggplant_light: "#D34A4A",
+        golden: "#FBB623",
+        golden_light: "#FBC44B",
+        sea_green: "#408759",
+        sea_green_light: "#4EA66D",
       },
 
       fontFamily: {

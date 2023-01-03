@@ -3,8 +3,8 @@ import React from 'react'
 export default function InputSelect(props) {
   return (
     <div className='w-full flex flex-row shadow-md'>
-      <span className="w-1/3 flex justify-center items-center rounded-[4px] p-1 text-sm bg-kombu_green border border-r-0 border-kombu_green rounded-r-none font-medium text-white">{props.name}</span>
-      <select id={props.id} defaultValue="default" required className="block rounded-[4px] rounded-l-none w-2/3 py-[6px] text-sm text-pine_tree border border-kombu_green bg-white focus:ring-ebony focus:border-ebony">
+      <span className="w-1/3 flex justify-center items-center rounded-[4px] p-1 text-sm bg-indigo_dye border border-r-0 border-indigo_dye rounded-r-none text-alica_blue_light">{props.name}</span>
+      <select id={props.id} defaultValue="default" required className="block rounded-[4px] rounded-l-none w-2/3 py-[6px] text-sm text-indigo_dye border border-indigo_dye bg-white focus:ring-mn_blue focus:border-mn_blue">
         <option value="default" disabled>{props.name + " seçin..."}</option>
         <option value="1">Adana</option>
         <option value="2">Adıyaman</option>

@@ -20,8 +20,8 @@ export default function Sidebar() {
   
 
   return (
-    <aside id='side-panel' className={sidePanel ? "w-[221px] pt-[52px] fixed h-screen bg-pine_tree p-2 z-40 shadow-sidebar transition-all duration-500"
-    : "transition-all duration-500 -translate-x-64 w-[221px] pt-[52px] fixed h-screen bg-pine_tree p-2 z-40 shadow-sidebar"} aria-label="Sidebar">
+    <aside id='side-panel' className={sidePanel ? "w-[221px] pt-[52px] fixed h-screen bg-prussian_blue p-2 px-0 z-40 shadow-sidebar transition-all duration-500"
+    : "transition-all duration-500 -translate-x-64 w-[221px] pt-[52px] fixed h-screen bg-prussian_blue p-2 px-0 z-40 shadow-sidebar"} aria-label="Sidebar">
       <ul className="space-y-2 trans">
         <li>
           <Link to={"/cari-kayit"} className="sidebar-elm">

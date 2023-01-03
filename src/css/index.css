@@ -6,7 +6,7 @@
   html {
     /* font-family: 'Cabin', sans-serif; */
     @apply
-      bg-gray-50
+      bg-ghost_white
       font-roboto
   }
 
@@ -26,10 +26,9 @@
     px-3
     text-base
     font-normal
-    text-laurel_green
-    rounded-[4px]
-    hover:bg-kombu_green
-    hover:text-beige
+    text-steel_blue
+    hover:bg-indigo_dye
+    hover:text-alica_blue
     transition duration-200
     active:scale-95
   }
