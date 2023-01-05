@@ -20,17 +20,17 @@
 @layer components { /*+ Kendi eklediğin classlar(green-btn, model) burada yazılacak */
   .sidebar-elm {
     @apply
-    flex
-    items-center
-    py-2
-    px-3
-    text-base
-    font-normal
-    text-steel_blue
-    hover:bg-indigo_dye
-    hover:text-alica_blue
-    transition duration-200
-    active:scale-95
+      flex
+      items-center
+      py-2
+      px-3
+      text-base
+      font-normal
+      text-steel_blue
+      hover:bg-indigo_dye
+      hover:text-alica_blue
+      transition duration-200
+      active:scale-95
   }
 
   .sidebar-elm-text {
@@ -47,24 +47,28 @@
   }
 
   ::-webkit-scrollbar-track {
-    background-color: #2B3021;
+    background-color: #37526E;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #414833;
+    background: #112236;
     border: 2px solid transparent;
-    border-radius: 4px;
+    border-radius: 6px;
     background-clip: content-box;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background-color: #363C2A;
+    background-color: #1E3249;
     border: 2px solid transparent;
     border-radius: 4px;
     background-clip: content-box;
   }
 
+  ::-webkit-scrollbar-thumb:active {
+    background-color: #DBE4ED;
+  }
+
   ::-webkit-scrollbar-corner{
-    background: #414833;
+    background: #37526E;
   }
 }
