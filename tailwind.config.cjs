@@ -34,6 +34,7 @@ module.exports = {
         queen_blue: "#426280",
         shadow_blue: "#738EA9",
         steel_blue: "#A3BAD2",
+        steel_blue_light: "#C9D6E3",
         alica_blue: "#DBE4ED",
         alica_blue_middle: "#E4EBF2",
         alica_blue_light: "#EDF2F6",
@@ -57,6 +58,9 @@ module.exports = {
       boxShadow: {
         'navbar': '0px 0px 10px 2px rgb(0 0 0 / 60%)',
         'sidebar': '10px 0px 8px -4px rgb(0 0 0 / 35%)',
+        'table': '1px 1px 10px -2px rgb(150,150,150,1);',
+        'input': '1px 2px 8px -3px rgb(150,150,150,1)',
+        'button': '2px 2px 9px 1px rgb(150,150,150,1)'
       }
     },
     

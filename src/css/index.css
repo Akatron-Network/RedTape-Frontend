@@ -37,6 +37,86 @@
     @apply
       ml-2
   }
+
+  .save-btn {
+    @apply
+    py-1
+    transition duration-300
+    shadow-button
+    px-3
+    text-sm
+    w-fit
+    text-ghost_white
+    border
+    border-transparent
+    bg-indigo_dye
+    rounded-[1px]
+    hover:bg-queen_blue
+    focus:z-10
+    focus:outline-none 
+    active:scale-95
+  }
+
+  .clear-btn {
+    @apply
+    py-1
+    transition duration-300
+    shadow-button
+    px-3
+    text-sm
+    w-fit
+    text-oxford_blue
+    border
+    border-transparent
+    focus:outline-none
+    bg-shadow_blue
+    rounded-[1px]
+    hover:bg-steel_blue
+    hover:text-mn_blue
+    focus:z-10
+    active:scale-95
+  }
+
+  .golden-btn {
+    @apply
+    py-1
+    transition duration-300
+    shadow-button
+    px-3
+    text-sm
+    w-fit
+    text-oxford_blue
+    border
+    border-transparent
+    focus:outline-none
+    bg-golden
+    rounded-[1px]
+    hover:bg-golden_light
+    hover:text-prussian_blue
+    focus:z-10
+    active:scale-95
+  }
+
+  .danger-btn {
+    @apply
+    py-1
+    transition duration-300
+    shadow-button
+    px-3
+    text-sm
+    w-fit
+    text-ghost_white
+    border
+    border-transparent
+    focus:outline-none
+    bg-eggplant
+    rounded-[1px]
+    hover:bg-eggplant_light
+    hover:text-white
+    focus:z-10
+    active:scale-95
+  }
+
 }
 
 @layer utilities { /*+ Pure CSS burada yazılacak */

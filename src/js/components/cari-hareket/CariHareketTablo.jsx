@@ -8,16 +8,22 @@ export default function CariTablo() {
             <thead className="text-xs text-prussian_blue bg-steel_blue_light">
                 <tr>
                     <th scope="col" className="py-2 px-5 font-bold text-sm">
-                        CARİ AD
+                        TARİH
                     </th>
                     <th scope="col" className="py-2 px-5 font-bold text-sm">
-                        TC KİMLİK NUMARASI
+                        AÇIKLAMA
                     </th>
                     <th scope="col" className="py-2 px-5 font-bold text-sm">
-                        TELEFON
+                        VADE TARİHİ
                     </th>
                     <th scope="col" className="py-2 px-5 font-bold text-sm">
-                        ADRES
+                        BORÇ TUTARI
+                    </th>
+                    <th scope="col" className="py-2 px-5 font-bold text-sm">
+                        ALACAK TUTARI
+                    </th>
+                    <th scope="col" className="py-2 px-5 font-bold text-sm">
+                        NET BAKİYE
                     </th>
                     <th scope="col" className="py-2 px-5 font-bold text-sm">
                         <span className="sr-only">Düzenle</span>
@@ -27,179 +33,249 @@ export default function CariTablo() {
             <tbody>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      21.05.2022
                   </th>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
+                      Fatura
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
+                      22.06.2022
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $99
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $999
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
                       $2999
                   </td>
+                  
                   <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                       <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </td>
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      21.05.2022
                   </th>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
+                      Fatura
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
+                      22.06.2022
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $99
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $999
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
                       $2999
                   </td>
+                  
                   <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                       <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </td>
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      21.05.2022
                   </th>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
+                      Fatura
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
+                      22.06.2022
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $99
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $999
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
                       $2999
                   </td>
+                  
                   <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                       <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </td>
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      21.05.2022
                   </th>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
+                      Fatura
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
+                      22.06.2022
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $99
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $999
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
                       $2999
                   </td>
+                  
                   <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                       <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </td>
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      21.05.2022
                   </th>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
+                      Fatura
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
+                      22.06.2022
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $99
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $999
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
                       $2999
                   </td>
+                  
                   <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                       <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </td>
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      21.05.2022
                   </th>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
+                      Fatura
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
+                      22.06.2022
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $99
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $999
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
                       $2999
                   </td>
+                  
                   <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                       <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </td>
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      21.05.2022
                   </th>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
+                      Fatura
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
+                      22.06.2022
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $99
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $999
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
                       $2999
                   </td>
+                  
                   <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                       <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </td>
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      21.05.2022
                   </th>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
+                      Fatura
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
+                      22.06.2022
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $99
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $999
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
                       $2999
                   </td>
+                  
                   <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                       <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </td>
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      21.05.2022
                   </th>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
+                      Fatura
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
+                      22.06.2022
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $99
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $999
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
                       $2999
                   </td>
+                  
                   <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                       <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </td>
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      21.05.2022
                   </th>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
+                      Fatura
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
+                      22.06.2022
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $99
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $999
                   </td>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
                       $2999
                   </td>
+                  
                   <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                       <button className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                       <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
@@ -208,7 +284,7 @@ export default function CariTablo() {
             </tbody>
         </table>
         <nav className="flex justify-between items-center py-2 px-4 bg-steel_blue_light h-10" aria-label="Table navigation">
-          <span className="text-sm font-normal text-queen_blue"><span className="font-semibold text-prussian_blue">1000</span> cari arasından <span className="font-semibold text-prussian_blue">1-10</span> gösteriliyor.</span>
+          <span className="text-sm font-normal text-queen_blue"><span className="font-semibold text-prussian_blue">1000</span> hareket arasından <span className="font-semibold text-prussian_blue">1-10</span> gösteriliyor.</span>
           <ul className="inline-flex items-center -space-x-px text-prussian_blue">
               <li>
                 <a href="#" className="py-[2px] px-1 ml-0 mx-[1px] text-pine_tree rounded-l-md hover:bg-alica_blue hover:text-prussian_blue ">
