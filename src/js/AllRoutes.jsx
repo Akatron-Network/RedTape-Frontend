@@ -8,6 +8,7 @@ import CariHareket from '../pages/CariHareket'
 import StokKayit from '../pages/StokKayit'
 import Siparis from '../pages/Siparis'
 import GorevTakip from '../pages/GorevTakip'
+import Test from '../pages/Test'
 
 export default function AllRoutes() {
   return (
@@ -15,9 +16,9 @@ export default function AllRoutes() {
       <Routes>
         <Route path="/giris" element={<LoginPage />} />
         <Route path="/" element={<MainPage />}>
-          <Route path=":cari-kayit" element={<CariKayit />} />
+          <Route path=":kayit-cari" element={<CariKayit />} />
           <Route path=":cari-hareket" element={<CariHareket />} />
-          <Route path=":stok-kayit" element={<StokKayit />} />
+          <Route path=":kayit-stok" element={<StokKayit />} />
           <Route path=":siparis" element={<Siparis />} />
           <Route path=":gorev-takip" element={<GorevTakip />} />
           {/* <Route index={true} element={<Collections />} />
@@ -25,6 +26,7 @@ export default function AllRoutes() {
           <Route path=":colID/:foldID" element={<Files />} />
           <Route path=":colID/:foldID/:fileID" element={<ChartLayout />} /> */}
         </Route>
+        <Route path="/test" element={<Test />} />
       </Routes>
     </BrowserRouter>
   )

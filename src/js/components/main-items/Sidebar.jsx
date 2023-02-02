@@ -24,7 +24,7 @@ export default function Sidebar() {
     : "transition-all duration-500 -translate-x-64 w-[221px] pt-[52px] fixed h-screen bg-prussian_blue p-2 px-0 z-40 shadow-sidebar"} aria-label="Sidebar">
       <ul className="space-y-2 trans">
         <li>
-          <Link to={"/cari-kayit"} className="sidebar-elm">
+          <Link to={"/kayit-cari"} className="sidebar-elm">
             <div className='text-center w-6'>
               <i className="fa-solid fa-user-pen"></i>
             </div>
@@ -42,7 +42,7 @@ export default function Sidebar() {
         </li>
 
         <li>
-          <Link to={"/stok-kayit"} className="sidebar-elm">
+          <Link to={"/kayit-stok"} className="sidebar-elm">
             <div className='text-center w-6'>
               <i className="fa-solid fa-boxes-packing"></i>
             </div>
