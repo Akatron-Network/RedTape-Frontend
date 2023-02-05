@@ -9,22 +9,6 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // //! Green Palette
-        // pine_tree: "#2B3021",
-        // kombu_green: "#363C2A",
-        // rifle_green: "#414833",
-        // ebony: "#525943",
-        // ebony_light: "#6B735C",
-        // xanadu: "#747C65",
-        // artichoke: "#868E76",
-        // laurel_green: "#ABB39A",
-        // laurel_green_light: "#BFC7AD",
-        // beige: "#D2DAC0",
-        // beige_light: "#DCE0CC",
-        // alabaster: "#E5E8D9",
-
-        // dark_olive_green: "#656D4A",
-
         fogra_dark: "#0A131F",
         fogra: "#0E1B2B",
         oxford_blue: "#112236",

@@ -1,10 +1,10 @@
 import React from 'react'
-import InputDefault from '../js/components/items/InputDefault'
-import InputSelect from '../js/components/items/InputSelect'
-import InputComment from '../js/components/items/InputComment'
-import CariTablo from '../js/components/cari-kayit/CariTablo'
-import PageMainTitle from '../js/components/items/PageMainTitle'
-import PageSubTitle from '../js/components/items/PageSubTitle'
+import InputDefault from '../components/items/InputDefault'
+import InputSelect from '../components/items/InputSelect'
+import InputComment from '../components/items/InputComment'
+import CariTablo from '../components/cari-kayit/CariTablo'
+import PageMainTitle from '../components/items/PageMainTitle'
+import PageSubTitle from '../components/items/PageSubTitle'
 
 export default function CariKayit() {
   return (

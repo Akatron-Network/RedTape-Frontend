@@ -1,13 +1,13 @@
 import React from 'react'
-import PageMainTitle from '../js/components/items/PageMainTitle'
-import PageSubTitle from '../js/components/items/PageSubTitle'
-import InputDate from '../js/components/items/InputDate'
-import InputDefault from '../js/components/items/InputDefault'
-import InputSelect from '../js/components/items/InputSelect'
-import InputSelectNoSpan from '../js/components/items/InputSelectNoSpan'
-import InputFilled from '../js/components/items/InputFilled'
-import SiparisGirisTablo from '../js/components/siparis-giris/SiparisGirisTablo'
-import InputDefaultNoSpan from '../js/components/items/InputDefaultNoSpan'
+import PageMainTitle from '../components/items/PageMainTitle'
+import PageSubTitle from '../components/items/PageSubTitle'
+import InputDate from '../components/items/InputDate'
+import InputDefault from '../components/items/InputDefault'
+import InputSelect from '../components/items/InputSelect'
+import InputSelectNoSpan from '../components/items/InputSelectNoSpan'
+import InputFilled from '../components/items/InputFilled'
+import SiparisGirisTablo from '../components/siparis-giris/SiparisGirisTablo'
+import InputDefaultNoSpan from '../components/items/InputDefaultNoSpan'
 
 export default function Siparis() {
   return (

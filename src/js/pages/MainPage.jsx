@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
-import Navbar from '../js/components/main-items/Navbar';
-import Sidebar from '../js/components/main-items/Sidebar';
+import Navbar from '../components/main-items/Navbar';
+import Sidebar from '../components/main-items/Sidebar';
 
 export default function MainPage() {
   return (

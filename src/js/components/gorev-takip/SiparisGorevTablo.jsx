@@ -46,7 +46,7 @@ export default function SiparisGorevTablo() {
                     </td>
                     
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='clear-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-handshake-simple"></i></button>
+                        <button className='clear-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-handshake-simple"></i></button>
                     </td>
                 </tr>
                 <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
@@ -67,7 +67,7 @@ export default function SiparisGorevTablo() {
                     </td>
                     
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='clear-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-handshake-simple"></i></button>
+                        <button className='clear-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-handshake-simple"></i></button>
                     </td>
                 </tr>
                 <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
@@ -88,7 +88,7 @@ export default function SiparisGorevTablo() {
                     </td>
                     
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='clear-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-handshake-simple"></i></button>
+                        <button className='clear-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-handshake-simple"></i></button>
                     </td>
                 </tr>
               </tbody>

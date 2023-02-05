@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LoginPage from '../pages/LoginPage'
-import MainPage from '../pages/MainPage'
-import CariKayit from '../pages/CariKayit'
-import CariHareket from '../pages/CariHareket'
-import StokKayit from '../pages/StokKayit'
-import Siparis from '../pages/Siparis'
-import GorevTakip from '../pages/GorevTakip'
-import Test from '../pages/Test'
+import LoginPage from './pages/LoginPage'
+import MainPage from './pages/MainPage'
+import CariKayit from './pages/CariKayit'
+import CariHareket from './pages/CariHareket'
+import StokKayit from './pages/StokKayit'
+import Siparis from './pages/Siparis'
+import GorevTakip from './pages/GorevTakip'
+import Test from './pages/Test'
 
 export default function AllRoutes() {
   return (

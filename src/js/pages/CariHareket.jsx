@@ -1,11 +1,11 @@
 import React from 'react'
-import InputDate from '../js/components/items/InputDate'
-import InputDefault from '../js/components/items/InputDefault'
-import InputSelect from '../js/components/items/InputSelect'
-import InputFilled from '../js/components/items/InputFilled'
-import PageMainTitle from '../js/components/items/PageMainTitle'
-import PageSubTitle from '../js/components/items/PageSubTitle'
-import CariHareketTablo from '../js/components/cari-hareket/CariHareketTablo'
+import InputDate from '../components/items/InputDate'
+import InputDefault from '../components/items/InputDefault'
+import InputSelect from '../components/items/InputSelect'
+import InputFilled from '../components/items/InputFilled'
+import PageMainTitle from '../components/items/PageMainTitle'
+import PageSubTitle from '../components/items/PageSubTitle'
+import CariHareketTablo from '../components/cari-hareket/CariHareketTablo'
 
 
 export default function CariHareket() {  

@@ -69,7 +69,7 @@ export default function GorevTakibiTablo() {
                         09.12.2022
                     </td>
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-pen-nib"></i></button>
+                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-pen-nib"></i></button>
                     </td>
                 </tr>
                 <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
@@ -101,7 +101,7 @@ export default function GorevTakibiTablo() {
                         09.12.2022
                     </td>
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-pen-nib"></i></button>
+                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-pen-nib"></i></button>
                     </td>
                 </tr>
                 <tr className="bg-green-300 border-b h-9 border-alica_blue hover:bg-green-400 transition duration-300">
@@ -133,7 +133,7 @@ export default function GorevTakibiTablo() {
                         09.12.2022
                     </td>
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-pen-nib"></i></button>
+                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-pen-nib"></i></button>
                     </td>
                 </tr>
                 <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
@@ -165,7 +165,7 @@ export default function GorevTakibiTablo() {
                         09.12.2022
                     </td>
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-pen-nib"></i></button>
+                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-pen-nib"></i></button>
                     </td>
                 </tr>
                 <tr className="bg-red-400 border-b h-9 border-alica_blue hover:bg-red-500 transition duration-300">
@@ -197,7 +197,7 @@ export default function GorevTakibiTablo() {
                         09.12.2022
                     </td>
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-pen-nib"></i></button>
+                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-pen-nib"></i></button>
                     </td>
                 </tr>
                 <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
@@ -229,7 +229,7 @@ export default function GorevTakibiTablo() {
                         09.12.2022
                     </td>
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-pen-nib"></i></button>
+                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-pen-nib"></i></button>
                     </td>
                 </tr>
                 <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
@@ -261,7 +261,7 @@ export default function GorevTakibiTablo() {
                         09.12.2022
                     </td>
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-pen-nib"></i></button>
+                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-pen-nib"></i></button>
                     </td>
                 </tr>
                 <tr className="bg-green-300 border-b h-9 border-alica_blue hover:bg-green-400 transition duration-300">
@@ -293,7 +293,7 @@ export default function GorevTakibiTablo() {
                         09.12.2022
                     </td>
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-pen-nib"></i></button>
+                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-pen-nib"></i></button>
                     </td>
                 </tr>
                 <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
@@ -325,7 +325,7 @@ export default function GorevTakibiTablo() {
                         09.12.2022
                     </td>
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-pen-nib"></i></button>
+                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-pen-nib"></i></button>
                     </td>
                 </tr>
                 <tr className="bg-red-400 border-b h-9 border-alica_blue hover:bg-red-500 transition duration-300">
@@ -357,7 +357,7 @@ export default function GorevTakibiTablo() {
                         09.12.2022
                     </td>
                     <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i class="fa-solid fa-pen-nib"></i></button>
+                        <button className='golden-btn px-2 w-fit rounded-[4px] shadow-md active:scale-90'><i className="fa-solid fa-pen-nib"></i></button>
                     </td>
                 </tr>
               </tbody>
