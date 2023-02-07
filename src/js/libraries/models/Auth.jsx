@@ -9,7 +9,7 @@ export default class Auth {
     this.token_expiration = token_expiration
   }
 
-  //? Set Informations to localStorage
+  //f Set Informations to localStorage
   localSync () {  
     localStorage.clear();
     localStorage.setItem('token', this.token)
@@ -19,10 +19,9 @@ export default class Auth {
   }
 
   async refreshDetails() {
-    let resp = Request.registerRequest();
+    let q = Request.registerRequest();
     
-    let get = await resp.get();
-    console.log(get)
+    let get = await q.get();
 
     if(!get.Success) throw new Error('Refresh failed')
 
@@ -31,8 +30,8 @@ export default class Auth {
   }
 
   async logout() {
-    let resp = Request.loginRequest();
-    let dlt = await resp.delete();
+    let q = Request.loginRequest();
+    let dlt = await q.delete();
 
     localStorage.clear();
 
@@ -40,12 +39,12 @@ export default class Auth {
     return dlt;
   }
 
-  //* STATIC CONSTRUCT METHODS ------------------------------------------------
+  //b STATIC CONSTRUCT METHODS ------------------------------------------------
 
   static async login(username, password) {
-    let resp = Request.loginRequest();                  //. Create an object
+    let q = Request.loginRequest();                  //. Create an object
 
-    let get = await resp.get({                          //. get GET Func
+    let get = await q.get({                          //. get GET Func
       username: username,
       password: password
     })
@@ -64,7 +63,7 @@ export default class Auth {
     return auth;                                        //r return to Auth Object
   }
   
-  //? Get informations from localStorage for create Auth Object
+  //f Get informations from localStorage for create Auth Object
   static getLocalUser () {  
 
     if (!localStorage.getItem('token')) throw new Error('Token not found')  //. Check Token

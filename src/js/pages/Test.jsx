@@ -1,11 +1,11 @@
 import React from 'react'
 import Request from '../libraries/Request'
 import Auth from '../libraries/models/Auth'
+import User from '../libraries/models/User';
 
 
 export default function Test() {
-
-  //* BASIC TESTS ----------------------------
+  //b BASIC TESTS ----------------------------
   const loginTest = async () => {
     console.log("GET");
 
@@ -69,7 +69,7 @@ export default function Test() {
     await deleteTest();
   }
 
-  //* AUTH ----------------------------------
+  //b AUTH ----------------------------------
   const authLogin = async () => {
     let resp = await Auth.login('Hakan', '12345678')
     console.log(resp);
@@ -87,6 +87,41 @@ export default function Test() {
 
   const refreshUserDetails = async () => {
     let resp = await Auth.getLocalUser().refreshDetails()
+  }
+
+  //b USER ----------------------------------
+  const showUser = async () => {
+    let where = 
+    {
+      where:{username: 'hakan'} //. lowercase 
+    }
+
+    let resp = await User.showUser(JSON.stringify(where));
+    let resp_all = await User.showUser();
+    
+    console.log(resp)     //. Tekli
+    console.log(resp_all) //. Çoklu
+  }
+
+  const createUser = async () => {
+    let resp = await User.createUser('Deneme1', '12345678')
+    console.log(resp)
+  }
+
+  const editUser = async () => {
+    let details = await User.getUserDetails('Deneme1')
+    let changes = {
+      password : "123456789"
+    }
+    
+    let resp = await details.editUser(changes);
+    console.log(resp)
+  }
+
+  const deleteUser = async () => {
+    let resp = await User.getUserDetails('Deneme1')
+    let rmv = await resp.removeUser()
+    console.log(rmv)
   }
 
   return (
@@ -149,9 +184,24 @@ export default function Test() {
       <div className='p-3 mt-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
         <h1 className='mr-2 text-alica_blue w-40'>USER TESTS</h1>
 
-        <button onClick={authLogin}  
+        <button onClick={showUser}
           className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
-          Auth Login Test
+          Show User Test
+        </button>
+
+        <button onClick={createUser}
+          className='text-white bg-blue-700 ml-3 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Create User Test
+        </button>
+
+        <button onClick={editUser}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Edit User Test
+        </button>
+
+        <button onClick={deleteUser}
+          className='text-white bg-blue-700 ml-3 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Remove User Test
         </button>
 
       </div>
