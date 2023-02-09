@@ -2,6 +2,7 @@ import React from 'react'
 import Request from '../libraries/Request'
 import Auth from '../libraries/models/Auth'
 import User from '../libraries/models/User';
+import Current from '../libraries/models/Current';
 
 
 export default function Test() {
@@ -96,7 +97,7 @@ export default function Test() {
       where:{username: 'hakan'} //. lowercase 
     }
 
-    let resp = await User.showUser(JSON.stringify(where));
+    let resp = await User.showUser(where);
     let resp_all = await User.showUser();
     
     console.log(resp)     //. Tekli
@@ -122,6 +123,56 @@ export default function Test() {
     let resp = await User.getUserDetails('Deneme1')
     let rmv = await resp.removeUser()
     console.log(rmv)
+  }
+
+  //b CURRENT ------------------------------
+  const showCurrent = async () => {
+    let where = 
+    {
+      where:{}
+    }
+
+    let resp = await Current.showCurrent(where)
+    console.log(resp)
+  }
+
+  const createCurrent = async () => {
+    let data = {
+      name: "Test-15",
+      address: "",
+      province: "",
+      district: "",
+      tax_office: "",
+      tax_no: "",
+      identification_no: "",
+      phone: "",
+      phone_2: "",
+      mail: "a@a.com",
+      description: "",
+      code_1: "",
+      code_2: "",
+      code_3: "",
+      code_4: "",
+    }
+
+    let resp = await Current.createCurrent(data);
+    console.log(resp)
+  }
+
+  const editCurrent = async () => {
+    let details = await Current.getCurrent(896)
+    let changes = {
+      name : "Deneme-16"
+    }
+
+    let resp = await details.editCurrent(changes)
+    console.log(resp);
+  }
+
+  const deleteCurrent = async () => {
+    let resp = await Current.getCurrent(892)
+    let rmv = await resp.removeCurrent();
+    console.log(rmv);
   }
 
   return (
@@ -202,6 +253,31 @@ export default function Test() {
         <button onClick={deleteUser}
           className='text-white bg-blue-700 ml-3 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
           Remove User Test
+        </button>
+
+      </div>
+    
+      <div className='p-3 mt-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
+        <h1 className='mr-2 text-alica_blue w-40'>CURRENT TESTS</h1>
+
+        <button onClick={showCurrent}
+          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Show User Test
+        </button>
+
+        <button onClick={createCurrent}
+          className='text-white bg-blue-700 ml-3 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Create Current Test
+        </button>
+
+        <button onClick={editCurrent}
+          className='text-white bg-blue-700 ml-3 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Edit Current Test
+        </button>
+
+        <button onClick={deleteCurrent}
+          className='text-white bg-blue-700 ml-3 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Remove Current Test
         </button>
 
       </div>

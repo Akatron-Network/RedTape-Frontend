@@ -1,7 +1,25 @@
-import React from 'react'
+import React, {useRef} from 'react'
+import { useNavigate } from 'react-router-dom';
 import '../../css/login.css'
+import Auth from '../libraries/models/Auth'
 
 export default function LoginPage() {
+  var navigate = useNavigate();
+
+  const login_username = useRef("");
+  const login_password = useRef("");
+
+  const login = async (e) => {
+    e.preventDefault();
+    let usr = login_username.current.value
+    let pss = login_password.current.value
+
+    let lgn = await Auth.login(usr, pss)
+    console.log(lgn)
+
+    navigate("/");
+  }
+
   return (
     <div className='w-full h-screen bg-prussian_blue'>
       <form className="login bg-shadow_blue">
@@ -9,15 +27,15 @@ export default function LoginPage() {
         {/* <input className='focus:ring-transparent' type="text" placeholder="Kullanıcı Adı" />
         <input className='focus:ring-transparent' type="password" placeholder="Şifre" /> */}
         <div className="relative z-0 mb-5">
-          <input type="text" className="block py-2.5 px-0 w-full text-md text-alica_blue bg-transparent border-0 border-b-2 border-oxford_blue appearance-none focus:outline-none focus:ring-0 focus:border-alica_blue peer" placeholder=" " />
+          <input ref={login_username} type="text" className="block py-2.5 px-0 w-full text-md text-alica_blue bg-transparent border-0 border-b-2 border-oxford_blue appearance-none focus:outline-none focus:ring-0 focus:border-alica_blue peer" placeholder=" " />
           <label className="absolute text-md text-oxford_blue duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-alica_blue peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Kullanıcı Adı</label>
         </div>
         <div className="relative z-0 mb-5">
-          <input type="password" className="block py-2.5 px-0 w-full text-md text-alica_blue bg-transparent border-0 border-b-2 border-oxford_blue appearance-none focus:outline-none focus:ring-0 focus:border-alica_blue peer" placeholder=" " />
+          <input ref={login_password} type="password" className="block py-2.5 px-0 w-full text-md text-alica_blue bg-transparent border-0 border-b-2 border-oxford_blue appearance-none focus:outline-none focus:ring-0 focus:border-alica_blue peer" placeholder=" " />
           <label className="absolute text-md text-oxford_blue duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-alica_blue peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Şifre</label>
         </div>
 
-        <button>Giriş Yap</button>
+        <button onClick={login}>Giriş Yap</button>
       </form>
     </div>
 

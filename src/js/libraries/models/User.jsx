@@ -22,37 +22,39 @@ export default class User {
   async removeUser() {
     let q = Request.userRequest();
 
-    let dlt = await q.delete({
+    let remove = await q.delete({
       username: this.username,
     })
 
-    if (!dlt.Success) throw new Error('User delete failed')
+    if (!remove.Success) throw new Error('User delete failed')
 
-    return dlt;
+    return remove;
   }
 
   //b STATIC CONSTRUCT METHODS ------------------------------------------------
   static async createUser(username, password) {
     let q = Request.userRequest();
 
-    let post = await q.post({
+    let create = await q.post({
       username: username,
       password: password
     })
-    if (!post.Success) throw new Error('User create failed')
+    if (!create.Success) throw new Error('User create failed')
 
     let obj = new User(username);
     return obj;
   }
 
-  static async showUser(where = {}) {
+  static async showUser(where) {
     let q = Request.userRequest();
-
-    let get = await q.get({
-      query: where
+    let whereStringify = JSON.stringify(where)
+    
+    let show = await q.get({
+      query: whereStringify
     })
 
-    return get.Data.map(r => new User(r.username, r.user_details));
+    let obj = show.Data.map(r => new User(r.username, r.user_details));
+    return obj;
   }
 
   static async getUserDetails(username) {
@@ -62,7 +64,8 @@ export default class User {
       username: username
     })
 
-    return new User(get.Data.username, get.Data.user_details);
+    let obj = new User(get.Data.username, get.Data.user_details);
+    return obj;
   }
 
 }

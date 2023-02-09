@@ -8,6 +8,9 @@ export default function CariTablo() {
             <thead className="text-xs text-prussian_blue bg-steel_blue_light">
                 <tr>
                     <th scope="col" className="py-2 px-5 font-bold text-sm">
+                        ID
+                    </th>
+                    <th scope="col" className="py-2 px-5 font-bold text-sm">
                         CARİ AD
                     </th>
                     <th scope="col" className="py-2 px-5 font-bold text-sm">
@@ -27,23 +30,8 @@ export default function CariTablo() {
             <tbody>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      #1
                   </th>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
-                  </td>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
-                  </td>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      $2999
-                  </td>
-                  <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
-                      <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
-                  </td>
-              </tr>
-              <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
                       Apple MacBook Pro 17"
                   </th>
@@ -63,23 +51,8 @@ export default function CariTablo() {
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      #1
                   </th>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
-                  </td>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
-                  </td>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      $2999
-                  </td>
-                  <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
-                      <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
-                  </td>
-              </tr>
-              <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
                       Apple MacBook Pro 17"
                   </th>
@@ -99,23 +72,8 @@ export default function CariTablo() {
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      #1
                   </th>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
-                  </td>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
-                  </td>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      $2999
-                  </td>
-                  <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
-                      <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
-                  </td>
-              </tr>
-              <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
                       Apple MacBook Pro 17"
                   </th>
@@ -135,23 +93,8 @@ export default function CariTablo() {
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
-                      Apple MacBook Pro 17"
+                      #1
                   </th>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Sliver
-                  </td>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      Laptop
-                  </td>
-                  <td className="py-[0.20rem] px-5 text-prussian_blue">
-                      $2999
-                  </td>
-                  <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
-                      <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
-                  </td>
-              </tr>
-              <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
                       Apple MacBook Pro 17"
                   </th>
@@ -171,6 +114,9 @@ export default function CariTablo() {
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
+                      #1
+                  </th>
+                  <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
                       Apple MacBook Pro 17"
                   </th>
                   <td className="py-[0.20rem] px-5 text-prussian_blue">
@@ -188,6 +134,93 @@ export default function CariTablo() {
                   </td>
               </tr>
               <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
+                  <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
+                      #1
+                  </th>
+                  <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
+                      Apple MacBook Pro 17"
+                  </th>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      Sliver
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      Laptop
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $2999
+                  </td>
+                  <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
+                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                  </td>
+              </tr>
+              <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
+                  <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
+                      #1
+                  </th>
+                  <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
+                      Apple MacBook Pro 17"
+                  </th>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      Sliver
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      Laptop
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $2999
+                  </td>
+                  <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
+                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                  </td>
+              </tr>
+              <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
+                  <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
+                      #1
+                  </th>
+                  <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
+                      Apple MacBook Pro 17"
+                  </th>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      Sliver
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      Laptop
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $2999
+                  </td>
+                  <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
+                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                  </td>
+              </tr>
+              <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
+                  <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
+                      #1
+                  </th>
+                  <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
+                      Apple MacBook Pro 17"
+                  </th>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      Sliver
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      Laptop
+                  </td>
+                  <td className="py-[0.20rem] px-5 text-prussian_blue">
+                      $2999
+                  </td>
+                  <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
+                      <button className='golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                      <button className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                  </td>
+              </tr>
+              <tr className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
+                  <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
+                      #1
+                  </th>
                   <th scope="row" className="py-[0.20rem] px-5 text-prussian_blue font-medium whitespace-nowrap ">
                       Apple MacBook Pro 17"
                   </th>

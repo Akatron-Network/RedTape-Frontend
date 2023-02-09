@@ -3,10 +3,7 @@ import { Link } from "react-router-dom";
 import { useMain } from '../../context/MainContext';
 
 export default function Navbar() {
-  const {
-    sidePanel,
-    setSidePanel
-  } = useMain();
+  const { sidePanel, setSidePanel } = useMain();
 
   return (
     <header className="bg-oxford_blue shadow-navbar w-full z-50 fixed">
