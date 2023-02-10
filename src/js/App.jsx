@@ -1,15 +1,15 @@
 import AllRoutes from './AllRoutes'
 import MainProvider from './context/MainContext'
-import CurrentRegisterProvider from './context/CurrentRegisterContext'
+import CurrentProvider from './context/CurrentContext'
 
 function App() {
   return (
     <MainProvider>
-      <CurrentRegisterProvider>
+      <CurrentProvider>
 
         <AllRoutes />
         
-      </CurrentRegisterProvider>
+      </CurrentProvider>
     </MainProvider>
   )
 }

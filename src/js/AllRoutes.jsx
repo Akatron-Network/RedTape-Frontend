@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import LoginPage from './pages/LoginPage'
 import MainPage from './pages/MainPage'
-import CariKayit from './pages/CariKayit'
-import CariHareket from './pages/CariHareket'
+import Current from './pages/Current'
+import CurrentActivity from './pages/CurrentActivity'
 import StokKayit from './pages/StokKayit'
 import Siparis from './pages/Siparis'
 import GorevTakip from './pages/GorevTakip'
@@ -16,8 +16,8 @@ export default function AllRoutes() {
       <Routes>
         <Route path="/giris" element={<LoginPage />} />
         <Route path="/" element={<MainPage />}>
-          <Route path=":kayit-cari" element={<CariKayit />} />
-          <Route path=":cari-hareket" element={<CariHareket />} />
+          <Route path=":kayit-cari" element={<Current />} />
+          <Route path=":cari-hareket" element={<CurrentActivity />} />
           <Route path=":kayit-stok" element={<StokKayit />} />
           <Route path=":siparis" element={<Siparis />} />
           <Route path=":gorev-takip" element={<GorevTakip />} />
