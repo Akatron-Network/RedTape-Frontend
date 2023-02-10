@@ -3,6 +3,7 @@ import Request from '../libraries/Request'
 import Auth from '../libraries/models/Auth'
 import User from '../libraries/models/User';
 import Current from '../libraries/models/Current';
+import TurkeyProvDist from '../libraries/tools/TurkeyProvDist';
 
 
 export default function Test() {
@@ -175,6 +176,19 @@ export default function Test() {
     console.log(rmv);
   }
 
+  //b TOOLS -------------------------
+
+  const getProvinceList = () => {
+    let resp = new TurkeyProvDist()
+    console.log(resp.getProvinceList())
+  }
+
+  const getDistrictList = () => {
+    let resp = new TurkeyProvDist()
+    console.log(resp.getDistrictList('Adana'));
+  }
+
+  //b -------------------------------
   return (
     <div className='bg-fogra_dark w-screen h-screen p-3'>
 
@@ -279,8 +293,23 @@ export default function Test() {
           className='text-white bg-blue-700 ml-3 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
           Remove Current Test
         </button>
-
       </div>
+    
+      <div className='p-3 mt-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
+        <h1 className='mr-2 text-alica_blue w-40'>PROVINCE TESTS</h1>
+
+        <button onClick={getProvinceList}
+          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Get Province List Test
+        </button>
+
+        <button onClick={getDistrictList}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Get District List Test
+        </button>
+      </div>
+
+      
     
     </div>
 

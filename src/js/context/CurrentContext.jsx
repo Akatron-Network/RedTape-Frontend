@@ -1,7 +1,8 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { createContext, useContext, useReducer } from 'react'
 import currentReducer from '../reducer/currentReducer'
 import Current from '../libraries/models/Current'
+import TurkeyProvDist from '../libraries/tools/TurkeyProvDist'
 
 const CurrentContext = createContext();
 
@@ -92,6 +93,20 @@ const Provider = ({ children }) => {
 
   }
 
+  const getProvinceList = () => {
+    let resp = new TurkeyProvDist()
+    return resp.getProvinceList();  //r Return province list
+  }
+
+  const getDistrictList = (province) => {
+    let resp = new TurkeyProvDist()
+    console.log(resp.getDistrictList(province));
+  }
+
+  useEffect(() => {
+    getProvinceList();  
+  }, [])
+  
   //b --------------------------------------------------------------------
 
   //- Current Context Data
@@ -117,8 +132,10 @@ const Provider = ({ children }) => {
 
 
     //, Functions
-    createCurrent,
     clearCurrentInputs,
+    createCurrent,
+    getDistrictList,
+    getProvinceList,
 
   }
 
