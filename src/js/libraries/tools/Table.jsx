@@ -9,36 +9,38 @@ export default class Table {
     this.rows = rows
   }
 
-  async getData() {
+  //? Get data from method and save as this.data
+  async getData(skip, take, where) {
     this.query = {
-      skip: undefined,
-      take: undefined,
-      where: {}
+      skip: skip,
+      take: take,
+      where: where
     }
-    // get data from method and save as this.data
-    let c = await (this.method)(this.query)
-    return c;
+    
+    this.data = await (this.method)(this.query)
+    return this.data;
   }
 
-  //. method = function()
-  //. columns = ['Header1', 'Header2']
-  //. rows = ['key', 'key2']
+  //+ GELEN VERİYİ HTML OLARAK ÇIKART 
+  //, method = function()
+  //, columns = ['Header1', 'Header2']
+  //, rows = ['key', 'key2']
 
-  //. data = [{ id: 1, details: {...}  }]
+  //, data = [{ id: 1, details: {...}  }]
 
   async render() {
     for (let h of this.columns) {
-      // h = 'Header1'
+      //, h = 'Header1'
     }
 
     if (!this.data) await this.getData()
 
     for (let d of this.data) {
-      // d = { id: 1, details: {...} }
+      //, d = { id: 1, details: {...} }
       for (let k of this.rows) {
-        // k = 'key' in details
+        //, k = 'key' in details
         let val = d.details[k]
-        // value to write
+        //, value to write
       }
     }
   }
