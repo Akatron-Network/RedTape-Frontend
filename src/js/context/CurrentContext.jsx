@@ -3,6 +3,7 @@ import { createContext, useContext, useReducer } from 'react'
 import currentReducer from '../reducer/currentReducer'
 import Current from '../libraries/models/Current'
 import TurkeyProvDist from '../libraries/tools/TurkeyProvDist'
+import Table from '../libraries/tools/Table';
 
 const CurrentContext = createContext();
 
@@ -12,7 +13,10 @@ const Provider = ({ children }) => {
 
   //- Current Details States
   const [state, dispatch] = useReducer(currentReducer, {
-
+    districts: [],
+    provinces: [],
+    tableColumns: ["ID", "CARİ AD", "TC KİMLİK NUMARASI", "TELEFON", "ADRES"],
+    tableRows: [],
   });
   
   //- Current Details Refs
@@ -35,6 +39,11 @@ const Provider = ({ children }) => {
   //b ----------------------------------------------------------------
 
   //b Functions etc. ------------------------------------------------------
+  //- New Current Create Funcs
+  useEffect(() => {
+    getProvinceList();
+  }, [])
+
   var currentInputs = [
     currentNameRef,
     currentAddressRef,
@@ -53,6 +62,27 @@ const Provider = ({ children }) => {
     currentDescriptionRef
   ]
 
+  const getProvinceList = () => {
+    let resp = new TurkeyProvDist()
+
+    dispatch({    //- Get provinces
+      type: 'GET_PROVINCES',
+      value: resp.getProvinceList()
+    })
+    
+  }
+
+  const getDistrictList = (province) => {
+    let resp = new TurkeyProvDist()
+    let dist = resp.getDistrictList(province);
+
+    dispatch({    //- Get districts when we chose province
+      type: 'GET_DISTRICTS',
+      value: dist
+    })
+
+  }
+  
   const createCurrent = async () => {
 
     let current_details = {
@@ -93,19 +123,17 @@ const Provider = ({ children }) => {
 
   }
 
-  const getProvinceList = () => {
-    let resp = new TurkeyProvDist()
-    return resp.getProvinceList();  //r Return province list
-  }
-
-  const getDistrictList = (province) => {
-    let resp = new TurkeyProvDist()
-    console.log(resp.getDistrictList(province));
-  }
-
+  //- Current Table Funcs
   useEffect(() => {
-    getProvinceList();  
+    showCurrent();
   }, [])
+  
+  const showCurrent = async () => {
+    let t = new Table(Current.showCurrent)
+
+    let tbl = await t.getData();
+    console.log(tbl);
+  }
   
   //b --------------------------------------------------------------------
 
@@ -129,7 +157,8 @@ const Provider = ({ children }) => {
     currentDescriptionRef,
 
     //, States, Variables etc.
-
+    ...state,
+    dispatch,
 
     //, Functions
     clearCurrentInputs,

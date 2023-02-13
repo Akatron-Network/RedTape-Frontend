@@ -2,7 +2,7 @@ import React from 'react'
 import InputDefault from '../components/items/InputDefault'
 import InputSelect from '../components/items/InputSelect'
 import InputComment from '../components/items/InputComment'
-import CariTablo from '../components/cari-kayit/CariTablo'
+import Table from '../components/items/Table'
 import PageMainTitle from '../components/items/PageMainTitle'
 import PageSubTitle from '../components/items/PageSubTitle'
 import { useCurrent } from '../context/CurrentContext'
@@ -21,8 +21,8 @@ export default function CariKayit() {
 
           <div className='col-span-2'><InputDefault name={"Cari Ad"} reference={current_data.currentNameRef} /></div>
           <div className='col-span-2'><InputDefault name={"Adres"} reference={current_data.currentAddressRef} /></div>
-          <div className='col-span-2'><InputSelect name={"İl"} reference={current_data.currentProvinceRef} options={current_data.getProvinceList} func={current_data.getDistrictList} /></div>
-          <div className='col-span-2'><InputSelect name={"İlçe"} reference={current_data.currentDistrictRef} options={current_data.getProvinceList} /></div>
+          <div className='col-span-2'><InputSelect name={"İl"} reference={current_data.currentProvinceRef} options={current_data.provinces} func={current_data.getDistrictList} /></div>
+          <div className='col-span-2'><InputSelect name={"İlçe"} reference={current_data.currentDistrictRef} options={current_data.districts} /></div>
           <div className='col-span-2'><InputDefault name={"Vergi Dairesi"} reference={current_data.currentTaxOfficeRef} /></div>
           <div className='col-span-2'><InputDefault name={"Vergi Numarası"} reference={current_data.currentTaxNoRef} /></div>
           <div className='col-span-2'><InputDefault name={"TC Kimlik Num."} reference={current_data.currentIDNoRef} /></div>
@@ -44,7 +44,7 @@ export default function CariKayit() {
 
         <div className='grid grid-cols-1 gap-1 col-span-2 h-fit'>
           <PageSubTitle title={"Cari Tablosu"} /> 
-          <CariTablo />
+          <Table columns={current_data.tableColumns} rows={current_data.tableRows} />
         </div>
 
       </div>

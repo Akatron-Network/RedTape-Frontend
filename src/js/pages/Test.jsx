@@ -130,7 +130,9 @@ export default function Test() {
   const showCurrent = async () => {
     let where = 
     {
-      where:{}
+      skip: undefined,
+      take: undefined,
+      where: {}
     }
 
     let resp = await Current.showCurrent(where)

@@ -30,12 +30,12 @@ export default class Current {
   }
 
   //b STATIC CONSTRUCT METHODS ------------------------------------------------
-  static async showCurrent(where) {
+  static async showCurrent(query) {
     let q = Request.currentRequest();
-    let whereStringify = JSON.stringify(where)
+    let queryStringify = JSON.stringify(query)
 
     let show = await q.get({
-      query: whereStringify
+      query: queryStringify
     })
     if(!show.Success) throw new Error('Show current failed')
 

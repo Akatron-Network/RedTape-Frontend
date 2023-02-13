@@ -28,9 +28,7 @@ export default class TurkeyProvDist {
 
   //f Get Turkey province list
   getProvinceList () {
-    return this.turkey.map(p => p.il)
-    
-    let obj = new TurkeyProvDist(pList.sort(function(a, b){return a.localeCompare(b)}))
+    return (this.turkey.map(p => p.il)).sort(function(a, b){return a.localeCompare(b)}) //. Sorting provinces
   }
 
   //f Get Turkey district list
