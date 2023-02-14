@@ -36,7 +36,11 @@ export default function CariKayit() {
           <div className='col-span-2 my-4'><InputComment name={"Açıklama"} reference={current_data.currentDescriptionRef} /></div>
 
           <div>
+            {current_data.editable ?
+            <button type="button" className="save-btn ml-2 float-right" onClick={() => current_data.editCurrent()}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
+            : 
             <button type="button" className="save-btn ml-2 float-right" onClick={() => current_data.createCurrent()}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
+            }
             <button type="button" className="clear-btn float-right" onClick={() => current_data.clearCurrentInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
           </div>
 
@@ -44,7 +48,7 @@ export default function CariKayit() {
 
         <div className='grid grid-cols-1 gap-1 col-span-2 h-fit'>
           <PageSubTitle title={"Cari Tablosu"} /> 
-          <Table columns={current_data.tableColumns} rows={current_data.tableRows} />
+          <Table data={current_data.render_table} all_currents={current_data.all_currents} />
         </div>
 
       </div>

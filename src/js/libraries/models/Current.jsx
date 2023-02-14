@@ -18,17 +18,6 @@ export default class Current {
     return edit;
   }
 
-  async removeCurrent() {
-    let q = Request.currentRequest();
-
-    let remove = await q.delete({
-      id: this.id
-    })
-    if(!remove.Success) throw new Error('Delete current failed')
-
-    return remove;
-  }
-
   //b STATIC CONSTRUCT METHODS ------------------------------------------------
   static async showCurrent(query) {
     let q = Request.currentRequest();
@@ -63,5 +52,16 @@ export default class Current {
 
     let obj = new Current(get.Data.id, get.Data.details)
     return obj;
+  }
+
+  static async removeCurrent(id) {
+    let q = Request.currentRequest();
+
+    let remove = await q.delete({
+      id: id
+    })
+    if(!remove.Success) throw new Error('Delete current failed')
+
+    return remove;
   }
 }

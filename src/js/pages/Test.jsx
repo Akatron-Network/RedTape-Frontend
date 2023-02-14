@@ -173,8 +173,9 @@ export default function Test() {
   }
 
   const deleteCurrent = async () => {
-    let resp = await Current.getCurrent(892)
-    let rmv = await resp.removeCurrent();
+    // let resp = await Current.getCurrent(892)
+    // let rmv = await resp.removeCurrent();
+    let rmv = await Current.removeCurrent(892);
     console.log(rmv);
   }
 
