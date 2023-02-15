@@ -6,6 +6,7 @@ import Table from '../components/items/Table'
 import PageMainTitle from '../components/items/PageMainTitle'
 import PageSubTitle from '../components/items/PageSubTitle'
 import { useCurrent } from '../context/CurrentContext'
+import EditCurrentModal from '../components/modals/EditCurrentModal'
 
 export default function CariKayit() {
   const current_data = useCurrent();
@@ -36,11 +37,7 @@ export default function CariKayit() {
           <div className='col-span-2 my-4'><InputComment name={"Açıklama"} reference={current_data.currentDescriptionRef} /></div>
 
           <div>
-            {current_data.editable ?
-            <button type="button" className="save-btn ml-2 float-right" onClick={() => current_data.editCurrent()}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
-            : 
             <button type="button" className="save-btn ml-2 float-right" onClick={() => current_data.createCurrent()}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
-            }
             <button type="button" className="clear-btn float-right" onClick={() => current_data.clearCurrentInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
           </div>
 
@@ -50,6 +47,8 @@ export default function CariKayit() {
           <PageSubTitle title={"Cari Tablosu"} /> 
           <Table data={current_data.render_table} all_currents={current_data.all_currents} />
         </div>
+
+        <EditCurrentModal />
 
       </div>
     </>

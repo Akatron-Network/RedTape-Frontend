@@ -32,6 +32,8 @@ module.exports = {
         golden_light: "#FBC44B",
         sea_green: "#408759",
         sea_green_light: "#4EA66D",
+
+        modal_bg: "#0000006E"
       },
 
       fontFamily: {

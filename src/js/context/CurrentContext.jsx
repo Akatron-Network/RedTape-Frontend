@@ -3,6 +3,7 @@ import currentReducer from '../reducer/currentReducer'
 import Current from '../libraries/models/Current'
 import TurkeyProvDist from '../libraries/tools/TurkeyProvDist'
 import Table from '../libraries/tools/Table';
+import {Modal} from 'flowbite';
 
 const CurrentContext = createContext();
 
@@ -17,7 +18,6 @@ const Provider = ({ children }) => {
     table_columns: ["ID", "CARİ AD", "TC KİMLİK NUMARASI", "TELEFON", "ADRES"], //, removed ["order"]
     table_rows: ["id", "name", "identification_no", "phone", "address"],        //, removed ["order"]
     render_table: "",
-    editable: false,
     current_details: {},
     all_currents: []
   });
@@ -38,6 +38,22 @@ const Provider = ({ children }) => {
   const currentCodeIIIRef = useRef("")
   const currentCodeIVRef = useRef("")
   const currentDescriptionRef = useRef("")
+
+  const currentNameEditRef = useRef("")
+  const currentAddressEditRef = useRef("")
+  const currentProvinceEditRef = useRef("")
+  const currentDistrictEditRef = useRef("")
+  const currentTaxOfficeEditRef = useRef("")
+  const currentTaxNoEditRef = useRef("")
+  const currentIDNoEditRef = useRef("")
+  const currentPhoneIEditRef = useRef("")
+  const currentPhoneIIEditRef = useRef("")
+  const currentMailEditRef = useRef("")
+  const currentCodeIEditRef = useRef("")
+  const currentCodeIIEditRef = useRef("")
+  const currentCodeIIIEditRef = useRef("")
+  const currentCodeIVEditRef = useRef("")
+  const currentDescriptionEditRef = useRef("")
 
   //b ----------------------------------------------------------------
 
@@ -63,6 +79,24 @@ const Provider = ({ children }) => {
     currentCodeIIIRef,
     currentCodeIVRef,
     currentDescriptionRef
+  ]
+
+  var currentEditInputs = [
+    currentNameEditRef,
+    currentAddressEditRef,
+    currentProvinceEditRef,
+    currentDistrictEditRef,
+    currentTaxOfficeEditRef,
+    currentTaxNoEditRef,
+    currentIDNoEditRef,
+    currentPhoneIEditRef,
+    currentPhoneIIEditRef,
+    currentMailEditRef,
+    currentCodeIEditRef,
+    currentCodeIIEditRef,
+    currentCodeIIIEditRef,
+    currentCodeIVEditRef,
+    currentDescriptionEditRef
   ]
   
   var current_details = {
@@ -114,7 +148,7 @@ const Provider = ({ children }) => {
   
   const clearCurrentInputs = () => {
 
-    for (let i of currentInputs) {                                //. Loop for clear inputs
+    for (let i of currentEditInputs) {                                //. Loop for clear inputs
       if (i === currentProvinceRef || i === currentDistrictRef) { //. Check select inputs
         i.current.value = "default"
       }
@@ -122,17 +156,24 @@ const Provider = ({ children }) => {
         i.current.value = ""
       }
     }
-    
-    dispatch({        //. Change editable
-      type: 'EDITABLE',
-      value: false
-    })
 
     dispatch({        //. Current details clear
       type: 'CURRENT_DETAILS',
       value: {}
     })
 
+  }
+
+  const clearCurrentEditInputs = () => {
+
+    for (let i of currentEditInputs) {                                //. Loop for clear inputs
+      if (i === currentProvinceEditRef || i === currentDistrictEditRef) { //. Check select inputs
+        i.current.value = "default"
+      }
+      else {
+        i.current.value = ""
+      }
+    }
   }
 
   //- Current Table Funcs
@@ -181,40 +222,56 @@ const Provider = ({ children }) => {
       type: 'CURRENT_DETAILS',
       value: dt
     })
-
-    dispatch({        //. Change editable
-      type: 'EDITABLE',
-      value: true
-    })
     
-    currentNameRef.current.value = dt.details.name,
-    currentAddressRef.current.value = dt.details.address,
-    currentProvinceRef.current.value = dt.details.province
-    currentDistrictRef.current.value = dt.details.district
-    currentTaxOfficeRef.current.value = dt.details.tax_office
-    currentTaxNoRef.current.value = dt.details.tax_no
-    currentIDNoRef.current.value = dt.details.identification_no
-    currentPhoneIRef.current.value = dt.details.phone
-    currentPhoneIIRef.current.value = dt.details.phone_2
-    currentMailRef.current.value = dt.details.mail
-    currentCodeIRef.current.value = dt.details.code_1
-    currentCodeIIRef.current.value = dt.details.code_2
-    currentCodeIIIRef.current.value = dt.details.code_3
-    currentCodeIVRef.current.value = dt.details.code_4
-    currentDescriptionRef.current.value = dt.details.description
+    currentNameEditRef.current.value = dt.details.name,
+    currentAddressEditRef.current.value = dt.details.address,
+    currentProvinceEditRef.current.value = dt.details.province
+    currentDistrictEditRef.current.value = dt.details.district
+    currentTaxOfficeEditRef.current.value = dt.details.tax_office
+    currentTaxNoEditRef.current.value = dt.details.tax_no
+    currentIDNoEditRef.current.value = dt.details.identification_no
+    currentPhoneIEditRef.current.value = dt.details.phone
+    currentPhoneIIEditRef.current.value = dt.details.phone_2
+    currentMailEditRef.current.value = dt.details.mail
+    currentCodeIEditRef.current.value = dt.details.code_1
+    currentCodeIIEditRef.current.value = dt.details.code_2
+    currentCodeIIIEditRef.current.value = dt.details.code_3
+    currentCodeIVEditRef.current.value = dt.details.code_4
+    currentDescriptionEditRef.current.value = dt.details.description
     
   }
 
   //? Apply current edit
-  const editCurrent = async () => {
-    let cr = await details.editCurrent(current_details)
-    console.log(cr);
-    
-    dispatch({        //. Change editable
-      type: 'EDITABLE',
-      value: false
-    })
+  const editCurrent = async (id) => {
+    // let details = new Current(id)
+    // console.log(details);
 
+    // let changes = {
+    //   name: currentNameEditRef.current.value,
+    //   address: currentAddressEditRef.current.value,
+    //   province: currentProvinceEditRef.current.value,
+    //   district: currentDistrictEditRef.current.value,
+    //   tax_office: currentTaxOfficeEditRef.current.value,
+    //   tax_no: currentTaxNoEditRef.current.value,
+    //   identification_no: currentIDNoEditRef.current.value,
+    //   phone: currentPhoneIEditRef.current.value,
+    //   phone_2: currentPhoneIIEditRef.current.value,
+    //   mail: currentMailEditRef.current.value,
+    //   code_1: currentCodeIEditRef.current.value,
+    //   code_2: currentCodeIIEditRef.current.value,
+    //   code_3: currentCodeIIIEditRef.current.value,
+    //   code_4: currentCodeIVEditRef.current.value,
+    //   description: currentDescriptionEditRef.current.value,
+    // }
+    
+    // let cr = await details.editCurrent(changes)
+    // console.log(cr);
+
+    // if (cr.Success) {
+      let el = document.getElementById("editCurrentModal");
+      const modal = new Modal(el);
+      console.log(modal);
+    // }
   }
   
   const removeCurrent = async (id) => {
@@ -243,12 +300,30 @@ const Provider = ({ children }) => {
     currentCodeIIIRef,
     currentCodeIVRef,
     currentDescriptionRef,
+    currentNameRef,
+    
+    currentNameEditRef,
+    currentAddressEditRef,
+    currentProvinceEditRef,
+    currentDistrictEditRef,
+    currentTaxOfficeEditRef,
+    currentTaxNoEditRef,
+    currentIDNoEditRef,
+    currentPhoneIEditRef,
+    currentPhoneIIEditRef,
+    currentMailEditRef,
+    currentCodeIEditRef,
+    currentCodeIIEditRef,
+    currentCodeIIIEditRef,
+    currentCodeIVEditRef,
+    currentDescriptionEditRef,
 
     //, States, Variables etc.
     ...state,
     dispatch,
 
     //, Functions
+    clearCurrentEditInputs,
     clearCurrentInputs,
     createCurrent,
     editCurrent,

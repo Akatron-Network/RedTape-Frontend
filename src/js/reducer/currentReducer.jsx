@@ -20,12 +20,6 @@ export default function reducer(state, action) {
         render_table: action.render
       }
     
-    case 'EDITABLE':
-      return {
-        ...state,
-        editable: action.value
-      }
-    
     case 'CURRENT_DETAILS':
       return {
         ...state,
