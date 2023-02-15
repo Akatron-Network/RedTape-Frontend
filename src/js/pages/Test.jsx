@@ -4,6 +4,7 @@ import Auth from '../libraries/models/Auth'
 import User from '../libraries/models/User';
 import Current from '../libraries/models/Current';
 import TurkeyProvDist from '../libraries/tools/TurkeyProvDist';
+import EditCurrentModal from '../components/modals/EditCurrentModal';
 
 
 export default function Test() {
@@ -193,6 +194,7 @@ export default function Test() {
 
   //b -------------------------------
   return (
+    <>
     <div className='bg-fogra_dark w-screen h-screen p-3'>
 
       <div className='p-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
@@ -311,10 +313,10 @@ export default function Test() {
           Get District List Test
         </button>
       </div>
-
-      
     
+      <EditCurrentModal />
     </div>
 
+    </>
   )
 }

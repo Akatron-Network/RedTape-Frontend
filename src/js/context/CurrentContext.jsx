@@ -14,8 +14,8 @@ const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(currentReducer, {
     districts: [],
     provinces: [],
-    table_columns: ["order", "ID", "CARİ AD", "TC KİMLİK NUMARASI", "TELEFON", "ADRES"],
-    table_rows: ["order", "id", "name", "identification_no", "phone", "address"],
+    table_columns: ["ID", "CARİ AD", "TC KİMLİK NUMARASI", "TELEFON", "ADRES"], //, removed ["order"]
+    table_rows: ["id", "name", "identification_no", "phone", "address"],        //, removed ["order"]
     render_table: "",
     editable: false,
     current_details: {},
@@ -108,14 +108,14 @@ const Provider = ({ children }) => {
     let create = await Current.createCurrent(current_details);
     console.log(create);
 
-    showCurrent(0,15);    
+    showCurrentList();    
     clearCurrentInputs();
   }
   
   const clearCurrentInputs = () => {
 
-    for (let i of currentInputs) {                                //, Loop for clear inputs
-      if (i === currentProvinceRef || i === currentDistrictRef) { //, Check select inputs
+    for (let i of currentInputs) {                                //. Loop for clear inputs
+      if (i === currentProvinceRef || i === currentDistrictRef) { //. Check select inputs
         i.current.value = "default"
       }
       else {
@@ -137,28 +137,21 @@ const Provider = ({ children }) => {
 
   //- Current Table Funcs
   useEffect(() => {
-    showCurrent(0,15);
-    getAllCurrents();
+    showCurrentList();
   }, [])
 
-  //? Show all currents
-  const getAllCurrents = async () => {
-    let allCr = await Current.showCurrent();    //. Get all currents
-
-    dispatch({                                  //. Set all currents
-      type: 'ALL_CURRENTS',
-      value: allCr
-    })                                      
-  }
-
   //? Show spesific currents
-  const showCurrent = async (skip, take, where) => {
-    let t = new Table(Current.showCurrent, state.table_columns, state.table_rows)
-
-    let dt = await t.getData(skip, take, where);
+  const showCurrentList = async () => {
+    let t = new Table(Current.showCurrent, state.table_columns, state.table_rows);
+    let dt = await t.getData();
     console.log(dt);
 
-    t.setExecuteButtons([ //. Buttons in the table
+    dispatch({                //. Set all currents
+      type: 'ALL_CURRENTS',
+      value: dt
+    })
+
+    t.setExecuteButtons([     //. Buttons in the table
       {
         func: (id) => getCurrentDetails(id),
         class: "golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90",
@@ -173,7 +166,7 @@ const Provider = ({ children }) => {
       }
     ])
 
-    dispatch({                                                                    //. Get rendered table
+    dispatch({               //. Get rendered table
       type: 'RENDER_TABLE',
       render: t.render()
     })
@@ -228,7 +221,7 @@ const Provider = ({ children }) => {
     let rmv = await Current.removeCurrent(id);
     console.log(rmv);
 
-    showCurrent(0,15);
+    showCurrentList();
   }
   //b --------------------------------------------------------------------
 
