@@ -33,6 +33,8 @@ export default class TurkeyProvDist {
 
   //f Get Turkey district list
   getDistrictList (province) {
-    return this.turkey.filter(p => p.il === province)[0].ilceleri //. District filter according to province
+    console.log(province);
+    if (province === undefined || province === null || province === "default") {return []}
+    else {return this.turkey.filter(p => p.il === province)[0].ilceleri} //. District filter according to province
   }
 }

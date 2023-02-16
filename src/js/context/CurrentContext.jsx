@@ -19,7 +19,8 @@ const Provider = ({ children }) => {
     table_rows: ["id", "name", "identification_no", "phone", "address"],        //, removed ["order"]
     render_table: "",
     current_details: {},
-    all_currents: []
+    all_currents: [],
+    edit_current_modal: {},
   });
   
   //- Current Details Refs
@@ -58,6 +59,7 @@ const Provider = ({ children }) => {
   //b ----------------------------------------------------------------
 
   //b Functions etc. ------------------------------------------------------
+  
   //- New Current Create Funcs
   useEffect(() => {
     getProvinceList();
@@ -136,6 +138,7 @@ const Provider = ({ children }) => {
       value: dist
     })
 
+    return dist;
   }
   
   const createCurrent = async () => {
@@ -162,18 +165,6 @@ const Provider = ({ children }) => {
       value: {}
     })
 
-  }
-
-  const clearCurrentEditInputs = () => {
-
-    for (let i of currentEditInputs) {                                //. Loop for clear inputs
-      if (i === currentProvinceEditRef || i === currentDistrictEditRef) { //. Check select inputs
-        i.current.value = "default"
-      }
-      else {
-        i.current.value = ""
-      }
-    }
   }
 
   //- Current Table Funcs
@@ -213,20 +204,49 @@ const Provider = ({ children }) => {
     })
   }
   
+  //? Create modal object for show-hide etc.
+  const showCurrentModal = () => {
+    const options = {
+      backdrop: 'static',
+    };
+    
+    let el = document.getElementById("editCurrentModal");
+    const modal = new Modal(el, options);
+
+    dispatch({        //. Set current modal object
+      type: 'EDIT_CURRENT_MODAL',
+      value: modal
+    })
+
+    return modal;
+  }
+
+  const hideCurrentModal = () => {
+    state.edit_current_modal.hide();
+    clearCurrentEditInputs();
+
+    dispatch({        //. Set current modal object
+      type: 'EDIT_CURRENT_MODAL',
+      value: {}
+    })
+  }
+
   //? Get current details to fill inputs
   const getCurrentDetails = async (id) => {
     let dt = await Current.getCurrent(id)
     console.log(dt);
+
+    let current_modal = showCurrentModal();
+    current_modal.show();
     
     dispatch({        //. Set current details
       type: 'CURRENT_DETAILS',
       value: dt
     })
     
+    
     currentNameEditRef.current.value = dt.details.name,
     currentAddressEditRef.current.value = dt.details.address,
-    currentProvinceEditRef.current.value = dt.details.province
-    currentDistrictEditRef.current.value = dt.details.district
     currentTaxOfficeEditRef.current.value = dt.details.tax_office
     currentTaxNoEditRef.current.value = dt.details.tax_no
     currentIDNoEditRef.current.value = dt.details.identification_no
@@ -238,48 +258,65 @@ const Provider = ({ children }) => {
     currentCodeIIIEditRef.current.value = dt.details.code_3
     currentCodeIVEditRef.current.value = dt.details.code_4
     currentDescriptionEditRef.current.value = dt.details.description
-    
+
+    if (dt.details.province === "" || dt.details.province === undefined || dt.details.province === null) {
+      dt.details.province = "default";
+    }
+    currentProvinceEditRef.current.value = dt.details.province
+
+    let dist = getDistrictList(dt.details.province);    
+    for (let d of dist) {
+      if (d === dt.details.district) currentDistrictEditRef.current.value = d
+    }    
   }
 
-  //? Apply current edit
   const editCurrent = async (id) => {
-    // let details = new Current(id)
-    // console.log(details);
+    let details = new Current(id)
+    console.log(details);
 
-    // let changes = {
-    //   name: currentNameEditRef.current.value,
-    //   address: currentAddressEditRef.current.value,
-    //   province: currentProvinceEditRef.current.value,
-    //   district: currentDistrictEditRef.current.value,
-    //   tax_office: currentTaxOfficeEditRef.current.value,
-    //   tax_no: currentTaxNoEditRef.current.value,
-    //   identification_no: currentIDNoEditRef.current.value,
-    //   phone: currentPhoneIEditRef.current.value,
-    //   phone_2: currentPhoneIIEditRef.current.value,
-    //   mail: currentMailEditRef.current.value,
-    //   code_1: currentCodeIEditRef.current.value,
-    //   code_2: currentCodeIIEditRef.current.value,
-    //   code_3: currentCodeIIIEditRef.current.value,
-    //   code_4: currentCodeIVEditRef.current.value,
-    //   description: currentDescriptionEditRef.current.value,
-    // }
-    
-    // let cr = await details.editCurrent(changes)
-    // console.log(cr);
+    let changes = {
+      name: currentNameEditRef.current.value,
+      address: currentAddressEditRef.current.value,
+      province: currentProvinceEditRef.current.value,
+      district: currentDistrictEditRef.current.value,
+      tax_office: currentTaxOfficeEditRef.current.value,
+      tax_no: currentTaxNoEditRef.current.value,
+      identification_no: currentIDNoEditRef.current.value,
+      phone: currentPhoneIEditRef.current.value,
+      phone_2: currentPhoneIIEditRef.current.value,
+      mail: currentMailEditRef.current.value,
+      code_1: currentCodeIEditRef.current.value,
+      code_2: currentCodeIIEditRef.current.value,
+      code_3: currentCodeIIIEditRef.current.value,
+      code_4: currentCodeIVEditRef.current.value,
+      description: currentDescriptionEditRef.current.value,
+    }
 
-    // if (cr.Success) {
-      let el = document.getElementById("editCurrentModal");
-      const modal = new Modal(el);
-      console.log(modal);
-    // }
+    let cr = await details.editCurrent(changes)
+    console.log(cr);
+
+    if (cr.Success) hideCurrentModal();
   }
   
+  const clearCurrentEditInputs = () => {
+
+    for (let i of currentEditInputs) {                                    //. Loop for clear inputs
+      if (i === currentProvinceEditRef || i === currentDistrictEditRef) { //. Check select inputs
+        i.current.value = "default"
+      }
+      else {
+        i.current.value = ""
+      }
+    }
+  }
+
   const removeCurrent = async (id) => {
     let rmv = await Current.removeCurrent(id);
     console.log(rmv);
 
     showCurrentList();
   }
+
   //b --------------------------------------------------------------------
 
   //- Current Context Data
@@ -330,6 +367,7 @@ const Provider = ({ children }) => {
     getCurrentDetails,
     getDistrictList,
     getProvinceList,
+    hideCurrentModal,
     removeCurrent,
 
   }

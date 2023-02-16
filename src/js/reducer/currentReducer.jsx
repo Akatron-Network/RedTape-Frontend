@@ -31,5 +31,11 @@ export default function reducer(state, action) {
         ...state,
         all_currents: action.value
       }
+    
+    case 'EDIT_CURRENT_MODAL':
+      return {
+        ...state,
+        edit_current_modal: action.value
+      }
   }
 }

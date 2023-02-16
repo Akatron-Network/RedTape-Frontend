@@ -23,7 +23,7 @@ export default function CariKayit() {
           <div className='col-span-2'><InputDefault name={"Cari Ad"} reference={current_data.currentNameRef} /></div>
           <div className='col-span-2'><InputDefault name={"Adres"} reference={current_data.currentAddressRef} /></div>
           <div className='col-span-2'><InputSelect name={"İl"} reference={current_data.currentProvinceRef} options={current_data.provinces} func={current_data.getDistrictList} /></div>
-          <div className='col-span-2'><InputSelect name={"İlçe"} reference={current_data.currentDistrictRef} options={current_data.districts} /></div>
+          <div className='col-span-2'><InputSelect name={"İlçe"} reference={current_data.currentDistrictRef} options={current_data.districts} func={() => {}} /></div>
           <div className='col-span-2'><InputDefault name={"Vergi Dairesi"} reference={current_data.currentTaxOfficeRef} /></div>
           <div className='col-span-2'><InputDefault name={"Vergi Numarası"} reference={current_data.currentTaxNoRef} /></div>
           <div className='col-span-2'><InputDefault name={"TC Kimlik Num."} reference={current_data.currentIDNoRef} /></div>

@@ -62,7 +62,7 @@ export default class Table {
                       let btn = "";
 
                       if (b.type === "edit") {
-                        btn = <button type="button" key={"be_" + d_index + "_" + b_index} onClick={() => b.func(d.id)} data-modal-toggle="editCurrentModal" className={b.class}><i className={b.icon}></i></button>
+                        btn = <button type="button" key={"be_" + d_index + "_" + b_index} onClick={() => b.func(d.id)} className={b.class}><i className={b.icon}></i></button>
                       }
                       else if (b.type === "remove") {
                         btn = <button type="button" key={"bx_" + d_index + "_" + b_index} onClick={() => b.func(d.id)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
