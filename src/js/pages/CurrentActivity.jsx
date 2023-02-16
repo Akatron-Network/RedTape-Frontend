@@ -6,9 +6,11 @@ import InputFilled from '../components/items/InputFilled'
 import PageMainTitle from '../components/items/PageMainTitle'
 import PageSubTitle from '../components/items/PageSubTitle'
 import CariHareketTablo from '../components/cari-hareket/CariHareketTablo'
-
+import { useCurrentActivity } from '../context/CurrentActivityContext'
 
 export default function CariHareket() {  
+  const cur_act_data = useCurrentActivity();
+  console.log(cur_act_data)
 
   return (
     <>
@@ -52,21 +54,20 @@ export default function CariHareket() {
           </div>
         </div>
 
-        <div className='col-span-3 flex flex-wrap gap-1'>
-          <div className='w-full'><PageSubTitle title={"Cari Hareket Kayıtları"} /></div>
-          <div className='flex-auto'><InputDate name={"Tarih"} /></div>
-          <div className='flex-auto'><InputDefault name={"Açiklama"} /></div>
-          <div className='flex-auto'><InputDate name={"Vade Tarihi"} /></div>
-          <div className='flex-auto'><InputSelect name={"Borç-Alacak"} /></div>
-          <div className='flex-auto'><InputDefault name={"Tutar"} /></div>  
-
-          <div className='float-right my-2 w-full'>
+        <div className='col-span-3 gap-1 grid grid-cols-5'>
+        <div className='col-span-5'><PageSubTitle title={"Cari Hareket Kayıtları"} /></div>
+          <div className='col-span-2 xl:col-span-1'><InputDate name={"Tarih"} /></div>
+          <div className='col-span-2 xl:col-span-1'><InputDefault name={"Açıklama"} /></div>
+          <div className='col-span-2 xl:col-span-1'><InputDate name={"Vade Tarihi"} /></div>
+          <div className='col-span-2 xl:col-span-1'><InputSelect name={"Borç-Alacak"} /></div>
+          <div className='col-span-2 xl:col-span-1'><InputDefault name={"Tutar"} /></div>
+          <div className='float-right my-2 col-span-5'>
             <button type="button" className="save-btn float-right">Cari Hareket Ekle</button>
-          </div>        
-        </div>
+          </div>  
+        </div>      
 
         <div className='col-span-3'>
-          <PageSubTitle title={"Cari Hareket Kayıtları"} />
+          <PageSubTitle title={"Cari Hareket Tablosu"} />
           <CariHareketTablo />
         </div>
 

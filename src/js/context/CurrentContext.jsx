@@ -151,7 +151,7 @@ const Provider = ({ children }) => {
   
   const clearCurrentInputs = () => {
 
-    for (let i of currentEditInputs) {                                //. Loop for clear inputs
+    for (let i of currentInputs) {                                //. Loop for clear inputs
       if (i === currentProvinceRef || i === currentDistrictRef) { //. Check select inputs
         i.current.value = "default"
       }
@@ -176,7 +176,6 @@ const Provider = ({ children }) => {
   const showCurrentList = async () => {
     let t = new Table(Current.showCurrent, state.table_columns, state.table_rows);
     let dt = await t.getData();
-    console.log(dt);
 
     dispatch({                //. Set all currents
       type: 'ALL_CURRENTS',

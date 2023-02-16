@@ -7,7 +7,6 @@ import { useCurrent } from '../../context/CurrentContext'
 
 export default function EditCurrentModal() {
   const current_data = useCurrent();
-  console.log(current_data)
 
   return (
     <>

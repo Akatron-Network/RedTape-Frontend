@@ -11,13 +11,15 @@ export default class Request {
     login: "login",
     register: "register",
     user: "user",
-    current: "current"
+    current: "current",
+    current_act: "current_act"
   }
 
   static loginRequest() { return new Request(Request.routes.login) }
   static registerRequest() { return new Request(Request.routes.register) }
   static userRequest() { return new Request(Request.routes.user) }
   static currentRequest() { return new Request(Request.routes.current) }
+  static currentActRequest() { return new Request(Request.routes.current_act) }
 
   async get(data) {
 

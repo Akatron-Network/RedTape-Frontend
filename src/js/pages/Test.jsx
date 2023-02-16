@@ -5,6 +5,7 @@ import User from '../libraries/models/User';
 import Current from '../libraries/models/Current';
 import TurkeyProvDist from '../libraries/tools/TurkeyProvDist';
 import EditCurrentModal from '../components/modals/EditCurrentModal';
+import CurrentActivity from '../libraries/models/CurrentActivity';
 
 
 export default function Test() {
@@ -174,8 +175,6 @@ export default function Test() {
   }
 
   const deleteCurrent = async () => {
-    // let resp = await Current.getCurrent(892)
-    // let rmv = await resp.removeCurrent();
     let rmv = await Current.removeCurrent(892);
     console.log(rmv);
   }
@@ -193,6 +192,39 @@ export default function Test() {
   }
 
   //b -------------------------------
+
+  //b CURRENT ACTIVITIES ----------------
+
+  const showCurrentActivity = async () => {
+    let where = 
+    {
+      skip: undefined,
+      take: undefined,
+      where: {}
+    }
+
+    let resp = await CurrentActivity.showCurrentActivity(where);
+    console.log(resp);
+  }
+
+  const createCurrentActivity = async () => {
+    let data = {
+      current_id: 541,
+      balance: 5152.8,
+      date: "2023-02-16T14:33:22.413Z",
+      description: "",
+      expiry_date: "2023-02-16T14:33:22.413Z",
+    }
+
+    let resp = await CurrentActivity.createCurrentActivity(data);
+    console.log(resp);
+  }
+
+  const removeCurrentActivity = async () => {
+    let remove = await CurrentActivity.removeCurrentActivity();
+    console.log(remove);
+  }
+  //b -----------------------------------
   return (
     <>
     <div className='bg-fogra_dark w-screen h-screen p-3'>
@@ -311,6 +343,25 @@ export default function Test() {
         <button onClick={getDistrictList}
           className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
           Get District List Test
+        </button>
+      </div>
+
+      <div className='p-3 mt-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
+        <h1 className='mr-2 text-alica_blue w-40'>CURRENT ACTIVITIES TESTS</h1>
+
+        <button onClick={showCurrentActivity}
+          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Get Current Activities Test
+        </button>
+
+        <button onClick={createCurrentActivity}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Create Current Activities Test
+        </button>
+
+        <button onClick={removeCurrentActivity}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Remove Current Activities Test
         </button>
       </div>
     
