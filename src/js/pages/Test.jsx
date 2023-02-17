@@ -200,7 +200,12 @@ export default function Test() {
     {
       skip: undefined,
       take: undefined,
-      where: {}
+      where: {
+        date: {
+          gte: "2022-01-15T00:00:00.000Z", //. Ne zamandan
+          lte: "2022-01-30T00:00:00.000Z", //. Ne zamana kadar (Bugünun tarihi en fazla)
+        }
+      }
     }
 
     let resp = await CurrentActivity.showCurrentActivity(where);
@@ -220,11 +225,27 @@ export default function Test() {
     console.log(resp);
   }
 
+  const editCurrentActivity = async () => {
+    let q = await CurrentActivity.getCurrentActivity(468);
+
+    let details =  {
+      balance: 5152.8,
+      date: "2023-02-16T14:33:22.413Z",
+      description: "",
+      expiry_date: "2023-02-16T14:33:22.413Z",
+    }
+
+    let resp = await q.editCurrentActivity(details)
+    console.log(resp);
+  }
+
   const removeCurrentActivity = async () => {
-    let remove = await CurrentActivity.removeCurrentActivity();
+    let remove = await CurrentActivity.removeCurrentActivity(467);
     console.log(remove);
   }
+
   //b -----------------------------------
+  
   return (
     <>
     <div className='bg-fogra_dark w-screen h-screen p-3'>
@@ -357,6 +378,11 @@ export default function Test() {
         <button onClick={createCurrentActivity}
           className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
           Create Current Activities Test
+        </button>
+
+        <button onClick={editCurrentActivity}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Edit Current Activities Test
         </button>
 
         <button onClick={removeCurrentActivity}

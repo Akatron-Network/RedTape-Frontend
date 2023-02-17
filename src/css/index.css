@@ -122,7 +122,7 @@
 @layer utilities { /*+ Pure CSS burada yazılacak */
 
   ::-webkit-scrollbar {
-    width: 14px;
+    width: 9px;
     height: 14px;
   }
 
@@ -132,15 +132,15 @@
 
   ::-webkit-scrollbar-thumb {
     background: #112236;
-    border: 2px solid transparent;
-    border-radius: 6px;
+    border: 1px solid transparent;
+    border-radius: 3px;
     background-clip: content-box;
   }
 
   ::-webkit-scrollbar-thumb:hover {
     background-color: #1E3249;
-    border: 2px solid transparent;
-    border-radius: 4px;
+    border: 1px solid transparent;
+    border-radius: 3px;
     background-clip: content-box;
   }
 
