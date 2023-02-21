@@ -50,10 +50,10 @@ export default function reducer(state, action) {
         edit_cur_act_modal: action.value
       }
 
-    case 'CUR_ACT_MODAL_DETAILS':
+    case 'CUR_ACT_DETAILS':
       return {
         ...state,
-        cur_act_modal_details: action.value
+        cur_act_details: action.value
       }
   }
 }

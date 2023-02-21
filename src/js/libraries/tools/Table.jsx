@@ -78,10 +78,10 @@ export default class Table {
                       }
   
                       if (r === "balance" && d.details["balance"] > 0) {          //. Green background according to balance
-                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-green-400"
+                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-green-300"
                       }
                       else if (r === "balance" && d.details["balance"] < 0) {     //. Red background according to balance
-                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-red-400"
+                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-red-300"
                       }
 
                       val = CurrencyFormat(val)

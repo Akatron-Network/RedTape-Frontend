@@ -17,11 +17,14 @@ const Provider = ({children}) => {
     filtered_currents: [],
     toggle_filtered_table: false,
     chosen_current: {},
-    date: {},
+    date: {
+      current: "",
+      early: ""
+    },
     table_columns: ["TARİH", "AÇIKLAMA", "VADE TARİHİ", "BORÇ TUTARI", "ALACAK TUTARI", "NET BAKİYE"],
     table_rows: ["date", "description", "expiry_date", "debt", "amount", "balance"],
     edit_cur_act_modal: {},
-    cur_act_modal_details: {},
+    cur_act_details: {},
     render_table: (
       <>
         <table className="w-full text-sm text-left text-pine_tree">
@@ -67,6 +70,12 @@ const Provider = ({children}) => {
   const curActExpiryDateRef = useRef("");
   const curActDebtAmountRef = useRef("");
   const curActBalanceRef = useRef("");
+
+  const curActDateEditRef = useRef("");
+  const curActDescriptionEditRef = useRef("");
+  const curActExpiryDateEditRef = useRef("");
+  const curActDebtAmountEditRef = useRef("");
+  const curActBalanceEditRef = useRef("");
 
   //b -----------------------------------------------------------------
   
@@ -335,44 +344,81 @@ const Provider = ({children}) => {
     const modal = new Modal(el, options);
 
     dispatch({        //. Set current modal object
-      type: 'EDIT_CURRENT_MODAL',
+      type: 'EDIT_CUR_ACT_MODAL',
       value: modal
     })
-    console.log(modal);
+
     return modal;
   }
 
-  const clearCurActEditInputs = () => {
-    curActDateRef.current.value = state.date.current
-    curActDescriptionRef.current.value = "";
-    curActExpiryDateRef.current.value = "";
-    curActDebtAmountRef.current.value = "default";
-    curActBalanceRef.current.value = "";
+  const hideCurActModal = () => {
+    state.edit_cur_act_modal.hide();
+    clearCurActEditInputs();
+
+    dispatch({        //. Set current action modal object
+      type: 'EDIT_CUR_ACT_MODAL',
+      value: {}
+    })
   }
 
-  //? For edit activities
+  const clearCurActEditInputs = () => {
+    curActDateEditRef.current.value = state.date.current
+    curActDescriptionEditRef.current.value = "";
+    curActExpiryDateEditRef.current.value = "";
+    curActDebtAmountEditRef.current.value = "default";
+    curActBalanceEditRef.current.value = "";
+  }
+
   const getCurActDetails = async (id) => {
     let dt = await CurrentActivity.getCurrentActivity(id)
     console.log(dt);
 
     let cur_act_modal = showCurActModal();
-    // cur_act_modal.show();
+    cur_act_modal.show();
     
-    // dispatch({        //. Set current details
-    //   type: 'CUR_ACT_MODAL_DETAILS',
-    //   value: dt
-    // })
+    dispatch({        //. Set current details
+      type: 'CUR_ACT_DETAILS',
+      value: dt
+    })
 
-    // console.log(dt);
+    curActDateEditRef.current.value = dt.details.date.split("T")[0];
+    curActDescriptionEditRef.current.value = dt.details.description;
+    curActExpiryDateEditRef.current.value = dt.details.expiry_date.split("T")[0];
 
-    // curActDateRef.current.value = state.date.current
-    // curActDescriptionRef.current.value = "";
-    // curActExpiryDateRef.current.value = "";
-    // curActDebtAmountRef.current.value = "default";
-    // curActBalanceRef.current.value = "";
+    if (dt.details.balance > 0) {                                       //. If balance is positive 
+      curActDebtAmountEditRef.current.value = "Borç";
+      curActBalanceEditRef.current.value = dt.details.balance;
+    }
+    else {                                                             //. If balance is negative 
+      curActDebtAmountEditRef.current.value = "Alacak";
+      curActBalanceEditRef.current.value = (dt.details.balance * -1); 
+    }
+
   }
 
-  const editCurActDetails = async (id) => {
+  const editCurrentActivity = async (id) => {
+    let details = new CurrentActivity(id)
+    let balance = 0;
+
+    if (curActDebtAmountEditRef.current.value === "Borç") {
+      balance = curActBalanceEditRef.current.value
+    }
+    else if (curActDebtAmountEditRef.current.value === "Alacak") {
+      balance =  - curActBalanceEditRef.current.value
+    }
+
+    let changes = {
+      balance: parseInt(balance),
+      date: curActDateEditRef.current.value + "T00:00:00.000Z",
+      description: curActDescriptionEditRef.current.value,
+      expiry_date: curActExpiryDateEditRef.current.value + "T00:00:00.000Z",
+    }
+
+    let cr = await details.editCurrentActivity(changes)
+    console.log(cr);
+
+    await getCurrentActivity();
+    if (cr.Success) hideCurActModal();
   }
 
   const removeCurAct = async (id) => {
@@ -409,6 +455,12 @@ const Provider = ({children}) => {
     curActDebtAmountRef,
     curActBalanceRef,
 
+    curActDateEditRef,
+    curActDescriptionEditRef,
+    curActExpiryDateEditRef,
+    curActDebtAmountEditRef,
+    curActBalanceEditRef,
+
     //, States, Variables etc.
     ...state,
     dispatch,
@@ -416,11 +468,14 @@ const Provider = ({children}) => {
     //, Functions
     chooseFilteredCurrent,
     clearCurActEntryInputs,
+    clearCurActEditInputs,
     createCurrentActivity,
+    editCurrentActivity,
     filterCurrents,
     getAllCurrents,
     getCurrentActivity,
     getDate,
+    hideCurActModal,
     toggleFilteredTable,
 
   }

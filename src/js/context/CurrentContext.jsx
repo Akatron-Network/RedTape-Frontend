@@ -285,6 +285,7 @@ const Provider = ({ children }) => {
     let cr = await details.editCurrent(changes)
     console.log(cr);
 
+    await showCurrentList();
     if (cr.Success) hideCurrentModal();
   }
   
@@ -304,7 +305,7 @@ const Provider = ({ children }) => {
     let rmv = await Current.removeCurrent(id);
     console.log(rmv);
 
-    showCurrentList();
+    await showCurrentList();
   }
 
   //b --------------------------------------------------------------------

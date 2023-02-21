@@ -10,7 +10,7 @@ import AutoSearch from '../components/items/AutoSearch'
 import Table from '../components/items/Table'
 import EditCurActModal from '../components/modals/EditCurActModal'
 
-export default function CariHareket() {  
+export default function CurrentActivity() {  
   const cur_act_data = useCurrentActivity();
   console.log(cur_act_data)
 
@@ -124,8 +124,8 @@ export default function CariHareket() {
           <Table data={cur_act_data.render_table} />
         </div>
 
-
         <EditCurActModal />
+
       </div>
         
     </>

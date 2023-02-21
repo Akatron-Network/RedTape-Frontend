@@ -1,7 +1,7 @@
 import Request from "../Request"
 
 export default class CurrentActivity{
-  constructor(id = undefined, details) {
+  constructor(id = undefined, details = {}) {
     this.id = id,
     this.details = details
   }
