@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import InputDefault from '../components/items/InputDefault'
 import InputSelect from '../components/items/InputSelect'
 import InputComment from '../components/items/InputComment'
@@ -11,6 +11,11 @@ import EditCurrentModal from '../components/modals/EditCurrentModal'
 export default function CariKayit() {
   const current_data = useCurrent();
   console.log(current_data)
+
+  useEffect(() => {
+    current_data.getProvinceList();
+    current_data.showCurrentList();
+  }, [])
 
   return (
     <>

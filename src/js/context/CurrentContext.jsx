@@ -59,12 +59,8 @@ const Provider = ({ children }) => {
   //b ----------------------------------------------------------------
 
   //b Functions etc. ------------------------------------------------------
-  
+    
   //- New Current Create Funcs
-  useEffect(() => {
-    getProvinceList();
-  }, [])
-
   var currentInputs = [
     currentNameRef,
     currentAddressRef,
@@ -100,24 +96,6 @@ const Provider = ({ children }) => {
     currentCodeIVEditRef,
     currentDescriptionEditRef
   ]
-  
-  var current_details = {
-    name: currentNameRef.current.value,
-    address: currentAddressRef.current.value,
-    province: currentProvinceRef.current.value,
-    district: currentDistrictRef.current.value,
-    tax_office: currentTaxOfficeRef.current.value,
-    tax_no: currentTaxNoRef.current.value,
-    identification_no: currentIDNoRef.current.value,
-    phone: currentPhoneIRef.current.value,
-    phone_2: currentPhoneIIRef.current.value,
-    mail: currentMailRef.current.value,
-    code_1: currentCodeIRef.current.value,
-    code_2: currentCodeIIRef.current.value,
-    code_3: currentCodeIIIRef.current.value,
-    code_4: currentCodeIVRef.current.value,
-    description: currentDescriptionRef.current.value,
-  }
 
   const getProvinceList = () => {
     let resp = new TurkeyProvDist()
@@ -142,10 +120,28 @@ const Provider = ({ children }) => {
   }
   
   const createCurrent = async () => {
+    let current_details = {
+      name: currentNameRef.current.value,
+      address: currentAddressRef.current.value,
+      province: currentProvinceRef.current.value,
+      district: currentDistrictRef.current.value,
+      tax_office: currentTaxOfficeRef.current.value,
+      tax_no: currentTaxNoRef.current.value,
+      identification_no: currentIDNoRef.current.value,
+      phone: currentPhoneIRef.current.value,
+      phone_2: currentPhoneIIRef.current.value,
+      mail: currentMailRef.current.value,
+      code_1: currentCodeIRef.current.value,
+      code_2: currentCodeIIRef.current.value,
+      code_3: currentCodeIIIRef.current.value,
+      code_4: currentCodeIVRef.current.value,
+      description: currentDescriptionRef.current.value,
+    }
+
     let create = await Current.createCurrent(current_details);
     console.log(create);
 
-    showCurrentList();    
+    await showCurrentList();    
     clearCurrentInputs();
   }
   
@@ -168,10 +164,6 @@ const Provider = ({ children }) => {
   }
 
   //- Current Table Funcs
-  useEffect(() => {
-    showCurrentList();
-  }, [])
-
   //? Show spesific currents
   const showCurrentList = async () => {
     let t = new Table(Current.showCurrent, state.table_columns, state.table_rows);
@@ -242,7 +234,6 @@ const Provider = ({ children }) => {
       type: 'CURRENT_DETAILS',
       value: dt
     })
-    
     
     currentNameEditRef.current.value = dt.details.name,
     currentAddressEditRef.current.value = dt.details.address,
@@ -368,6 +359,7 @@ const Provider = ({ children }) => {
     getProvinceList,
     hideCurrentModal,
     removeCurrent,
+    showCurrentList,
 
   }
 

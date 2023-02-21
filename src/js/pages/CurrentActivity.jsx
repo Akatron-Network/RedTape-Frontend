@@ -1,17 +1,62 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import InputDate from '../components/items/InputDate'
 import InputDefault from '../components/items/InputDefault'
 import InputSelect from '../components/items/InputSelect'
 import InputFilled from '../components/items/InputFilled'
 import PageMainTitle from '../components/items/PageMainTitle'
 import PageSubTitle from '../components/items/PageSubTitle'
-import CariHareketTablo from '../components/cari-hareket/CariHareketTablo'
 import { useCurrentActivity } from '../context/CurrentActivityContext'
 import AutoSearch from '../components/items/AutoSearch'
+import Table from '../components/items/Table'
+import EditCurActModal from '../components/modals/EditCurActModal'
 
 export default function CariHareket() {  
   const cur_act_data = useCurrentActivity();
   console.log(cur_act_data)
+
+  useEffect(() => {
+    cur_act_data.getAllCurrents();
+    cur_act_data.getDate();
+    document.addEventListener('click', cur_act_data.toggleFilteredTable);
+
+    return () => {
+      document.removeEventListener('click', cur_act_data.toggleFilteredTable);  //. When click outside the sidepanel close sidepanel
+
+      cur_act_data.dispatch({     //. Reset rendered table
+        type: 'RENDER_TABLE',
+        render: (
+          <>
+            <table className="w-full text-sm text-left text-pine_tree">
+              <thead className="text-xs text-prussian_blue bg-steel_blue_light">
+                <tr>
+                  <th className="py-2 px-3 font-bold text-sm">TARİH</th>
+                  <th className="py-2 px-3 font-bold text-sm">AÇIKLAMA</th>
+                  <th className="py-2 px-3 font-bold text-sm">VADE TARİHİ</th>
+                  <th className="py-2 px-3 font-bold text-sm">BORÇ TUTARI</th>
+                  <th className="py-2 px-3 font-bold text-sm">ALACAK TUTARI</th>
+                  <th className="py-2 px-3 font-bold text-sm text-center">NET BAKİYE</th>
+                  <th className="py-2 px-3 w-20 font-bold text-sm"><span className="sr-only">Düzenle</span></th>
+                </tr>
+              </thead>
+            </table>
+            <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-steel_blue_light h-10" aria-label="Table navigation">
+              <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">0</span> kayıt bulunmaktadır.</span>
+            </nav>
+          </>
+        )
+      })
+
+      cur_act_data.dispatch({     //. Reset all activities to 
+        type: 'CURRENT_ACTIVITY',
+        value: []
+      })
+
+      cur_act_data.dispatch({
+        type: 'CHOSEN_CURRENT',
+        value: {}
+      })
+    }
+  }, [])
 
   return (
     <>
@@ -39,7 +84,7 @@ export default function CariHareket() {
           </div>
 
           <div className='col-span-1'><InputDate name={"Başlangıç Tarihi"} reference={cur_act_data.curActGTEDateRef} defaultValue={cur_act_data.date.early} /></div>
-          <div className='col-span-1'><InputDate name={"Bitiş Tarihi"} reference={cur_act_data.curActLTEDateRef} defaultValue={cur_act_data.date.current} /></div>
+          <div className='col-span-1'><InputDate name={"Bitiş Tarihi"} reference={cur_act_data.curActLTEDateRef} defaultValue={cur_act_data.date.current} max={cur_act_data.date.current} /></div>
 
           <div className='float-right my-2'>
             <button onClick={cur_act_data.getCurrentActivity} type="button" className="save-btn float-right"><i className="fa-solid fa-magnifying-glass text-ghost_white mr-2"></i>Bilgileri Getir</button>
@@ -63,22 +108,24 @@ export default function CariHareket() {
 
         <div className='col-span-3 gap-1 grid grid-cols-5'>
         <div className='col-span-5'><PageSubTitle title={"Cari Hareket Kayıtları"} /></div>
-          <div className='col-span-2 xl:col-span-1'><InputDate name={"Tarih"} /></div>
-          <div className='col-span-2 xl:col-span-1'><InputDefault name={"Açıklama"} /></div>
-          <div className='col-span-2 xl:col-span-1'><InputDate name={"Vade Tarihi"} /></div>
-          <div className='col-span-2 xl:col-span-1'><InputSelect name={"Borç-Alacak"} /></div>
-          <div className='col-span-2 xl:col-span-1'><InputDefault name={"Tutar"} /></div>
-          <div className='float-right my-2 col-span-5'>
-            <button type="button" className="save-btn float-right">Cari Hareket Ekle</button>
+          <div className='col-span-2 xl:col-span-1'><InputDate name={"Tarih"} reference={cur_act_data.curActDateRef} defaultValue={cur_act_data.date.current} /></div>
+          <div className='col-span-2 xl:col-span-1'><InputDefault name={"Açıklama"} reference={cur_act_data.curActDescriptionRef} /></div>
+          <div className='col-span-2 xl:col-span-1'><InputDate name={"Vade Tarihi"} reference={cur_act_data.curActExpiryDateRef} /></div>
+          <div className='col-span-2 xl:col-span-1'><InputSelect name={"Borç-Alacak"} reference={cur_act_data.curActDebtAmountRef} options={["Borç", "Alacak"]} func={() => {}} /></div>
+          <div className='col-span-2 xl:col-span-1'><InputDefault name={"Tutar"} reference={cur_act_data.curActBalanceRef} /></div>
+          <div className='my-2 col-span-5'>
+            <button type="button" onClick={cur_act_data.createCurrentActivity} className="save-btn float-right ml-2">Cari Hareket Ekle</button>
+            <button type="button" className="clear-btn float-right" onClick={cur_act_data.clearCurActEntryInputs}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
           </div>  
         </div>      
 
         <div className='col-span-3'>
           <PageSubTitle title={"Cari Hareket Tablosu"} />
-          <CariHareketTablo />
+          <Table data={cur_act_data.render_table} />
         </div>
 
 
+        <EditCurActModal />
       </div>
         
     </>

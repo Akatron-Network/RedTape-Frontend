@@ -2,6 +2,8 @@ import { useRef, useEffect, createContext, useContext, useReducer } from 'react'
 import Current from '../libraries/models/Current';
 import CurrentActivity from '../libraries/models/CurrentActivity';
 import currentActivityReducer from '../reducer/currentActivityReducer'
+import Table from '../libraries/tools/Table';
+import {Modal} from 'flowbite';
 
 const CurrentActivityContext = createContext();
 
@@ -11,10 +13,35 @@ const Provider = ({children}) => {
   //- Current Details States
   const [state, dispatch] = useReducer(currentActivityReducer, {
     all_currents: [],
+    current_activity: [],
     filtered_currents: [],
     toggle_filtered_table: false,
     chosen_current: {},
-    date: {}
+    date: {},
+    table_columns: ["TARİH", "AÇIKLAMA", "VADE TARİHİ", "BORÇ TUTARI", "ALACAK TUTARI", "NET BAKİYE"],
+    table_rows: ["date", "description", "expiry_date", "debt", "amount", "balance"],
+    edit_cur_act_modal: {},
+    cur_act_modal_details: {},
+    render_table: (
+      <>
+        <table className="w-full text-sm text-left text-pine_tree">
+          <thead className="text-xs text-prussian_blue bg-steel_blue_light">
+            <tr>
+              <th className="py-2 px-3 font-bold text-sm">TARİH</th>
+              <th className="py-2 px-3 font-bold text-sm">AÇIKLAMA</th>
+              <th className="py-2 px-3 font-bold text-sm">VADE TARİHİ</th>
+              <th className="py-2 px-3 font-bold text-sm">BORÇ TUTARI</th>
+              <th className="py-2 px-3 font-bold text-sm">ALACAK TUTARI</th>
+              <th className="py-2 px-3 font-bold text-sm text-center">NET BAKİYE</th>
+              <th className="py-2 px-3 w-20 font-bold text-sm"><span className="sr-only">Düzenle</span></th>
+            </tr>
+          </thead>
+        </table>
+        <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-steel_blue_light h-10" aria-label="Table navigation">
+          <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">0</span> kayıt bulunmaktadır.</span>
+        </nav>
+      </>
+    ),
   });
 
   //- Current Details Refs
@@ -34,27 +61,20 @@ const Provider = ({children}) => {
   const curActPhoneIIRef = useRef("");
   const curActMailRef = useRef("");
 
-
   //, Current Activity Entry
   const curActDateRef = useRef("");
   const curActDescriptionRef = useRef("");
   const curActExpiryDateRef = useRef("");
-  const curActDebtCreditRef = useRef("");
+  const curActDebtAmountRef = useRef("");
   const curActBalanceRef = useRef("");
 
   //b -----------------------------------------------------------------
   
   //b Functions etc. --------------------------------------------------
+
   //- Current Informations
-  useEffect(() => { 
-    getAllCurrents();
-    getDate();
-
-    document.addEventListener('click', toggleFilteredTable)
-    return () => { document.removeEventListener('click', toggleFilteredTable) } //. When click outside the sidepanel close sidepanel
-  }, [])
-
   const getDate = () => {
+
     const date = new Date();
 
     let day = ('0' + date.getDate()).slice(-2)        //. ("0" + "10") Giving us "010" so adding .slice(-2) 
@@ -76,13 +96,16 @@ const Provider = ({children}) => {
       current: current_full,
       early: early_full
     }
+
     dispatch({
       type: 'DATE',
       value: d
     })
+
   }
   
   const getAllCurrents = async () => {
+
     let currents = await Current.showCurrent();
     console.log(currents);
 
@@ -95,9 +118,11 @@ const Provider = ({children}) => {
       type: 'FILTERED_CURRENTS',
       value: currents
     })
+
   }
 
   const toggleFilteredTable = (e) => {
+
     if(e.target.id !== 'search_button' && e.target.id !== 'search_input' && e.target.id !== 'search_button_icon') {
       dispatch({
         type: 'TOGGLE_FILTERED_TABLE',
@@ -112,9 +137,15 @@ const Provider = ({children}) => {
         })
       }
     }
+
   }
 
   const filterCurrents = (event) => {
+
+    if (event.target.value === "") {
+      printCurrentDetails(undefined);   //. For clearing out current details inputs
+    }
+
     const searchWord = event.target.value.toLowerCase();
     const newFilter = state.all_currents.filter((source) => {
       var condition = false;
@@ -134,10 +165,11 @@ const Provider = ({children}) => {
       type: 'FILTERED_CURRENTS',
       value: newFilter
     })
-  };
+
+  }
 
   const chooseFilteredCurrent = async (id) => {
-    console.log(id);
+    
     let cr = await Current.getCurrent(id);
     console.log(cr);
 
@@ -152,23 +184,202 @@ const Provider = ({children}) => {
     })
 
     curActSearchInputRef.current.value = cr.details.id + " - " + cr.details.name
+
+    printCurrentDetails(cr);
   }
 
-  const getCurrentActivity = async () => {
-    let query = {
-      skip: undefined,
-      take: 1000,
-      where: {
-        id: state.chosen_current.id,
-        date: {
-          gte: curActGTEDateRef.current.value + "T00:00:00.000Z", //. Ne zamandan
-          lte: curActLTEDateRef.current.value + "T00:00:00.000Z", //. Ne zamana kadar (Bugünun tarihi en fazla)
-        }
+  const printCurrentDetails = (details) => {
+
+    if(details === undefined) {
+      curActIDRef.current.innerHTML = "";
+      curActNameRef.current.innerHTML = "";
+      curActAddressRef.current.innerHTML = "";
+      curActProvDistRef.current.innerHTML = "";
+      curActTaxOfficeNoRef.current.innerHTML = "";
+      curActPhoneIRef.current.innerHTML = "";
+      curActPhoneIIRef.current.innerHTML = "";
+      curActMailRef.current.innerHTML =  "";
+      
+      dispatch({
+        type: 'CHOSEN_CURRENT',
+        value: {}
+      })
+    }
+    else {
+      curActIDRef.current.innerHTML = details.details.id
+      curActNameRef.current.innerHTML = details.details.name
+      curActAddressRef.current.innerHTML = details.details.address
+      curActTaxOfficeNoRef.current.innerHTML = details.details.tax_office + " - " +  details.details.tax_no
+      curActPhoneIRef.current.innerHTML = details.details.phone
+      curActPhoneIIRef.current.innerHTML = details.details.phone_2
+      curActMailRef.current.innerHTML =  details.details.mail
+      
+      if (details.details.province === "default") {
+        details.details.province = ""
       }
+      if (details.details.district === "default") {
+        details.details.district = ""
+      }
+
+      curActProvDistRef.current.innerHTML = details.details.province + " - " +  details.details.district
     }
 
-    let resp = await CurrentActivity.showCurrentActivity(query);
+  }
+
+  //- Table Functions
+  const getCurrentActivity = async () => {
+
+    if (JSON.stringify(state.chosen_current) === "{}") {  //. If chosen current is empty reset the table
+      return dispatch({     //. Reset rendered table
+        type: 'RENDER_TABLE',
+        render: (
+          <>
+            <table className="w-full text-sm text-left text-pine_tree">
+              <thead className="text-xs text-prussian_blue bg-steel_blue_light">
+                <tr>
+                  <th className="py-2 px-3 font-bold text-sm">TARİH</th>
+                  <th className="py-2 px-3 font-bold text-sm">AÇIKLAMA</th>
+                  <th className="py-2 px-3 font-bold text-sm">VADE TARİHİ</th>
+                  <th className="py-2 px-3 font-bold text-sm">BORÇ TUTARI</th>
+                  <th className="py-2 px-3 font-bold text-sm">ALACAK TUTARI</th>
+                  <th className="py-2 px-3 font-bold text-sm text-center">NET BAKİYE</th>
+                  <th className="py-2 px-3 w-20 font-bold text-sm"><span className="sr-only">Düzenle</span></th>
+                </tr>
+              </thead>
+            </table>
+            <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-steel_blue_light h-10" aria-label="Table navigation">
+              <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">0</span> kayıt bulunmaktadır.</span>
+            </nav>
+          </>
+        )
+      }) 
+    }
+
+    let act = new Table(CurrentActivity.showCurrentActivity, state.table_columns, state.table_rows)
+
+    let where = {
+        current_id: state.chosen_current.id,
+        date: {
+          gte: curActGTEDateRef.current.value + "T00:00:00.000Z", //. Ne zamandan
+          lte: curActLTEDateRef.current.value + "T23:59:59.000Z", //. Ne zamana kadar (Bugünun tarihi en fazla)
+        }
+      }
+
+    let cur_act = await act.getData(0, 1000, where);
+
+    dispatch({                  //. Set all current activities
+      type: 'CURRENT_ACTIVITY',
+      value: cur_act
+    })
+    
+    act.setExecuteButtons([     //. Buttons in the table
+      {
+        func: (id) => getCurActDetails(id),
+        class: "golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90",
+        type: "edit",
+        icon: "fa-solid fa-pen-to-square"
+      },
+      {
+        func: (id) => removeCurAct(id),
+        class: "ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90",
+        type: "remove",
+        icon: "fa-solid fa-xmark"
+      }
+    ])
+
+    dispatch({               //. Get rendered table
+      type: 'RENDER_TABLE',
+      render: act.render()
+    })
+  }
+
+  const createCurrentActivity = async () => {
+    let balance = 0;
+
+    if (curActDebtAmountRef.current.value === "Borç") {
+      balance = curActBalanceRef.current.value
+    }
+    else if (curActDebtAmountRef.current.value === "Alacak") {
+      balance =  - curActBalanceRef.current.value
+    }
+
+    let data = {
+      current_id: state.chosen_current.id,
+      balance: parseInt(balance),
+      date: curActDateRef.current.value + "T00:00:00.000Z",
+      description: curActDescriptionRef.current.value,
+      expiry_date: curActExpiryDateRef.current.value + "T00:00:00.000Z",
+    }
+
+    let resp = await CurrentActivity.createCurrentActivity(data);
     console.log(resp);
+
+    await getCurrentActivity();
+    clearCurActEntryInputs();
+  }
+  
+  const clearCurActEntryInputs = () => {
+    curActDateRef.current.value = state.date.current
+    curActDescriptionRef.current.value = "";
+    curActExpiryDateRef.current.value = "";
+    curActDebtAmountRef.current.value = "default";
+    curActBalanceRef.current.value = "";
+  }
+
+  const showCurActModal = () => {
+    const options = {
+      backdrop: 'static',
+    };
+    
+    let el = document.getElementById("editCurActModal");
+    const modal = new Modal(el, options);
+
+    dispatch({        //. Set current modal object
+      type: 'EDIT_CURRENT_MODAL',
+      value: modal
+    })
+    console.log(modal);
+    return modal;
+  }
+
+  const clearCurActEditInputs = () => {
+    curActDateRef.current.value = state.date.current
+    curActDescriptionRef.current.value = "";
+    curActExpiryDateRef.current.value = "";
+    curActDebtAmountRef.current.value = "default";
+    curActBalanceRef.current.value = "";
+  }
+
+  //? For edit activities
+  const getCurActDetails = async (id) => {
+    let dt = await CurrentActivity.getCurrentActivity(id)
+    console.log(dt);
+
+    let cur_act_modal = showCurActModal();
+    // cur_act_modal.show();
+    
+    // dispatch({        //. Set current details
+    //   type: 'CUR_ACT_MODAL_DETAILS',
+    //   value: dt
+    // })
+
+    // console.log(dt);
+
+    // curActDateRef.current.value = state.date.current
+    // curActDescriptionRef.current.value = "";
+    // curActExpiryDateRef.current.value = "";
+    // curActDebtAmountRef.current.value = "default";
+    // curActBalanceRef.current.value = "";
+  }
+
+  const editCurActDetails = async (id) => {
+  }
+
+  const removeCurAct = async (id) => {
+    let remove = await CurrentActivity.removeCurrentActivity(id);
+    console.log(remove);
+    
+    await getCurrentActivity();
   }
 
   //b -----------------------------------------------------------------
@@ -195,7 +406,7 @@ const Provider = ({children}) => {
     curActDateRef,
     curActDescriptionRef,
     curActExpiryDateRef,
-    curActDebtCreditRef,
+    curActDebtAmountRef,
     curActBalanceRef,
 
     //, States, Variables etc.
@@ -204,10 +415,13 @@ const Provider = ({children}) => {
 
     //, Functions
     chooseFilteredCurrent,
+    clearCurActEntryInputs,
+    createCurrentActivity,
     filterCurrents,
+    getAllCurrents,
     getCurrentActivity,
+    getDate,
     toggleFilteredTable,
-    
 
   }
 

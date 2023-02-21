@@ -1,3 +1,5 @@
+import CurrencyFormat from './CurrencyFormat'
+
 export default class Table {
   constructor(method, columns = [], rows = []) {
     this.method = method,   //, Method name (Current.showCurrent)
@@ -12,6 +14,7 @@ export default class Table {
       take: take,
       where: where
     }
+    console.log(this.query);
     
     this.data = await this.method(this.query)
     return this.data;
@@ -31,11 +34,19 @@ export default class Table {
             <tr>
               {this.columns.map((h, index) => {       //, h = 'Header1'
                 // if (h === "order") { h = "" }
+
+                let cls = "py-2 px-3 font-bold text-sm"
+
+                if (h === "NET BAKİYE" || h === "BORÇ TUTARI" || h === "ALACAK TUTARI") {
+                  cls = "py-2 px-3 font-bold text-sm text-right w-[170px]"
+                }
+
                 return (
-                  <th key={index} className="py-2 px-3 font-bold text-sm">
+                  <th key={index} className={cls}>
                     {h}
                   </th>
                 )
+
               })}
               <th className="py-2 px-3 w-20 font-bold text-sm">
                 <span className="sr-only">Düzenle</span>
@@ -46,16 +57,50 @@ export default class Table {
             {this.data.map((d, d_index) => {        // d = { id: 1, details: {...} }
               return (
                 <tr key={"d_" + d_index} className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
-                  {this.rows.map((r, r_index) => {  //, k = 'key' in details
+                  {this.rows.map((r, r_index) => {  //, (r = "order")
+
                     let val = d.details[r];
+                    let cls = "py-[0.20rem] px-3 text-prussian_blue"
 
-                    // if (r === "order") { val = d_index + 1 + "." }
+                    if (r === "date" || r === "expiry_date") {                    //. Remove timezone from date
+                      val = val.split("T")[0]
+                    }
 
-                    return(
-                      <td key={"r_" + d_index + "_" + r_index} className="py-[0.20rem] px-3 text-prussian_blue">
-                        {val}
-                      </td>
-                    )
+                    if (r === "debt" || r === "amount" || r === "balance") {      //. Differenct css for keys
+
+                      if (r === "debt" && d.details["balance"] > 0) {             //. Render in BORÇ TUTARI column
+                        val = d.details["balance"]
+                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right"
+                      }
+                      else if (r === "amount" && d.details["balance"] < 0) {      //. Render in ALACAK TUTARI column
+                        val = d.details["balance"]
+                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right"
+                      }
+  
+                      if (r === "balance" && d.details["balance"] > 0) {          //. Green background according to balance
+                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-green-400"
+                      }
+                      else if (r === "balance" && d.details["balance"] < 0) {     //. Red background according to balance
+                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-red-400"
+                      }
+
+                      val = CurrencyFormat(val)
+
+                      return(
+                        <td key={"r_" + d_index + "_" + r_index} className={cls}>
+                          {val} {/* For TL  ( ₺ ) */}
+                        </td>
+                      )
+
+                    }
+                    else {
+                      return(
+                        <td key={"r_" + d_index + "_" + r_index} className={cls}>
+                          {val}
+                        </td>
+                      )
+                    }
+
                   })}
                   <td key={d_index} className="py-[0.20rem] w-20 px-1 text-prussian_blue text-right">
                     {this.buttons.map((b, b_index) => {
@@ -69,9 +114,7 @@ export default class Table {
                       }
 
                       return(
-                        <>
-                          {btn}
-                        </>
+                        <> {btn} </>
                       )
                     })}
                   </td>
@@ -81,7 +124,7 @@ export default class Table {
           </tbody>
         </table>
         <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-steel_blue_light h-10" aria-label="Table navigation">
-          <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{this.data.length}</span> cari bulunmaktadır.</span>
+          <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{this.data.length}</span> kayıt bulunmaktadır.</span>
             {/* <ul className="inline-flex items-center -space-x-px text-prussian_blue">
               <li onClick={() => this.setPageNumbers(this.left_page_num)}>
                 <a href="#" className="py-[2px] px-1 ml-0 mx-[1px] text-pine_tree rounded-l-md hover:bg-alica_blue hover:text-prussian_blue ">
