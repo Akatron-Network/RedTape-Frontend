@@ -4,7 +4,7 @@ import SiparisGorevTablo from '../components/gorev-takip/SiparisGorevTablo'
 import PageMainTitle from '../components/items/PageMainTitle'
 import PageSubTitle from '../components/items/PageSubTitle'
 
-export default function GorevTakip() {
+export default function Tasks() {
   return (
     <>
       <PageMainTitle title={"Görev Takip Paneli"} />

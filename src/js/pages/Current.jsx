@@ -8,7 +8,7 @@ import PageSubTitle from '../components/items/PageSubTitle'
 import { useCurrent } from '../context/CurrentContext'
 import EditCurrentModal from '../components/modals/EditCurrentModal'
 
-export default function CariKayit() {
+export default function Current() {
   const current_data = useCurrent();
   console.log(current_data)
 
@@ -45,7 +45,6 @@ export default function CariKayit() {
             <button type="button" className="save-btn ml-2 float-right" onClick={() => current_data.createCurrent()}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
             <button type="button" className="clear-btn float-right" onClick={() => current_data.clearCurrentInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
           </div>
-
         </div>
 
         <div className='grid grid-cols-1 gap-1 col-span-2 h-fit'>

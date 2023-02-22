@@ -14,7 +14,6 @@ export default class Table {
       take: take,
       where: where
     }
-    console.log(this.query);
     
     this.data = await this.method(this.query)
     return this.data;

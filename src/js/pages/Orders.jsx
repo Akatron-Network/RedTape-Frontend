@@ -3,13 +3,12 @@ import PageMainTitle from '../components/items/PageMainTitle'
 import PageSubTitle from '../components/items/PageSubTitle'
 import InputDate from '../components/items/InputDate'
 import InputDefault from '../components/items/InputDefault'
-import InputSelect from '../components/items/InputSelect'
 import InputSelectNoSpan from '../components/items/InputSelectNoSpan'
 import InputFilled from '../components/items/InputFilled'
 import SiparisGirisTablo from '../components/siparis-giris/SiparisGirisTablo'
 import InputDefaultNoSpan from '../components/items/InputDefaultNoSpan'
 
-export default function Siparis() {
+export default function Orders() {
   return (
     <>
       <PageMainTitle title={"Sipariş Giriş Paneli"} />

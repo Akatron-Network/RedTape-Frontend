@@ -6,6 +6,7 @@ import Current from '../libraries/models/Current';
 import TurkeyProvDist from '../libraries/tools/TurkeyProvDist';
 import EditCurrentModal from '../components/modals/EditCurrentModal';
 import CurrentActivity from '../libraries/models/CurrentActivity';
+import Stock from '../libraries/models/Stock';
 
 
 export default function Test() {
@@ -180,7 +181,6 @@ export default function Test() {
   }
 
   //b TOOLS -------------------------
-
   const getProvinceList = () => {
     let resp = new TurkeyProvDist()
     console.log(resp.getProvinceList())
@@ -190,8 +190,6 @@ export default function Test() {
     let resp = new TurkeyProvDist()
     console.log(resp.getDistrictList('Adana'));
   }
-
-  //b -------------------------------
 
   //b CURRENT ACTIVITIES ----------------
 
@@ -244,8 +242,70 @@ export default function Test() {
     console.log(remove);
   }
 
-  //b -----------------------------------
-  
+  //b STOCK -----------------------------
+  const showStock = async () => {
+    let query = {
+      skip: undefined,
+      take: undefined,
+      where: {},
+    }
+
+    let resp = await Stock.showStock(query);
+    console.log(resp);
+  }
+
+  const getStock = async () => {
+    let resp = await Stock.getStock(162)
+    console.log(resp);
+  }
+
+  const createStock = async () => {
+    let data = {
+      name: "TESTTEST",
+      material: "A4 Kağıt",
+      product_group: "Kağıt",
+      unit: "AD",
+      unit_2: "M2",
+      conversion_rate: 0.8,
+      buy_price: 11.25,
+      sell_price: 20.15,
+      code_1: "A",
+      code_2: "B",
+      code_3: "C",
+      code_4: "D"
+    }
+
+    let resp = await Stock.createStock(data);
+    console.log(resp); 
+  }
+
+  const editStock = async () => {
+    let s = await Stock.getStock(162)
+
+    let details = {
+      name: "TESTTEST",
+      material: "A4 Kağıt",
+      product_group: "Kağıt",
+      unit: "AD",
+      unit_2: "M2",
+      conversion_rate: 0.8,
+      buy_price: 11.25,
+      sell_price: 20.15,
+      code_1: "A",
+      code_2: "B",
+      code_3: "C",
+      code_4: "D"
+    }
+
+    let edit = await s.editStock(details);
+    console.log(edit);
+  }
+
+  const removeStock = async () => {
+    let remove = await Stock.removeStock(500);
+    console.log(remove);
+  }
+
   return (
     <>
     <div className='bg-fogra_dark w-screen h-screen p-3'>
@@ -388,6 +448,35 @@ export default function Test() {
         <button onClick={removeCurrentActivity}
           className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
           Remove Current Activities Test
+        </button>
+      </div>
+
+      <div className='p-3 mt-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
+        <h1 className='mr-2 text-alica_blue w-40'>STOCK TESTS</h1>
+
+        <button onClick={showStock}
+          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Get All Stock Test
+        </button>
+
+        <button onClick={getStock}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Get Stock Test
+        </button>
+
+        <button onClick={createStock}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Create Stock Test
+        </button>
+
+        <button onClick={editStock}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Edit Stock Test
+        </button>
+
+        <button onClick={removeStock}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Remove Stock Test
         </button>
       </div>
     

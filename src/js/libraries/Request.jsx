@@ -12,7 +12,8 @@ export default class Request {
     register: "register",
     user: "user",
     current: "current",
-    current_act: "current_act"
+    current_act: "current_act",
+    stock: "stock"
   }
 
   static loginRequest() { return new Request(Request.routes.login) }
@@ -20,6 +21,7 @@ export default class Request {
   static userRequest() { return new Request(Request.routes.user) }
   static currentRequest() { return new Request(Request.routes.current) }
   static currentActRequest() { return new Request(Request.routes.current_act) }
+  static stocktRequest() { return new Request(Request.routes.stock) }
 
   async get(data) {
 

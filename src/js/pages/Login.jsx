@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import '../../css/login.css'
 import Auth from '../libraries/models/Auth'
 
-export default function LoginPage() {
+export default function Login() {
   var navigate = useNavigate();
 
   const login_username = useRef("");

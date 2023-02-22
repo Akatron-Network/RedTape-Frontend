@@ -6,14 +6,14 @@ export default class Current {
     this.details = details;
   }
 
-  async editCurrent(details) {
+  async editCurrent(new_details) {
     let q = Request.currentRequest();
 
     let edit = await q.put({
       id: this.id,
-      data: details
+      data: new_details
     })
-    if(!edit) throw new Error('Edit current failed')
+    if(!edit.Success) throw new Error('Edit current failed')
 
     return edit;
   }

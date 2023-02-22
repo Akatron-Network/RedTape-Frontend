@@ -1,7 +1,6 @@
 import { createContext, useContext, useState } from 'react'
 
 const Context = createContext();
-const Current = createContext();
 
 const Provider = ({ children }) => {
   const [sidePanel, setSidePanel] = useState(false)

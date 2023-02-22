@@ -1,4 +1,4 @@
-import { useRef, useEffect, createContext, useContext, useReducer } from 'react';
+import { useRef, createContext, useContext, useReducer } from 'react';
 import currentReducer from '../reducer/currentReducer'
 import Current from '../libraries/models/Current'
 import TurkeyProvDist from '../libraries/tools/TurkeyProvDist'
@@ -55,8 +55,6 @@ const Provider = ({ children }) => {
   const currentCodeIIIEditRef = useRef("")
   const currentCodeIVEditRef = useRef("")
   const currentDescriptionEditRef = useRef("")
-
-  //b ----------------------------------------------------------------
 
   //b Functions etc. ------------------------------------------------------
     
@@ -308,10 +306,9 @@ const Provider = ({ children }) => {
     await showCurrentList();
   }
 
-  //b --------------------------------------------------------------------
-
   //- Current Context Data
   const current = {
+    
     //, Refs
     currentNameRef,
     currentAddressRef,
@@ -328,7 +325,6 @@ const Provider = ({ children }) => {
     currentCodeIIIRef,
     currentCodeIVRef,
     currentDescriptionRef,
-    currentNameRef,
     
     currentNameEditRef,
     currentAddressEditRef,

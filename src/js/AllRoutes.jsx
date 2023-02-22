@@ -1,26 +1,26 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import LoginPage from './pages/LoginPage'
+import Login from './pages/Login'
 import MainPage from './pages/MainPage'
 import Current from './pages/Current'
 import CurrentActivity from './pages/CurrentActivity'
-import StokKayit from './pages/StokKayit'
-import Siparis from './pages/Siparis'
-import GorevTakip from './pages/GorevTakip'
+import Stock from './pages/Stock'
+import Orders from './pages/Orders'
+import Tasks from './pages/Tasks'
 import Test from './pages/Test'
 
 export default function AllRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/giris" element={<LoginPage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<MainPage />}>
-          <Route path=":kayit-cari" element={<Current />} />
-          <Route path=":cari-hareket" element={<CurrentActivity />} />
-          <Route path=":kayit-stok" element={<StokKayit />} />
-          <Route path=":siparis" element={<Siparis />} />
-          <Route path=":gorev-takip" element={<GorevTakip />} />
+          <Route path="current" element={<Current />} />
+          <Route path="current-activity" element={<CurrentActivity />} />
+          <Route path="stock" element={<Stock />} />
+          <Route path="orders" element={<Orders />} />
+          <Route path="tasks" element={<Tasks />} />
           {/* <Route index={true} element={<Collections />} />
           <Route path=":colID" element={<Folders />} />
           <Route path=":colID/:foldID" element={<Files />} />
