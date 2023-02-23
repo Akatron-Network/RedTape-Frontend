@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react'
 
-const Context = createContext();
+const MainContext = createContext();
 
 const Provider = ({ children }) => {
   const [sidePanel, setSidePanel] = useState(false)
@@ -16,11 +16,11 @@ const Provider = ({ children }) => {
   }
 
   return (
-    <Context.Provider value={data}>
+    <MainContext.Provider value={data}>
       {children}
-    </Context.Provider>
+    </MainContext.Provider>
   )
 }
 
-export const useMain = () => useContext(Context)
+export const useMain = () => useContext(MainContext)
 export default Provider

@@ -20,7 +20,7 @@ export default function CurrentActivity() {
     document.addEventListener('click', cur_act_data.toggleFilteredTable);
 
     return () => {
-      document.removeEventListener('click', cur_act_data.toggleFilteredTable);  //. When click outside the sidepanel close sidepanel
+      document.removeEventListener('click', cur_act_data.toggleFilteredTable);  //. When click outside close filtered table
 
       cur_act_data.dispatch({     //. Reset rendered table
         type: 'RENDER_TABLE',

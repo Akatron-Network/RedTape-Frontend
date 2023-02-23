@@ -26,8 +26,8 @@ export default function Stock() {
           <div className='col-span-2'><InputDefault name={"Stok Adı"} reference={stock_data.stockNameRef} /></div>
           <div className='col-span-2'><InputDefault name={"Malzeme"} reference={stock_data.stockMaterialRef} /></div>
           <div className='col-span-2'><InputDefault name={"Ürün Grubu"} reference={stock_data.stockProductGroupRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Miktar"} reference={stock_data.stockUnitIRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Birim"} reference={stock_data.stockUnitIIRef} /></div>
+          <div className='col-span-2'><InputDefault name={"Birim 1"} reference={stock_data.stockUnitIRef} /></div>
+          <div className='col-span-2'><InputDefault name={"Birim 2"} reference={stock_data.stockUnitIIRef} /></div>
           <div className='col-span-2'><InputDefault name={"Çevrim Oranı"} reference={stock_data.stockConversionRateRef} /></div>
           <div className='col-span-2'><InputDefault name={"Alış Fiyatı"} reference={stock_data.stockBuyPriceRef} /></div>
           <div className='col-span-2'><InputDefault name={"Satış Fiyatı"} reference={stock_data.stockSellPriceRef} /></div>

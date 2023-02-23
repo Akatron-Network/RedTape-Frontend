@@ -52,8 +52,6 @@ const Provider = ({children}) => {
   const curActSearchInputRef = useRef("");
   const curActGTEDateRef = useRef("");
   const curActLTEDateRef = useRef("");
-  const curActGTEDefaultRef = useRef("");
-  const curActLTEDefaultRef = useRef("");
 
   const curActIDRef = useRef("");
   const curActNameRef = useRef("");
@@ -76,8 +74,6 @@ const Provider = ({children}) => {
   const curActExpiryDateEditRef = useRef("");
   const curActDebtAmountEditRef = useRef("");
   const curActBalanceEditRef = useRef("");
-
-  //b -----------------------------------------------------------------
   
   //b Functions etc. --------------------------------------------------
 
@@ -133,13 +129,16 @@ const Provider = ({children}) => {
   const toggleFilteredTable = (e) => {
 
     if(e.target.id !== 'search_button' && e.target.id !== 'search_input' && e.target.id !== 'search_button_icon') {
+      console.log("a");
       dispatch({
         type: 'TOGGLE_FILTERED_TABLE',
         value: false
       })
     }
     else {
+      console.log("a");
       if(state.toggle_filtered_table !== true) {
+        console.log("a");
         dispatch({
           type: 'TOGGLE_FILTERED_TABLE',
           value: true
@@ -436,8 +435,6 @@ const Provider = ({children}) => {
     //, Refs
     curActGTEDateRef,
     curActLTEDateRef,
-    curActGTEDefaultRef,
-    curActLTEDefaultRef,
     curActSearchInputRef,
 
     curActIDRef,

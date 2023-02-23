@@ -6,8 +6,7 @@ export default function AutoSearch(props) {
       <table className="w-full text-sm text-left text-pine_tree">
         <thead className="text-xs text-prussian_blue bg-steel_blue_light">
           <tr>
-            <th className="py-2 px-5 font-bold text-sm">Cari Kod</th>
-            <th className="py-2 px-5 font-bold text-sm">Cari İsim</th>
+            {props.cols.map((c, i) => <th key={i} className="py-2 px-5 font-bold text-sm">{c}</th>)}
           </tr>
         </thead>
         <tbody>
