@@ -10,6 +10,7 @@ import SiparisGirisTablo from '../components/siparis-giris/SiparisGirisTablo'
 import InputDefaultNoSpan from '../components/items/InputDefaultNoSpan'
 import AutoSearch from '../components/items/AutoSearch'
 import { useOrders } from '../context/OrdersContext'
+import EditProductModal from '../components/modals/EditProductModal'
 
 export default function Orders() {
   const orders_data = useOrders();
@@ -102,9 +103,10 @@ export default function Orders() {
             </div>
             <div className={orders_data.toggle_filtered_stock_table ? 
               "opacity-100 transition duration-200 absolute overflow-y-auto shadow-button right-0 top-full w-full z-[18] border border-t-0 h-60 border-shadow_blue bg-alica_blue" 
-              : "absolute transition duration-200 overflow-y-auto shadow-button right-0 top-full w-full z-[18] border border-t-0 h-60 border-shadow_blue bg-alica_blue opacity-0 pointer-events-none"
+              :
+              "absolute transition duration-200 overflow-y-auto shadow-button right-0 top-full w-full z-[18] border border-t-0 h-60 border-shadow_blue bg-alica_blue opacity-0 pointer-events-none"
             }>
-              <AutoSearch data={orders_data.filtered_stocks} func={orders_data.chooseFilteredStock} cols={["Stok Kod", "Stok İsim"]} />
+              <AutoSearch data={orders_data.filtered_stocks} func={orders_data.chooseFilteredStock} cols={["Stok Kod", "Stok İsim", "Malzeme", "Ürün Grubu"]} />
             </div>
           </div>
 
@@ -114,12 +116,14 @@ export default function Orders() {
           <div className='col-span-2 lg:col-span-1'><InputSelectNoSpan name={"KDV Oranı"} reference={orders_data.ordersTaxRateRef} options={["%8", "%18"]} /></div>
           <div className='col-span-4 lg:col-span-2'><InputDefaultNoSpan name={"Açıklama"} reference={orders_data.ordersDescriptionRef} /></div>       
 
-          <button className='col-span-2 lg:col-span-1 truncate clear-btn w-full'><i className="fa-solid fa-plus mr-1"></i>Ürün Ekle</button>
-          <div className="col-span-10 mt-3"><SiparisGirisTablo/></div>
+          <button className='col-span-2 lg:col-span-1 truncate clear-btn w-full' onClick={orders_data.addProduct}><i className="fa-solid fa-plus mr-1"></i>Ürün Ekle</button>
+          <div className="col-span-10 mt-3"><SiparisGirisTablo /></div>
           <div className="col-span-10 mt-2 flex justify-end"><button className='save-btn w-fit'><i className="fa-solid fa-bag-shopping mr-2"></i>Sipariş Oluştur</button></div>
           
           
-        </div>        
+        </div>
+        
+        <EditProductModal />     
       </div>
     </>
   )

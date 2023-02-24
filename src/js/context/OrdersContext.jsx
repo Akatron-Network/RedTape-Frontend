@@ -2,6 +2,7 @@ import { createContext, useContext, useReducer, useRef } from "react"
 import Current from "../libraries/models/Current";
 import Stock from "../libraries/models/Stock";
 import ordersReducer from '../reducer/ordersReducer'
+import {Modal} from 'flowbite';
 
 const OrdersContext = createContext()
 
@@ -20,10 +21,15 @@ const Provider = ({ children }) => {
     filtered_stocks: [],
     chosen_stock: {},
     chosen_stock_units: [],
+    product_list: [],
+    edit_product_modal: false,
+    product_details: {},
     date: {
       current: "",
       early: "",
-    }
+    },
+    table_columns: ["", "ÜRÜN AD", "MALZEME", "ÜRÜN GRUBU", "BİRİM", "MİKTAR", "BİRİM FİYAT", "TUTAR", "KDV ORAN", "KDV TUTAR", "TOPLAM TUTAR", "AÇIKLAMA"],
+    // table_rows: ["row", "product_name", "material", "product_group", "unit", "amount", "price", "amount_sum", "tax_rate", "tax_sum", "total", "description"],
   });
 
   const ordersCurSearchInputRef = useRef("");
@@ -47,6 +53,13 @@ const Provider = ({ children }) => {
   const ordersPriceRef = useRef("");
   const ordersTaxRateRef = useRef("");
   const ordersDescriptionRef = useRef("");
+
+  const ordersNameEditRef = useRef("");
+  const ordersUnitEditRef = useRef("");
+  const ordersAmountEditRef = useRef("");
+  const ordersPriceEditRef = useRef("");
+  const ordersTaxRateEditRef = useRef("");
+  const ordersDescriptionEditRef = useRef("");
 
 
   //b Functions -------------------------------------------------------
@@ -242,7 +255,7 @@ const Provider = ({ children }) => {
   const filterStocks = (e) => {
 
     if (e.target.value === "") {
-      printCurrentDetails(undefined);   //. For clearing out current details inputs
+      printStockDetails(undefined);   //. For clearing out current details inputs
     }
 
     const searchWord = e.target.value.toLowerCase();
@@ -252,8 +265,11 @@ const Provider = ({ children }) => {
       if (source.details.name !== undefined) {
         condition =
           (source.details.id).toString().toLowerCase().includes(searchWord) ||
-          source.details.name.toLowerCase().includes(searchWord);
-      } else {
+          (source.details.name).toLowerCase().includes(searchWord) ||
+          (source.details.material).toLowerCase().includes(searchWord) ||
+          (source.details.product_group).toLowerCase().includes(searchWord);
+      } 
+      else {
         condition = source.id.toLowerCase().includes(searchWord);
       }
 
@@ -287,13 +303,177 @@ const Provider = ({ children }) => {
   }
 
   const printStockDetails = (details) => {
-    console.log(details);
+    if(details === undefined) {
     
+      dispatch({
+        type: 'CHOSEN_STOCK_UNITS',
+        value: []
+      })
+    }
+    else {
+      dispatch({
+        type: 'CHOSEN_STOCK_UNITS',
+        value: [details.details.unit, details.details.unit_2]
+      })      
+    }
+  }
+
+  //- Products
+  const addProduct = () => {
+    let new_product_list = [...state.product_list]; //. Get product list
+
+    for (let p in new_product_list) {               //. Every time a product is added rearrange row numbers
+      new_product_list[p].row = parseInt(p) + 1      
+    }
+
+    let tax_rate = ((ordersTaxRateRef.current.value).replace("%", "") / 100);
+    let amount_sum = ((parseFloat(ordersAmountRef.current.value)) * (parseFloat(ordersPriceRef.current.value)));
+    let tax_sum = ((amount_sum) * parseFloat(tax_rate));
+    let total = amount_sum + tax_sum
+
+    let new_product = {                             //. Create new product
+      row: (new_product_list.length + 1),           //. Row number one more than list length
+      stock_id: state.chosen_stock.details.id,
+      unit: ordersUnitRef.current.value,                          //. Birim
+      amount: parseFloat(ordersAmountRef.current.value),          //. Miktar
+      price: parseFloat(ordersPriceRef.current.value),            //. Birim Fiyat
+      tax_rate: parseFloat(tax_rate),                             //. Kdv Oranı
+      description: ordersDescriptionRef.current.value,            //. Açıklama
+
+      stock_name: state.chosen_stock.details.name,                //. Ürün Ad (Çıkartılacak)
+      material: state.chosen_stock.details.material,              //. Malzeme (Çıkartılacak)
+      product_group: state.chosen_stock.details.product_group,    //. Ürün grubu (Çıkartılacak)
+      amount_sum: amount_sum,                                     //. Tutar (Çıkartılacak)
+      tax_sum: tax_sum,                                           //. KDV Tutar (Çıkartılacak)
+      total: total,                                               //. Toplam Tutar (Çıkartılacak)
+    }
+
+    new_product_list.push(new_product);             //. Rearrange new product list
+
     dispatch({
-      type: 'CHOSEN_STOCK_UNITS',
-      value: [details.details.unit, details.details.unit_2]
+      type: 'PRODUCT_LIST',
+      value: new_product_list,
+    })
+
+    clearProductInputs();
+  }
+
+  const clearProductInputs = () => {
+    ordersNameRef.current.value = ""
+    ordersUnitRef.current.value = "default"
+    ordersAmountRef.current.value = ""
+    ordersPriceRef.current.value = ""
+    ordersTaxRateRef.current.value = "%8"
+    ordersDescriptionRef.current.value = ""
+
+    dispatch({
+      type: 'CHOSEN_STOCK',
+      value: {},
     })
   }
+
+  const removeProduct = (row) => {
+    let list = state.product_list; //. Get product list
+    
+    for (let p in list) {
+      if (list[p].row === row) {
+        list.splice(p,1)
+      }
+    }
+      
+    for (let p in state.product_list) {               //. Every time a product is added rearrange row numbers
+      state.product_list[p].row = parseInt(p) + 1      
+    }
+
+    // dispatch({
+    //   type: 'PRODUCT_LIST',
+    //   value: new_list,
+    // })
+  }
+
+  const getProductDetails = async (id) => {
+    let stock_modal = showProductModal();
+    stock_modal.show();
+    
+    let list = state.product_list; //. Get product list
+    
+    for (let p in list) {
+      if (list[p].row === id) {
+        var dt = list[p]
+      }
+    }
+    
+    dispatch({        //. Set stock details
+      type: 'PRODUCT_DETAILS',
+      value: dt
+    })
+    
+    ordersNameEditRef.current.value = dt
+    ordersUnitEditRef.current.value = dt
+    ordersAmountEditRef.current.value = dt
+    ordersPriceEditRef.current.value = dt
+    ordersTaxRateEditRef.current.value = dt
+    ordersDescriptionEditRef.current.value = dt
+
+  }
+  
+  const editStock = async (id) => {
+    // let details = new Stock(id)
+    // console.log(details);
+
+    // let changes = {
+    //    name: stockNameEditRef.current.value,
+    // }
+
+    // let st = await details.editStock(changes)
+    // console.log(st);
+
+    // if (st.Success) hideStockModal();
+  }
+
+  //- Modal Funcs
+  const showProductModal = () => {
+    const options = {
+      backdrop: 'static',
+    };
+    
+    let el = document.getElementById("editProductModal");
+    const modal = new Modal(el, options);
+
+    dispatch({        //. Set current modal object
+      type: 'EDIT_PRODUCT_MODAL',
+      value: modal
+    })
+
+    return modal;    
+  }
+
+  const hideProductModal = () => {
+    state.edit_stock_modal.hide();
+    clearStockEditInputs();
+
+    dispatch({        //. Set current modal object
+      type: 'EDIT_STOCK_MODAL',
+      value: {}
+    })
+  }
+
+  const clearProductEditInputs = () => {
+    stockNameEditRef.current.value = ""
+    stockMaterialEditRef.current.value = ""
+    stockProductGroupEditRef.current.value = ""
+    stockUnitIEditRef.current.value = ""
+    stockUnitIIEditRef.current.value = ""
+    stockConversionRateEditRef.current.value = "0"
+    stockBuyPriceEditRef.current.value = "0"
+    stockSellPriceEditRef.current.value = "0"
+    stockCodeIEditRef.current.value = ""
+    stockCodeIIEditRef.current.value = ""
+    stockCodeIIIEditRef.current.value = ""
+    stockCodeIVEditRef.current.value = ""
+  }
+
+
 
   const data = {
     //, Refs
@@ -324,6 +504,7 @@ const Provider = ({ children }) => {
     dispatch,
 
     //, Functions
+    addProduct,
     chooseFilteredCurrent,
     chooseFilteredStock,
     filterCurrents,
@@ -331,6 +512,8 @@ const Provider = ({ children }) => {
     getAllCurrents,
     getAllStocks,
     getDate,
+    getProductDetails,
+    removeProduct, 
     toggleFilteredCurrentTable,
     toggleFilteredStockTable,
 

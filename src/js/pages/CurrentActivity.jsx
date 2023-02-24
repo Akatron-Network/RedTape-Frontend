@@ -32,9 +32,9 @@ export default function CurrentActivity() {
                   <th className="py-2 px-3 font-bold text-sm">TARİH</th>
                   <th className="py-2 px-3 font-bold text-sm">AÇIKLAMA</th>
                   <th className="py-2 px-3 font-bold text-sm">VADE TARİHİ</th>
-                  <th className="py-2 px-3 font-bold text-sm">BORÇ TUTARI</th>
-                  <th className="py-2 px-3 font-bold text-sm">ALACAK TUTARI</th>
-                  <th className="py-2 px-3 font-bold text-sm text-center">NET BAKİYE</th>
+                  <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">BORÇ TUTARI</th>
+                  <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">ALACAK TUTARI</th>
+                  <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">NET BAKİYE</th>
                   <th className="py-2 px-3 w-20 font-bold text-sm"><span className="sr-only">Düzenle</span></th>
                 </tr>
               </thead>
@@ -79,7 +79,7 @@ export default function CurrentActivity() {
               "opacity-100 transition duration-300 absolute overflow-y-auto shadow-button right-0 top-full w-2/3 z-[1] border border-t-0 h-60 border-shadow_blue bg-alica_blue" 
               : "absolute transition duration-300 overflow-y-auto shadow-button right-0 top-full w-2/3 z-[1] border border-t-0 h-60 border-shadow_blue bg-alica_blue opacity-0 pointer-events-none"
             }>
-              <AutoSearch data={cur_act_data.filtered_currents} func={cur_act_data.chooseFilteredCurrent} />
+              <AutoSearch data={cur_act_data.filtered_currents} func={cur_act_data.chooseFilteredCurrent} cols={[]} />
             </div>
           </div>
 

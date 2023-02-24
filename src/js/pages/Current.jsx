@@ -49,7 +49,7 @@ export default function Current() {
 
         <div className='grid grid-cols-1 gap-1 col-span-2 h-fit'>
           <PageSubTitle title={"Cari Tablosu"} /> 
-          <Table data={current_data.render_table} all_currents={current_data.all_currents} />
+          <Table data={current_data.render_table} />
         </div>
 
         <EditCurrentModal />

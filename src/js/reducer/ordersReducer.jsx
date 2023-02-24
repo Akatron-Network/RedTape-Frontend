@@ -61,5 +61,23 @@ export default function reducer(state, action) {
         ...state,
         chosen_stock_units: action.value
       }
+
+    case 'PRODUCT_LIST':
+      return {
+        ...state,
+        product_list: action.value
+      }
+
+    case 'EDIT_PRODUCT_MODAL':
+      return {
+        ...state,
+        edit_product_modal: action.value
+      }
+
+    case 'PRODUCT_DETAILS':
+      return {
+        ...state,
+        product_details: action.value
+      }
   }
 }

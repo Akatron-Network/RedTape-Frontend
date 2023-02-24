@@ -9,7 +9,7 @@ export default function MainPage() {
       <Navbar />
       <Sidebar />
 
-      <div className='py-16 px-6'>
+      <div className='pt-16 pb-4 px-6'>
         <Outlet />
       </div>
     </>

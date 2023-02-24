@@ -33,9 +33,9 @@ const Provider = ({children}) => {
               <th className="py-2 px-3 font-bold text-sm">TARİH</th>
               <th className="py-2 px-3 font-bold text-sm">AÇIKLAMA</th>
               <th className="py-2 px-3 font-bold text-sm">VADE TARİHİ</th>
-              <th className="py-2 px-3 font-bold text-sm">BORÇ TUTARI</th>
-              <th className="py-2 px-3 font-bold text-sm">ALACAK TUTARI</th>
-              <th className="py-2 px-3 font-bold text-sm text-center">NET BAKİYE</th>
+              <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">BORÇ TUTARI</th>
+              <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">ALACAK TUTARI</th>
+              <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">NET BAKİYE</th>
               <th className="py-2 px-3 w-20 font-bold text-sm"><span className="sr-only">Düzenle</span></th>
             </tr>
           </thead>
@@ -248,9 +248,9 @@ const Provider = ({children}) => {
                   <th className="py-2 px-3 font-bold text-sm">TARİH</th>
                   <th className="py-2 px-3 font-bold text-sm">AÇIKLAMA</th>
                   <th className="py-2 px-3 font-bold text-sm">VADE TARİHİ</th>
-                  <th className="py-2 px-3 font-bold text-sm">BORÇ TUTARI</th>
-                  <th className="py-2 px-3 font-bold text-sm">ALACAK TUTARI</th>
-                  <th className="py-2 px-3 font-bold text-sm text-center">NET BAKİYE</th>
+                  <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">BORÇ TUTARI</th>
+                  <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">ALACAK TUTARI</th>
+                  <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">NET BAKİYE</th>
                   <th className="py-2 px-3 w-20 font-bold text-sm"><span className="sr-only">Düzenle</span></th>
                 </tr>
               </thead>
@@ -313,7 +313,7 @@ const Provider = ({children}) => {
 
     let data = {
       current_id: state.chosen_current.id,
-      balance: parseInt(balance),
+      balance: parseFloat(balance),
       date: curActDateRef.current.value + "T00:00:00.000Z",
       description: curActDescriptionRef.current.value,
       expiry_date: curActExpiryDateRef.current.value + "T00:00:00.000Z",
@@ -407,7 +407,7 @@ const Provider = ({children}) => {
     }
 
     let changes = {
-      balance: parseInt(balance),
+      balance: parseFloat(balance),
       date: curActDateEditRef.current.value + "T00:00:00.000Z",
       description: curActDescriptionEditRef.current.value,
       expiry_date: curActExpiryDateEditRef.current.value + "T00:00:00.000Z",

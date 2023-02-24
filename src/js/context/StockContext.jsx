@@ -2,6 +2,7 @@ import { createContext, useContext, useReducer, useRef } from 'react'
 import stockReducer from '../reducer/stockReducer'
 import Stock from '../libraries/models/Stock'
 import Table from '../libraries/tools/Table'
+import {Modal} from 'flowbite';
 
 const StockContext = createContext();
 
@@ -113,9 +114,9 @@ const Provider = ({ children }) => {
       product_group: stockProductGroupEditRef.current.value,
       unit: stockUnitIEditRef.current.value,
       unit_2: stockUnitIIEditRef.current.value,
-      conversion_rate: parseInt(stockConversionRateEditRef.current.value),
-      buy_price: parseInt(stockBuyPriceEditRef.current.value),
-      sell_price: parseInt(stockSellPriceEditRef.current.value),
+      conversion_rate: parseFloat(stockConversionRateEditRef.current.value),
+      buy_price: parseFloat(stockBuyPriceEditRef.current.value),
+      sell_price: parseFloat(stockSellPriceEditRef.current.value),
       code_1: stockCodeIEditRef.current.value,
       code_2: stockCodeIIEditRef.current.value,
       code_3: stockCodeIIIEditRef.current.value,
@@ -146,9 +147,9 @@ const Provider = ({ children }) => {
       product_group: stockProductGroupRef.current.value,
       unit: stockUnitIRef.current.value,
       unit_2: stockUnitIIRef.current.value,
-      conversion_rate: parseInt(stockConversionRateRef.current.value),
-      buy_price: parseInt(stockBuyPriceRef.current.value),
-      sell_price: parseInt(stockSellPriceRef.current.value),
+      conversion_rate: parseFloat(stockConversionRateRef.current.value),
+      buy_price: parseFloat(stockBuyPriceRef.current.value),
+      sell_price: parseFloat(stockSellPriceRef.current.value),
       code_1: stockCodeIRef.current.value,
       code_2: stockCodeIIRef.current.value,
       code_3: stockCodeIIIRef.current.value,
