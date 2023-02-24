@@ -19,10 +19,10 @@ export default function EditCurrentActivityModal() {
             </div>
             <div className="pt-4 px-5 grid grid-cols-1 gap-[1px]">
               <div className='col-span-1'><InputDate name={"Tarih"} reference={cur_act_data.curActDateEditRef} /></div>
-              <div className='col-span-1'><InputDefault name={"Açıklama"} reference={cur_act_data.curActDescriptionEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Açıklama"} reference={cur_act_data.curActDescriptionEditRef} /></div>
               <div className='col-span-1'><InputDate name={"Vade Tarihi"} reference={cur_act_data.curActExpiryDateEditRef} /></div>
               <div className='col-span-1'><InputSelect name={"Borç-Alacak"} reference={cur_act_data.curActDebtAmountEditRef} options={["Borç", "Alacak"]} func={() => {}} /></div>
-              <div className='col-span-1'><InputDefault name={"Tutar"} reference={cur_act_data.curActBalanceEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"number"} name={"Tutar"} reference={cur_act_data.curActBalanceEditRef} /></div>
             </div>
             <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
               <button type="button" className="clear-btn float-right" onClick={() => cur_act_data.clearCurActEditInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>

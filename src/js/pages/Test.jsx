@@ -7,6 +7,7 @@ import TurkeyProvDist from '../libraries/tools/TurkeyProvDist';
 import EditCurrentModal from '../components/modals/EditCurrentModal';
 import CurrentActivity from '../libraries/models/CurrentActivity';
 import Stock from '../libraries/models/Stock';
+import Order from '../libraries/models/Orders';
 
 
 export default function Test() {
@@ -306,6 +307,37 @@ export default function Test() {
     console.log(remove);
   }
 
+  //b ORDER -----------------------------
+  const createOrder = async () => {
+    let data = {
+      current_id: 541,
+      date: "2023-01-31T11:52:00Z",
+      delivery_date: "2023-01-31T11:52:00Z",
+      order_source: "WEBSITE",
+      invoiced: false,
+      printed: false,
+      total_fee: 100.50,
+      code_1: "A",
+      code_2: "B",
+      code_3: "C",
+      code_4: "D",
+      items: [
+        {
+          row: 1,
+          stock_id: 162,
+          unit: "AD",
+          amount: 24.5,
+          price: 4.10,
+          tax_rate: 0.18,
+          description: "Test Açıklama"
+        }
+      ]
+    }
+
+    let create = await Order.createOrder(data);
+    console.log(create);
+  }
+
   return (
     <>
     <div className='bg-fogra_dark w-screen h-screen p-3'>
@@ -477,6 +509,20 @@ export default function Test() {
         <button onClick={removeStock}
           className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
           Remove Stock Test
+        </button>
+      </div>
+
+      <div className='p-3 mt-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
+        <h1 className='mr-2 text-alica_blue w-40'>ORDER TESTS</h1>
+
+        <button onClick={() => {}}
+          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Get All Stock Test
+        </button>
+
+        <button onClick={createOrder}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Create Order Test
         </button>
       </div>
     

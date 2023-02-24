@@ -61,7 +61,7 @@ export default function SiparisGirisTablo() {
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {p.tax_sum}
                 </td>
-                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold border-x border-steel_blue_light">
+                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold">
                   {p.total}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">

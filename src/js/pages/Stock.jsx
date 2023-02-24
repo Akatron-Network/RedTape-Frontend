@@ -23,18 +23,18 @@ export default function Stock() {
         <div className='grid grid-cols-1 gap-[1px] col-span-1 auto-rows-max'>          
           <PageSubTitle title={"Yeni Stok Oluştur"} /> 
 
-          <div className='col-span-2'><InputDefault name={"Stok Adı"} reference={stock_data.stockNameRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Malzeme"} reference={stock_data.stockMaterialRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Ürün Grubu"} reference={stock_data.stockProductGroupRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Birim 1"} reference={stock_data.stockUnitIRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Birim 2"} reference={stock_data.stockUnitIIRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Çevrim Oranı"} reference={stock_data.stockConversionRateRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Alış Fiyatı"} reference={stock_data.stockBuyPriceRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Satış Fiyatı"} reference={stock_data.stockSellPriceRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Kod 1"} reference={stock_data.stockCodeIRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Kod 2"} reference={stock_data.stockCodeIIRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Kod 3"} reference={stock_data.stockCodeIIIRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Kod 4"} reference={stock_data.stockCodeIVRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Stok Adı"} reference={stock_data.stockNameRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Malzeme"} reference={stock_data.stockMaterialRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Ürün Grubu"} reference={stock_data.stockProductGroupRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Birim 1"} reference={stock_data.stockUnitIRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Birim 2"} reference={stock_data.stockUnitIIRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Çevrim Oranı"} reference={stock_data.stockConversionRateRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Alış Fiyatı"} reference={stock_data.stockBuyPriceRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Satış Fiyatı"} reference={stock_data.stockSellPriceRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Kod 1"} reference={stock_data.stockCodeIRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Kod 2"} reference={stock_data.stockCodeIIRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Kod 3"} reference={stock_data.stockCodeIIIRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Kod 4"} reference={stock_data.stockCodeIVRef} /></div>
         
           <div className='mt-4'>
             <button type="button" className="save-btn ml-2 float-right" onClick={() => stock_data.createStock()}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>

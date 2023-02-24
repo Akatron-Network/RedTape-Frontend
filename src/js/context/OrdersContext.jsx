@@ -3,6 +3,7 @@ import Current from "../libraries/models/Current";
 import Stock from "../libraries/models/Stock";
 import ordersReducer from '../reducer/ordersReducer'
 import {Modal} from 'flowbite';
+import Order from "../libraries/models/Orders";
 
 const OrdersContext = createContext()
 
@@ -21,6 +22,7 @@ const Provider = ({ children }) => {
     filtered_stocks: [],
     chosen_stock: {},
     chosen_stock_units: [],
+    chosen_stock_edit_units: [],
     product_list: [],
     edit_product_modal: false,
     product_details: {},
@@ -29,7 +31,6 @@ const Provider = ({ children }) => {
       early: "",
     },
     table_columns: ["", "ÜRÜN AD", "MALZEME", "ÜRÜN GRUBU", "BİRİM", "MİKTAR", "BİRİM FİYAT", "TUTAR", "KDV ORAN", "KDV TUTAR", "TOPLAM TUTAR", "AÇIKLAMA"],
-    // table_rows: ["row", "product_name", "material", "product_group", "unit", "amount", "price", "amount_sum", "tax_rate", "tax_sum", "total", "description"],
   });
 
   const ordersCurSearchInputRef = useRef("");
@@ -216,6 +217,28 @@ const Provider = ({ children }) => {
 
   }
 
+  const clearCurrentDetails = () => {
+    ordersCurSearchInputRef.current.value = "";
+    ordersSourceRef.current.value = "";
+    ordersInvoicedRef.current.value = "default";
+    ordersCurGTEDateRef.current.value = state.date.current
+    ordersCurLTEDateRef.current.value = state.date.current
+
+    ordersCurIDRef.current.innerHTML = "";
+    ordersCurNameRef.current.innerHTML = "";
+    ordersCurAddressRef.current.innerHTML = "";
+    ordersCurProvDistRef.current.innerHTML = "";
+    ordersCurTaxOfficeNoRef.current.innerHTML = "";
+    ordersCurPhoneIRef.current.innerHTML = "";
+    ordersCurPhoneIIRef.current.innerHTML = "";
+    ordersCurMailRef.current.innerHTML =  "";
+
+    dispatch({
+      type: 'CHOSEN_CURRENT',
+      value: {}
+    })
+  }
+
   //- Stock Autocomplete
   const getAllStocks = async () => {
 
@@ -309,6 +332,7 @@ const Provider = ({ children }) => {
         type: 'CHOSEN_STOCK_UNITS',
         value: []
       })
+
     }
     else {
       dispatch({
@@ -328,11 +352,11 @@ const Provider = ({ children }) => {
 
     let tax_rate = ((ordersTaxRateRef.current.value).replace("%", "") / 100);
     let amount_sum = ((parseFloat(ordersAmountRef.current.value)) * (parseFloat(ordersPriceRef.current.value)));
-    let tax_sum = ((amount_sum) * parseFloat(tax_rate));
-    let total = amount_sum + tax_sum
+    let tax_sum = (parseFloat(amount_sum) * parseFloat(tax_rate));
+    let total = parseFloat(amount_sum + tax_sum)
 
-    let new_product = {                             //. Create new product
-      row: (new_product_list.length + 1),           //. Row number one more than list length
+    let new_product = {                                           //. Create new product
+      row: (new_product_list.length + 1),                         //. Row number one more than list length
       stock_id: state.chosen_stock.details.id,
       unit: ordersUnitRef.current.value,                          //. Birim
       amount: parseFloat(ordersAmountRef.current.value),          //. Miktar
@@ -345,10 +369,10 @@ const Provider = ({ children }) => {
       product_group: state.chosen_stock.details.product_group,    //. Ürün grubu (Çıkartılacak)
       amount_sum: amount_sum,                                     //. Tutar (Çıkartılacak)
       tax_sum: tax_sum,                                           //. KDV Tutar (Çıkartılacak)
-      total: total,                                               //. Toplam Tutar (Çıkartılacak)
+      total: (total).toFixed(2),                                  //. Toplam Tutar (Çıkartılacak)
     }
 
-    new_product_list.push(new_product);             //. Rearrange new product list
+    new_product_list.push(new_product);                           //. Rearrange new product list
 
     dispatch({
       type: 'PRODUCT_LIST',
@@ -407,28 +431,53 @@ const Provider = ({ children }) => {
       type: 'PRODUCT_DETAILS',
       value: dt
     })
+
+    for (let s of state.all_stocks) {
+      if (s.details.id === dt.stock_id) {
+        
+        dispatch({
+          type: 'CHOSEN_STOCK_EDIT_UNITS',
+          value: [s.details.unit, s.details.unit_2]
+        })
+
+      }
+    }
     
-    ordersNameEditRef.current.value = dt
-    ordersUnitEditRef.current.value = dt
-    ordersAmountEditRef.current.value = dt
-    ordersPriceEditRef.current.value = dt
-    ordersTaxRateEditRef.current.value = dt
-    ordersDescriptionEditRef.current.value = dt
+    ordersNameEditRef.current.innerHTML = dt.stock_id + "-" + dt.stock_name
+    ordersUnitEditRef.current.value = dt.unit
+    ordersAmountEditRef.current.value = dt.amount
+    ordersPriceEditRef.current.value = dt.price
+    ordersTaxRateEditRef.current.value = "%" + (dt.tax_rate * 100)
+    ordersDescriptionEditRef.current.value = dt.description
 
   }
   
-  const editStock = async (id) => {
-    // let details = new Stock(id)
-    // console.log(details);
+  const editProduct = async (row) => {
+    let details = {};
 
-    // let changes = {
-    //    name: stockNameEditRef.current.value,
-    // }
+    for (let p of state.product_list) {
+      if (p.row === row) {
+        details = p
+      }
+    }
+    console.log(details);
 
-    // let st = await details.editStock(changes)
-    // console.log(st);
+    let tax_rate = ((ordersTaxRateEditRef.current.value).replace("%", "") / 100);
+    let amount_sum = ((parseFloat(ordersAmountEditRef.current.value)) * (parseFloat(ordersPriceEditRef.current.value)));
+    let tax_sum = (parseFloat(amount_sum) * parseFloat(tax_rate));
+    let total = parseFloat(amount_sum + tax_sum)
 
-    // if (st.Success) hideStockModal();
+    details["unit"] = ordersUnitEditRef.current.value
+    details["amount"] = parseFloat(ordersAmountEditRef.current.value)
+    details["price"] = parseFloat(ordersPriceEditRef.current.value)
+    details["tax_rate"] = tax_rate
+    details["description"] = ordersDescriptionEditRef.current.value
+
+    details["amount_sum"] = amount_sum
+    details["tax_sum"] = tax_sum
+    details["total"] = total
+
+    hideProductModal();
   }
 
   //- Modal Funcs
@@ -449,31 +498,82 @@ const Provider = ({ children }) => {
   }
 
   const hideProductModal = () => {
-    state.edit_stock_modal.hide();
-    clearStockEditInputs();
+    state.edit_product_modal.hide();
+    clearProductEditInputs();
 
-    dispatch({        //. Set current modal object
-      type: 'EDIT_STOCK_MODAL',
+    dispatch({
+      type: 'EDIT_PRODUCT_MODAL',
       value: {}
     })
   }
 
   const clearProductEditInputs = () => {
-    stockNameEditRef.current.value = ""
-    stockMaterialEditRef.current.value = ""
-    stockProductGroupEditRef.current.value = ""
-    stockUnitIEditRef.current.value = ""
-    stockUnitIIEditRef.current.value = ""
-    stockConversionRateEditRef.current.value = "0"
-    stockBuyPriceEditRef.current.value = "0"
-    stockSellPriceEditRef.current.value = "0"
-    stockCodeIEditRef.current.value = ""
-    stockCodeIIEditRef.current.value = ""
-    stockCodeIIIEditRef.current.value = ""
-    stockCodeIVEditRef.current.value = ""
+    ordersNameEditRef.current.innerHTML = "";
+    ordersUnitEditRef.current.value = "default";
+    ordersAmountEditRef.current.value = "";
+    ordersPriceEditRef.current.value = "";
+    ordersTaxRateEditRef.current.value = "default";
+    ordersDescriptionEditRef.current.value = "";
+    
+    dispatch({
+      type: 'CHOSEN_STOCK_EDIT_UNITS',
+      value: []
+    })
   }
 
+  //- Order Funcs
+  const createOrder = async () => {
+    if(ordersInvoicedRef.current.value === "Faturalı") { var invoiced = true }
+    else if(ordersInvoicedRef.current.value === "Faturasız") { var invoiced = false }
 
+    let items = [];
+    let total_fee = 0;
+
+    for (let p of state.product_list) {
+      let js = {
+        amount : p.amount,
+        description : p.description,
+        price : p.price,
+        row : p.row,
+        stock_id : p.stock_id,
+        tax_rate : p.tax_rate,
+        unit : p.unit,
+      }
+      total_fee = total_fee + p.total
+      items.push(js)
+    }
+
+    let data = {
+      current_id: state.chosen_current.id,
+      date: ordersCurGTEDateRef.current.value + "T00:00:00Z",
+      delivery_date: ordersCurLTEDateRef.current.value + "T00:00:00Z",
+      order_source: ordersSourceRef.current.value,
+      invoiced: invoiced,
+      printed: false,
+      total_fee: parseFloat(total_fee),
+      code_1: state.chosen_current.details.code_1,
+      code_2: state.chosen_current.details.code_2,
+      code_3: state.chosen_current.details.code_3,
+      code_4: state.chosen_current.details.code_4,
+      items: items
+    }
+
+    let create = await Order.createOrder(data)
+    console.log(create);
+    
+    clearOrder();
+  }
+
+  const clearOrder = () => {
+
+    dispatch({
+      type: 'PRODUCT_LIST',
+      value: []
+    })
+
+    clearProductInputs();
+    clearCurrentDetails();
+  }
 
   const data = {
     //, Refs
@@ -499,6 +599,13 @@ const Provider = ({ children }) => {
     ordersTaxRateRef,
     ordersDescriptionRef,
 
+    ordersNameEditRef,
+    ordersUnitEditRef,
+    ordersAmountEditRef,
+    ordersPriceEditRef,
+    ordersTaxRateEditRef,
+    ordersDescriptionEditRef,
+
     //, States, Variables etc.
     ...state,
     dispatch,
@@ -507,12 +614,17 @@ const Provider = ({ children }) => {
     addProduct,
     chooseFilteredCurrent,
     chooseFilteredStock,
+    clearProductEditInputs,
+    clearOrder,
+    createOrder,
+    editProduct,
     filterCurrents,
     filterStocks,
     getAllCurrents,
     getAllStocks,
     getDate,
     getProductDetails,
+    hideProductModal,
     removeProduct, 
     toggleFilteredCurrentTable,
     toggleFilteredStockTable,

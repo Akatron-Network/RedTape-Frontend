@@ -31,6 +31,17 @@ export default function Orders() {
         orders_data.toggleFilteredCurrentTable(e);
         orders_data.toggleFilteredStockTable(e);
       })
+      
+      orders_data.dispatch({
+        type: 'PRODUCT_LIST',
+        value: [],
+      })
+
+      orders_data.dispatch({
+        type: 'CHOSEN_STOCK_UNITS',
+        value: []
+      })
+
     }
   }, [])
   
@@ -64,10 +75,10 @@ export default function Orders() {
             </div>
           </div>
 
-          <div className='col-span-1'><InputDefault name={"Sipariş Kaynağı"} reference={orders_data.ordersSourceRef} /></div>
+          <div className='col-span-1'><InputDefault name={"Sipariş Kaynağı"} reference={orders_data.ordersSourceRef} type={"text"} /></div>
           <div className='col-span-1'><InputSelect name={"Faturalı / Faturasız"} reference={orders_data.ordersInvoicedRef} options={["Faturalı", "Faturasız"]} func={() => {}} /></div>
-          <div className='col-span-1'><InputDate name={"Tarih"} reference={orders_data.ordersGTEDateRef} defaultValue={orders_data.date.current} /></div>
-          <div className='col-span-1'><InputDate name={"Teslim Tarihi"} reference={orders_data.ordersLTEDateRef} defaultValue={orders_data.date.current} /></div>
+          <div className='col-span-1'><InputDate name={"Tarih"} reference={orders_data.ordersCurGTEDateRef} defaultValue={orders_data.date.current} /></div>
+          <div className='col-span-1'><InputDate name={"Teslim Tarihi"} reference={orders_data.ordersCurLTEDateRef} defaultValue={orders_data.date.current} /></div>
           
         </div>
 
@@ -111,14 +122,14 @@ export default function Orders() {
           </div>
 
           <div className='col-span-2 lg:col-span-1'><InputSelectNoSpan name={"Birim"} reference={orders_data.ordersUnitRef} options={orders_data.chosen_stock_units} /></div>
-          <div className='col-span-3 lg:col-span-1'><InputDefaultNoSpan name={"Miktar"} reference={orders_data.ordersAmountRef} /></div>
-          <div className='col-span-2 lg:col-span-1'><InputDefaultNoSpan name={"Birim Fiyat"} reference={orders_data.ordersPriceRef} /></div>
+          <div className='col-span-3 lg:col-span-1'><InputDefaultNoSpan name={"Miktar"} reference={orders_data.ordersAmountRef} type={"number"} /></div>
+          <div className='col-span-2 lg:col-span-1'><InputDefaultNoSpan name={"Birim Fiyat"} reference={orders_data.ordersPriceRef} type={"number"} /></div>
           <div className='col-span-2 lg:col-span-1'><InputSelectNoSpan name={"KDV Oranı"} reference={orders_data.ordersTaxRateRef} options={["%8", "%18"]} /></div>
-          <div className='col-span-4 lg:col-span-2'><InputDefaultNoSpan name={"Açıklama"} reference={orders_data.ordersDescriptionRef} /></div>       
+          <div className='col-span-4 lg:col-span-2'><InputDefaultNoSpan name={"Açıklama"} reference={orders_data.ordersDescriptionRef} type={"text"} /></div>       
 
           <button className='col-span-2 lg:col-span-1 truncate clear-btn w-full' onClick={orders_data.addProduct}><i className="fa-solid fa-plus mr-1"></i>Ürün Ekle</button>
           <div className="col-span-10 mt-3"><SiparisGirisTablo /></div>
-          <div className="col-span-10 mt-2 flex justify-end"><button className='save-btn w-fit'><i className="fa-solid fa-bag-shopping mr-2"></i>Sipariş Oluştur</button></div>
+          <div className="col-span-10 mt-2 flex justify-end" onClick={orders_data.createOrder}><button className='save-btn w-fit'><i className="fa-solid fa-bag-shopping mr-2"></i>Sipariş Oluştur</button></div>
           
           
         </div>

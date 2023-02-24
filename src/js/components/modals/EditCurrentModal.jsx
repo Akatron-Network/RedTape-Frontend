@@ -18,20 +18,20 @@ export default function EditCurrentModal() {
               <button type="button" onClick={() => current_data.hideCurrentModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-sm p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
             <div className="pt-4 px-5 grid grid-cols-1 gap-[1px]">
-              <div className='col-span-1'><InputDefault name={"Cari Ad"} reference={current_data.currentNameEditRef} /></div>
-              <div className='col-span-1'><InputDefault name={"Adres"} reference={current_data.currentAddressEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Cari Ad"} reference={current_data.currentNameEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Adres"} reference={current_data.currentAddressEditRef} /></div>
               <div className='col-span-1'><InputSelect name={"İl"} reference={current_data.currentProvinceEditRef} options={current_data.provinces} func={current_data.getDistrictList} /></div>
               <div className='col-span-1'><InputSelect name={"İlçe"} reference={current_data.currentDistrictEditRef} options={current_data.districts} func={() => {}} /></div>
-              <div className='col-span-1'><InputDefault name={"Vergi Dairesi"} reference={current_data.currentTaxOfficeEditRef} /></div>
-              <div className='col-span-1'><InputDefault name={"Vergi Numarası"} reference={current_data.currentTaxNoEditRef} /></div>
-              <div className='col-span-1'><InputDefault name={"TC Kimlik Num."} reference={current_data.currentIDNoEditRef} /></div>
-              <div className='col-span-1'><InputDefault name={"Telefon - 1"} reference={current_data.currentPhoneIEditRef} /></div>
-              <div className='col-span-1'><InputDefault name={"Telefon - 2"} reference={current_data.currentPhoneIIEditRef} /></div>
-              <div className='col-span-1'><InputDefault name={"E-mail Adresi"} reference={current_data.currentMailEditRef} /></div>
-              <div className='col-span-1'><InputDefault name={"Kod 1"} reference={current_data.currentCodeIEditRef} /></div>
-              <div className='col-span-1'><InputDefault name={"Kod 2"} reference={current_data.currentCodeIIEditRef} /></div>
-              <div className='col-span-1'><InputDefault name={"Kod 3"} reference={current_data.currentCodeIIIEditRef} /></div>
-              <div className='col-span-1'><InputDefault name={"Kod 4"} reference={current_data.currentCodeIVEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Vergi Dairesi"} reference={current_data.currentTaxOfficeEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Vergi Numarası"} reference={current_data.currentTaxNoEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"TC Kimlik Num."} reference={current_data.currentIDNoEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Telefon - 1"} reference={current_data.currentPhoneIEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Telefon - 2"} reference={current_data.currentPhoneIIEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"E-mail Adresi"} reference={current_data.currentMailEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Kod 1"} reference={current_data.currentCodeIEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Kod 2"} reference={current_data.currentCodeIIEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Kod 3"} reference={current_data.currentCodeIIIEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Kod 4"} reference={current_data.currentCodeIVEditRef} /></div>
               <div className='col-span-1 my-4'><InputComment name={"Açıklama"} reference={current_data.currentDescriptionEditRef} /></div>
             </div>
             <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">

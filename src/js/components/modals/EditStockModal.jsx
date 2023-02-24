@@ -17,18 +17,18 @@ export default function EditStockModal() {
             </div>
             <div className="pt-4 px-5 grid grid-cols-1 gap-[1px]">
 
-              <div className='col-span-2'><InputDefault name={"Stok Adı"} reference={stock_data.stockNameEditRef} /></div>
-              <div className='col-span-2'><InputDefault name={"Malzeme"} reference={stock_data.stockMaterialEditRef} /></div>
-              <div className='col-span-2'><InputDefault name={"Ürün Grubu"} reference={stock_data.stockProductGroupEditRef} /></div>
-              <div className='col-span-2'><InputDefault name={"Miktar"} reference={stock_data.stockUnitIEditRef} /></div>
-              <div className='col-span-2'><InputDefault name={"Birim"} reference={stock_data.stockUnitIIEditRef} /></div>
-              <div className='col-span-2'><InputDefault name={"Çevrim Oranı"} reference={stock_data.stockConversionRateEditRef} /></div>
-              <div className='col-span-2'><InputDefault name={"Alış Fiyatı"} reference={stock_data.stockBuyPriceEditRef} /></div>
-              <div className='col-span-2'><InputDefault name={"Satış Fiyatı"} reference={stock_data.stockSellPriceEditRef} /></div>
-              <div className='col-span-2'><InputDefault name={"Kod 1"} reference={stock_data.stockCodeIEditRef} /></div>
-              <div className='col-span-2'><InputDefault name={"Kod 2"} reference={stock_data.stockCodeIIEditRef} /></div>
-              <div className='col-span-2'><InputDefault name={"Kod 3"} reference={stock_data.stockCodeIIIEditRef} /></div>
-              <div className='col-span-2'><InputDefault name={"Kod 4"} reference={stock_data.stockCodeIVEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Stok Adı"} reference={stock_data.stockNameEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Malzeme"} reference={stock_data.stockMaterialEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Ürün Grubu"} reference={stock_data.stockProductGroupEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Miktar"} reference={stock_data.stockUnitIEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Birim"} reference={stock_data.stockUnitIIEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Çevrim Oranı"} reference={stock_data.stockConversionRateEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Alış Fiyatı"} reference={stock_data.stockBuyPriceEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Satış Fiyatı"} reference={stock_data.stockSellPriceEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Kod 1"} reference={stock_data.stockCodeIEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Kod 2"} reference={stock_data.stockCodeIIEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Kod 3"} reference={stock_data.stockCodeIIIEditRef} /></div>
+              <div className='col-span-2'><InputDefault type={"text"} name={"Kod 4"} reference={stock_data.stockCodeIVEditRef} /></div>
             
             </div>
 

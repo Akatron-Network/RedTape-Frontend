@@ -13,7 +13,8 @@ export default class Request {
     user: "user",
     current: "current",
     current_act: "current_act",
-    stock: "stock"
+    stock: "stock",
+    order: "order"
   }
 
   static loginRequest() { return new Request(Request.routes.login) }
@@ -22,6 +23,7 @@ export default class Request {
   static currentRequest() { return new Request(Request.routes.current) }
   static currentActRequest() { return new Request(Request.routes.current_act) }
   static stocktRequest() { return new Request(Request.routes.stock) }
+  static orderRequest() { return new Request(Request.routes.order) }
 
   async get(data) {
 

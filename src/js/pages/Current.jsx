@@ -25,20 +25,20 @@ export default function Current() {
         <div className='grid grid-cols-1 gap-[1px] col-span-1 auto-rows-max'>          
           <PageSubTitle title={"Yeni Cari Oluştur"} /> 
 
-          <div className='col-span-2'><InputDefault name={"Cari Ad"} reference={current_data.currentNameRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Adres"} reference={current_data.currentAddressRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Cari Ad"} reference={current_data.currentNameRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Adres"} reference={current_data.currentAddressRef} /></div>
           <div className='col-span-2'><InputSelect name={"İl"} reference={current_data.currentProvinceRef} options={current_data.provinces} func={current_data.getDistrictList} /></div>
           <div className='col-span-2'><InputSelect name={"İlçe"} reference={current_data.currentDistrictRef} options={current_data.districts} func={() => {}} /></div>
-          <div className='col-span-2'><InputDefault name={"Vergi Dairesi"} reference={current_data.currentTaxOfficeRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Vergi Numarası"} reference={current_data.currentTaxNoRef} /></div>
-          <div className='col-span-2'><InputDefault name={"TC Kimlik Num."} reference={current_data.currentIDNoRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Telefon - 1"} reference={current_data.currentPhoneIRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Telefon - 2"} reference={current_data.currentPhoneIIRef} /></div>
-          <div className='col-span-2'><InputDefault name={"E-mail Adresi"} reference={current_data.currentMailRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Kod 1"} reference={current_data.currentCodeIRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Kod 2"} reference={current_data.currentCodeIIRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Kod 3"} reference={current_data.currentCodeIIIRef} /></div>
-          <div className='col-span-2'><InputDefault name={"Kod 4"} reference={current_data.currentCodeIVRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Vergi Dairesi"} reference={current_data.currentTaxOfficeRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Vergi Numarası"} reference={current_data.currentTaxNoRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"TC Kimlik Num."} reference={current_data.currentIDNoRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Telefon - 1"} reference={current_data.currentPhoneIRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Telefon - 2"} reference={current_data.currentPhoneIIRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"E-mail Adresi"} reference={current_data.currentMailRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Kod 1"} reference={current_data.currentCodeIRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Kod 2"} reference={current_data.currentCodeIIRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Kod 3"} reference={current_data.currentCodeIIIRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Kod 4"} reference={current_data.currentCodeIVRef} /></div>
           <div className='col-span-2 my-4'><InputComment name={"Açıklama"} reference={current_data.currentDescriptionRef} /></div>
 
           <div>
