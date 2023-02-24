@@ -2,7 +2,7 @@ import React from 'react'
 import { useOrders } from '../../context/OrdersContext'
 
 export default function SiparisGirisTablo() {
-  const {table_columns, product_list, removeProduct, getProductDetails} = useOrders();
+  const {table_columns, product_list, removeProduct, getProductDetails, table_total} = useOrders();
   
   return (
     
@@ -77,8 +77,9 @@ export default function SiparisGirisTablo() {
 
         </tbody>
       </table>
-      <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-steel_blue_light h-10" aria-label="Table navigation">
+      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10" aria-label="Table navigation">
         <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{product_list.length}</span> kayıt bulunmaktadır.</span>
+        <span className="text-sm font-normal text-queen_blue">Toplam tutar <span className="font-semibold text-prussian_blue">{table_total}</span></span>
       </nav>
     </div>
   )

@@ -85,5 +85,11 @@ export default function reducer(state, action) {
         ...state,
         product_details: action.value
       }
+
+    case 'TABLE_TOTAL':
+      return {
+        ...state,
+        table_total: action.value
+      }
   }
 }

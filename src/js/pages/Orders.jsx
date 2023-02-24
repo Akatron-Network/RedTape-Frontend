@@ -129,7 +129,8 @@ export default function Orders() {
 
           <button className='col-span-2 lg:col-span-1 truncate clear-btn w-full' onClick={orders_data.addProduct}><i className="fa-solid fa-plus mr-1"></i>Ürün Ekle</button>
           <div className="col-span-10 mt-3"><SiparisGirisTablo /></div>
-          <div className="col-span-10 mt-2 flex justify-end" onClick={orders_data.createOrder}><button className='save-btn w-fit'><i className="fa-solid fa-bag-shopping mr-2"></i>Sipariş Oluştur</button></div>
+          
+          <div className="col-span-10 mt-2 flex justify-end"><button className='save-btn w-fit' onClick={orders_data.createOrder}><i className="fa-solid fa-bag-shopping mr-2"></i>Sipariş Oluştur</button></div>
           
           
         </div>

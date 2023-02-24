@@ -26,6 +26,7 @@ const Provider = ({ children }) => {
     product_list: [],
     edit_product_modal: false,
     product_details: {},
+    table_total: 0,
     date: {
       current: "",
       early: "",
@@ -344,9 +345,9 @@ const Provider = ({ children }) => {
 
   //- Products
   const addProduct = () => {
-    let new_product_list = [...state.product_list]; //. Get product list
-
-    for (let p in new_product_list) {               //. Every time a product is added rearrange row numbers
+    let new_product_list = [...state.product_list];               //. Get product list
+                
+    for (let p in new_product_list) {                             //. Every time a product is added rearrange row numbers
       new_product_list[p].row = parseInt(p) + 1      
     }
 
@@ -377,6 +378,17 @@ const Provider = ({ children }) => {
     dispatch({
       type: 'PRODUCT_LIST',
       value: new_product_list,
+    })
+
+    let table_total = 0;
+
+    for (let p of new_product_list) {
+      table_total = table_total + parseFloat(p.total)
+    }
+
+    dispatch({
+      type: 'TABLE_TOTAL',
+      value: table_total,
     })
 
     clearProductInputs();
