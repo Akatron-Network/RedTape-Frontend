@@ -25,7 +25,7 @@ export default function Current() {
         <div className='grid grid-cols-1 gap-[1px] col-span-1 auto-rows-max'>          
           <PageSubTitle title={"Yeni Cari Oluştur"} /> 
 
-          <div className='col-span-2'><InputDefault type={"text"} name={"Cari Ad"} reference={current_data.currentNameRef} /></div>
+          <div className='col-span-2'><InputDefault type={"text"} name={"Cari İsim"} reference={current_data.currentNameRef} /></div>
           <div className='col-span-2'><InputDefault type={"text"} name={"Adres"} reference={current_data.currentAddressRef} /></div>
           <div className='col-span-2'><InputSelect name={"İl"} reference={current_data.currentProvinceRef} options={current_data.provinces} func={current_data.getDistrictList} /></div>
           <div className='col-span-2'><InputSelect name={"İlçe"} reference={current_data.currentDistrictRef} options={current_data.districts} func={() => {}} /></div>

@@ -129,7 +129,6 @@ const Provider = ({children}) => {
   const toggleFilteredTable = (e) => {
 
     if(e.target.id !== 'search_button' && e.target.id !== 'search_input' && e.target.id !== 'search_button_icon') {
-      console.log("a");
       dispatch({
         type: 'TOGGLE_FILTERED_TABLE',
         value: false

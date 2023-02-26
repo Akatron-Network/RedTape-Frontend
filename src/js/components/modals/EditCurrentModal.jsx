@@ -18,7 +18,7 @@ export default function EditCurrentModal() {
               <button type="button" onClick={() => current_data.hideCurrentModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-sm p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
             <div className="pt-4 px-5 grid grid-cols-1 gap-[1px]">
-              <div className='col-span-1'><InputDefault type={"text"} name={"Cari Ad"} reference={current_data.currentNameEditRef} /></div>
+              <div className='col-span-1'><InputDefault type={"text"} name={"Cari İsim"} reference={current_data.currentNameEditRef} /></div>
               <div className='col-span-1'><InputDefault type={"text"} name={"Adres"} reference={current_data.currentAddressEditRef} /></div>
               <div className='col-span-1'><InputSelect name={"İl"} reference={current_data.currentProvinceEditRef} options={current_data.provinces} func={current_data.getDistrictList} /></div>
               <div className='col-span-1'><InputSelect name={"İlçe"} reference={current_data.currentDistrictEditRef} options={current_data.districts} func={() => {}} /></div>

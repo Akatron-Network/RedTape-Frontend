@@ -17,7 +17,7 @@ export default function SiparisGorevTablo() {
                         TARİH
                     </th>
                     <th scope="col" className="py-2 px-2 font-bold text-sm">
-                        CARİ AD
+                        CARİ İSİM
                     </th>
                     <th scope="col" className="py-2 px-2 font-bold text-sm">
                         AÇIKLAMA

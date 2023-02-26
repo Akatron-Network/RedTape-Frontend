@@ -15,7 +15,7 @@ const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(currentReducer, {
     districts: [],
     provinces: [],
-    table_columns: ["ID", "CARİ AD", "TC KİMLİK NUMARASI", "TELEFON", "ADRES"], //, removed ["order"]
+    table_columns: ["CARİ KOD", "CARİ İSİM", "TC KİMLİK NUMARASI", "TELEFON", "ADRES"], //, removed ["order"]
     table_rows: ["id", "name", "identification_no", "phone", "address"],        //, removed ["order"]
     render_table: "",
     current_details: {},

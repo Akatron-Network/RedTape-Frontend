@@ -227,7 +227,7 @@ const Provider = ({ children }) => {
     stockCodeIVEditRef.current.value = ""
   }
 
-  const data = {
+  const stock = {
 
     //, Refs
     stockNameRef,
@@ -271,7 +271,7 @@ const Provider = ({ children }) => {
   }
 
   return (
-    <StockContext.Provider value={data}>
+    <StockContext.Provider value={stock}>
       {children}
     </StockContext.Provider>
   )

@@ -84,7 +84,7 @@ export default function CurrentActivity() {
           </div>
 
           <div className='col-span-1'><InputDate name={"Başlangıç Tarihi"} reference={cur_act_data.curActGTEDateRef} defaultValue={cur_act_data.date.early} /></div>
-          <div className='col-span-1'><InputDate name={"Bitiş Tarihi"} reference={cur_act_data.curActLTEDateRef} defaultValue={cur_act_data.date.current} max={cur_act_data.date.current} /></div>
+          <div className='col-span-1'><InputDate name={"Bitiş Tarihi"} reference={cur_act_data.curActLTEDateRef} defaultValue={cur_act_data.date.current} /></div>
 
           <div className='float-right my-2'>
             <button onClick={cur_act_data.getCurrentActivity} type="button" className="save-btn float-right"><i className="fa-solid fa-magnifying-glass text-ghost_white mr-2"></i>Bilgileri Getir</button>
@@ -112,7 +112,7 @@ export default function CurrentActivity() {
           <div className='col-span-2 xl:col-span-1'><InputDefault type={"text"} name={"Açıklama"} reference={cur_act_data.curActDescriptionRef} /></div>
           <div className='col-span-2 xl:col-span-1'><InputDate name={"Vade Tarihi"} reference={cur_act_data.curActExpiryDateRef} /></div>
           <div className='col-span-2 xl:col-span-1'><InputSelect name={"Borç-Alacak"} reference={cur_act_data.curActDebtAmountRef} options={["Borç", "Alacak"]} func={() => {}} /></div>
-          <div className='col-span-2 xl:col-span-1'><InputDefault type={"text"} name={"Tutar"} reference={cur_act_data.curActBalanceRef} /></div>
+          <div className='col-span-2 xl:col-span-1'><InputDefault type={"number"} name={"Tutar"} reference={cur_act_data.curActBalanceRef} /></div>
           <div className='my-2 col-span-5'>
             <button type="button" onClick={cur_act_data.createCurrentActivity} className="save-btn float-right ml-2">Cari Hareket Ekle</button>
             <button type="button" className="clear-btn float-right" onClick={cur_act_data.clearCurActEntryInputs}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>

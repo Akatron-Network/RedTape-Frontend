@@ -7,7 +7,7 @@ import TurkeyProvDist from '../libraries/tools/TurkeyProvDist';
 import EditCurrentModal from '../components/modals/EditCurrentModal';
 import CurrentActivity from '../libraries/models/CurrentActivity';
 import Stock from '../libraries/models/Stock';
-import Order from '../libraries/models/Orders';
+import Orders from '../libraries/models/Orders';
 
 
 export default function Test() {
@@ -308,6 +308,23 @@ export default function Test() {
   }
 
   //b ORDER -----------------------------
+  const showOrders = async () => {
+    
+    let query = {
+      skip: undefined,
+      take: undefined,
+      where: {},
+    }
+
+    let resp = await Orders.showOrders(query);
+    console.log(resp);
+  }
+
+  const getOrder = async () => {
+    let resp = await Orders.getOrder(31);
+    console.log(resp);
+  }
+  
   const createOrder = async () => {
     let data = {
       current_id: 541,
@@ -334,7 +351,7 @@ export default function Test() {
       ]
     }
 
-    let create = await Order.createOrder(data);
+    let create = await Orders.createOrder(data);
     console.log(create);
   }
 
@@ -515,9 +532,14 @@ export default function Test() {
       <div className='p-3 mt-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
         <h1 className='mr-2 text-alica_blue w-40'>ORDER TESTS</h1>
 
-        <button onClick={() => {}}
+        <button onClick={showOrders}
           className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
-          Get All Stock Test
+          Get All Orders Test
+        </button>
+
+        <button onClick={getOrder}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Get Order Test
         </button>
 
         <button onClick={createOrder}

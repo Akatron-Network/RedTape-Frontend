@@ -3,7 +3,7 @@ import Current from "../libraries/models/Current";
 import Stock from "../libraries/models/Stock";
 import ordersReducer from '../reducer/ordersReducer'
 import {Modal} from 'flowbite';
-import Order from "../libraries/models/Orders";
+import Orders from "../libraries/models/Orders";
 
 const OrdersContext = createContext()
 
@@ -421,10 +421,15 @@ const Provider = ({ children }) => {
       state.product_list[p].row = parseInt(p) + 1      
     }
 
-    // dispatch({
-    //   type: 'PRODUCT_LIST',
-    //   value: new_list,
-    // })
+    let table_total = 0;                  
+    for (let p of state.product_list) {               //. Update total cost
+      table_total = table_total + parseFloat(p.total)
+    }
+
+    dispatch({
+      type: 'TABLE_TOTAL',
+      value: table_total,
+    })
   }
 
   const getProductDetails = async (id) => {
@@ -570,7 +575,7 @@ const Provider = ({ children }) => {
       items: items
     }
 
-    let create = await Order.createOrder(data)
+    let create = await Orders.createOrder(data)
     console.log(create);
     
     clearOrder();
@@ -587,7 +592,7 @@ const Provider = ({ children }) => {
     clearCurrentDetails();
   }
 
-  const data = {
+  const orders = {
     //, Refs
     ordersCurSearchInputRef,
     ordersSourceRef,
@@ -644,7 +649,7 @@ const Provider = ({ children }) => {
   }
 
   return (
-    <OrdersContext.Provider value={data} >
+    <OrdersContext.Provider value={orders} >
       { children }
     </OrdersContext.Provider>
   )

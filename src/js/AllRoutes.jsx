@@ -7,6 +7,7 @@ import Current from './pages/Current'
 import CurrentActivity from './pages/CurrentActivity'
 import Stock from './pages/Stock'
 import Orders from './pages/Orders'
+import OrdersEntry from './pages/OrdersEntry'
 import Tasks from './pages/Tasks'
 import Test from './pages/Test'
 
@@ -20,6 +21,7 @@ export default function AllRoutes() {
           <Route path="current-activity" element={<CurrentActivity />} />
           <Route path="stock" element={<Stock />} />
           <Route path="orders" element={<Orders />} />
+          <Route path="orders-entry" element={<OrdersEntry />} />
           <Route path="tasks" element={<Tasks />} />
           {/* <Route index={true} element={<Collections />} />
           <Route path=":colID" element={<Folders />} />

@@ -60,6 +60,15 @@ export default function Sidebar() {
         </li>
 
         <li>
+          <Link to={"/orders-entry"} className="sidebar-elm">
+            <div className='text-center w-6'>
+              <i className="fa-solid fa-clipboard"></i>
+            </div>
+            <span className="sidebar-elm-text">Sipariş Kayıtları</span>
+          </Link>
+        </li>
+
+        <li>
           <Link to={"/tasks"} className="sidebar-elm">
             <div className='text-center w-6'>
               <i className="fa-solid fa-clipboard-question"></i>

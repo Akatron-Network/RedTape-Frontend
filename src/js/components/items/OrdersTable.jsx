@@ -1,7 +1,7 @@
 import React from 'react'
 import { useOrders } from '../../context/OrdersContext'
 
-export default function SiparisGirisTablo() {
+export default function OrdersTable() {
   const {table_columns, product_list, removeProduct, getProductDetails, table_total} = useOrders();
   
   return (

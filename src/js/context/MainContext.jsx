@@ -5,7 +5,7 @@ const MainContext = createContext();
 const Provider = ({ children }) => {
   const [sidePanel, setSidePanel] = useState(false)
 
-  const data = {
+  const main = {
     //* Refs
 
     //* States, Variables etc.
@@ -16,7 +16,7 @@ const Provider = ({ children }) => {
   }
 
   return (
-    <MainContext.Provider value={data}>
+    <MainContext.Provider value={main}>
       {children}
     </MainContext.Provider>
   )

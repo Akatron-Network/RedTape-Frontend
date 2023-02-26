@@ -6,7 +6,7 @@ import InputSelectNoSpan from '../components/items/InputSelectNoSpan'
 import InputFilled from '../components/items/InputFilled'
 import InputSelect from '../components/items/InputSelect'
 import InputDefault from '../components/items/InputDefault'
-import SiparisGirisTablo from '../components/siparis-giris/SiparisGirisTablo'
+import OrdersTable from '../components/items/OrdersTable'
 import InputDefaultNoSpan from '../components/items/InputDefaultNoSpan'
 import AutoSearch from '../components/items/AutoSearch'
 import { useOrders } from '../context/OrdersContext'
@@ -77,7 +77,7 @@ export default function Orders() {
 
           <div className='col-span-1'><InputDefault name={"Sipariş Kaynağı"} reference={orders_data.ordersSourceRef} type={"text"} /></div>
           <div className='col-span-1'><InputSelect name={"Faturalı / Faturasız"} reference={orders_data.ordersInvoicedRef} options={["Faturalı", "Faturasız"]} func={() => {}} /></div>
-          <div className='col-span-1'><InputDate name={"Tarih"} reference={orders_data.ordersCurGTEDateRef} defaultValue={orders_data.date.current} /></div>
+          <div className='col-span-1'><InputDate name={"Sipariş Tarihi"} reference={orders_data.ordersCurGTEDateRef} defaultValue={orders_data.date.current} /></div>
           <div className='col-span-1'><InputDate name={"Teslim Tarihi"} reference={orders_data.ordersCurLTEDateRef} defaultValue={orders_data.date.current} /></div>
           
         </div>
@@ -128,7 +128,7 @@ export default function Orders() {
           <div className='col-span-4 lg:col-span-2'><InputDefaultNoSpan name={"Açıklama"} reference={orders_data.ordersDescriptionRef} type={"text"} /></div>       
 
           <button className='col-span-2 lg:col-span-1 truncate clear-btn w-full' onClick={orders_data.addProduct}><i className="fa-solid fa-plus mr-1"></i>Ürün Ekle</button>
-          <div className="col-span-10 mt-3"><SiparisGirisTablo /></div>
+          <div className="col-span-10 mt-3"><OrdersTable /></div>
           
           <div className="col-span-10 mt-2 flex justify-end"><button className='save-btn w-fit' onClick={orders_data.createOrder}><i className="fa-solid fa-bag-shopping mr-2"></i>Sipariş Oluştur</button></div>
           
