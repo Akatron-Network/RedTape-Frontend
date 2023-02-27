@@ -1,4 +1,5 @@
 import CurrencyFormat from './CurrencyFormat'
+import Tooltip from '../../components/items/Tooltip'
 
 export default class Table {
   constructor(method, columns = [], rows = []) {
@@ -105,11 +106,26 @@ export default class Table {
                     {this.buttons.map((b, b_index) => {
                       let btn = "";
 
-                      if (b.type === "edit") {
-                        btn = <button type="button" key={"be_" + d_index + "_" + b_index} onClick={() => b.func(d.id)} className={b.class}><i className={b.icon}></i></button>
+                      if (b.type === "show") {
+                        
+                        btn = <Tooltip message={"Siparişi Görüntüle"}>
+                                <button type="button" key={"be_" + d_index + "_" + b_index} onClick={() => b.func(d.id)} className={b.class}><i className={b.icon}></i></button>
+                              </Tooltip>
+
+                      }
+                      else if (b.type === "edit") {
+                          
+                        btn = <Tooltip message={"Siparişi Düzenle"}>
+                                <button type="button" key={"bx_" + d_index + "_" + b_index} onClick={() => b.func(d.id)} className={b.class}><i className={b.icon}></i></button>
+                              </Tooltip>
+
                       }
                       else if (b.type === "remove") {
-                        btn = <button type="button" key={"bx_" + d_index + "_" + b_index} onClick={() => b.func(d.id)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                          
+                        btn = <Tooltip message={"Siparişi Sil"}>
+                                <button type="button" key={"bx_" + d_index + "_" + b_index} onClick={() => b.func(d.id)} className={b.class}><i className={b.icon}></i></button>
+                              </Tooltip>
+
                       }
 
                       return(

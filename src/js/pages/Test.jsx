@@ -321,7 +321,7 @@ export default function Test() {
   }
 
   const getOrder = async () => {
-    let resp = await Orders.getOrder(31);
+    let resp = Orders.getOrder();
     console.log(resp);
   }
   
@@ -538,8 +538,8 @@ export default function Test() {
         </button>
 
         <button onClick={getOrder}
-          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
-          Get Order Test
+          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Get Orders Test
         </button>
 
         <button onClick={createOrder}

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useOrdersEntry } from '../../context/OrdersEntryContext'
+import Tooltip from './Tooltip';
 
 export default function OrdersTable() {
 
@@ -65,22 +66,15 @@ export default function OrdersTable() {
                   {p.details.total_fee}
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                  <button type='button' data-tooltip-target={"order-show" + i} onClick={() => getProductDetails(p.row)} className='clear-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-eye"></i></button>
-                  <button type='button' data-tooltip-target={"order-edit" + i} onClick={() => getProductDetails(p.row)} className='ml-1 golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
-                  <button type='button' data-tooltip-target={"order-remove" + i} onClick={() => removeProduct(p.row)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
-                
-                  <div id={"order-show" + i} role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-ghost_white transition-opacity duration-300 bg-prussian_blue rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Siparişi Görüntüle
-                    <div className="tooltip-arrow" data-popper-arrow></div>
-                  </div>
-                  <div id={"order-edit" + i} role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-ghost_white transition-opacity duration-300 bg-prussian_blue rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Siparişi Düzenle
-                    <div className="tooltip-arrow" data-popper-arrow></div>
-                  </div>
-                  <div id={"order-remove" + i} role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-ghost_white transition-opacity duration-300 bg-prussian_blue rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                    Siparişi Sil
-                    <div className="tooltip-arrow" data-popper-arrow></div>
-                  </div>
+                  <Tooltip message={"Siparişi Görüntüle"}>
+                    <button type='button' onClick={() => getProductDetails(p.row)} className='clear-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-eye"></i></button>
+                  </Tooltip>
+                  <Tooltip message={"Siparişi Düzenle"}>
+                    <button type='button' onClick={() => getProductDetails(p.row)} className='ml-1 golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                  </Tooltip>
+                  <Tooltip message={"Siparişi Sil"}>
+                    <button type='button' onClick={() => removeProduct(p.row)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                  </Tooltip>
                 </td>
               </tr>
 
@@ -88,7 +82,7 @@ export default function OrdersTable() {
           })}
         </tbody>
       </table>
-      
+
       <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10" aria-label="Table navigation">
         <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">0</span> kayıt bulunmaktadır.</span>
       </nav>
