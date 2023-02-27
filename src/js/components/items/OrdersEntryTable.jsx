@@ -4,7 +4,7 @@ import Tooltip from './Tooltip';
 
 export default function OrdersTable() {
 
-  const { table_columns, all_orders, all_currents } = useOrdersEntry();
+  const { table_columns, all_orders, all_currents, showOrderDetails, getOrderDetails, removeOrder } = useOrdersEntry();
 
   return (
     
@@ -67,13 +67,13 @@ export default function OrdersTable() {
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Siparişi Görüntüle"}>
-                    <button type='button' onClick={() => getProductDetails(p.row)} className='clear-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-eye"></i></button>
+                    <button type='button' onClick={() => showOrderDetails(p.details.id)} className='clear-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-eye"></i></button>
                   </Tooltip>
                   <Tooltip message={"Siparişi Düzenle"}>
-                    <button type='button' onClick={() => getProductDetails(p.row)} className='ml-1 golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                    <button type='button' onClick={() => getOrderDetails(p.details.id)} className='ml-1 golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                   </Tooltip>
                   <Tooltip message={"Siparişi Sil"}>
-                    <button type='button' onClick={() => removeProduct(p.row)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                    <button type='button' onClick={() => removeOrder(p.details.id)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </Tooltip>
                 </td>
               </tr>

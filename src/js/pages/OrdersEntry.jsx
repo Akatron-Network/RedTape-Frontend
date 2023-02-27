@@ -2,8 +2,7 @@ import React, { useEffect } from 'react'
 import PageMainTitle from '../components/items/PageMainTitle'
 import PageSubTitle from '../components/items/PageSubTitle'
 import OrdersEntryTable from '../components/items/OrdersEntryTable'
-import Table from '../components/items/Table'
-
+import ShowOrdersModal from '../components/modals/ShowOrdersModal'
 import { useOrdersEntry } from '../context/OrdersEntryContext'
 
 export default function OrdersEntry() {
@@ -22,7 +21,7 @@ export default function OrdersEntry() {
       
       <PageSubTitle title={"Sipariş Tablosu"} />
       <OrdersEntryTable />
-      <Table />
+      <ShowOrdersModal />
       
     </>
   )

@@ -25,5 +25,17 @@ export default function reducer(state, action) {
         ...state,
         render_orders_table: action.value
       }
+
+    case 'SHOW_ORDERS_MODAL':
+      return {
+        ...state,
+        show_orders_modal: action.value
+      }
+
+    case 'SHOW_ORDERS_DETAILS':
+      return {
+        ...state,
+        show_orders_details: action.value
+      }
   }
 }
