@@ -1,5 +1,5 @@
 import React from 'react'
-import ShowOrdersTable from '../items/ShowOrdersTable'
+import ShowOrdersTable from '../spesific-tables/ShowOrdersTable'
 import PageSubTitle from '../items/PageSubTitle'
 import { useOrdersEntry } from '../../context/OrdersEntryContext'
 
@@ -20,7 +20,7 @@ export default function ShowOrdersModal() {
             </div>
             {/* <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
               <button type="button" className="clear-btn float-right" onClick={() => cur_act_data.clearCurActEditInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
-              <button type="button" className="save-btn ml-2 float-right" onClick={() => cur_act_data.editCurrentActivity(cur_act_data.cur_act_details.id)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
+              <button type="button" className="save-btn ml-2 float-right" onClick={() => cur_act_data.editCurrentActivity(cur_act_data.cur_act_details.id)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
             </div> */}
           </div>
         </div>

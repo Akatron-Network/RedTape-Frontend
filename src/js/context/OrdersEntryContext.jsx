@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer } from "react";
 import Current from "../libraries/models/Current";
+import Stock from "../libraries/models/Stock";
 import Orders from "../libraries/models/Orders";
 import ordersEntryReducer from '../reducer/ordersEntryReducer'
 import {Modal} from 'flowbite';
@@ -12,6 +13,7 @@ const Provider = ({children}) => {
   const [state, dispatch] = useReducer(ordersEntryReducer, {
     all_orders : [],
     all_currents : [],
+    all_stocks: [],
     show_orders_modal : {},
     show_orders_details : [],
     table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ KAYNAĞI", "FATURA DURUMU", "SİPARİŞ TARİHİ", "TESLİM TARİHİ", "TOPLAM TUTAR"],
@@ -20,6 +22,21 @@ const Provider = ({children}) => {
 
   //b Functions -------------------------------------------------------
   //- Main Table Funcs
+  const showStocks = async () => {
+    let query = {
+      skip: 0,
+      take: 1000,
+      where: {},
+    }
+
+    let resp = await Stock.showStock(query)
+
+    dispatch({
+      type: "ALL_STOCKS",
+      value: resp
+    })
+  }
+
   const showCurrents = async () => {
     let query = {
       skip: 0,
@@ -98,7 +115,7 @@ const Provider = ({children}) => {
 
     dispatch({
       type: 'SHOW_ORDERS_DETAILS',
-      value: {}
+      value: []
     })
   }
 
@@ -116,6 +133,7 @@ const Provider = ({children}) => {
     hideShowOrdersModal,
     removeOrder,
     showCurrents,
+    showStocks,
     showOrderDetails,
     showOrders,
   }

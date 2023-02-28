@@ -26,7 +26,7 @@ const Provider = ({ children }) => {
     product_list: [],
     edit_product_modal: false,
     product_details: {},
-    table_total: 0,
+    table_total: "0",
     date: {
       current: "",
       early: "",
@@ -556,9 +556,10 @@ const Provider = ({ children }) => {
         tax_rate : p.tax_rate,
         unit : p.unit,
       }
-      total_fee = total_fee + p.total
+      total_fee = (parseFloat(total_fee) + parseFloat(p.total)).toFixed(2)
       items.push(js)
     }
+    console.log(total_fee);
 
     let data = {
       current_id: state.chosen_current.id,
@@ -567,13 +568,14 @@ const Provider = ({ children }) => {
       order_source: ordersSourceRef.current.value,
       invoiced: invoiced,
       printed: false,
-      total_fee: parseFloat(total_fee),
+      total_fee: Number(total_fee),
       code_1: state.chosen_current.details.code_1,
       code_2: state.chosen_current.details.code_2,
       code_3: state.chosen_current.details.code_3,
       code_4: state.chosen_current.details.code_4,
       items: items
     }
+    console.log(data);
 
     let create = await Orders.createOrder(data)
     console.log(create);
@@ -586,6 +588,11 @@ const Provider = ({ children }) => {
     dispatch({
       type: 'PRODUCT_LIST',
       value: []
+    })
+    
+    dispatch({
+      type: 'TABLE_TOTAL',
+      value: "0",
     })
 
     clearProductInputs();

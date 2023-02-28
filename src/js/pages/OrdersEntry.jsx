@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PageMainTitle from '../components/items/PageMainTitle'
 import PageSubTitle from '../components/items/PageSubTitle'
-import OrdersEntryTable from '../components/items/OrdersEntryTable'
+import OrdersEntryTable from '../components/spesific-tables/OrdersEntryTable'
 import ShowOrdersModal from '../components/modals/ShowOrdersModal'
 import { useOrdersEntry } from '../context/OrdersEntryContext'
 
@@ -12,6 +12,7 @@ export default function OrdersEntry() {
   useEffect(() => {
     orders_entry_data.showCurrents();
     orders_entry_data.showOrders();
+    orders_entry_data.showStocks();
   }, [])
   
   

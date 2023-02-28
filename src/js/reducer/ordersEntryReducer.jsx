@@ -20,6 +20,12 @@ export default function reducer(state, action) {
         all_currents: action.value
       }
 
+    case 'ALL_STOCKS':
+      return {
+        ...state,
+        all_stocks: action.value
+      }
+
     case 'RENDER_ORDERS_TABLE':
       return {
         ...state,

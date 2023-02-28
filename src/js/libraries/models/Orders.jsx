@@ -37,6 +37,7 @@ export default class Orders {
   }
 
   static async createOrder(data) {
+    console.log(data);
     let o = Request.orderRequest();
 
     let create = await o.post(data)

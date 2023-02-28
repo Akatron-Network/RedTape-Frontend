@@ -1,6 +1,7 @@
 import React from 'react'
 import { useOrdersEntry } from '../../context/OrdersEntryContext'
-import Tooltip from './Tooltip';
+import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
+import Tooltip from '../items/Tooltip';
 
 export default function OrdersTable() {
 
@@ -9,7 +10,7 @@ export default function OrdersTable() {
   return (
     
     <div className="overflow-x-auto relative shadow-table">
-      <table className="w-full text-sm text-left text-pine_tree">
+        <table className="w-full text-sm text-left text-pine_tree h-2">
 
         <thead className="text-xs text-prussian_blue bg-steel_blue_light">
           <tr>
@@ -28,7 +29,6 @@ export default function OrdersTable() {
             </th>
           </tr>
         </thead>
-
         <tbody>
           {all_orders.map((p, i) => {
 
@@ -63,15 +63,15 @@ export default function OrdersTable() {
                   {p.details.delivery_date.split("T")[0]}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold">
-                  {p.details.total_fee}
+                  {CurrencyFormat(p.details.total_fee)}
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Siparişi Görüntüle"}>
                     <button type='button' onClick={() => showOrderDetails(p.details.id)} className='clear-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-eye"></i></button>
                   </Tooltip>
-                  <Tooltip message={"Siparişi Düzenle"}>
+                  {/* <Tooltip message={"Siparişi Düzenle"}>
                     <button type='button' onClick={() => getOrderDetails(p.details.id)} className='ml-1 golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
-                  </Tooltip>
+                  </Tooltip> */}
                   <Tooltip message={"Siparişi Sil"}>
                     <button type='button' onClick={() => removeOrder(p.details.id)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </Tooltip>
@@ -82,9 +82,8 @@ export default function OrdersTable() {
           })}
         </tbody>
       </table>
-
       <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10" aria-label="Table navigation">
-        <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">0</span> kayıt bulunmaktadır.</span>
+        <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{all_orders.length}</span> kayıt bulunmaktadır.</span>
       </nav>
     </div>
     
