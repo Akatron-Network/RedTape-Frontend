@@ -8,14 +8,14 @@ export default function OrdersTable() {
   
   return (
     
-    <div className="overflow-x-auto relative shadow-table">
+    <div className="overflow-auto max-h-[639px] shadow-table">
       <table className="w-full text-sm text-left text-pine_tree">
 
-        <thead className="text-xs text-prussian_blue bg-steel_blue_light">
+        <thead>
           <tr>
             {table_columns.map((c, i) => {
-              let cls = "p-2 font-bold text-xs"
-              if(c === "TOPLAM TUTAR") cls= "p-2 font-bold text-xs text-center"
+              let cls = "p-2 font-bold h-10 text-xs text-prussian_blue bg-steel_blue_light sticky top-0"
+              if(c === "TOPLAM TUTAR") cls= "p-2 font-bold h-10 text-xs text-center text-prussian_blue bg-steel_blue_light sticky top-0"
 
               return (
                 <th key={i} className={cls}>
@@ -23,7 +23,7 @@ export default function OrdersTable() {
                 </th>
               )
             })}
-            <th scope="col" className="p-2 w-20 font-bold text-xs">
+            <th scope="col" className="p-2 w-20 font-bold h-10 text-xs text-prussian_blue bg-steel_blue_light sticky top-0">
               <span className="sr-only">Düzenle</span>
             </th>
           </tr>
@@ -83,7 +83,7 @@ export default function OrdersTable() {
 
         </tbody>
       </table>
-      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10" aria-label="Table navigation">
+      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 sticky bottom-0" aria-label="Table navigation">
         <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{product_list.length}</span> kayıt bulunmaktadır.</span>
         <span className="text-sm font-normal text-queen_blue">Toplam tutar <span className="font-semibold text-prussian_blue">{CurrencyFormat(table_total)}</span></span>
       </nav>

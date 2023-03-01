@@ -37,7 +37,6 @@ export default class Orders {
   }
 
   static async createOrder(data) {
-    console.log(data);
     let o = Request.orderRequest();
 
     let create = await o.post(data)
@@ -45,5 +44,16 @@ export default class Orders {
     
     let obj = new Orders(create.Data.id, create.Data.details, create.Data.items)
     return obj;
+  }
+
+  static async removeOrder(id) {
+    let o = Request.orderRequest();
+
+    let remove = await o.delete({
+      id: id
+    })
+    if (!remove.Success) throw new Error('Remove order failed')
+
+    return remove;
   }
 }

@@ -3,25 +3,32 @@ import { useOrdersEntry } from '../../context/OrdersEntryContext'
 import CurrencyFormat from '../../libraries/tools/CurrencyFormat'
 
 export default function ShowOrdersTable() {
-  const {show_table_columns, show_orders_details, all_stocks } = useOrdersEntry();
+  const {show_table_columns, show_orders_details, all_stocks, all_orders } = useOrdersEntry();
 
   const totalFee = () => {
     let total_fee = 0;
 
+    if (show_orders_details.length > 0) {
+
+      for (let o of all_orders) {
+        if (o.details.id === show_orders_details[0].order_id) total_fee = o.details.total_fee
+      }
+
+    }
 
     return total_fee;
   }
   
   return (
     
-    <div className="overflow-x-auto relative shadow-table">
+    <div className="overflow-auto max-h-[639px] shadow-table">
       <table className="w-full text-sm text-left text-pine_tree">
 
-        <thead className="text-xs text-prussian_blue bg-steel_blue_light">
+        <thead className="">
           <tr>
             {show_table_columns.map((c, i) => {
-              let cls = "p-2 font-bold text-xs"
-              if(c === "TOPLAM TUTAR") cls= "p-2 font-bold text-xs text-center"
+              let cls = "p-2 font-bold h-10 text-xs text-prussian_blue bg-steel_blue_light sticky top-0"
+              if(c === "TOPLAM TUTAR") cls= "p-2 font-bold h-10 text-xs text-prussian_blue bg-steel_blue_light text-center sticky top-0"
 
               return (
                 <th key={i} className={cls}>
@@ -100,7 +107,7 @@ export default function ShowOrdersTable() {
           })}
         </tbody>
       </table>
-      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10" aria-label="Table navigation">
+      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 sticky bottom-0" aria-label="Table navigation">
         <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{show_orders_details.length}</span> kayıt bulunmaktadır.</span>
         <span className="text-sm font-normal text-queen_blue">Toplam tutar <span className="font-semibold text-prussian_blue">{totalFee()}</span></span>
       </nav>

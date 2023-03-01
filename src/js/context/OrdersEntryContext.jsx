@@ -89,7 +89,10 @@ const Provider = ({children}) => {
   }
 
   const removeOrder = async (id) => {
+    let remove = await Orders.removeOrder(id);
+    console.log(remove);
 
+    await showOrders();
   }
 
   //- Modal Funcs

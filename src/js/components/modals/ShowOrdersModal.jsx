@@ -4,7 +4,7 @@ import PageSubTitle from '../items/PageSubTitle'
 import { useOrdersEntry } from '../../context/OrdersEntryContext'
 
 export default function ShowOrdersModal() {
-  const { hideShowOrdersModal } = useOrdersEntry();
+  const { hideShowOrdersModal, show_orders_details } = useOrdersEntry();
 
   return (
     <>
@@ -13,6 +13,7 @@ export default function ShowOrdersModal() {
           <div className="relative bg-ghost_white rounded-sm shadow">
             <div className="flex items-start justify-between px-5 pt-3 pb-0 border-b border-steel_blue_light rounded-t">
               <PageSubTitle title={"Ürün Tablosu"} />
+              <span className='text-lg mb-3 ml-1 text-shadow_blue'>(Sipariş Kodu: {show_orders_details[0] !== undefined ? show_orders_details[0].order_id : ""})</span>
               <button type="button" onClick={() => hideShowOrdersModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-sm p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
             <div className="p-5 grid grid-cols-1 gap-[1px]">

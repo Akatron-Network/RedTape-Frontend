@@ -9,14 +9,14 @@ export default function OrdersTable() {
 
   return (
     
-    <div className="overflow-x-auto relative shadow-table">
-        <table className="w-full text-sm text-left text-pine_tree h-2">
+    <div className="shadow-table overflow-auto max-h-[730px]">
+      <table className="w-full text-sm text-left text-pine_tree">
 
-        <thead className="text-xs text-prussian_blue bg-steel_blue_light">
+        <thead>
           <tr>
             {table_columns.map((c, i) => {
-              let cls = "p-2 font-bold text-xs"
-              if(c === "TOPLAM TUTAR") cls= "p-2 font-bold text-xs text-center"
+              let cls = "p-2 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
+              if(c === "TOPLAM TUTAR") cls= "p-2 font-bold text-xs text-center sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
 
               return (
                 <th key={i} className={cls}>
@@ -24,7 +24,7 @@ export default function OrdersTable() {
                 </th>
               )
             })}
-            <th scope="col" className="p-2 w-28 font-bold text-xs">
+            <th scope="col" className="p-2 w-28 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10">
               <span className="sr-only">Düzenle</span>
             </th>
           </tr>
@@ -82,7 +82,7 @@ export default function OrdersTable() {
           })}
         </tbody>
       </table>
-      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10" aria-label="Table navigation">
+      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 bottom-0 sticky" aria-label="Table navigation">
         <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{all_orders.length}</span> kayıt bulunmaktadır.</span>
       </nav>
     </div>

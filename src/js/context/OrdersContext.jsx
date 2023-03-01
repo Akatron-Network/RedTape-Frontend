@@ -545,18 +545,21 @@ const Provider = ({ children }) => {
 
     let items = [];
     let total_fee = 0;
+    let tax_rate = 0;
 
     for (let p of state.product_list) {
+      if (invoiced === true) { tax_rate = p.tax_rate }
+
       let js = {
         amount : p.amount,
         description : p.description,
         price : p.price,
         row : p.row,
         stock_id : p.stock_id,
-        tax_rate : p.tax_rate,
+        tax_rate : tax_rate,
         unit : p.unit,
       }
-      total_fee = (parseFloat(total_fee) + parseFloat(p.total)).toFixed(2)
+      //, total_fee = (parseFloat(total_fee) + parseFloat(p.total)).toFixed(2)
       items.push(js)
     }
     console.log(total_fee);
@@ -568,7 +571,7 @@ const Provider = ({ children }) => {
       order_source: ordersSourceRef.current.value,
       invoiced: invoiced,
       printed: false,
-      total_fee: Number(total_fee),
+      //, total_fee: Number(total_fee),
       code_1: state.chosen_current.details.code_1,
       code_2: state.chosen_current.details.code_2,
       code_3: state.chosen_current.details.code_3,

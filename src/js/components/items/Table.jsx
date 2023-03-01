@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function Table(props) {  
   return (
-    <div className="overflow-x-auto relative shadow-table">
+    <div className="overflow-auto max-h-[639px] shadow-table">
         {/* 
             <table className="w-full text-sm text-left text-pine_tree">
               <thead className="text-xs text-prussian_blue bg-steel_blue_light">

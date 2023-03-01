@@ -1,9 +1,15 @@
 import React from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMain } from '../../context/MainContext';
 
 export default function Navbar() {
   const { sidePanel, setSidePanel } = useMain();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.clear()
+    navigate("/login")
+  }
 
   return (
     <header className="bg-oxford_blue shadow-navbar w-full z-50 fixed">
@@ -15,8 +21,15 @@ export default function Navbar() {
 
         <div className="h-7 border-r border-indigo_dye pr-[3px] pl-5 mr-2 ml-4" >
           <div id='menu-btn' onClick={() => setSidePanel(!sidePanel)}
-            className='text-queen_blue px-2 flex h-7 active:scale-105 hover:bg-prussian_blue hover:text-steel_blue items-center rounded transition duration-200 cursor-pointer'>
+            className='text-queen_blue p-2 flex h-7 active:scale-105 hover:bg-prussian_blue hover:text-steel_blue items-center rounded transition duration-200 cursor-pointer'>
             <i className="fa-solid fa-bars text-[20px]"></i>
+          </div>
+        </div>
+
+        <div className="h-7 border-indigo_dye mx-[6px] absolute right-0" >
+          <div onClick={logout}
+            className='text-queen_blue flex h-7 p-2 active:scale-105 hover:bg-prussian_blue hover:text-steel_blue items-center rounded transition duration-200 cursor-pointer'>
+            <i className="fa-solid fa-right-from-bracket text-[20px]"></i>
           </div>
         </div>
       </div>

@@ -355,6 +355,11 @@ export default function Test() {
     console.log(create);
   }
 
+  const removeOrder = async () => {
+    let remove = await Orders.removeOrder(189)
+    console.log(remove);
+  }
+
   return (
     <>
     <div className='bg-fogra_dark w-screen h-screen p-3'>
@@ -538,13 +543,18 @@ export default function Test() {
         </button>
 
         <button onClick={getOrder}
-          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
           Get Orders Test
         </button>
 
         <button onClick={createOrder}
           className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
           Create Order Test
+        </button>
+
+        <button onClick={removeOrder}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Remove Order Test
         </button>
       </div>
     

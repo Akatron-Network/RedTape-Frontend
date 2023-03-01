@@ -30,15 +30,15 @@ export default class Table {
     return (
       <>
         <table className="w-full text-sm text-left text-pine_tree">
-          <thead className="text-xs text-prussian_blue bg-steel_blue_light">
+          <thead>
             <tr>
               {this.columns.map((h, index) => {       //, h = 'Header1'
                 // if (h === "order") { h = "" }
 
-                let cls = "py-2 px-3 font-bold text-sm"
+                let cls = "py-2 px-3 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
 
                 if (h === "NET BAKİYE" || h === "BORÇ TUTARI" || h === "ALACAK TUTARI") {
-                  cls = "py-2 px-3 font-bold text-sm text-right w-[170px]"
+                  cls = "py-2 px-3 font-bold h-10 text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10 text-right w-[170px]"
                 }
 
                 return (
@@ -48,7 +48,7 @@ export default class Table {
                 )
 
               })}
-              <th className="py-2 px-3 w-20 font-bold text-sm">
+              <th className="py-2 px-3 w-20 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10">
                 <span className="sr-only">Düzenle</span>
               </th>
             </tr>
@@ -138,7 +138,7 @@ export default class Table {
             })}
           </tbody>
         </table>
-        <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-steel_blue_light h-10" aria-label="Table navigation">
+        <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-steel_blue_light h-10 text-xs sticky bottom-0 text-prussian_blue z-10" aria-label="Table navigation">
           <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{this.data.length}</span> kayıt bulunmaktadır.</span>
             {/* <ul className="inline-flex items-center -space-x-px text-prussian_blue">
               <li onClick={() => this.setPageNumbers(this.left_page_num)}>
