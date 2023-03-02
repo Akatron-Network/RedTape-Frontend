@@ -7,6 +7,18 @@ export default class Orders {
     this.items = items;
   }
 
+  async editOrder(new_details) {
+    let o = Request.orderRequest();
+    
+    let edit = await o.put({
+      id: this.id,
+      data: new_details
+    })
+    if(!edit.Success) throw new Error('Edit orders failed')
+
+    return edit;
+  }
+
   //b STATIC CONSTRUCT METHODS ------------------------------------------------
   static async showOrders(query) {
     let o = Request.orderRequest();

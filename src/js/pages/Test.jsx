@@ -355,6 +355,21 @@ export default function Test() {
     console.log(create);
   }
 
+  const editOrder = async () => {
+    let o = await Orders.getOrder(216)
+
+    let details = {
+      date: "2023-01-31T11:52:00.000Z",
+      delivery_date: "2023-01-31T11:52:00.000Z",
+      order_source: "WHATSAPP WEB",
+      invoiced: true,
+      items: [],
+    }
+
+    let edit = await o.editOrder(details);
+    console.log(edit);
+  }
+
   const removeOrder = async () => {
     let remove = await Orders.removeOrder(189)
     console.log(remove);
@@ -552,10 +567,16 @@ export default function Test() {
           Create Order Test
         </button>
 
+        <button onClick={editOrder}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Edit Order Test
+        </button>
+
         <button onClick={removeOrder}
           className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
           Remove Order Test
         </button>
+
       </div>
     
       <EditCurrentModal />

@@ -31,17 +31,41 @@ export default function reducer(state, action) {
         ...state,
         render_orders_table: action.value
       }
+      
+      case 'GET_ORDER_DETAILS':
+        return {
+          ...state,
+          get_order_details: action.value
+        }
 
-    case 'SHOW_ORDERS_MODAL':
+    case 'GET_ORDER_ITEMS':
       return {
         ...state,
-        show_orders_modal: action.value
+        get_order_items: action.value
       }
 
-    case 'SHOW_ORDERS_DETAILS':
+    case 'GET_ORDER_MODAL':
       return {
         ...state,
-        show_orders_details: action.value
+        get_order_modal: action.value
+      }
+
+      case 'ENTRY_PRODUCT_DETAILS':
+        return {
+          ...state,
+          entry_product_details: action.value
+        }
+
+    case 'ENTRY_PRODUCT_MODAL':
+      return {
+        ...state,
+        entry_product_modal: action.value
+      }
+
+    case 'ENTRY_PRODUCT_UNITS':
+      return {
+        ...state,
+        entry_product_units: action.value
       }
   }
 }

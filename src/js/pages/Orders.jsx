@@ -102,7 +102,7 @@ export default function Orders() {
         </div>
         
         <div className='col-span-3 grid grid-cols-10 grid-flow-row gap-2 mt-4'>
-          <div className='col-span-10'><PageSubTitle title={"Ürünler"} /></div>
+          <div className='col-span-10'><PageSubTitle title={"Ürün Bilgileri ve Ürün Tablosu"} /></div>
 
           <div className='flex flex-row col-span-5 lg:col-span-3 relative'>
             <div className='w-full shadow-input relative z-[19]'>

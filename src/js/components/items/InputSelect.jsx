@@ -1,7 +1,6 @@
 import React from 'react'
 
 export default function InputSelect(props) {
-  console.log(props);
   return (
     <div className='w-full flex flex-row shadow-input'>
       <span className="w-1/3 min-w-[120px] truncate flex min-h-[34px] justify-center items-center border border-alica_blue_light px-1 py-[6px] text-sm bg-steel_blue_light rounded-r-none text-prussian_blue">{props.name}</span>

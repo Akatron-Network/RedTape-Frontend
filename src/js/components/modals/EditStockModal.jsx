@@ -15,7 +15,7 @@ export default function EditStockModal() {
               <PageSubTitle title={"Stok Düzenle"} />
               <button type="button" onClick={() => stock_data.hideStockModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-sm p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
-            <div className="pt-4 px-5 grid grid-cols-1 gap-[1px]">
+            <div className="p-5 grid grid-cols-1 gap-[1px]">
 
               <div className='col-span-2'><InputDefault type={"text"} name={"Stok Adı"} reference={stock_data.stockNameEditRef} /></div>
               <div className='col-span-2'><InputDefault type={"text"} name={"Malzeme"} reference={stock_data.stockMaterialEditRef} /></div>
@@ -32,7 +32,7 @@ export default function EditStockModal() {
             
             </div>
 
-            <div className="flex items-center px-5 py-3 mt-4 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
+            <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
               <button type="button" className="clear-btn float-right" onClick={() => stock_data.clearStockEditInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
               <button type="button" className="save-btn ml-2 float-right" onClick={() => stock_data.editStock(stock_data.stock_details.id)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
             </div>
