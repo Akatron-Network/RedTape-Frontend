@@ -5,6 +5,7 @@ import OrdersEntryTable from '../components/spesific-tables/OrdersEntryTable'
 import EditOrdersEntryProductModal from '../components/modals/EditOrdersEntryProductModal'
 import EditOrdersEntryModal from '../components/modals/EditOrdersEntryModal'
 import { useOrdersEntry } from '../context/OrdersEntryContext'
+import AddOrderEntryProductModal from '../components/modals/AddOrderEntryProductModal'
 
 export default function OrdersEntry() {
   const orders_entry_data = useOrdersEntry();
@@ -14,6 +15,21 @@ export default function OrdersEntry() {
     orders_entry_data.showCurrents();
     orders_entry_data.showOrders();
     orders_entry_data.showStocks();
+
+    document.addEventListener('click', function(e) {
+      orders_entry_data.toggleFilteredStockTable(e);
+    })
+
+    return () => {
+      document.addEventListener('click', function(e) {
+        orders_entry_data.toggleFilteredStockTable(e);
+      })
+
+      orders_entry_data.dispatch({
+        type: 'CHOSEN_STOCK_UNITS',
+        value: []
+      })
+    }
   }, [])
   
   
@@ -23,8 +39,9 @@ export default function OrdersEntry() {
       
       <PageSubTitle title={"Sipariş Tablosu"} />
       <OrdersEntryTable />
-      <EditOrdersEntryProductModal />
       <EditOrdersEntryModal />
+      <EditOrdersEntryProductModal />
+      <AddOrderEntryProductModal />
       
     </>
   )

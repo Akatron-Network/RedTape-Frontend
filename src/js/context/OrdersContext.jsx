@@ -354,7 +354,8 @@ const Provider = ({ children }) => {
     let tax_rate = ((ordersTaxRateRef.current.value).replace("%", "") / 100);
     let amount_sum = ((parseFloat(ordersAmountRef.current.value)) * (parseFloat(ordersPriceRef.current.value)));
     let tax_sum = (parseFloat(amount_sum) * parseFloat(tax_rate));
-    let total = parseFloat(amount_sum + tax_sum)
+    let total = parseFloat(amount_sum + tax_sum).toFixed(2)
+    console.log(total);
 
     let new_product = {                                           //. Create new product
       row: (new_product_list.length + 1),                         //. Row number one more than list length
@@ -370,7 +371,7 @@ const Provider = ({ children }) => {
       product_group: state.chosen_stock.details.product_group,    //. Ürün grubu (Çıkartılacak)
       amount_sum: amount_sum,                                     //. Tutar (Çıkartılacak)
       tax_sum: tax_sum,                                           //. KDV Tutar (Çıkartılacak)
-      total: (total).toFixed(2),                                  //. Toplam Tutar (Çıkartılacak)
+      total: total,                                               //. Toplam Tutar (Çıkartılacak)
     }
 
     new_product_list.push(new_product);                           //. Rearrange new product list
@@ -559,10 +560,9 @@ const Provider = ({ children }) => {
         tax_rate : tax_rate,
         unit : p.unit,
       }
-      //, total_fee = (parseFloat(total_fee) + parseFloat(p.total)).toFixed(2)
+      total_fee = (total_fee + Number(p.total))
       items.push(js)
     }
-    console.log(total_fee);
 
     let data = {
       current_id: state.chosen_current.id,
@@ -571,7 +571,7 @@ const Provider = ({ children }) => {
       order_source: ordersSourceRef.current.value,
       invoiced: invoiced,
       printed: false,
-      //, total_fee: Number(total_fee),
+      total_fee: Number(total_fee),
       code_1: state.chosen_current.details.code_1,
       code_2: state.chosen_current.details.code_2,
       code_3: state.chosen_current.details.code_3,
@@ -582,7 +582,7 @@ const Provider = ({ children }) => {
 
     let create = await Orders.createOrder(data)
     console.log(create);
-    
+  
     clearOrder();
   }
 

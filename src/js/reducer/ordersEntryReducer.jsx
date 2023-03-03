@@ -67,5 +67,35 @@ export default function reducer(state, action) {
         ...state,
         entry_product_units: action.value
       }
+
+    case 'ADD_ENTRY_ORDER_PRODUCT_MODAL':
+      return {
+        ...state,
+        add_entry_order_product_modal: action.value
+      }
+
+    case 'FILTERED_STOCKS':
+      return {
+        ...state,
+        filtered_stocks: action.value
+      }
+
+    case 'CHOSEN_STOCK':
+      return {
+        ...state,
+        chosen_stock: action.value
+      }
+
+    case 'CHOSEN_STOCK_UNITS':
+      return {
+        ...state,
+        chosen_stock_units: action.value
+      }
+
+    case 'TOGGLE_FILTERED_STOCK_TABLE':
+      return {
+        ...state,
+        toggle_filtered_stock_table: action.value
+      }
   }
 }

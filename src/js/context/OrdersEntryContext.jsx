@@ -18,8 +18,13 @@ const Provider = ({children}) => {
     get_order_items: [],
     get_order_modal: {},
     entry_product_details: {},
+    add_entry_order_product_modal: {},
     entry_product_modal: {},
     entry_product_units: [],
+    filtered_stocks: [],
+    chosen_stock: {},
+    chosen_stock_units: [],
+    toggle_filtered_stock_table: false,
     table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ KAYNAĞI", "FATURA DURUMU", "SİPARİŞ TARİHİ", "TESLİM TARİHİ", "TOPLAM TUTAR"],
     show_table_columns: ["", "ÜRÜN AD", "MALZEME", "ÜRÜN GRUBU", "BİRİM", "MİKTAR", "BİRİM FİYAT", "TUTAR", "KDV ORAN", "KDV TUTAR", "TOPLAM TUTAR", "AÇIKLAMA"],
   })
@@ -37,6 +42,14 @@ const Provider = ({children}) => {
   const entryProductTaxRateEditRef = useRef("")
   const entryProductDescriptionEditRef = useRef("")
 
+  const addOrderEntryProductUnitEditRef = useRef("")
+  const addOrderEntryProductAmountEditRef = useRef("")
+  const addOrderEntryProductPriceEditRef = useRef("")
+  const addOrderEntryProductTaxRateEditRef = useRef("")
+  const addOrderEntryProductDescriptionEditRef = useRef("")
+
+  const addEntryOrdersProductSearchInputRef = useRef("")
+
   //b Functions -------------------------------------------------------
   //- Main Table Funcs
   const showStocks = async () => {
@@ -50,6 +63,11 @@ const Provider = ({children}) => {
 
     dispatch({
       type: "ALL_STOCKS",
+      value: resp
+    })
+    
+    dispatch({
+      type: 'FILTERED_STOCKS',
       value: resp
     })
   }
@@ -193,12 +211,144 @@ const Provider = ({children}) => {
 
   }
 
-  const editEntryProduct = async (id) => {
+  const editEntryProduct = async (dt) => {
+    let items = [...state.get_order_items]
+    console.log(items);
 
+    for (let ind in items) {
+      let i = items[ind]
+      if (dt.id === i.id) {
+        items[ind] = {
+          ...i,
+          unit : entryProductUnitEditRef.current.value,
+          amount: Number(entryProductAmountEditRef.current.value),
+          price: Number(entryProductPriceEditRef.current.value),
+          tax_rate: ((entryProductTaxRateEditRef.current.value).replace("%", "") / 100),  //, .replace("%", "") / 100
+          description: entryProductDescriptionEditRef.current.value
+        }
+      }
+    }
+
+    dispatch({
+      type: "GET_ORDER_ITEMS",
+      value: items
+    })
+
+    hideEntryProductDetailsModal();
   }
 
   const removeProduct = async (id) => {
+    let items = [...state.get_order_items]
 
+    for (let ind in items) {
+      let i = items[ind]
+      if (id === i.id) {
+        items.splice(i,1)
+      }
+    }
+    
+    for (let p in items) {                          //. Every time a product is added rearrange row numbers
+      items[p].row = parseInt(p) + 1      
+    }
+
+    dispatch({
+      type: 'GET_ORDER_ITEMS',
+      value: items,
+    })
+
+  }
+
+  const addOrderEntryProduct = () => {
+    (addOrderEntryProductUnitEditRef.current.value)
+    addOrderEntryProductAmountEditRef.current.value
+    addOrderEntryProductPriceEditRef.current.value
+    addOrderEntryProductTaxRateEditRef.current.value
+    addOrderEntryProductDescriptionEditRef.current.value
+  }
+
+  //- Stocks Autocomplete
+  
+  const toggleFilteredStockTable = (e) => {
+
+    if(e.target.id !== 'add_entry_order_product_button' && e.target.id !== 'add_entry_order_product_input' && e.target.id !== 'add_entry_order_product_button_icon') {
+      dispatch({
+        type: 'TOGGLE_FILTERED_STOCK_TABLE',
+        value: false
+      })
+    }
+    else {
+      if(state.toggle_filtered_stock_table !== true) {
+        dispatch({
+          type: 'TOGGLE_FILTERED_STOCK_TABLE',
+          value: true
+        })
+      }
+    }
+
+  }
+  
+  const printStockDetails = (details) => {
+    if(details === undefined) {
+      dispatch({
+        type: 'CHOSEN_STOCK_UNITS',
+        value: []
+      })
+    }
+    else {
+      dispatch({
+        type: 'CHOSEN_STOCK_UNITS',
+        value: [details.details.unit, details.details.unit_2]
+      })      
+    }
+  }
+
+  const filterStocks = (e) => {
+
+    if (e.target.value === "") {
+      printStockDetails(undefined);   //. For clearing out current details inputs
+    }
+
+    const searchWord = e.target.value.toLowerCase();
+    const newFilter = state.all_stocks.filter((source) => {
+      var condition = false;
+
+      if (source.details.name !== undefined) {
+        condition =
+          (source.details.id).toString().toLowerCase().includes(searchWord) ||
+          (source.details.name).toLowerCase().includes(searchWord) ||
+          (source.details.material).toLowerCase().includes(searchWord) ||
+          (source.details.product_group).toLowerCase().includes(searchWord);
+      } 
+      else {
+        condition = source.id.toLowerCase().includes(searchWord);
+      }
+
+      return condition;
+    });
+    
+    dispatch({
+      type: 'FILTERED_STOCKS',
+      value: newFilter
+    })
+
+  }
+
+  const chooseFilteredStock = async (id) => {
+    let st = await Stock.getStock(id);
+
+    dispatch({
+      type: 'CHOSEN_STOCK',
+      value: st
+    })
+    
+    dispatch({
+      type: 'TOGGLE_FILTERED_STOCK_TABLE',
+      value: false
+    })
+
+    addEntryOrdersProductSearchInputRef.current.value = st.details.id + " - " + st.details.name
+
+    printStockDetails(st);
   }
 
   //- Modal Funcs
@@ -220,11 +370,15 @@ const Provider = ({children}) => {
 
   const hideGetOrderDetailsModal = () => {
     state.get_order_modal.hide();
-    // clearCurrentEditInputs();
+
+    dispatch({
+      type: 'GET_ORDER_ITEMS',
+      value: []
+    })
 
     dispatch({
       type: 'GET_ORDER_DETAILS',
-      value: []
+      value: {}
     })
 
     dispatch({
@@ -264,6 +418,25 @@ const Provider = ({children}) => {
     })
   }
 
+  const showAddEntryOrderProductModal = () => {
+    const options = {
+      backdrop: 'static',
+    };
+    
+    let el = document.getElementById("addOrderEntryProductModal");
+    const modal = new Modal(el, options);
+
+    dispatch({
+      type: 'ADD_ENTRY_ORDER_PRODUCT_MODAL',
+      value: modal
+    })
+
+    return modal.show();
+  }
+
+  const hideAddEntryOrderProductModal = () => {
+
+  }
 
   const orders_entry = {
 
@@ -281,22 +454,36 @@ const Provider = ({children}) => {
     entryProductTaxRateEditRef,
     entryProductDescriptionEditRef,
 
+    addOrderEntryProductUnitEditRef,
+    addOrderEntryProductAmountEditRef,
+    addOrderEntryProductPriceEditRef,
+    addOrderEntryProductTaxRateEditRef,
+    addOrderEntryProductDescriptionEditRef,
+
+    addEntryOrdersProductSearchInputRef,
+
     //, States, Variables etc.
     ...state,
     dispatch,
 
     //, Functions
+    addOrderEntryProduct,
+    chooseFilteredStock,
     editEntryProduct,
     editOrdersEntry,
+    filterStocks,
     getOrderDetails,
     getProductDetails,
+    hideAddEntryOrderProductModal,
     hideEntryProductDetailsModal,
     hideGetOrderDetailsModal,
     removeOrder,
     removeProduct,
+    showAddEntryOrderProductModal,
     showCurrents,
     showStocks,
     showOrders,
+    toggleFilteredStockTable,
   }
   
   return (

@@ -4,20 +4,20 @@ import CurrencyFormat from '../../libraries/tools/CurrencyFormat'
 import Tooltip from '../items/Tooltip'
 
 export default function ShowOrdersTable() {
-  const {show_table_columns, get_order_details, get_order_items, all_stocks, all_orders, getProductDetails, removeProduct } = useOrdersEntry();
+  const {show_table_columns, get_order_items, all_stocks, getProductDetails, removeProduct } = useOrdersEntry();
 
   const totalFee = () => {
     let total_fee = 0;
 
-    if (get_order_details.length > 0) {
+    if (get_order_items.length > 0) {
 
-      for (let o of all_orders) {
-        if (o.details.id === get_order_details[0].order_id) total_fee = o.details.total_fee
+      for (let o of get_order_items) {
+        total_fee = total_fee + (o.amount * o.price) + (1 + o.tax_rate)
       }
 
     }
-
-    return total_fee;
+    
+    return CurrencyFormat(total_fee);
   }
   
   return (
@@ -56,7 +56,7 @@ export default function ShowOrdersTable() {
                 product_group = s.details.product_group
               }
             }
-
+            
             return (
               <tr key={i} className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold">
@@ -75,10 +75,10 @@ export default function ShowOrdersTable() {
                   {p.unit}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {p.amount}
+                  {CurrencyFormat(parseFloat(p.amount))}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {p.price}
+                  {CurrencyFormat(parseFloat(p.price))}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {CurrencyFormat(parseFloat(p.amount * p.price))}
@@ -90,7 +90,7 @@ export default function ShowOrdersTable() {
                   {CurrencyFormat(parseFloat((p.amount * p.price) * p.tax_rate))}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold">
-                  {CurrencyFormat(parseFloat((p.amount * p.price) + ((p.amount * p.price) * 0.18)))}
+                  {CurrencyFormat(parseFloat((p.amount * p.price) + (1 + p.tax_rate)))}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {p.description}
@@ -109,7 +109,7 @@ export default function ShowOrdersTable() {
         </tbody>
       </table>
       <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 sticky bottom-0" aria-label="Table navigation">
-        <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{get_order_details.length}</span> kayıt bulunmaktadır.</span>
+        <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{get_order_items.length}</span> kayıt bulunmaktadır.</span>
         <span className="text-sm font-normal text-queen_blue">Toplam tutar <span className="font-semibold text-prussian_blue">{totalFee()}</span></span>
       </nav>
     </div>

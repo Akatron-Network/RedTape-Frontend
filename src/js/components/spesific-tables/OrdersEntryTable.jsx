@@ -5,7 +5,7 @@ import Tooltip from '../items/Tooltip';
 
 export default function OrdersTable() {
 
-  const { table_columns, all_orders, all_currents, showOrderDetails, getOrderDetails, removeOrder } = useOrdersEntry();
+  const { table_columns, all_orders, all_currents, getOrderDetails, removeOrder } = useOrdersEntry();
 
   return (
     
