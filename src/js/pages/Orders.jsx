@@ -16,12 +16,6 @@ export default function Orders() {
   const orders_data = useOrders();
   console.log(orders_data);
 
-  const [invoiced, setInvoiced] = useState(false)
-  const invoicedCheck = (value) => {                  //. Tax_Rate disabled/enabled
-    if (value === "Faturasız") { setInvoiced(false) }
-    else { setInvoiced(true) }
-  }
-
   useEffect(() => {
     orders_data.getAllCurrents();
     orders_data.getAllStocks();
@@ -80,7 +74,7 @@ export default function Orders() {
           </div>
 
           <div className='col-span-1'><InputDefault name={"Sipariş Kaynağı"} reference={orders_data.ordersSourceRef} type={"text"} /></div>
-          <div className='col-span-1'><InputSelect name={"Faturalı / Faturasız"} reference={orders_data.ordersInvoicedRef} options={["Faturalı", "Faturasız"]} func={invoicedCheck} /></div>
+          <div className='col-span-1'><InputSelect name={"Faturalı / Faturasız"} reference={orders_data.ordersInvoicedRef} options={["Faturalı", "Faturasız"]} func={orders_data.invoicedCheck} /></div>
           <div className='col-span-1'><InputDate name={"Sipariş Tarihi"} reference={orders_data.ordersCurGTEDateRef} defaultValue={orders_data.date.current} /></div>
           <div className='col-span-1'><InputDate name={"Teslim Tarihi"} reference={orders_data.ordersCurLTEDateRef} defaultValue={orders_data.date.current} /></div>
           
@@ -128,7 +122,7 @@ export default function Orders() {
           <div className='col-span-2 lg:col-span-1'><InputSelectNoSpan name={"Birim"} reference={orders_data.ordersUnitRef} options={orders_data.chosen_stock_units} /></div>
           <div className='col-span-3 lg:col-span-1'><InputDefaultNoSpan name={"Miktar"} reference={orders_data.ordersAmountRef} type={"number"} /></div>
           <div className='col-span-2 lg:col-span-1'><InputDefaultNoSpan name={"Birim Fiyat"} reference={orders_data.ordersPriceRef} type={"number"} /></div>
-          <div className={invoiced !== true ? "col-span-2 lg:col-span-1 opacity-40 pointer-events-none" : "col-span-2 lg:col-span-1"}><InputSelectNoSpan name={"KDV Oranı"} reference={orders_data.ordersTaxRateRef} options={["%8", "%18"]} /></div>
+          <div className={orders_data.invoiced !== true ? "col-span-2 lg:col-span-1 opacity-40 pointer-events-none" : "col-span-2 lg:col-span-1"}><InputSelectNoSpan name={"KDV Oranı"} reference={orders_data.ordersTaxRateRef} options={["%0", "%8", "%18"]} /></div>
           <div className='col-span-4 lg:col-span-2'><InputDefaultNoSpan name={"Açıklama"} reference={orders_data.ordersDescriptionRef} type={"text"} /></div>       
 
           <button className='col-span-2 lg:col-span-1 truncate clear-btn w-full' onClick={orders_data.addProduct}><i className="fa-solid fa-plus mr-1"></i>Ürün Ekle</button>

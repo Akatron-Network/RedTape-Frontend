@@ -22,7 +22,7 @@ export default function EditOrdersEntryModal() {
             <div className="p-5 grid grid-cols-1 grid-flow-row gap-[1px] w-full lg:w-[45%] xl:w-[40%] relative">
               <div className='col-span-1'><InputFilled name={"Cari Kod / İsim"} reference={orders_entry_data.ordersEntryCurrentNameEditRef} /></div>
               <div className='col-span-1'><InputDefault name={"Sipariş Kaynağı"} reference={orders_entry_data.ordersEntryOrderSourceEditRef} type={"text"} /></div>
-              <div className='col-span-1'><InputSelect name={"Faturalı / Faturasız"} reference={orders_entry_data.ordersEntryInvoicedEditRef} options={["Faturalı", "Faturasız"]} func={() => {}} /></div>
+              <div className='col-span-1'><InputSelect name={"Faturalı / Faturasız"} reference={orders_entry_data.ordersEntryInvoicedEditRef} options={["Faturalı", "Faturasız"]} func={orders_entry_data.invoicedCheck} /></div>
               <div className='col-span-1'><InputDefault name={"Sipariş Tarihi"} reference={orders_entry_data.ordersEntryDateEditRef} type={"date"} /></div>
               <div className='col-span-1'><InputDefault name={"Teslim Tarihi"} reference={orders_entry_data.ordersEntryDeliveryDateEditRef} type={"date"} /></div>
             </div>

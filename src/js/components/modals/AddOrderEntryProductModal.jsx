@@ -25,7 +25,7 @@ export default function AddOrderEntryProductModal() {
                 <div className='flex flex-row col-span-1 mb-2 relative'>
                   <span className="w-1/3 shadow-input flex justify-center min-h-[34px] border border-alica_blue_light text-sm items-center bg-steel_blue_light font-medium text-prussian_blue px-1 py-[6px]">Stok Adı</span>
                   <div className='w-2/3 shadow-input relative z-[21]'>
-                    <input id='add_entry_order_product_input' type="text" ref={orders_entry_data.addEntryOrdersProductSearchInputRef} onChange={(e) => orders_entry_data.filterStocks(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-l-none focus:border-shadow_blue focus:ring-transparent block" placeholder="Stok kodu, stok adı, malzeme, ürün grubu ile arayın" required />
+                    <input id='add_entry_order_product_input' type="text" ref={orders_entry_data.addOrdersEntryProductSearchInputRef} onChange={(e) => orders_entry_data.filterStocks(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-l-none focus:border-shadow_blue focus:ring-transparent block" placeholder="Stok kodu, stok adı, malzeme, ürün grubu ile arayın" required />
                     <button type="button" id='add_entry_order_product_button' className="absolute inset-y-0 right-0 flex items-center pr-3">
                       <i id='add_entry_order_product_button_icon' className="fa-solid fa-magnifying-glass text-indigo_dye"></i>
                     </button>
@@ -43,13 +43,13 @@ export default function AddOrderEntryProductModal() {
               <div className='col-span-2'><InputSelect name={"Birim"} reference={orders_entry_data.addOrderEntryProductUnitEditRef} options={orders_entry_data.chosen_stock_units} func={() => {}} /></div>
               <div className='col-span-2'><InputDefault name={"Miktar"} reference={orders_entry_data.addOrderEntryProductAmountEditRef} type={"number"} /></div>
               <div className='col-span-2'><InputDefault name={"Birim Fiyat"} reference={orders_entry_data.addOrderEntryProductPriceEditRef} type={"number"} /></div>
-              <div className='col-span-2'><InputSelect name={"KDV Oranı"} reference={orders_entry_data.addOrderEntryProductTaxRateEditRef} options={["%8", "%18"]} func={() => {}} /></div>
+              <div className={orders_entry_data.invoiced !== true ? "col-span-2 opacity-40 pointer-events-none" : "col-span-2"}><InputSelect name={"KDV Oranı"} reference={orders_entry_data.addOrderEntryProductTaxRateEditRef} options={["%0", "%8", "%18"]} func={() => {}} /></div>
               <div className='col-span-2'><InputDefault name={"Açıklama"} reference={orders_entry_data.addOrderEntryProductDescriptionEditRef} type={"text"} /></div>
             
             </div>
 
             <div className="flex items-center px-5 py-3 mt-4 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
-              <button type="button" className="save-btn ml-2 float-right" onClick={() => orders_entry_data.editEntryProduct(orders_entry_data.entry_product_details)}><i className="fa-solid fa-floppy-disk mr-2"></i>Yeni Kalem Oluştur</button> 
+              <button type="button" className="save-btn ml-2 float-right" onClick={() => orders_entry_data.addOrderEntryProduct()}><i className="fa-solid fa-floppy-disk mr-2"></i>Yeni Kalem Oluştur</button> 
             </div>
           </div>
         </div>

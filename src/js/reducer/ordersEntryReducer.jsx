@@ -97,5 +97,11 @@ export default function reducer(state, action) {
         ...state,
         toggle_filtered_stock_table: action.value
       }
+
+    case 'INVOICED':
+      return {
+        ...state,
+        invoiced: action.value
+      }
   }
 }

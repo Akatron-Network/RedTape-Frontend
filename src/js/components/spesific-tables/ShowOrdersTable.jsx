@@ -90,7 +90,7 @@ export default function ShowOrdersTable() {
                   {CurrencyFormat(parseFloat((p.amount * p.price) * p.tax_rate))}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold">
-                  {CurrencyFormat(parseFloat((p.amount * p.price) + (1 + p.tax_rate)))}
+                  {CurrencyFormat(parseFloat((p.amount * p.price) * (1 + p.tax_rate)))}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {p.description}

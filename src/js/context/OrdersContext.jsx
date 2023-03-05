@@ -25,6 +25,7 @@ const Provider = ({ children }) => {
     chosen_stock_edit_units: [],
     product_list: [],
     edit_product_modal: false,
+    invoiced: false,
     product_details: {},
     table_total: "0",
     date: {
@@ -352,6 +353,7 @@ const Provider = ({ children }) => {
     }
 
     let tax_rate = ((ordersTaxRateRef.current.value).replace("%", "") / 100);
+
     let amount_sum = ((parseFloat(ordersAmountRef.current.value)) * (parseFloat(ordersPriceRef.current.value)));
     let tax_sum = (parseFloat(amount_sum) * parseFloat(tax_rate));
     let total = parseFloat(amount_sum + tax_sum).toFixed(2)
@@ -400,7 +402,7 @@ const Provider = ({ children }) => {
     ordersUnitRef.current.value = "default"
     ordersAmountRef.current.value = ""
     ordersPriceRef.current.value = ""
-    ordersTaxRateRef.current.value = "%8"
+    ordersTaxRateRef.current.value = "default"
     ordersDescriptionRef.current.value = ""
 
     dispatch({
@@ -496,6 +498,23 @@ const Provider = ({ children }) => {
     details["total"] = total
 
     hideProductModal();
+  }
+
+  const invoicedCheck = (value) => {
+    if (value === "Faturasız") {
+      dispatch({
+        type: 'INVOICED',
+        value: false
+      })
+
+      ordersTaxRateRef.current.value = "%0"
+    }
+    else {
+      dispatch({
+        type: 'INVOICED',
+        value: true
+      }) 
+    }
   }
 
   //- Modal Funcs
@@ -652,6 +671,7 @@ const Provider = ({ children }) => {
     getDate,
     getProductDetails,
     hideProductModal,
+    invoicedCheck,
     removeProduct, 
     toggleFilteredCurrentTable,
     toggleFilteredStockTable,

@@ -91,5 +91,11 @@ export default function reducer(state, action) {
         ...state,
         table_total: action.value
       }
+
+    case 'INVOICED':
+      return {
+        ...state,
+        invoiced: action.value
+      }
   }
 }

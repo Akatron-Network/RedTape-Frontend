@@ -22,6 +22,7 @@ const Provider = ({children}) => {
     entry_product_modal: {},
     entry_product_units: [],
     filtered_stocks: [],
+    invoiced: false,
     chosen_stock: {},
     chosen_stock_units: [],
     toggle_filtered_stock_table: false,
@@ -48,7 +49,7 @@ const Provider = ({children}) => {
   const addOrderEntryProductTaxRateEditRef = useRef("")
   const addOrderEntryProductDescriptionEditRef = useRef("")
 
-  const addEntryOrdersProductSearchInputRef = useRef("")
+  const addOrdersEntryProductSearchInputRef = useRef("")
 
   //b Functions -------------------------------------------------------
   //- Main Table Funcs
@@ -127,6 +128,8 @@ const Provider = ({children}) => {
       value: dt
     })
 
+    
+
     for (let c of state.all_currents) {
       if (c.id === dt.details.current_id) var cur_name = c.details.id + " / " + c.details.name
     }
@@ -135,6 +138,8 @@ const Provider = ({children}) => {
     if (dt.details.invoiced === false) {
       invoiced = "Faturasız"
     }
+
+    invoicedCheck(invoiced)
 
     let date = dt.details.date.split("T")[0]
     let delivery_date = dt.details.delivery_date.split("T")[0]
@@ -145,7 +150,7 @@ const Provider = ({children}) => {
     ordersEntryDateEditRef.current.value = date
     ordersEntryDeliveryDateEditRef.current.value = delivery_date
 
-    let show_get_order_details_modal = showGetOrderDetailsModal();
+    let show_get_order_details_modal = showModal("showOrdersEntryModal", "GET_ORDER_MODAL");
     show_get_order_details_modal.show();    
   }
 
@@ -183,7 +188,7 @@ const Provider = ({children}) => {
     entryProductTaxRateEditRef.current.value = tax_rate
     entryProductDescriptionEditRef.current.value = dt.description
     
-    let entry_product_modal = showEntryProductDetailsModal();
+    let entry_product_modal = showModal("editOrdersEntryProductModal", "ENTRY_PRODUCT_MODAL");
     entry_product_modal.show();  
   }
 
@@ -223,7 +228,7 @@ const Provider = ({children}) => {
           unit : entryProductUnitEditRef.current.value,
           amount: Number(entryProductAmountEditRef.current.value),
           price: Number(entryProductPriceEditRef.current.value),
-          tax_rate: ((entryProductTaxRateEditRef.current.value).replace("%", "") / 100),  //, .replace("%", "") / 100
+          tax_rate: ((entryProductTaxRateEditRef.current.value).replace("%", "") / 100),
           description: entryProductDescriptionEditRef.current.value
         }
       }
@@ -259,15 +264,95 @@ const Provider = ({children}) => {
   }
 
   const addOrderEntryProduct = () => {
-    (addOrderEntryProductUnitEditRef.current.value)
-    addOrderEntryProductAmountEditRef.current.value
-    addOrderEntryProductPriceEditRef.current.value
-    addOrderEntryProductTaxRateEditRef.current.value
-    addOrderEntryProductDescriptionEditRef.current.value
+    let items = [...state.get_order_items]                                          //. Get product list    
+
+    for (let p in items) {                                                          //. Every time a product is added rearrange row numbers
+      items[p].row = parseInt(p) + 1 
+    }
+
+    let tax_rate = ((addOrderEntryProductTaxRateEditRef.current.value).replace("%", "") / 100);
+    let amount_sum = ((parseFloat(addOrderEntryProductAmountEditRef.current.value)) * (parseFloat(addOrderEntryProductPriceEditRef.current.value)));
+    let tax_sum = (parseFloat(amount_sum) * parseFloat(tax_rate));
+    let total = parseFloat(amount_sum + tax_sum).toFixed(2)
+
+    let new_product = {                                                             //. Create new product
+      row: (items.length + 1),                                                      //. Row number one more than list length
+      stock_id: state.chosen_stock.details.id,
+      unit: addOrderEntryProductUnitEditRef.current.value,                          //. Birim
+      amount: parseFloat(addOrderEntryProductAmountEditRef.current.value),          //. Miktar
+      price: parseFloat(addOrderEntryProductPriceEditRef.current.value),            //. Birim Fiyat
+      tax_rate: parseFloat(tax_rate),                                               //. Kdv Oranı
+      description: addOrderEntryProductDescriptionEditRef.current.value,            //. Açıklama
+    }
+
+    items.push(new_product);                                                        //. Rearrange new product list
+
+    dispatch({
+      type: 'GET_ORDER_ITEMS',
+      value: items,
+    })
+
+    hideAddEntryOrderProductModal();
+  }
+
+  const clearAddOrderEntryProduct = () => {
+
+    dispatch({
+      type: 'CHOSEN_STOCK',
+      value: {}
+    })
+
+    dispatch({
+      type: 'CHOSEN_STOCK_UNITS',
+      value: []
+    })
+    addOrdersEntryProductSearchInputRef.current.value = ""
+
+    addOrderEntryProductUnitEditRef.current.value = "default"
+    addOrderEntryProductAmountEditRef.current.value = ""
+    addOrderEntryProductPriceEditRef.current.value = ""
+    addOrderEntryProductTaxRateEditRef.current.value = "default"
+    addOrderEntryProductDescriptionEditRef.current.value = ""
+  }
+
+  const invoicedCheck = (value) => {
+    if (value === "Faturasız") {
+      dispatch({
+        type: 'INVOICED',
+        value: false
+      })
+
+      let items = [...state.get_order_items]
+      console.log(items);
+      if (items.length > 0) {
+    
+        entryProductTaxRateEditRef.current.value = "%0";
+  
+        for (let ind in items) {
+          let i = items[ind]
+          items[ind] = {
+            ...i,
+            tax_rate: ((entryProductTaxRateEditRef.current.value).replace("%", "") / 100),
+          }
+        }
+  
+        dispatch({
+          type: "GET_ORDER_ITEMS",
+          value: items
+        })
+
+      }
+
+    }
+    else {
+      dispatch({
+        type: 'INVOICED',
+        value: true
+      }) 
+    }
   }
 
   //- Stocks Autocomplete
-  
   const toggleFilteredStockTable = (e) => {
 
     if(e.target.id !== 'add_entry_order_product_button' && e.target.id !== 'add_entry_order_product_input' && e.target.id !== 'add_entry_order_product_button_icon') {
@@ -285,21 +370,6 @@ const Provider = ({children}) => {
       }
     }
 
-  }
-  
-  const printStockDetails = (details) => {
-    if(details === undefined) {
-      dispatch({
-        type: 'CHOSEN_STOCK_UNITS',
-        value: []
-      })
-    }
-    else {
-      dispatch({
-        type: 'CHOSEN_STOCK_UNITS',
-        value: [details.details.unit, details.details.unit_2]
-      })      
-    }
   }
 
   const filterStocks = (e) => {
@@ -346,26 +416,46 @@ const Provider = ({children}) => {
       value: false
     })
 
-    addEntryOrdersProductSearchInputRef.current.value = st.details.id + " - " + st.details.name
+    addOrdersEntryProductSearchInputRef.current.value = st.details.id + " - " + st.details.name
 
     printStockDetails(st);
   }
 
+  const printStockDetails = (details) => {
+    if(details === undefined) {
+      dispatch({
+        type: 'CHOSEN_STOCK_UNITS',
+        value: []
+      })
+    }
+    else {
+      dispatch({
+        type: 'CHOSEN_STOCK_UNITS',
+        value: [details.details.unit, details.details.unit_2]
+      })      
+    }
+  }
+
   //- Modal Funcs
-  const showGetOrderDetailsModal = () => {
+  const showModal = (id, type) => {
     const options = {
       backdrop: 'static',
     };
     
-    let el = document.getElementById("showOrdersEntryModal");
+    let el = document.getElementById(id);
     const modal = new Modal(el, options);
 
     dispatch({
-      type: 'GET_ORDER_MODAL',
+      type: type,
       value: modal
     })
 
     return modal;
+  }
+
+  const showAddEntryOrderProductModal = () => {
+    let add_entry_order_product_modal = showModal("addOrderEntryProductModal", "ADD_ENTRY_ORDER_PRODUCT_MODAL");
+    add_entry_order_product_modal.show();
   }
 
   const hideGetOrderDetailsModal = () => {
@@ -387,25 +477,8 @@ const Provider = ({children}) => {
     })
   }
 
-  const showEntryProductDetailsModal = () => {
-    const options = {
-      backdrop: 'static',
-    };
-    
-    let el = document.getElementById("editOrdersEntryProductModal");
-    const modal = new Modal(el, options);
-
-    dispatch({
-      type: 'ENTRY_PRODUCT_MODAL',
-      value: modal
-    })
-
-    return modal;
-  }
-
   const hideEntryProductDetailsModal = () => {
     state.entry_product_modal.hide();
-    // clearCurrentEditInputs();
 
     dispatch({
       type: 'ENTRY_PRODUCT_DETAILS',
@@ -418,24 +491,9 @@ const Provider = ({children}) => {
     })
   }
 
-  const showAddEntryOrderProductModal = () => {
-    const options = {
-      backdrop: 'static',
-    };
-    
-    let el = document.getElementById("addOrderEntryProductModal");
-    const modal = new Modal(el, options);
-
-    dispatch({
-      type: 'ADD_ENTRY_ORDER_PRODUCT_MODAL',
-      value: modal
-    })
-
-    return modal.show();
-  }
-
   const hideAddEntryOrderProductModal = () => {
-
+    state.add_entry_order_product_modal.hide();
+    clearAddOrderEntryProduct();
   }
 
   const orders_entry = {
@@ -460,7 +518,7 @@ const Provider = ({children}) => {
     addOrderEntryProductTaxRateEditRef,
     addOrderEntryProductDescriptionEditRef,
 
-    addEntryOrdersProductSearchInputRef,
+    addOrdersEntryProductSearchInputRef,
 
     //, States, Variables etc.
     ...state,
@@ -477,6 +535,7 @@ const Provider = ({children}) => {
     hideAddEntryOrderProductModal,
     hideEntryProductDetailsModal,
     hideGetOrderDetailsModal,
+    invoicedCheck,
     removeOrder,
     removeProduct,
     showAddEntryOrderProductModal,
