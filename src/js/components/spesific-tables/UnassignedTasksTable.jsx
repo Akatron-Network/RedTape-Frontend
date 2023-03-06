@@ -1,11 +1,11 @@
 import React from 'react'
-import { useOrdersEntry } from '../../context/OrdersEntryContext'
-import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
+import { useTasks } from '../../context/TasksContext'
 import Tooltip from '../items/Tooltip';
+import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
 
-export default function OrdersTable() {
+export default function UnassignedTasksTable() {
 
-  const { table_columns, all_orders, all_currents, getOrderDetails, removeOrder } = useOrdersEntry();
+  const { unassigned_tasks_table_columns, all_orders, all_currents, makeTasksAssignment } = useTasks();
 
   return (
     
@@ -14,7 +14,7 @@ export default function OrdersTable() {
 
         <thead>
           <tr>
-            {table_columns.map((c, i) => {
+            {unassigned_tasks_table_columns.map((c, i) => {
               let cls = "p-2 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
               if(c === "TOPLAM TUTAR") cls= "p-2 h-10 font-bold text-xs text-center sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
 
@@ -24,7 +24,7 @@ export default function OrdersTable() {
                 </th>
               )
             })}
-            <th scope="col" className="p-2 h-10 w-28 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10">
+            <th scope="col" className="p-2 h-10 w-9 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10">
               <span className="sr-only">Düzenle</span>
             </th>
           </tr>
@@ -66,11 +66,8 @@ export default function OrdersTable() {
                   {CurrencyFormat(p.details.total_fee)}
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                  <Tooltip message={"Ürünü Düzenle"}>
-                    <button type='button' onClick={() => getOrderDetails(p.details.id)} className='ml-1 golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
-                  </Tooltip>
-                  <Tooltip message={"Ürünü Sil"}>
-                    <button type='button' onClick={() => removeOrder(p.details.id)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                  <Tooltip message={"Görev Ata"}>
+                    <button type='button' onClick={() => makeTasksAssignment(p)} className='clear-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-handshake-simple"></i></button>
                   </Tooltip>
                 </td>
               </tr>

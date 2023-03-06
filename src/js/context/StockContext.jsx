@@ -2,7 +2,7 @@ import { createContext, useContext, useReducer, useRef } from 'react'
 import stockReducer from '../reducer/stockReducer'
 import Stock from '../libraries/models/Stock'
 import Table from '../libraries/tools/Table'
-import {Modal} from 'flowbite';
+import { Modal } from 'flowbite';
 
 const StockContext = createContext();
 

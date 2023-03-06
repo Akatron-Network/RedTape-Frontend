@@ -5,6 +5,8 @@ import CurrentActivityProvider from './context/CurrentActivityContext'
 import StockProvider from './context/StockContext'
 import OrdersProvider from './context/OrdersContext'
 import OrdersEntryProvider from './context/OrdersEntryContext'
+import TasksProvider from './context/TasksContext';
+
 
 function App() {
   return (
@@ -14,9 +16,11 @@ function App() {
           <StockProvider>
             <OrdersProvider>
               <OrdersEntryProvider>
+                <TasksProvider>
 
-                <AllRoutes />
-          
+                  <AllRoutes />
+
+                </TasksProvider>
               </OrdersEntryProvider>
             </OrdersProvider>
           </StockProvider>
