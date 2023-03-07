@@ -3,7 +3,7 @@ import { useTasks } from '../../context/TasksContext'
 import CurrencyFormat from '../../libraries/tools/CurrencyFormat'
 
 export default function UnassignedTasksProductTable() {
-  const { unassigned_tasks_product_table_columns, tasks_products, all_stocks } = useTasks();
+  const { unassigned_tasks_product_table_columns, chosen_order_for_task, all_stocks } = useTasks();
   
   return (
     
@@ -26,7 +26,7 @@ export default function UnassignedTasksProductTable() {
         </thead>
 
         <tbody>
-          {tasks_products.map((p, i) => {
+          {chosen_order_for_task.items.map((p, i) => {
             let name = "";
             let material = "";
             let product_group = "";
@@ -83,7 +83,7 @@ export default function UnassignedTasksProductTable() {
         </tbody>
       </table>
       <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 sticky bottom-0" aria-label="Table navigation">
-        <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{tasks_products.length}</span> kayıt bulunmaktadır.</span>
+        <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{chosen_order_for_task.items.length}</span> kayıt bulunmaktadır.</span>
       </nav>
     </div>
   )

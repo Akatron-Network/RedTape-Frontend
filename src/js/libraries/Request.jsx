@@ -14,7 +14,8 @@ export default class Request {
     current: "current",
     current_act: "current_act",
     stock: "stock",
-    order: "order"
+    order: "order",
+    tasks: "task"
   }
 
   static loginRequest() { return new Request(Request.routes.login) }
@@ -24,6 +25,7 @@ export default class Request {
   static currentActRequest() { return new Request(Request.routes.current_act) }
   static stocktRequest() { return new Request(Request.routes.stock) }
   static orderRequest() { return new Request(Request.routes.order) }
+  static tasksRequest() { return new Request(Request.routes.tasks) }
 
   async get(data) {
 

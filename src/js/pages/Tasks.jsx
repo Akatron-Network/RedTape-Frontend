@@ -15,6 +15,7 @@ export default function Tasks() {
     tasks_data.showCurrents();
     tasks_data.showOrders();
     tasks_data.showStocks();
+    tasks_data.showUsers();
   }, [])
 
   return (
@@ -23,7 +24,6 @@ export default function Tasks() {
 
       <PageSubTitle title={"Atanmamış Görevler"} />
       <UnassignedTasksTable />
-      {/* <SiparisGorevTablo /> */}
       
       <div className='mt-10'><PageSubTitle title={"Aktif Görevler"} /></div>
       <GorevTakibiTablo />

@@ -10,7 +10,7 @@ const Provider = ({ children }) => {
 
   //- Stock Refs and States
   const [state, dispatch] = useReducer(stockReducer , {
-    table_columns: ["ID", "STOK ADI", "MALZEME", "ÜRÜN GRUBU", "BİRİM 1", "BİRİM 2", "ÇEV. ORANI", "ALIŞ", "SATIŞ"],
+    table_columns: ["ID", "STOK İSMİ", "MALZEME", "ÜRÜN GRUBU", "BİRİM 1", "BİRİM 2", "ÇEV. ORANI", "ALIŞ", "SATIŞ"],
     table_rows: ["id", "name", "material", "product_group", "unit", "unit_2", "conversion_rate", "buy_price", "sell_price"],
     all_stocks: [],
     render_table: "",

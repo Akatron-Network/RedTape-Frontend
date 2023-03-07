@@ -4,6 +4,7 @@ import { Modal } from 'flowbite';
 import Current from '../libraries/models/Current';
 import Stock from '../libraries/models/Stock';
 import Orders from '../libraries/models/Orders';
+import User from '../libraries/models/User';
 
 const TasksContext = createContext();
 
@@ -14,11 +15,19 @@ const Provider = ({ children }) => {
     all_currents:[],
     all_orders: [],
     all_stocks: [],
-    tasks_products: [],
+    all_users: [],
+    chosen_order_for_task: {items:[]},
+    display_names: [],
     tasks_assignment_modal: {},
+    task_steps: [],
     unassigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ KAYNAĞI", "FATURA DURUMU", "SİPARİŞ TARİHİ", "TESLİM TARİHİ", "TOPLAM TUTAR"],
     unassigned_tasks_product_table_columns: ["", "ÜRÜN AD", "MALZEME", "ÜRÜN GRUBU", "BİRİM", "MİKTAR", "BİRİM FİYAT", "TUTAR", "KDV ORAN", "KDV TUTAR", "TOPLAM TUTAR", "AÇIKLAMA"],
   })
+
+  const tasksNameRef = useRef([])
+  const tasksResponsibleUsernameRef = useRef([])
+  const tasksPlannedFinishDate = useRef([])
+  const tasksDescription = useRef([])
 
   //b Functions -------------------------------------------------------
   
@@ -71,6 +80,26 @@ const Provider = ({ children }) => {
     })
   }
   
+  //f Get Users
+  const showUsers = async () => {
+    let users = await User.showUser()
+    let display_names = [];
+
+    for (let u of users) {
+      display_names.push(u.data.displayname)
+    }
+
+    dispatch({
+      type: "ALL_USERS",
+      value: users
+    })
+
+    dispatch({
+      type: "DISPLAY_NAMES",
+      value: display_names
+    })
+  }
+
   //f Show TasksAssignmentModal and filled in the inputs
   const makeTasksAssignment = async (dt) => {
     let tasks_assignment_modal = showModal("tasksAssignmentModal", "TASKS_ASSIGNMENT_MODAL");   //. Create and show Tasks Assignment Modal
@@ -80,8 +109,8 @@ const Provider = ({ children }) => {
       if (o.id === dt.details.id) {
 
         dispatch({
-          type: 'TASKS_PRODUCTS',
-          value: o.items
+          type: 'CHOSEN_ORDER_FOR_TASK',
+          value: o
         })
       }
     }
@@ -90,6 +119,72 @@ const Provider = ({ children }) => {
 
   const clearTasksAssignmentInputs = () => {
 
+  }
+
+  //f Add step for tasks
+  const addStep = () => {
+    let list = [...state.task_steps];
+
+    let new_step = {
+      row: list.length + 1,
+      name: "",
+      responsible_username: "",
+      planned_finish_date: ""
+    }
+
+    list.push(new_step);
+
+    dispatch({
+      type: "TASK_STEPS",
+      value: list
+    })
+  }
+
+  //! SİLİNCE İNPUT GİRİŞLERİ YANLIŞ OLUYOR. YANİ BEN 1.Yİ SİLERSEM SONUNCUNUN İNPUTU GİDİYOR VS
+  //f Remove step for tasks
+  const removeStep = (row) => {
+    console.log(row);
+    let list = [...state.task_steps];
+
+    for (let l in list) {
+      if (row === list[l].row) {
+        console.log(list[l].row);
+        const index = list.indexOf(list[l]);  //. Set index
+        console.log(index);
+
+        if (index > -1) {                     //. Remove from list
+          list.splice(index, 1);
+        }
+      }
+    }
+
+    for (let l in list) {                     //. Give the sequence number again
+      list[l].row = parseInt(l) + 1
+    }
+
+    dispatch({
+      type: "TASK_STEPS",
+      value: list
+    })
+
+  }
+
+  const createTask = async () => {
+    let steps = [...state.task_steps];
+
+    for(let t of steps) {
+      t.name = tasksNameRef.current[t.row - 1].value
+      t.responsible_username = tasksResponsibleUsernameRef.current[t.row - 1].value
+      t.planned_finish_date = tasksPlannedFinishDate.current[t.row - 1].value + "T00:00:00Z"
+    }
+
+    console.log(tasks);
+
+    let data = {
+      order_id: state.chosen_order_for_task.id,
+      description: tasksDescription.current.value,
+      task_steps: steps
+    }
   }
 
   //- Modal Funcs
@@ -122,6 +217,10 @@ const Provider = ({ children }) => {
   const tasks = {
 
     //, Refs
+    tasksNameRef,
+    tasksResponsibleUsernameRef,
+    tasksPlannedFinishDate,
+    tasksDescription,
 
 
     //, States, Variables etc.
@@ -129,11 +228,15 @@ const Provider = ({ children }) => {
     dispatch,
 
     //, Functions
+    addStep,
+    createTask,
     hideTasksAssignmentModal,
     makeTasksAssignment,
+    removeStep,
     showCurrents,
     showOrders,
     showStocks,
+    showUsers,
 
   }
 

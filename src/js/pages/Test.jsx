@@ -8,6 +8,7 @@ import EditCurrentModal from '../components/modals/EditCurrentModal';
 import CurrentActivity from '../libraries/models/CurrentActivity';
 import Stock from '../libraries/models/Stock';
 import Orders from '../libraries/models/Orders';
+import Tasks from '../libraries/models/Tasks';
 
 
 export default function Test() {
@@ -374,6 +375,31 @@ export default function Test() {
     let remove = await Orders.removeOrder(189)
     console.log(remove);
   }
+  
+  //b TASKS -----------------------------
+  const createTask = async () => {
+    let data = {
+      order_id: 257,
+      description: "Test Görevi",
+      task_steps: [
+        {
+          row: 1,
+          name: "İlk İşlem",
+          responsible_username: "admin",
+          planned_finish_date: "2023-02-10T00:00:00Z"
+        },
+        {
+          row: 2,
+          name: "İkinci İşlem",
+          responsible_username: "admin",
+          planned_finish_date: "2023-02-10T00:00:00Z"
+        }
+      ]
+    }
+
+    let create = await Tasks.createTask(data)
+    console.log(create);
+  }
 
   return (
     <>
@@ -576,6 +602,21 @@ export default function Test() {
           className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
           Remove Order Test
         </button>
+
+      </div>
+
+      <div className='p-3 mt-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
+        <h1 className='mr-2 text-alica_blue w-40'>TASKS TESTS</h1>
+
+        <button onClick={createTask}
+          className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Create Task Test
+        </button>
+
+        {/* <button onClick={getOrder}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Get Orders Test
+        </button> */}
 
       </div>
     

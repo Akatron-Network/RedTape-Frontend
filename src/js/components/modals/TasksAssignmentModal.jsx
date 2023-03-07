@@ -1,8 +1,9 @@
 import React from 'react'
-import InputDefault from '../items/InputDefault'
+import InputComment from '../items/InputComment'
 import PageSubTitle from '../items/PageSubTitle'
 import { useTasks } from '../../context/TasksContext'
 import UnassignedTasksProductTable from '../spesific-tables/UnassignedTasksProductTable';
+import StepsCard from '../items/StepsCard'
 
 export default function TasksAssignmentModal() {
   const tasks_data = useTasks();
@@ -20,15 +21,25 @@ export default function TasksAssignmentModal() {
             <div className='pl-5 pt-3'><PageSubTitle title={"Sipariş Ürün Tablosu"} /></div>
             <div className='px-5 pb-0'><UnassignedTasksProductTable /></div>
             
-            <div className="p-5 grid grid-cols-3 gap-2">
-              <div className='col-span-1'><InputDefault type={"text"} name={"Stok Adı"} reference={tasks_data.stockNameEditRef} /></div>
-              <div className='col-span-1'><InputDefault type={"text"} name={"Malzeme"} reference={tasks_data.stockMaterialEditRef} /></div>
-              <div className='col-span-1'><InputDefault type={"text"} name={"Ürün Grubu"} reference={tasks_data.stockProductGroupEditRef} /></div>
+            <div className='pl-5 pt-4'><PageSubTitle title={"Görev Adımlarını Oluştur"} /></div>
+            <div className="p-5 pt-0 grid grid-cols-12 gap-4">
+              <div className='col-span-3'><InputComment type={"text"} name={"Görev Açıklaması"} reference={tasks_data.tasksDescription}  /></div>
+              
+              {tasks_data.task_steps.map((t, i) => {
+                return(
+                  <StepsCard key={i} alias={i} row={t.row} />
+                )
+              })}
+
+              <div className="col-span-3 flex items-center pt-1 justify-center">
+                <button type="button" className="clear-btn h-14 w-40 truncate" onClick={() => tasks_data.addStep()}><i className="fa-solid fa-plus mr-2"></i>Yeni Adım Ekle</button>
+              </div>
+              
             </div>
             
 
             <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
-              <button type="button" className="save-btn ml-2 float-right" onClick={() => tasks_data.editStock(tasks_data.stock_details.id)}><i className="fa-solid fa-handshake-simple mr-2"></i>Görev Ata</button> 
+              <button type="button" className="save-btn ml-2 float-right" onClick={() => tasks_data.createTask()}><i className="fa-solid fa-handshake-simple mr-2"></i>Görev Ata</button> 
             </div>
           </div>
         </div>

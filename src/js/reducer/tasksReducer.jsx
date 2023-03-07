@@ -20,16 +20,34 @@ export default function reducer(state, action) {
         all_stocks: action.value
       }
 
+    case 'ALL_USERS':
+      return {
+        ...state,
+        all_users: action.value
+      }
+
     case 'TASKS_ASSIGNMENT_MODAL':
       return {
         ...state,
         tasks_assignment_modal: action.value
       }
 
-    case 'TASKS_PRODUCTS':
+    case 'CHOSEN_ORDER_FOR_TASK':
       return {
         ...state,
-        tasks_products: action.value
+        chosen_order_for_task: action.value
+      }
+
+    case 'TASK_STEPS':
+      return {
+        ...state,
+        task_steps: action.value
+      }
+
+    case 'DISPLAY_NAMES':
+      return {
+        ...state,
+        display_names: action.value
       }
 
   }
