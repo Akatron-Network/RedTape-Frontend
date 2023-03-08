@@ -5,6 +5,7 @@ import Current from '../libraries/models/Current';
 import Stock from '../libraries/models/Stock';
 import Orders from '../libraries/models/Orders';
 import User from '../libraries/models/User';
+import Tasks from '../libraries/models/Tasks';
 
 const TasksContext = createContext();
 
@@ -86,7 +87,10 @@ const Provider = ({ children }) => {
     let display_names = [];
 
     for (let u of users) {
-      display_names.push(u.data.displayname)
+      let user = {
+        [u.data.displayname] : u.data.username
+      }
+      display_names.push(user)
     }
 
     dispatch({
@@ -118,53 +122,68 @@ const Provider = ({ children }) => {
   }
 
   const clearTasksAssignmentInputs = () => {
+    tasksDescription.current.value = "",
+    
+    dispatch({
+      type: "TASK_STEPS",
+      value: [],
+    })
 
+    dispatch({
+      type: 'TASKS_ASSIGNMENT_MODAL',
+      value: {}
+    })
   }
 
   //f Add step for tasks
   const addStep = () => {
-    let list = [...state.task_steps];
+    let steps = [...state.task_steps];
 
     let new_step = {
-      row: list.length + 1,
+      row: steps.length + 1,
       name: "",
       responsible_username: "",
       planned_finish_date: ""
     }
 
-    list.push(new_step);
+    steps.push(new_step);
 
     dispatch({
       type: "TASK_STEPS",
-      value: list
+      value: steps
     })
   }
 
-  //! SİLİNCE İNPUT GİRİŞLERİ YANLIŞ OLUYOR. YANİ BEN 1.Yİ SİLERSEM SONUNCUNUN İNPUTU GİDİYOR VS
   //f Remove step for tasks
   const removeStep = (row) => {
-    console.log(row);
-    let list = [...state.task_steps];
+    let steps = [...state.task_steps];
 
-    for (let l in list) {
-      if (row === list[l].row) {
-        console.log(list[l].row);
-        const index = list.indexOf(list[l]);  //. Set index
-        console.log(index);
+    for (let l in steps) {
+      if (row === steps[l].row) {
+        const index = steps.indexOf(steps[l]);  //. Set index
 
-        if (index > -1) {                     //. Remove from list
-          list.splice(index, 1);
+        if (index > -1) {                       //. Remove from steps
+          steps.splice(index, 1);
         }
       }
     }
 
-    for (let l in list) {                     //. Give the sequence number again
-      list[l].row = parseInt(l) + 1
+    for (let l in steps) {                     //. Give the sequence number again
+      steps[l].row = parseInt(l) + 1
+    }
+    
+    for(let t of steps) {                     //. All refs print again correctly
+      tasksNameRef.current[t.row - 1].value = t.name
+      tasksResponsibleUsernameRef.current[t.row - 1].value = t.responsible_username
+      
+      //. Check "T00:00:00Z" format
+      if (t.planned_finish_date.includes("T")) tasksPlannedFinishDate.current[t.row - 1].value = t.planned_finish_date.split("T")[0]
+      else tasksPlannedFinishDate.current[t.row - 1].value = t.planned_finish_date
     }
 
     dispatch({
       type: "TASK_STEPS",
-      value: list
+      value: steps
     })
 
   }
@@ -172,19 +191,22 @@ const Provider = ({ children }) => {
   const createTask = async () => {
     let steps = [...state.task_steps];
 
-    for(let t of steps) {
-      t.name = tasksNameRef.current[t.row - 1].value
-      t.responsible_username = tasksResponsibleUsernameRef.current[t.row - 1].value
-      t.planned_finish_date = tasksPlannedFinishDate.current[t.row - 1].value + "T00:00:00Z"
+    for (let s of steps) {
+      s.planned_finish_date = s.planned_finish_date + "T00:00:00Z"
     }
-
-    console.log(tasks);
 
     let data = {
       order_id: state.chosen_order_for_task.id,
       description: tasksDescription.current.value,
       task_steps: steps
     }
+    
+    let create = await Tasks.createTask(data)
+    console.log(create);
+
+    await showOrders();
+
+    hideTasksAssignmentModal();
   }
 
   //- Modal Funcs
@@ -207,11 +229,6 @@ const Provider = ({ children }) => {
   const hideTasksAssignmentModal = () => {
     state.tasks_assignment_modal.hide();
     clearTasksAssignmentInputs();
-
-    dispatch({                  //. Set tasks assignment modal object
-      type: 'TASKS_ASSIGNMENT_MODAL',
-      value: {}
-    })
   }
 
   const tasks = {
