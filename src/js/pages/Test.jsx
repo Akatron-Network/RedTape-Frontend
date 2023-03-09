@@ -377,6 +377,17 @@ export default function Test() {
   }
   
   //b TASKS -----------------------------
+  const showTasks = async () => {
+    let query = {
+      skip: 0,
+      take: 1000,
+      where: {},
+    }
+
+    let show = await Tasks.showTasks(query)
+    console.log(show);
+  }
+  
   const createTask = async () => {
     let data = {
       order_id: 257,
@@ -399,6 +410,55 @@ export default function Test() {
 
     let create = await Tasks.createTask(data)
     console.log(create);
+  }
+
+  const completeStep = async () => {
+    let data = {
+      id: 53,
+      complate_description: "Adım tamamlama notu"
+    }
+
+    let complete = await Tasks.completeStep(data);
+    console.log(complete);
+  }
+
+  const cancelStep = async () => {
+    let data = {
+      id: 53,
+      complate_description: "Adım tamamlama notu"
+    }
+
+    let cancel = await Tasks.cancelStep(data);
+    console.log(cancel);
+  }
+
+  const completeTask = async () => {
+    let data = {
+      id: 53,
+    }
+
+    let complete = await Tasks.completeTask(data);
+    console.log(complete);
+  }
+
+  const reOpenTask = async () => {
+    let data = {
+      id: 53,
+      description: "Görev tekrar açıldı"
+    }
+
+    let re_open = await Tasks.reOpenTask(data);
+    console.log(re_open);
+  }
+
+  const cancelTask = async () => {
+    let data = {
+      id: 54,
+      "description": "Görev iptal notu"
+    }
+
+    let cancel = await Tasks.cancelTask(data);
+    console.log(cancel);
   }
 
   return (
@@ -608,15 +668,40 @@ export default function Test() {
       <div className='p-3 mt-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
         <h1 className='mr-2 text-alica_blue w-40'>TASKS TESTS</h1>
 
-        <button onClick={createTask}
+        <button onClick={showTasks}
           className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Show Tasks Test
+        </button>
+
+        <button onClick={createTask}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
           Create Task Test
         </button>
 
-        {/* <button onClick={getOrder}
+        <button onClick={completeStep}
           className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
-          Get Orders Test
-        </button> */}
+          Complete Step Test
+        </button>
+
+        <button onClick={cancelStep}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Cancel Step Test
+        </button>
+
+        <button onClick={completeTask}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Complete Task Test
+        </button>
+
+        <button onClick={reOpenTask}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Re-Open Task Test
+        </button>
+
+        <button onClick={cancelTask}
+          className='text-white ml-3 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
+          Cancel Task Test
+        </button>
 
       </div>
     

@@ -20,6 +20,12 @@ export default function reducer(state, action) {
         all_stocks: action.value
       }
 
+    case 'ALL_TASKS':
+      return {
+        ...state,
+        all_tasks: action.value
+      }
+
     case 'ALL_USERS':
       return {
         ...state,
@@ -30,6 +36,12 @@ export default function reducer(state, action) {
       return {
         ...state,
         tasks_assignment_modal: action.value
+      }
+
+    case 'TASKS_DROPDOWN_MODAL':
+      return {
+        ...state,
+        tasks_dropdown_modal: action.value
       }
 
     case 'CHOSEN_ORDER_FOR_TASK':
@@ -48,6 +60,12 @@ export default function reducer(state, action) {
       return {
         ...state,
         display_names: action.value
+      }
+
+    case 'ASSIGNED_TASKS_TABLE_COLUMNS':
+      return {
+        ...state,
+        assigned_tasks_table_columns: action.value
       }
 
   }

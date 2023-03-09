@@ -45,9 +45,9 @@ export default class User {
     return obj;
   }
 
-  static async showUser(where) {
+  static async showUser(query) {
     let q = Request.userRequest();
-    let whereStringify = JSON.stringify(where)
+    let whereStringify = JSON.stringify(query)
     
     let show = await q.get({
       query: whereStringify

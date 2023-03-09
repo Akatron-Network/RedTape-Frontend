@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import GorevTakibiTablo from '../components/gorev-takip/GorevTakibiTablo'
-import SiparisGorevTablo from '../components/gorev-takip/SiparisGorevTablo'
 import PageMainTitle from '../components/items/PageMainTitle'
 import PageSubTitle from '../components/items/PageSubTitle'
 import TasksAssignmentModal from '../components/modals/TasksAssignmentModal'
+import TasksDropdownModal from '../components/modals/TasksDropdownModal'
+import AssignedTasksTable from '../components/spesific-tables/AssignedTasksTable'
 import UnassignedTasksTable from '../components/spesific-tables/UnassignedTasksTable'
 import { useTasks } from '../context/TasksContext'
 
@@ -15,20 +16,24 @@ export default function Tasks() {
     tasks_data.showCurrents();
     tasks_data.showOrders();
     tasks_data.showStocks();
+    tasks_data.showTasks();
     tasks_data.showUsers();
   }, [])
 
   return (
-    <>
+    <div className='pb-40'>
       <PageMainTitle title={"Görev Takip Paneli"} />
 
       <PageSubTitle title={"Atanmamış Görevler"} />
       <UnassignedTasksTable />
       
-      <div className='mt-10'><PageSubTitle title={"Aktif Görevler"} /></div>
+      <div className='mt-10'><PageSubTitle title={"Atanan Görevler"} /></div>
+      <AssignedTasksTable />
+      <br />
       <GorevTakibiTablo />
 
       <TasksAssignmentModal />
-    </>
+      <TasksDropdownModal />
+    </div>
   )
 }

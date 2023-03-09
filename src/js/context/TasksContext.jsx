@@ -16,10 +16,13 @@ const Provider = ({ children }) => {
     all_currents:[],
     all_orders: [],
     all_stocks: [],
+    all_tasks: [],
     all_users: [],
+    assigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ TARİHİ", "SİP. TESLİM TARİHİ", "AKTİF GÖREV", "GÖREV BİTİŞ TARİHİ", "SORUMLU",	"SİPARİŞ DURUMU"],
     chosen_order_for_task: {items:[]},
     display_names: [],
     tasks_assignment_modal: {},
+    tasks_dropdown_modal: {},
     task_steps: [],
     unassigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ KAYNAĞI", "FATURA DURUMU", "SİPARİŞ TARİHİ", "TESLİM TARİHİ", "TOPLAM TUTAR"],
     unassigned_tasks_product_table_columns: ["", "ÜRÜN AD", "MALZEME", "ÜRÜN GRUBU", "BİRİM", "MİKTAR", "BİRİM FİYAT", "TUTAR", "KDV ORAN", "KDV TUTAR", "TOPLAM TUTAR", "AÇIKLAMA"],
@@ -29,6 +32,7 @@ const Provider = ({ children }) => {
   const tasksResponsibleUsernameRef = useRef([])
   const tasksPlannedFinishDate = useRef([])
   const tasksDescription = useRef([])
+  const tasksStepDescriptionRef = useRef("")
 
   //b Functions -------------------------------------------------------
   
@@ -187,6 +191,23 @@ const Provider = ({ children }) => {
     })
 
   }
+  
+  //- Tasks Class Funcs
+  const showTasks = async () => {
+    let query = {
+      skip: 0,
+      take: 1000,
+      where: {},
+    }
+
+    let show = await Tasks.showTasks(query)
+    console.log(show);
+  
+    dispatch({
+      type: "ALL_TASKS",
+      value: show
+    })
+  }
 
   const createTask = async () => {
     let steps = [...state.task_steps];
@@ -209,6 +230,42 @@ const Provider = ({ children }) => {
     hideTasksAssignmentModal();
   }
 
+  const completeStep = async (id) => {
+    console.log(id);
+    let tasks_dropdown_modal = showModal('tasksDropdownModal', "TASKS_DROPDOWN_MODAL");
+    tasks_dropdown_modal.show();
+    
+  }
+
+  const cancelStep = async (id) => {
+    console.log(id);
+
+  }
+
+  const completeTask = async (id) => {
+    console.log(id);
+
+  }
+
+  const reOpenTask = async (id) => {
+    console.log(id);
+
+  }
+
+  const editTask = async (id) => {
+    console.log(id);
+
+  }
+
+  const cancelTask = async (id) => {
+    console.log(id);
+
+  }
+  
+  
+  
+  
+  
   //- Modal Funcs
   const showModal = (id, type) => {
     const options = {
@@ -231,6 +288,11 @@ const Provider = ({ children }) => {
     clearTasksAssignmentInputs();
   }
 
+  const hideDropdownModal = () => {
+    state.tasks_dropdown_modal.hide();
+  }
+
+
   const tasks = {
 
     //, Refs
@@ -238,6 +300,7 @@ const Provider = ({ children }) => {
     tasksResponsibleUsernameRef,
     tasksPlannedFinishDate,
     tasksDescription,
+    tasksStepDescriptionRef,
 
 
     //, States, Variables etc.
@@ -246,13 +309,21 @@ const Provider = ({ children }) => {
 
     //, Functions
     addStep,
+    cancelStep,
+    cancelTask,
+    completeStep,
+    completeTask,
     createTask,
+    editTask,
+    hideDropdownModal,
     hideTasksAssignmentModal,
     makeTasksAssignment,
     removeStep,
+    reOpenTask,
     showCurrents,
     showOrders,
     showStocks,
+    showTasks,
     showUsers,
 
   }

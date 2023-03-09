@@ -151,4 +151,9 @@
   ::-webkit-scrollbar-corner{
     background: #37526E;
   }
+
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  
 }

@@ -24,7 +24,8 @@ module.exports = {
         alica_blue_light: "#EDF2F6",
         ghost_white: "#F9FBFF",
 
-        dark_blue_gray: "#636792",
+        purple: "#636792",
+        purple_light: "#9295B5",
         eggplant: "#C53030",
         eggplant_light: "#D34A4A",
         golden: "#FBB623",
