@@ -415,7 +415,7 @@ export default function Test() {
   const completeStep = async () => {
     let data = {
       id: 53,
-      complate_description: "Adım tamamlama notu"
+      complate_description: "Adım tamamlama notu 2"
     }
 
     let complete = await Tasks.completeStep(data);
@@ -424,8 +424,8 @@ export default function Test() {
 
   const cancelStep = async () => {
     let data = {
-      id: 53,
-      complate_description: "Adım tamamlama notu"
+      id: 54,
+      description: "Adım tamamlama notu 2"
     }
 
     let cancel = await Tasks.cancelStep(data);
@@ -444,7 +444,7 @@ export default function Test() {
   const reOpenTask = async () => {
     let data = {
       id: 53,
-      description: "Görev tekrar açıldı"
+      description: "Görev tekrar açıldı Hey"
     }
 
     let re_open = await Tasks.reOpenTask(data);
@@ -453,8 +453,8 @@ export default function Test() {
 
   const cancelTask = async () => {
     let data = {
-      id: 54,
-      "description": "Görev iptal notu"
+      id: 53,
+      description: "Görev iptal notu"
     }
 
     let cancel = await Tasks.cancelTask(data);

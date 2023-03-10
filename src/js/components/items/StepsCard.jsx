@@ -2,7 +2,7 @@ import React from 'react'
 import { useTasks } from '../../context/TasksContext';
 
 export default function StepsCard(props) {
-  const { display_names, task_steps, tasksNameRef, tasksResponsibleUsernameRef, tasksPlannedFinishDate, removeStep} = useTasks();
+  const { all_users, task_steps, tasksNameRef, tasksResponsibleUsernameRef, tasksPlannedFinishDate, removeStep, tasks_editable} = useTasks();
 
   return (
     <div className='col-span-3 grid gap-[1px]'>
@@ -20,9 +20,9 @@ export default function StepsCard(props) {
         <select ref={(el) => {if (tasksResponsibleUsernameRef.current !== null) tasksResponsibleUsernameRef.current[props.alias] = el}} defaultValue="default" onChange={(e) => {task_steps[props.alias].responsible_username = e.target.value}} required className="block w-2/3 min-h-[34px] py-[6px] text-sm text-prussian_blue border border-white bg-white focus:ring-transparent focus:border-shadow_blue">
           <option value="default" disabled>Görevli seçin...</option>
           {
-            (display_names !== undefined) ? 
-            (display_names).map((p, index) => {
-              return <option key={index} value={Object.values(p)[0]}>{Object.keys(p)[0]}</option>
+            (all_users !== undefined) ? 
+            (all_users).map((p, index) => {
+              return <option key={index} value={p.username}>{p.data.displayname}</option>
             }) 
             : undefined
           }
@@ -35,7 +35,9 @@ export default function StepsCard(props) {
         <input type="date" ref={(el) => {if (tasksPlannedFinishDate.current !== null) tasksPlannedFinishDate.current[props.alias] = el}} onBlur={(e) => {task_steps[props.alias].planned_finish_date = e.target.value}} className="w-2/3 min-h-[34px] py-[6px] bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-l-none focus:border-shadow_blue focus:ring-transparent block" required />
       </div>
       
-      <button type='button' onClick={() => removeStep(props.row)} className="danger-btn w-full min-h-[34px] mt-[1px] border-none"><i className="fa-solid fa-xmark mr-2"></i>Adımı Sil</button>
+      {!tasks_editable ?
+        <button type='button' onClick={() => removeStep(props.row)} className="danger-btn w-full min-h-[34px] mt-[1px] border-none"><i className="fa-solid fa-xmark mr-2"></i>Adımı Sil</button>
+      : undefined}
     </div>
   )
 }

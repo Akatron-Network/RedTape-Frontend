@@ -49,7 +49,6 @@ const Provider = ({ children }) => {
   const showStockList = async () => {
     let t = new Table(Stock.showStock, state.table_columns, state.table_rows);
     let dt = await t.getData();
-    console.log(dt);
 
     dispatch({
       type: "ALL_STOCKS",

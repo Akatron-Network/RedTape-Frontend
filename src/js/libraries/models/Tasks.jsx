@@ -33,6 +33,21 @@ export default class Tasks {
     return obj;
   }
 
+  static async editTask (id, data) {
+    let t = Request.tasksRequest();
+    console.log(id);
+    console.log(data);
+
+    let edit = await t.put({
+      id: id,
+      data: data
+    });
+    if (!edit.Success) throw new Error('Edit task failed')
+
+    let obj = new Tasks(edit.Data.id, edit.Data.details)
+    return obj;
+  }
+
   static async completeStep (data) {
     let t = Request.tasksRequest();
 
@@ -98,4 +113,14 @@ export default class Tasks {
     return obj;
   }
 
+  static async removeTask (id) {
+    let t = Request.tasksRequest();
+
+    let remove = await t.delete({
+      id: id
+    })
+    if(!remove.Success) throw new Error('Remove task failed')
+
+    return remove;
+  }
 }

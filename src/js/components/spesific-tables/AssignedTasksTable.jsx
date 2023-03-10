@@ -1,10 +1,9 @@
 import React from 'react'
 import { useTasks } from '../../context/TasksContext'
-import Tooltip from '../items/Tooltip';
 
 export default function AssignedTasksTable() {
 
-  const { assigned_tasks_table_columns, all_tasks, all_currents, all_users, completeStep, cancelStep, completeTask, reOpenTask, editTask, cancelTask } = useTasks();
+  const { assigned_tasks_table_columns, all_tasks, all_currents, all_users, dropdownFuncs, completeStep, cancelStep, completeTask, reOpenTask, editTask, cancelTask } = useTasks();
 
   return (
     
@@ -38,15 +37,23 @@ export default function AssignedTasksTable() {
               }
             }
 
-            let responsible_username = "";
-            for (let u of all_users) {
-              if (p.details.current_step.responsible_username === u.username) {
-                responsible_username = u.data.displayname
-              }
-            }
+            let responsible_username = "-";
+            let name = "-";
+            let finish_date = "-";
+            if (p.details.current_step !== null) {
+              name = p.details.current_step.name;
+              finish_date = p.details.current_step.planned_finish_date.split("T")[0];
 
-            if (Date.now() > (new Date(p.details.current_step.planned_finish_date)).getTime()) {
-              if ((p.details.state !== "Tamamlandı") && (p.details.state !== "İptal Edildi")) { p.details.state = "Gecikti" }
+
+              for (let u of all_users) {
+                  if (p.details.current_step.responsible_username === u.username) {
+                    responsible_username = u.data.displayname
+                  }
+              }
+
+              if (Date.now() > (new Date(p.details.current_step.planned_finish_date)).getTime()) {
+                if ((p.details.state !== "Tamamlandı") && (p.details.state !== "İptal Edildi")) { p.details.state = "Gecikti" }
+              }
             }
 
             let row_cls = "bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300"
@@ -72,10 +79,10 @@ export default function AssignedTasksTable() {
                   {p.details.order.delivery_date.split("T")[0]}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {p.details.current_step.name}
+                  {name}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {p.details.current_step.planned_finish_date.split("T")[0]}
+                  {finish_date}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {responsible_username}
@@ -86,24 +93,24 @@ export default function AssignedTasksTable() {
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <div className="dropdown inline-block">
                     <button type='button' onClick={() => {}} className='save-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-bars"></i></button>
-                    <ul className="dropdown-menu duration-500 shadow-xl absolute hidden text-oxford_blue z-[2] right-10 w-max text-left">
+                    <ul className="dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-10 w-max text-left">
                       
-                      <li onClick={() => completeStep(p.id)} className="bg-steel_blue_light border border-queen_blue text-sky-700 transition duration-200 hover:bg-alica_blue py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
+                      <li onClick={() => dropdownFuncs(p, "İşlemi Tamamla")} className="bg-white text-sky-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
                         <i className="fa-solid fa-check mr-2 w-4 text-center text-sky-700"></i>İşlemi Tamamla
                       </li>
-                      <li onClick={() => cancelStep(p.id)} className="bg-steel_blue_light border border-queen_blue text-orange-500 transition duration-200 hover:bg-alica_blue py-1 px-3 block truncate border-b-0 cursor-pointer">
+                      <li onClick={() => dropdownFuncs(p, "İşlemi İptal Et")} className="bg-white text-orange-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
                         <i className="fa-solid fa-xmark mr-2 w-4 text-center text-orange-500"></i>İşlemi İptal Et
                       </li>
-                      <li onClick={() => completeTask(p.id)} className="bg-steel_blue_light border border-queen_blue text-green-700 transition duration-200 hover:bg-alica_blue py-1 px-3 block truncate border-b-0 cursor-pointer">
+                      <li onClick={() => dropdownFuncs(p, "Görevi Tamamla")} className="bg-white text-green-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
                         <i className="fa-solid fa-square-check mr-2 w-4 text-center text-green-700"></i>Görevi Tamamla
                       </li>
-                      <li onClick={() => reOpenTask(p.id)} className="bg-steel_blue_light border border-queen_blue text-indigo-700 transition duration-200 hover:bg-alica_blue py-1 px-3 block truncate border-b-0 cursor-pointer">
+                      <li onClick={() => dropdownFuncs(p, "Görevi Baştan Başlat")} className="bg-white text-indigo-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
                         <i className="fa-solid fa-repeat mr-2 w-4 text-center text-indigo-700"></i>Görevi Baştan Başlat
                       </li>
-                      <li onClick={() => editTask(p.id)} className="bg-steel_blue_light border border-queen_blue text-yellow-500 transition duration-200 hover:bg-alica_blue py-1 px-3 block truncate border-b-0 cursor-pointer">
+                      <li onClick={() => editTask(p)} className="bg-white text-yellow-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
                         <i className="fa-solid fa-pen-to-square mr-2 w-4 text-center text-yellow-500"></i>Görevi Düzenle
                       </li>
-                      <li onClick={() => cancelTask(p.id)} className="bg-steel_blue_light border border-queen_blue text-red-600 transition duration-200 hover:bg-alica_blue py-1 px-3 block truncate cursor-pointer rounded-b">
+                      <li onClick={() => dropdownFuncs(p, "Görevi İptal Et")} className="bg-white text-red-600 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate cursor-pointer rounded-b">
                         <i className="fa-solid fa-square-xmark mr-2 w-4 text-center text-red-600"></i>Görevi İptal Et
                       </li>
                       

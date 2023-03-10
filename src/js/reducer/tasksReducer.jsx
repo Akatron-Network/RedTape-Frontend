@@ -56,16 +56,40 @@ export default function reducer(state, action) {
         task_steps: action.value
       }
 
-    case 'DISPLAY_NAMES':
-      return {
-        ...state,
-        display_names: action.value
-      }
-
     case 'ASSIGNED_TASKS_TABLE_COLUMNS':
       return {
         ...state,
         assigned_tasks_table_columns: action.value
+      }
+
+    case 'DROPDOWN_MODAL_TITLE':
+      return {
+        ...state,
+        dropdown_modal_title: action.value
+      }
+
+    case 'DROPDOWN_BUTTON_FOR_MODAL':
+      return {
+        ...state,
+        dropdown_button_for_modal: action.value
+      }
+    
+    case 'TASKS_EDITABLE':
+      return {
+        ...state,
+        tasks_editable: action.value
+      }
+
+    case 'CHOSEN_TASK_FOR_EDIT':
+      return {
+        ...state,
+        chosen_task_for_edit: action.value
+      }
+
+    case 'TASKS_LOGS_COLUMNS':
+      return {
+        ...state,
+        tasks_logs_columns: action.value
       }
 
   }

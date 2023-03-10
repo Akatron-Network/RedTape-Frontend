@@ -83,7 +83,6 @@ export default class Table {
                       else if (r === "balance" && d.details["balance"] < 0) {     //. Red background according to balance
                         cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-red-300"
                       }
-                      console.log(val);
                       val = CurrencyFormat(val)
 
                       return(
@@ -94,7 +93,6 @@ export default class Table {
 
                     }
                     else {
-                      console.log(val);
                       return(
                         <td key={"r_" + d_index + "_" + r_index} className={cls}>
                           {val}

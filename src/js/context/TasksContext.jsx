@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useRef } from 'react'
+import { createContext, useContext, useReducer, useRef, useEffect } from 'react'
 import tasksReducer from '../reducer/tasksReducer';
 import { Modal } from 'flowbite';
 import Current from '../libraries/models/Current';
@@ -20,9 +20,13 @@ const Provider = ({ children }) => {
     all_users: [],
     assigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ TARİHİ", "SİP. TESLİM TARİHİ", "AKTİF GÖREV", "GÖREV BİTİŞ TARİHİ", "SORUMLU",	"SİPARİŞ DURUMU"],
     chosen_order_for_task: {items:[]},
-    display_names: [],
+    chosen_task_for_edit: {details:{logs:[]}},
+    dropdown_button_for_modal: {title: "", data: {}},
+    dropdown_modal_title: "",
+    tasks_editable: false,
     tasks_assignment_modal: {},
     tasks_dropdown_modal: {},
+    tasks_logs_columns: ["", "SORUMLU KİŞİ", "TARİH", "AÇIKLAMA"],
     task_steps: [],
     unassigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ KAYNAĞI", "FATURA DURUMU", "SİPARİŞ TARİHİ", "TESLİM TARİHİ", "TOPLAM TUTAR"],
     unassigned_tasks_product_table_columns: ["", "ÜRÜN AD", "MALZEME", "ÜRÜN GRUBU", "BİRİM", "MİKTAR", "BİRİM FİYAT", "TUTAR", "KDV ORAN", "KDV TUTAR", "TOPLAM TUTAR", "AÇIKLAMA"],
@@ -88,23 +92,10 @@ const Provider = ({ children }) => {
   //f Get Users
   const showUsers = async () => {
     let users = await User.showUser()
-    let display_names = [];
-
-    for (let u of users) {
-      let user = {
-        [u.data.displayname] : u.data.username
-      }
-      display_names.push(user)
-    }
 
     dispatch({
       type: "ALL_USERS",
       value: users
-    })
-
-    dispatch({
-      type: "DISPLAY_NAMES",
-      value: display_names
     })
   }
 
@@ -136,6 +127,21 @@ const Provider = ({ children }) => {
     dispatch({
       type: 'TASKS_ASSIGNMENT_MODAL',
       value: {}
+    })
+
+    dispatch({
+      type: "CHOSEN_ORDER_FOR_TASK",
+      value: {items:[]}
+    })
+    
+    dispatch({
+      type: 'CHOSEN_TASK_FOR_EDIT',
+      value: {}
+    })
+
+    dispatch({
+      type: "TASKS_EDITABLE",
+      value: false
     })
   }
 
@@ -193,23 +199,72 @@ const Provider = ({ children }) => {
   }
   
   //- Tasks Class Funcs
-  const showTasks = async () => {
+  const showTasks = async (where = {}) => {
+    let state = where;
+    if (where.state === "Gecikti") {  //. Get all tasks
+      state = {state: undefined};
+    }
+
     let query = {
       skip: 0,
       take: 1000,
-      where: {},
+      where: state,
     }
 
     let show = await Tasks.showTasks(query)
     console.log(show);
-  
+    let list = []
+    
+    show.map((p) => {     //. Get and set 'Gecikti' rows
+      if (p.details.current_step !== null) {
+        if (Date.now() > (new Date(p.details.current_step.planned_finish_date)).getTime()) {
+          if ((p.details.state !== "Tamamlandı") && (p.details.state !== "İptal Edildi")) { 
+            list.push(p)
+          }
+        }
+      }
+    })
+
     dispatch({
       type: "ALL_TASKS",
       value: show
     })
+
+    document.getElementById("btn_1").classList.remove("!bg-cyan-900"); 
+    document.getElementById("btn_1").classList.remove("!text-white")
+    document.getElementById("btn_2").classList.remove("!bg-green-700"); 
+    document.getElementById("btn_2").classList.remove("!text-white")
+    document.getElementById("btn_3").classList.remove("!bg-red-700"); 
+    document.getElementById("btn_3").classList.remove("!text-white")
+    document.getElementById("btn_4").classList.remove("!bg-gray-700"); 
+    document.getElementById("btn_4").classList.remove("!text-white")
+
+    console.log(where.state);
+    if (where.state === undefined) {
+      document.getElementById("btn_1").classList.add("!bg-cyan-900"); 
+      document.getElementById("btn_1").classList.add("!text-white")
+    }
+    else if (where.state === "Tamamlandı") {
+      document.getElementById("btn_2").classList.add("!bg-green-700"); 
+      document.getElementById("btn_2").classList.add("!text-white")
+    }
+    else if (where.state === "İptal Edildi") {
+      document.getElementById("btn_3").classList.add("!bg-red-700"); 
+      document.getElementById("btn_3").classList.add("!text-white")
+    }
+    else if (where.state === "Gecikti") {
+      document.getElementById("btn_4").classList.add("!bg-gray-700"); 
+      document.getElementById("btn_4").classList.add("!text-white")
+      
+      dispatch({
+        type: "ALL_TASKS",
+        value: list
+      })
+
+    }
   }
 
-  const createTask = async () => {
+  const createOrEditTask = async () => {
     let steps = [...state.task_steps];
 
     for (let s of steps) {
@@ -222,49 +277,135 @@ const Provider = ({ children }) => {
       task_steps: steps
     }
     
-    let create = await Tasks.createTask(data)
-    console.log(create);
+    if (state.tasks_editable) {
+
+      data = {
+        description: tasksDescription.current.value,
+      }
+
+      let edit = await Tasks.editTask(state.chosen_task_for_edit.id, data)
+      console.log(edit);
+
+      await showTasks();
+    }
+    else {
+      let create = await Tasks.createTask(data)
+      console.log(create);
+    }
 
     await showOrders();
 
     hideTasksAssignmentModal();
   }
 
-  const completeStep = async (id) => {
-    console.log(id);
+  //f Prepare modal for all dropdown funcs
+  const dropdownFuncs = (dt, title) => {
     let tasks_dropdown_modal = showModal('tasksDropdownModal', "TASKS_DROPDOWN_MODAL");
     tasks_dropdown_modal.show();
+
+    dispatch({
+      type: "DROPDOWN_MODAL_TITLE",
+      value: title
+    })
+
+    let btn = {
+      data: dt,
+      title: title
+    }
+
+    dispatch({
+      type: "DROPDOWN_BUTTON_FOR_MODAL",
+      value: btn
+    })
+  }
+
+  //f Check type with title and use funcs
+  const dropdownFuncsApply = async (dt, title) => {
+    let data = {};
+    let resp = {};
+
+    data = {
+      id: dt.id,
+      description: tasksStepDescriptionRef.current.value
+    }
+
+    if (title === "İşlemi Tamamla") { 
+      data = {
+        id: dt.id,
+        complate_description: tasksStepDescriptionRef.current.value
+      }
+      resp = await Tasks.completeStep(data) 
+    }
+    else if (title === "İşlemi İptal Et") { resp = await Tasks.cancelStep(data) }
+    else if (title === "Görevi Tamamla") { resp = await Tasks.completeTask(data) }
+    else if (title === "Görevi Baştan Başlat") { resp = await Tasks.reOpenTask(data) }
+    else if (title === "Görevi İptal Et") { resp = await Tasks.cancelTask(data) }
     
+    await showTasks();
+    hideDropdownModal();
   }
 
-  const cancelStep = async (id) => {
-    console.log(id);
+  const editTask = async (dt) => {
+    console.log(dt);
+    
+    dispatch({
+      type: 'CHOSEN_TASK_FOR_EDIT',
+      value: dt
+    })
 
+    dispatch({
+      type: "TASKS_EDITABLE",
+      value: true
+    })
+    
+    dispatch({
+      type: 'CHOSEN_ORDER_FOR_TASK',
+      value: dt.details.order
+    })
+
+    tasksDescription.current.value = dt.details.description
+
+    let steps = [];
+    for (let s of dt.details.task_steps) {
+      let step = {
+        name: s.name,
+        planned_finish_date: s.planned_finish_date.split("T")[0],
+        responsible_username: s.responsible_username,
+        row: s.row,
+      }
+      steps.push(step)
+    }
+
+    dispatch({
+      type: "TASK_STEPS",
+      value: steps
+    })
+
+
+    let tasks_assignment_modal = showModal("tasksAssignmentModal", "TASKS_ASSIGNMENT_MODAL");
+    tasks_assignment_modal.show();
   }
 
-  const completeTask = async (id) => {
-    console.log(id);
-
-  }
-
-  const reOpenTask = async (id) => {
-    console.log(id);
-
-  }
-
-  const editTask = async (id) => {
-    console.log(id);
-
-  }
-
-  const cancelTask = async (id) => {
-    console.log(id);
-
-  }
+  //f When Editable true filled inputs in steps card
+  useEffect(() => {
+    if (state.tasks_editable === true) {
+      for (let s of state.task_steps) {
+        tasksNameRef.current[s.row - 1].value = s.name
+        tasksResponsibleUsernameRef.current[s.row - 1].value = s.responsible_username
+        tasksPlannedFinishDate.current[s.row - 1].value = s.planned_finish_date.split("T")[0]
+      }
+    }
+  }, [state.tasks_editable])
   
-  
-  
-  
+  const removeTask = async () => {
+    let remove = await Tasks.removeTask(state.chosen_task_for_edit.id)
+    console.log(remove);
+
+    await showTasks();
+    await showOrders();
+
+    hideTasksAssignmentModal();
+  }
   
   //- Modal Funcs
   const showModal = (id, type) => {
@@ -290,6 +431,22 @@ const Provider = ({ children }) => {
 
   const hideDropdownModal = () => {
     state.tasks_dropdown_modal.hide();
+    tasksStepDescriptionRef.current.value = "";
+
+    dispatch({
+      type: "TASKS_DROPDOWN_MODAL",
+      value: {}
+    })
+
+    dispatch({
+      type: "DROPDOWN_MODAL_TITLE",
+      value: ""
+    })
+
+    dispatch({
+      type: "DROPDOWN_BUTTON_FOR_MODAL",
+      value: {title: "", data: {}},
+    })
   }
 
 
@@ -309,17 +466,15 @@ const Provider = ({ children }) => {
 
     //, Functions
     addStep,
-    cancelStep,
-    cancelTask,
-    completeStep,
-    completeTask,
-    createTask,
+    createOrEditTask,
+    dropdownFuncsApply,
+    dropdownFuncs,
     editTask,
     hideDropdownModal,
     hideTasksAssignmentModal,
     makeTasksAssignment,
     removeStep,
-    reOpenTask,
+    removeTask,
     showCurrents,
     showOrders,
     showStocks,

@@ -27,10 +27,16 @@ export default function Tasks() {
       <PageSubTitle title={"Atanmamış Görevler"} />
       <UnassignedTasksTable />
       
-      <div className='mt-10'><PageSubTitle title={"Atanan Görevler"} /></div>
+      <div className='flex mt-10'>
+        <div className='mr-10'><PageSubTitle title={"Atanan Görevler"} /></div>
+        <div className='flex mb-3 h-7'>
+          <button onClick={() => tasks_data.showTasks()} id="btn_1" type="button" className="text-cyan-800 hover:text-white border-b border-cyan-800 hover:bg-cyan-900 transition-all duration-200 h-full focus:outline-none font-medium rounded-sm text-sm px-5 text-center mr-2 mb-2">Tümü</button>
+          <button onClick={() => tasks_data.showTasks({"state": "Tamamlandı"})} id="btn_2" type="button" className="text-green-600 hover:text-white border-b border-green-600 hover:bg-green-700 transition-all duration-200 h-full focus:outline-none font-medium rounded-sm text-sm px-5 text-center mr-2 mb-2">Tamamlananlar</button>
+          <button onClick={() => tasks_data.showTasks({"state": "İptal Edildi"})} id="btn_3" type="button" className="text-red-600 hover:text-white border-b border-red-600 hover:bg-red-700 transition-all duration-200 h-full focus:outline-none font-medium rounded-sm text-sm px-5 text-center mr-2 mb-2">İptal Edilenler</button>
+          <button onClick={() => tasks_data.showTasks({"state": "Gecikti"})} id="btn_4" type="button" className="text-gray-600 hover:text-white border-b border-gray-600 hover:bg-gray-700 transition-all duration-200 h-full focus:outline-nonefont-medium rounded-sm text-sm px-5 text-center mr-2 mb-2">Gecikenler</button>
+        </div>
+      </div>
       <AssignedTasksTable />
-      <br />
-      <GorevTakibiTablo />
 
       <TasksAssignmentModal />
       <TasksDropdownModal />
