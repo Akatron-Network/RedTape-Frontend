@@ -15,7 +15,6 @@ export default function Login() {
     let pss = login_password.current.value
 
     let lgn = await Auth.login(usr, pss)
-    console.log(lgn)
 
     navigate("/");
   }

@@ -3,7 +3,7 @@ import { useTasks } from '../../context/TasksContext'
 
 export default function AssignedTasksTable() {
 
-  const { assigned_tasks_table_columns, all_tasks, all_currents, all_users, dropdownFuncs, completeStep, cancelStep, completeTask, reOpenTask, editTask, cancelTask } = useTasks();
+  const { assigned_tasks_table_columns, all_tasks, all_currents, all_users, dropdownFuncs, editTask, admin_check } = useTasks();
 
   return (
     
@@ -51,7 +51,7 @@ export default function AssignedTasksTable() {
                   }
               }
 
-              if (Date.now() > (new Date(p.details.current_step.planned_finish_date)).getTime()) {
+              if ((Date.now()) > ((new Date(p.details.current_step.planned_finish_date)).getTime() + 86400000)) {
                 if ((p.details.state !== "Tamamlandı") && (p.details.state !== "İptal Edildi")) { p.details.state = "Gecikti" }
               }
             }
@@ -93,7 +93,7 @@ export default function AssignedTasksTable() {
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <div className="dropdown inline-block">
                     <button type='button' onClick={() => {}} className='save-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-bars"></i></button>
-                    <ul className="dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-10 w-max text-left">
+                    <ul className="dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-10 -mt-[15px] w-max text-left">
                       
                       <li onClick={() => dropdownFuncs(p, "İşlemi Tamamla")} className="bg-white text-sky-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
                         <i className="fa-solid fa-check mr-2 w-4 text-center text-sky-700"></i>İşlemi Tamamla
@@ -101,18 +101,25 @@ export default function AssignedTasksTable() {
                       <li onClick={() => dropdownFuncs(p, "İşlemi İptal Et")} className="bg-white text-orange-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
                         <i className="fa-solid fa-xmark mr-2 w-4 text-center text-orange-500"></i>İşlemi İptal Et
                       </li>
-                      <li onClick={() => dropdownFuncs(p, "Görevi Tamamla")} className="bg-white text-green-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
-                        <i className="fa-solid fa-square-check mr-2 w-4 text-center text-green-700"></i>Görevi Tamamla
+                      <li onClick={() => editTask(p)} className={admin_check.admin ? "bg-white text-yellow-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer" : "bg-white text-yellow-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-b"}>
+                        <i className="fa-solid fa-pen-to-square mr-2 w-4 text-center text-yellow-500"></i>Görev Detaylarını Görüntüle
                       </li>
-                      <li onClick={() => dropdownFuncs(p, "Görevi Baştan Başlat")} className="bg-white text-indigo-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
-                        <i className="fa-solid fa-repeat mr-2 w-4 text-center text-indigo-700"></i>Görevi Baştan Başlat
-                      </li>
-                      <li onClick={() => editTask(p)} className="bg-white text-yellow-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
-                        <i className="fa-solid fa-pen-to-square mr-2 w-4 text-center text-yellow-500"></i>Görevi Düzenle
-                      </li>
-                      <li onClick={() => dropdownFuncs(p, "Görevi İptal Et")} className="bg-white text-red-600 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate cursor-pointer rounded-b">
-                        <i className="fa-solid fa-square-xmark mr-2 w-4 text-center text-red-600"></i>Görevi İptal Et
-                      </li>
+                      {admin_check.admin ? 
+                        <>
+                          <li onClick={() => dropdownFuncs(p, "Görevi Tamamla")} className="bg-white text-green-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
+                            <i className="fa-solid fa-square-check mr-2 w-4 text-center text-green-700"></i>Görevi Tamamla
+                          </li>
+                          <li onClick={() => dropdownFuncs(p, "Görevi Baştan Başlat")} className="bg-white text-indigo-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
+                            <i className="fa-solid fa-repeat mr-2 w-4 text-center text-indigo-700"></i>Görevi Baştan Başlat
+                          </li>
+                          <li onClick={() => dropdownFuncs(p, "Görevi İptal Et")} className="bg-white text-red-600 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate cursor-pointer rounded-b">
+                            <i className="fa-solid fa-square-xmark mr-2 w-4 text-center text-red-600"></i>Görevi İptal Et
+                          </li>
+                        </>
+                        : undefined
+                      }
+                        
+                      
                       
                     </ul>
                   </div>

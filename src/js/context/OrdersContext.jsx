@@ -164,7 +164,6 @@ const Provider = ({ children }) => {
   const chooseFilteredCurrent = async (id) => {
     
     let cr = await Current.getCurrent(id);
-    console.log(cr);
 
     dispatch({
       type: 'CHOSEN_CURRENT',
@@ -357,7 +356,6 @@ const Provider = ({ children }) => {
     let amount_sum = ((parseFloat(ordersAmountRef.current.value)) * (parseFloat(ordersPriceRef.current.value)));
     let tax_sum = (parseFloat(amount_sum) * parseFloat(tax_rate));
     let total = parseFloat(amount_sum + tax_sum).toFixed(2)
-    console.log(total);
 
     let new_product = {                                           //. Create new product
       row: (new_product_list.length + 1),                         //. Row number one more than list length
@@ -480,7 +478,6 @@ const Provider = ({ children }) => {
         details = p
       }
     }
-    console.log(details);
 
     let tax_rate = ((ordersTaxRateEditRef.current.value).replace("%", "") / 100);
     let amount_sum = ((parseFloat(ordersAmountEditRef.current.value)) * (parseFloat(ordersPriceEditRef.current.value)));
@@ -597,10 +594,8 @@ const Provider = ({ children }) => {
       code_4: state.chosen_current.details.code_4,
       items: items
     }
-    console.log(data);
 
     let create = await Orders.createOrder(data)
-    console.log(create);
   
     clearOrder();
   }

@@ -13,6 +13,7 @@ const Provider = ({ children }) => {
   
   //- Stock Refs and States
   const [state, dispatch] = useReducer(tasksReducer, {
+    admin_check: {admin: false, username: undefined},
     all_currents:[],
     all_orders: [],
     all_stocks: [],
@@ -20,9 +21,10 @@ const Provider = ({ children }) => {
     all_users: [],
     assigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ TARİHİ", "SİP. TESLİM TARİHİ", "AKTİF GÖREV", "GÖREV BİTİŞ TARİHİ", "SORUMLU",	"SİPARİŞ DURUMU"],
     chosen_order_for_task: {items:[]},
-    chosen_task_for_edit: {details:{logs:[]}},
+    chosen_task_for_edit: {details:{logs: [], task_steps: []}},
     dropdown_button_for_modal: {title: "", data: {}},
     dropdown_modal_title: "",
+    state_type: {state: ""},
     tasks_editable: false,
     tasks_assignment_modal: {},
     tasks_dropdown_modal: {},
@@ -37,9 +39,42 @@ const Provider = ({ children }) => {
   const tasksPlannedFinishDate = useRef([])
   const tasksDescription = useRef([])
   const tasksStepDescriptionRef = useRef("")
+  const assignedTableUserRef = useRef("")
+  const editTasksDescriptionRef = useRef([])
+  const editTasksFinishDate = useRef([])
+
+  const editTaskOrderCurrentRef = useRef("")
+  const editTaskOrderSourceRef = useRef("")
+  const editTaskOrderInvoicedRef = useRef("")
+  const editTaskOrderCurGTEDateRef = useRef("")
+  const editTaskOrderCurLTEDateRef = useRef("")
 
   //b Functions -------------------------------------------------------
-  
+  //- Permisson check for Tables, buttons etc.
+  //f Admin Check
+  const adminCheck = async () => {
+    let dt = JSON.parse(localStorage.user_details);
+
+    let val = {
+      admin: false,
+      username: dt.username
+    }
+
+    if (dt.admin) {
+      val = {
+        admin: true,
+        username: undefined
+      }
+    }
+    
+    dispatch({
+      type: 'ADMIN_CHECK',
+      value: val
+    })
+
+    await showTasks({}, val.username)
+  }
+
   //- Main Table Funcs
   //f Get Currents for table columns name
   const showCurrents = async () => {
@@ -111,8 +146,24 @@ const Provider = ({ children }) => {
           type: 'CHOSEN_ORDER_FOR_TASK',
           value: o
         })
+        let current = "-";
+        for (let c of state.all_currents) {
+          if (c.id === o.details.current_id) {
+            current = c.details.id + " - " + c.details.name
+          }
+        }
+        
+        let invoiced = "Faturasız"
+        if (o.details.invoiced) { invoiced = "Faturalı"}
+
+        editTaskOrderCurrentRef.current.value = current
+        editTaskOrderSourceRef.current.value = o.details.order_source
+        editTaskOrderInvoicedRef.current.value = invoiced
+        editTaskOrderCurGTEDateRef.current.value = o.details.date.split("T")[0]
+        editTaskOrderCurLTEDateRef.current.value = o.details.delivery_date.split("T")[0]
       }
     }
+    
 
   }
 
@@ -143,6 +194,12 @@ const Provider = ({ children }) => {
       type: "TASKS_EDITABLE",
       value: false
     })
+
+    editTaskOrderCurrentRef.current.value = ""
+    editTaskOrderSourceRef.current.value = ""
+    editTaskOrderInvoicedRef.current.value = ""
+    editTaskOrderCurGTEDateRef.current.value = ""
+    editTaskOrderCurLTEDateRef.current.value = ""
   }
 
   //f Add step for tasks
@@ -199,23 +256,34 @@ const Provider = ({ children }) => {
   }
   
   //- Tasks Class Funcs
-  const showTasks = async (where = {}) => {
-    let state = where;
-    if (where.state === "Gecikti") {  //. Get all tasks
-      state = {state: undefined};
+  const showTasks = async (st = {}, resp_user = undefined) => {
+    if(state.admin_check.admin) {resp_user = undefined}
+
+    let last_state = st.state;
+    if (last_state === "Gecikti") {  //. Get all tasks
+      last_state = undefined;
+    }
+
+    let where = {
+      current_step: {responsible_username: resp_user},
+      state: last_state
     }
 
     let query = {
       skip: 0,
       take: 1000,
-      where: state,
+      where: where,
     }
 
     let show = await Tasks.showTasks(query)
-    console.log(show);
     let list = []
+
+    dispatch({
+      type: "ALL_TASKS",
+      value: show
+    })
     
-    show.map((p) => {     //. Get and set 'Gecikti' rows
+    show.map((p) => {     //. If state = Gecikti, get and set 'Gecikti' rows
       if (p.details.current_step !== null) {
         if (Date.now() > (new Date(p.details.current_step.planned_finish_date)).getTime()) {
           if ((p.details.state !== "Tamamlandı") && (p.details.state !== "İptal Edildi")) { 
@@ -225,12 +293,7 @@ const Provider = ({ children }) => {
       }
     })
 
-    dispatch({
-      type: "ALL_TASKS",
-      value: show
-    })
-
-    document.getElementById("btn_1").classList.remove("!bg-cyan-900"); 
+    document.getElementById("btn_1").classList.remove("!bg-indigo_dye"); 
     document.getElementById("btn_1").classList.remove("!text-white")
     document.getElementById("btn_2").classList.remove("!bg-green-700"); 
     document.getElementById("btn_2").classList.remove("!text-white")
@@ -238,21 +301,23 @@ const Provider = ({ children }) => {
     document.getElementById("btn_3").classList.remove("!text-white")
     document.getElementById("btn_4").classList.remove("!bg-gray-700"); 
     document.getElementById("btn_4").classList.remove("!text-white")
-
-    console.log(where.state);
-    if (where.state === undefined) {
-      document.getElementById("btn_1").classList.add("!bg-cyan-900"); 
+    document.getElementById("btn_5").classList.remove("!bg-orange-600"); 
+    document.getElementById("btn_5").classList.remove("!text-white")
+    
+    //. Check state type
+    if (st.state === undefined) {
+      document.getElementById("btn_1").classList.add("!bg-indigo_dye"); 
       document.getElementById("btn_1").classList.add("!text-white")
     }
-    else if (where.state === "Tamamlandı") {
+    else if (st.state === "Tamamlandı") {
       document.getElementById("btn_2").classList.add("!bg-green-700"); 
       document.getElementById("btn_2").classList.add("!text-white")
     }
-    else if (where.state === "İptal Edildi") {
+    else if (st.state === "İptal Edildi") {
       document.getElementById("btn_3").classList.add("!bg-red-700"); 
       document.getElementById("btn_3").classList.add("!text-white")
     }
-    else if (where.state === "Gecikti") {
+    else if (st.state === "Gecikti") {
       document.getElementById("btn_4").classList.add("!bg-gray-700"); 
       document.getElementById("btn_4").classList.add("!text-white")
       
@@ -260,8 +325,16 @@ const Provider = ({ children }) => {
         type: "ALL_TASKS",
         value: list
       })
-
     }
+    else if (st.state === "Aktif") {
+      document.getElementById("btn_5").classList.add("!bg-orange-600"); 
+      document.getElementById("btn_5").classList.add("!text-white")
+    }
+
+    dispatch({
+      type: "STATE_TYPE",
+      value: {state: st.state}
+    })
   }
 
   const createOrEditTask = async () => {
@@ -284,15 +357,14 @@ const Provider = ({ children }) => {
       }
 
       let edit = await Tasks.editTask(state.chosen_task_for_edit.id, data)
-      console.log(edit);
 
-      await showTasks();
+      await showTasks(state.state_type, state.admin_check.username);
     }
     else {
       let create = await Tasks.createTask(data)
-      console.log(create);
     }
 
+    await showTasks(state.state_type, state.admin_check.username);
     await showOrders();
 
     hideTasksAssignmentModal();
@@ -341,13 +413,11 @@ const Provider = ({ children }) => {
     else if (title === "Görevi Baştan Başlat") { resp = await Tasks.reOpenTask(data) }
     else if (title === "Görevi İptal Et") { resp = await Tasks.cancelTask(data) }
     
-    await showTasks();
+    await showTasks(state.state_type, state.admin_check.username);
     hideDropdownModal();
   }
 
-  const editTask = async (dt) => {
-    console.log(dt);
-    
+  const editTask = async (dt) => {    
     dispatch({
       type: 'CHOSEN_TASK_FOR_EDIT',
       value: dt
@@ -381,6 +451,22 @@ const Provider = ({ children }) => {
       value: steps
     })
 
+    let current = "-";
+    for (let c of state.all_currents) {
+      if (c.id === dt.details.order.current_id) {
+        current = c.details.id + " - " + c.details.name
+      }
+    }
+    
+    let invoiced = "Faturasız"
+    if (dt.details.order.invoiced) { invoiced = "Faturalı"}
+
+    editTaskOrderCurrentRef.current.value = current
+    editTaskOrderSourceRef.current.value = dt.details.order.order_source
+    editTaskOrderInvoicedRef.current.value = invoiced
+    editTaskOrderCurGTEDateRef.current.value = dt.details.order.date.split("T")[0]
+    editTaskOrderCurLTEDateRef.current.value = dt.details.order.delivery_date.split("T")[0]
+
 
     let tasks_assignment_modal = showModal("tasksAssignmentModal", "TASKS_ASSIGNMENT_MODAL");
     tasks_assignment_modal.show();
@@ -389,19 +475,24 @@ const Provider = ({ children }) => {
   //f When Editable true filled inputs in steps card
   useEffect(() => {
     if (state.tasks_editable === true) {
-      for (let s of state.task_steps) {
+      for (let s of state.chosen_task_for_edit.details.task_steps) {
         tasksNameRef.current[s.row - 1].value = s.name
         tasksResponsibleUsernameRef.current[s.row - 1].value = s.responsible_username
         tasksPlannedFinishDate.current[s.row - 1].value = s.planned_finish_date.split("T")[0]
+
+        if (s.complate_description !== null) { editTasksDescriptionRef.current[s.row - 1].value = s.complate_description }
+        else { editTasksDescriptionRef.current[s.row - 1].value = "-" }
+
+        if (s.complate_date !== null) { editTasksFinishDate.current[s.row - 1].value = s.complate_date.split("T")[0]}
       }
+
     }
   }, [state.tasks_editable])
   
   const removeTask = async () => {
     let remove = await Tasks.removeTask(state.chosen_task_for_edit.id)
-    console.log(remove);
 
-    await showTasks();
+    await showTasks(state.state_type, state.admin_check.username);
     await showOrders();
 
     hideTasksAssignmentModal();
@@ -453,11 +544,20 @@ const Provider = ({ children }) => {
   const tasks = {
 
     //, Refs
+    assignedTableUserRef,
+    editTasksDescriptionRef,
+    editTasksFinishDate,
     tasksNameRef,
     tasksResponsibleUsernameRef,
     tasksPlannedFinishDate,
     tasksDescription,
     tasksStepDescriptionRef,
+
+    editTaskOrderCurrentRef,
+    editTaskOrderSourceRef,
+    editTaskOrderInvoicedRef,
+    editTaskOrderCurGTEDateRef,
+    editTaskOrderCurLTEDateRef,
 
 
     //, States, Variables etc.
@@ -466,6 +566,7 @@ const Provider = ({ children }) => {
 
     //, Functions
     addStep,
+    adminCheck,
     createOrEditTask,
     dropdownFuncsApply,
     dropdownFuncs,

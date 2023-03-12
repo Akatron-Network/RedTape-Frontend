@@ -28,7 +28,6 @@ export default class Orders {
       query: queryStringify
     })
     if(!show.Success) throw new Error('Show orders failed')
-    console.log(show);
 
     let obj = show.Data.map(r => new Orders(r.id, r.details, r.details.items));
     return obj;
@@ -42,7 +41,6 @@ export default class Orders {
     })
     if(!get.Success) throw new Error('Get order failed')
 
-    console.log(get);
 
     let obj = new Orders(get.Data.id, get.Data.details, get.Data.items);
     return obj;

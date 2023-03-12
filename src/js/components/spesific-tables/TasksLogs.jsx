@@ -7,7 +7,7 @@ export default function TasksLogs() {
 
   return (
     
-    <div className="shadow-table overflow-auto max-h-[530px]">
+    <div className="shadow-table overflow-auto max-h-[380px]">
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>
@@ -32,6 +32,16 @@ export default function TasksLogs() {
               }
             }
 
+            function addHours(date, hours) {
+              date.setHours(date.getHours() + hours);
+            
+              return date;
+            }
+            
+            const date = new Date(p.registry_date);
+            
+            const newDate = (addHours(date, 3)).toISOString();
+
             return (
               <tr key={i} className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold">
@@ -41,7 +51,7 @@ export default function TasksLogs() {
                   {responsible_user}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {p.registry_date.split("T")[0]}
+                  {newDate.split("T")[0] + " - " + newDate.split('T')[1].split('.')[0]}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {p.explanation}
@@ -51,7 +61,7 @@ export default function TasksLogs() {
           })}
         </tbody>
       </table>
-      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 bottom-0 sticky" aria-label="Table navigation">
+      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 bottom-[-1px] sticky" aria-label="Table navigation">
         <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{chosen_task_for_edit.details.logs.length}</span> kayıt bulunmaktadır.</span>
       </nav>
     </div>

@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from "react-router-dom";
 import { useMain } from '../../context/MainContext';
 
 export default function Sidebar() {
   const { sidePanel, setSidePanel } = useMain();
+  const [admin, setAdmin] = useState(false)
 
   useEffect(() => { //* When click outside the sidepanel close sidepanel
     document.addEventListener('click', closeSidePanel)
+    adminCheck();
     return () => { document.removeEventListener('click', closeSidePanel) }
   }, [])
 
@@ -16,6 +18,16 @@ export default function Sidebar() {
         e.target.className !== "fa-solid fa-bars text-[20px]") {
       setSidePanel(false)
     }
+  }
+  
+  const adminCheck = async () => {
+    let dt = JSON.parse(localStorage.user_details);
+    setAdmin(false);
+
+    if (dt.admin) {
+      setAdmin(true);
+    }
+
   }
   
 
@@ -32,41 +44,45 @@ export default function Sidebar() {
           </Link>
         </li>
 
-        <li>
-          <Link to={"/current-activity"} className="sidebar-elm">
-            <div className='text-center w-6'>
-              <i className="fa-solid fa-address-card"></i>
-            </div>
-            <span className="sidebar-elm-text">Cari Hareket</span>
-          </Link>
-        </li>
+        {admin ? 
+          <>
+            <li>
+              <Link to={"/current-activity"} className="sidebar-elm">
+                <div className='text-center w-6'>
+                  <i className="fa-solid fa-address-card"></i>
+                </div>
+                <span className="sidebar-elm-text">Cari Hareket</span>
+              </Link>
+            </li>
 
-        <li>
-          <Link to={"/stock"} className="sidebar-elm">
-            <div className='text-center w-6'>
-              <i className="fa-solid fa-boxes-packing"></i>
-            </div>
-            <span className="sidebar-elm-text">Stok Kayıt</span>
-          </Link>
-        </li>
+            <li>
+              <Link to={"/stock"} className="sidebar-elm">
+                <div className='text-center w-6'>
+                  <i className="fa-solid fa-boxes-packing"></i>
+                </div>
+                <span className="sidebar-elm-text">Stok Kayıt</span>
+              </Link>
+            </li>
 
-        <li>
-          <Link to={"/orders"} className="sidebar-elm">
-            <div className='text-center w-6'>
-              <i className="fa-solid fa-dolly"></i>
-            </div>
-            <span className="sidebar-elm-text">Sipariş</span>
-          </Link>
-        </li>
-
-        <li>
-          <Link to={"/orders-entry"} className="sidebar-elm">
-            <div className='text-center w-6'>
-              <i className="fa-solid fa-clipboard"></i>
-            </div>
-            <span className="sidebar-elm-text">Sipariş Kayıtları</span>
-          </Link>
-        </li>
+            <li>
+              <Link to={"/orders"} className="sidebar-elm">
+                <div className='text-center w-6'>
+                  <i className="fa-solid fa-dolly"></i>
+                </div>
+                <span className="sidebar-elm-text">Sipariş</span>
+              </Link>
+            </li>
+          
+            <li>
+              <Link to={"/orders-entry"} className="sidebar-elm">
+                <div className='text-center w-6'>
+                  <i className="fa-solid fa-clipboard"></i>
+                </div>
+                <span className="sidebar-elm-text">Sipariş Kayıtları</span>
+              </Link>
+            </li>
+          </>
+        : undefined}
 
         <li>
           <Link to={"/tasks"} className="sidebar-elm">

@@ -8,7 +8,6 @@ import EditStockModal from '../components/modals/EditStockModal'
 
 export default function Stock() {
   const stock_data = useStock();
-  console.log(stock_data)
 
   useEffect(() => {
     stock_data.showStockList();

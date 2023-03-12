@@ -112,7 +112,6 @@ const Provider = ({children}) => {
   const getAllCurrents = async () => {
 
     let currents = await Current.showCurrent();
-    console.log(currents);
 
     dispatch({
       type: 'ALL_CURRENTS',
@@ -135,9 +134,7 @@ const Provider = ({children}) => {
       })
     }
     else {
-      console.log("a");
       if(state.toggle_filtered_table !== true) {
-        console.log("a");
         dispatch({
           type: 'TOGGLE_FILTERED_TABLE',
           value: true
@@ -178,7 +175,6 @@ const Provider = ({children}) => {
   const chooseFilteredCurrent = async (id) => {
     
     let cr = await Current.getCurrent(id);
-    console.log(cr);
 
     dispatch({
       type: 'CHOSEN_CURRENT',
@@ -319,7 +315,6 @@ const Provider = ({children}) => {
     }
 
     let resp = await CurrentActivity.createCurrentActivity(data);
-    console.log(resp);
 
     await getCurrentActivity();
     clearCurActEntryInputs();
@@ -369,7 +364,6 @@ const Provider = ({children}) => {
 
   const getCurActDetails = async (id) => {
     let dt = await CurrentActivity.getCurrentActivity(id)
-    console.log(dt);
 
     let cur_act_modal = showCurActModal();
     cur_act_modal.show();
@@ -413,7 +407,6 @@ const Provider = ({children}) => {
     }
 
     let cr = await details.editCurrentActivity(changes)
-    console.log(cr);
 
     await getCurrentActivity();
     if (cr.Success) hideCurActModal();
@@ -421,7 +414,6 @@ const Provider = ({children}) => {
 
   const removeCurAct = async (id) => {
     let remove = await CurrentActivity.removeCurrentActivity(id);
-    console.log(remove);
     
     await getCurrentActivity();
   }

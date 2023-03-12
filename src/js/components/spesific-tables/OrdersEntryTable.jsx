@@ -78,7 +78,7 @@ export default function OrdersTable() {
           })}
         </tbody>
       </table>
-      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 bottom-0 sticky" aria-label="Table navigation">
+      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 bottom-[-1px] sticky" aria-label="Table navigation">
         <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{all_orders.length}</span> kayıt bulunmaktadır.</span>
       </nav>
     </div>

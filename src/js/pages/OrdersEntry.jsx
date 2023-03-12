@@ -9,7 +9,6 @@ import AddOrderEntryProductModal from '../components/modals/AddOrderEntryProduct
 
 export default function OrdersEntry() {
   const orders_entry_data = useOrdersEntry();
-  console.log(orders_entry_data);
 
   useEffect(() => {
     orders_entry_data.showCurrents();

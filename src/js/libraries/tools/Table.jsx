@@ -175,7 +175,6 @@ export default class Table {
   //   let number = (this.all_currents.length / 15)
   //   let numArr = [];
     
-  //   console.log(number);
   //   if (number === parseInt(number)) {      //. Integer check      
   //     for (let p = 1; p < number; p++) {    //. Create number array. [1,2,3,4
   //       numArr.push(p);
@@ -203,13 +202,10 @@ export default class Table {
   // }
 
   // changePageNumber (num) {
-  //   console.log(num);
-  //   console.log(this.pages);
   //   if (this.pages.includes(num - 1)) {
   //     this.left_page_num = (num - 1)
   //   }
   //   else {
-  //     console.log("a");
   //     this.left_page_num = undefined
   //   }
 
@@ -219,9 +215,6 @@ export default class Table {
   //   else {
   //     this.right_page_num = undefined
   //   }
-
-  //   console.log(this.right_page_num);
-  //   console.log(this.left_page_num);
 
   // }
   //! ----------------------------------------------

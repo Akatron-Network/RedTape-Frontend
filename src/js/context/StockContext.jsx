@@ -78,7 +78,6 @@ const Provider = ({ children }) => {
 
   const getStockDetails = async (id) => {
     let dt = await Stock.getStock(id)
-    console.log(dt);
 
     let stock_modal = showStockModal();
     stock_modal.show();
@@ -105,7 +104,6 @@ const Provider = ({ children }) => {
   
   const editStock = async (id) => {
     let details = new Stock(id)
-    console.log(details);
 
     let changes = {
       name: stockNameEditRef.current.value,
@@ -123,7 +121,6 @@ const Provider = ({ children }) => {
     }
 
     let st = await details.editStock(changes)
-    console.log(st);
 
     await showStockList();
     if (st.Success) hideStockModal();
@@ -156,7 +153,6 @@ const Provider = ({ children }) => {
     }
 
     let create = await Stock.createStock(data)
-    console.log(create);
 
     await showStockList();
     clearStockInputs();
@@ -179,7 +175,6 @@ const Provider = ({ children }) => {
 
   const removeStock = async (id) => {
     let rmv = await Stock.removeStock(id);
-    console.log(rmv);
 
     await showStockList();
   }

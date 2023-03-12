@@ -12,7 +12,6 @@ import EditCurActModal from '../components/modals/EditCurActModal'
 
 export default function CurrentActivity() {  
   const cur_act_data = useCurrentActivity();
-  console.log(cur_act_data)
 
   useEffect(() => {
     cur_act_data.getAllCurrents();
@@ -110,7 +109,7 @@ export default function CurrentActivity() {
         <div className='col-span-5'><PageSubTitle title={"Cari Hareket Kayıtları"} /></div>
           <div className='col-span-2 xl:col-span-1'><InputDate name={"Tarih"} reference={cur_act_data.curActDateRef} defaultValue={cur_act_data.date.current} /></div>
           <div className='col-span-2 xl:col-span-1'><InputDefault type={"text"} name={"Açıklama"} reference={cur_act_data.curActDescriptionRef} /></div>
-          <div className='col-span-2 xl:col-span-1'><InputDate name={"Vade Tarihi"} reference={cur_act_data.curActExpiryDateRef} /></div>
+          <div className='col-span-2 xl:col-span-1'><InputDate name={"Vade Tarihi"} reference={cur_act_data.curActExpiryDateRef} defaultValue={cur_act_data.date.current}  /></div>
           <div className='col-span-2 xl:col-span-1'><InputSelect name={"Borç-Alacak"} reference={cur_act_data.curActDebtAmountRef} options={["Borç", "Alacak"]} func={() => {}} /></div>
           <div className='col-span-2 xl:col-span-1'><InputDefault type={"number"} name={"Tutar"} reference={cur_act_data.curActBalanceRef} /></div>
           <div className='my-2 col-span-5'>

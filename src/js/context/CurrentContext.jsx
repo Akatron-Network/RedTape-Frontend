@@ -137,7 +137,6 @@ const Provider = ({ children }) => {
     }
 
     let create = await Current.createCurrent(current_details);
-    console.log(create);
 
     await showCurrentList();    
     clearCurrentInputs();
@@ -223,7 +222,6 @@ const Provider = ({ children }) => {
   //? Get current details to fill inputs
   const getCurrentDetails = async (id) => {
     let dt = await Current.getCurrent(id)
-    console.log(dt);
 
     let current_modal = showCurrentModal();
     current_modal.show();
@@ -260,7 +258,6 @@ const Provider = ({ children }) => {
 
   const editCurrent = async (id) => {
     let details = new Current(id)
-    console.log(details);
 
     let changes = {
       name: currentNameEditRef.current.value,
@@ -281,7 +278,6 @@ const Provider = ({ children }) => {
     }
 
     let cr = await details.editCurrent(changes)
-    console.log(cr);
 
     await showCurrentList();
     if (cr.Success) hideCurrentModal();
@@ -301,7 +297,6 @@ const Provider = ({ children }) => {
 
   const removeCurrent = async (id) => {
     let rmv = await Current.removeCurrent(id);
-    console.log(rmv);
 
     await showCurrentList();
   }

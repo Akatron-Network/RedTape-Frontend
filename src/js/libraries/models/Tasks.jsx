@@ -35,8 +35,6 @@ export default class Tasks {
 
   static async editTask (id, data) {
     let t = Request.tasksRequest();
-    console.log(id);
-    console.log(data);
 
     let edit = await t.put({
       id: id,

@@ -3,7 +3,7 @@ import { useTasks } from '../../context/TasksContext'
 import CurrencyFormat from '../../libraries/tools/CurrencyFormat'
 
 export default function UnassignedTasksProductTable() {
-  const { unassigned_tasks_product_table_columns, chosen_order_for_task, all_stocks } = useTasks();
+  const { unassigned_tasks_product_table_columns, chosen_order_for_task, all_stocks, admin_check } = useTasks();
   
   return (
     
@@ -56,24 +56,49 @@ export default function UnassignedTasksProductTable() {
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {p.unit}
                 </td>
-                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {CurrencyFormat(parseFloat(p.amount))}
-                </td>
-                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {CurrencyFormat(parseFloat(p.price))}
-                </td>
-                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {CurrencyFormat(parseFloat(p.amount * p.price))}
-                </td>
-                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  %{(p.tax_rate) * 100}
-                </td>
-                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {CurrencyFormat(parseFloat((p.amount * p.price) * p.tax_rate))}
-                </td>
-                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold">
-                  {CurrencyFormat(parseFloat((p.amount * p.price) * (1 + p.tax_rate)))}
-                </td>
+                {admin_check.admin ? 
+                  <>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
+                      {CurrencyFormat(parseFloat(p.amount))}
+                    </td>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
+                      {CurrencyFormat(parseFloat(p.price))}
+                    </td>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
+                      {CurrencyFormat(parseFloat(p.amount * p.price))}
+                    </td>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
+                      %{(p.tax_rate) * 100}
+                    </td>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
+                      {CurrencyFormat(parseFloat((p.amount * p.price) * p.tax_rate))}
+                    </td>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold">
+                      {CurrencyFormat(parseFloat((p.amount * p.price) * (1 + p.tax_rate)))}
+                    </td>
+                  </>
+                  : 
+                  <>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
+                      -
+                    </td>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
+                      -
+                    </td>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
+                      -
+                    </td>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
+                      -
+                    </td>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
+                      -
+                    </td>
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold">
+                      -
+                    </td>
+                  </>
+                }
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {p.description}
                 </td>

@@ -20,7 +20,7 @@ export default function EditCurrentActivityModal() {
             <div className="p-5 grid grid-cols-1 gap-[1px]">
               <div className='col-span-1'><InputDate name={"Tarih"} reference={cur_act_data.curActDateEditRef} /></div>
               <div className='col-span-1'><InputDefault type={"text"} name={"Açıklama"} reference={cur_act_data.curActDescriptionEditRef} /></div>
-              <div className='col-span-1'><InputDate name={"Vade Tarihi"} reference={cur_act_data.curActExpiryDateEditRef} /></div>
+              <div className='col-span-1'><InputDate name={"Vade Tarihi"} reference={cur_act_data.curActExpiryDateEditRef}/></div>
               <div className='col-span-1'><InputSelect name={"Borç-Alacak"} reference={cur_act_data.curActDebtAmountEditRef} options={["Borç", "Alacak"]} func={() => {}} /></div>
               <div className='col-span-1'><InputDefault type={"number"} name={"Tutar"} reference={cur_act_data.curActBalanceEditRef} /></div>
             </div>

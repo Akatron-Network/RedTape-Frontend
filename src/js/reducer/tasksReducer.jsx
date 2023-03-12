@@ -2,6 +2,12 @@ export default function reducer(state, action) {
 
   switch (action.type) {
 
+    case 'ADMIN_CHECK':
+      return {
+        ...state,
+        admin_check: action.value
+      }
+
     case 'ALL_CURRENTS':
       return {
         ...state,
@@ -90,6 +96,12 @@ export default function reducer(state, action) {
       return {
         ...state,
         tasks_logs_columns: action.value
+      }
+
+    case 'STATE_TYPE':
+      return {
+        ...state,
+        state_type: action.value
       }
 
   }

@@ -17,7 +17,7 @@ export default function Test() {
     console.log("GET");
 
     let resp = Request.loginRequest();
-    console.log(resp);
+    ;
 
     let get = await resp.get({
       username: "Hakan",
@@ -35,7 +35,7 @@ export default function Test() {
     console.log("POST");
 
     let resp = Request.registerRequest();
-    console.log(resp);
+    ;
 
     let post = await resp.post({
       username: "Hakan",
@@ -48,7 +48,7 @@ export default function Test() {
     console.log("EDIT");
 
     let resp = Request.userRequest();
-    console.log(resp);
+    ;
 
     let edit = await resp.put({
       username: "Hakan",
@@ -63,7 +63,7 @@ export default function Test() {
     console.log("DELETE");
 
     let resp = Request.registerRequest();
-    console.log(resp);
+    ;
 
     let dlt = await resp.delete()
     console.log(dlt);
@@ -79,17 +79,17 @@ export default function Test() {
   //b AUTH ----------------------------------
   const authLogin = async () => {
     let resp = await Auth.login('Hakan', '12345678')
-    console.log(resp);
+    ;
   }
 
   const getLocalUser = () => {
     let resp = Auth.getLocalUser();
-    console.log(resp)
+    
   }
   
   const authLogout = async () => {
     let resp = await Auth.getLocalUser().logout();
-    console.log(resp);
+    ;
   }
 
   const refreshUserDetails = async () => {
@@ -106,13 +106,13 @@ export default function Test() {
     let resp = await User.showUser(where);
     let resp_all = await User.showUser();
     
-    console.log(resp)     //. Tekli
+         //. Tekli
     console.log(resp_all) //. Çoklu
   }
 
   const createUser = async () => {
     let resp = await User.createUser('Deneme1', '12345678')
-    console.log(resp)
+    
   }
 
   const editUser = async () => {
@@ -122,7 +122,7 @@ export default function Test() {
     }
     
     let resp = await details.editUser(changes);
-    console.log(resp)
+    
   }
 
   const deleteUser = async () => {
@@ -141,7 +141,7 @@ export default function Test() {
     }
 
     let resp = await Current.showCurrent(where)
-    console.log(resp)
+    
   }
 
   const createCurrent = async () => {
@@ -164,7 +164,7 @@ export default function Test() {
     }
 
     let resp = await Current.createCurrent(data);
-    console.log(resp)
+    
   }
 
   const editCurrent = async () => {
@@ -174,7 +174,7 @@ export default function Test() {
     }
 
     let resp = await details.editCurrent(changes)
-    console.log(resp);
+    ;
   }
 
   const deleteCurrent = async () => {
@@ -209,7 +209,7 @@ export default function Test() {
     }
 
     let resp = await CurrentActivity.showCurrentActivity(where);
-    console.log(resp);
+    ;
   }
 
   const createCurrentActivity = async () => {
@@ -222,7 +222,7 @@ export default function Test() {
     }
 
     let resp = await CurrentActivity.createCurrentActivity(data);
-    console.log(resp);
+    ;
   }
 
   const editCurrentActivity = async () => {
@@ -236,7 +236,7 @@ export default function Test() {
     }
 
     let resp = await q.editCurrentActivity(details)
-    console.log(resp);
+    ;
   }
 
   const removeCurrentActivity = async () => {
@@ -253,12 +253,12 @@ export default function Test() {
     }
 
     let resp = await Stock.showStock(query);
-    console.log(resp);
+    ;
   }
 
   const getStock = async () => {
     let resp = await Stock.getStock(162)
-    console.log(resp);
+    ;
   }
 
   const createStock = async () => {
@@ -278,7 +278,7 @@ export default function Test() {
     }
 
     let resp = await Stock.createStock(data);
-    console.log(resp); 
+    ; 
   }
 
   const editStock = async () => {
@@ -318,12 +318,12 @@ export default function Test() {
     }
 
     let resp = await Orders.showOrders(query);
-    console.log(resp);
+    ;
   }
 
   const getOrder = async () => {
     let resp = Orders.getOrder();
-    console.log(resp);
+    ;
   }
   
   const createOrder = async () => {

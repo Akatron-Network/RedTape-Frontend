@@ -35,7 +35,6 @@ export default class Request {
         params: data,
         headers: {token: localStorage.token, "Content-Type": "application/json"}
     })
-    console.log(resp)
     return resp.data;
     
   }
@@ -48,7 +47,7 @@ export default class Request {
         data: data,
         headers: {token: localStorage.token, "Content-Type": "application/json"}
     })
-    console.log(resp)
+    
     return resp.data;
 
   }
@@ -61,7 +60,7 @@ export default class Request {
         data: data,
         headers: {token: localStorage.token, "Content-Type": "application/json"}
     })
-    console.log(resp)
+    
     return resp.data;
 
   }
@@ -74,7 +73,7 @@ export default class Request {
         data: data,
         headers: {token: localStorage.token, "Content-Type": "application/json"}
     })
-    console.log(resp)
+    
     return resp.data;
 
   }

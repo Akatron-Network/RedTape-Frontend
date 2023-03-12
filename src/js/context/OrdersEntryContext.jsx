@@ -105,7 +105,6 @@ const Provider = ({children}) => {
 
   const removeOrder = async (id) => {
     let remove = await Orders.removeOrder(id);
-    console.log(remove);
 
     await showOrders();
   }
@@ -207,7 +206,6 @@ const Provider = ({children}) => {
     let o = await Orders.getOrder(dt.id)
 
     let edit = await o.editOrder(details);
-    console.log(edit);
 
     if(edit.Success) {
       hideGetOrderDetailsModal()
@@ -218,7 +216,6 @@ const Provider = ({children}) => {
 
   const editEntryProduct = async (dt) => {
     let items = [...state.get_order_items]
-    console.log(items);
 
     for (let ind in items) {
       let i = items[ind]
@@ -323,7 +320,6 @@ const Provider = ({children}) => {
       })
 
       let items = [...state.get_order_items]
-      console.log(items);
       if (items.length > 0) {
     
         entryProductTaxRateEditRef.current.value = "%0";
