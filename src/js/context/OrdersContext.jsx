@@ -4,6 +4,7 @@ import Stock from "../libraries/models/Stock";
 import ordersReducer from '../reducer/ordersReducer'
 import {Modal} from 'flowbite';
 import Orders from "../libraries/models/Orders";
+import { useReactToPrint } from "react-to-print";
 
 const OrdersContext = createContext()
 
@@ -21,6 +22,7 @@ const Provider = ({ children }) => {
     all_stocks: [],
     filtered_stocks: [],
     chosen_stock: {},
+    print_pdf_modal: {},
     chosen_stock_units: [],
     chosen_stock_edit_units: [],
     product_list: [],
@@ -64,6 +66,7 @@ const Provider = ({ children }) => {
   const ordersTaxRateEditRef = useRef("");
   const ordersDescriptionEditRef = useRef("");
 
+  const componentRef = useRef();
 
   //b Functions -------------------------------------------------------
   const getDate = () => {
@@ -97,6 +100,17 @@ const Provider = ({ children }) => {
 
   }
   
+  const printPDF = () => {
+    
+    let pdf_modal = showPrintPDFModal();
+    pdf_modal.show();
+  }
+  
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: 'Deneme 1',
+  });
+
   //- Current Autocomplete
   const getAllCurrents = async () => {
 
@@ -541,6 +555,27 @@ const Provider = ({ children }) => {
     })
   }
 
+  const showPrintPDFModal = () => {
+    const options = {
+      backdrop: 'static',
+    };
+    
+    let el = document.getElementById("printPDFModal");
+    const modal = new Modal(el, options);
+
+    dispatch({
+      type: 'PRINT_PDF_MODAL',
+      value: modal
+    })
+
+    return modal;    
+  }
+  
+  const hidePrintPDFModal = () => {
+    state.print_pdf_modal.hide();
+
+  }
+  
   const clearProductEditInputs = () => {
     ordersNameEditRef.current.innerHTML = "";
     ordersUnitEditRef.current.value = "default";
@@ -647,6 +682,8 @@ const Provider = ({ children }) => {
     ordersTaxRateEditRef,
     ordersDescriptionEditRef,
 
+    componentRef,
+
     //, States, Variables etc.
     ...state,
     dispatch,
@@ -665,9 +702,12 @@ const Provider = ({ children }) => {
     getAllStocks,
     getDate,
     getProductDetails,
+    handlePrint,
+    hidePrintPDFModal,
     hideProductModal,
     invoicedCheck,
-    removeProduct, 
+    printPDF,
+    removeProduct,
     toggleFilteredCurrentTable,
     toggleFilteredStockTable,
 

@@ -11,9 +11,12 @@ import InputDefaultNoSpan from '../components/items/InputDefaultNoSpan'
 import AutoSearch from '../components/items/AutoSearch'
 import { useOrders } from '../context/OrdersContext'
 import EditProductModal from '../components/modals/EditProductModal'
+import PrintPDFModal from '../components/modals/PrintPDFModal'
+import RenderPDF from '../components/items/RenderPDF'
 
 export default function Orders() {
   const orders_data = useOrders();
+  console.log(orders_data);
 
   useEffect(() => {
     orders_data.getAllCurrents();
@@ -129,10 +132,16 @@ export default function Orders() {
           
           <div className="col-span-10 mt-2 flex justify-end"><button className='save-btn w-fit' onClick={orders_data.createOrder}><i className="fa-solid fa-bag-shopping mr-2"></i>Sipariş Oluştur</button></div>
           
-          
         </div>
+
+        <button onClick={orders_data.printPDF}>PRINT</button>
         
-        <EditProductModal />     
+        <EditProductModal />   
+        <PrintPDFModal />  
+
+        <div className='hidden'>
+          <RenderPDF reference={orders_data.componentRef} />
+        </div>
       </div>
     </>
   )

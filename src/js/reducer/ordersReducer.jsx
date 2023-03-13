@@ -97,5 +97,11 @@ export default function reducer(state, action) {
         ...state,
         invoiced: action.value
       }
+
+    case 'PRINT_PDF_MODAL':
+      return {
+        ...state,
+        print_pdf_modal: action.value
+      }
   }
 }
