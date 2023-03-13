@@ -33,7 +33,9 @@ module.exports = {
         sea_green: "#408759",
         sea_green_light: "#4EA66D",
 
-        modal_bg: "#0000006E"
+        modal_bg: "#0000006E",
+        esprint_red: "#AC0B03",
+        esprint_gray: "#1A1A18"
       },
 
       fontFamily: {

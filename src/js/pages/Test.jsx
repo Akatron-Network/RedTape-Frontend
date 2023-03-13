@@ -9,6 +9,7 @@ import CurrentActivity from '../libraries/models/CurrentActivity';
 import Stock from '../libraries/models/Stock';
 import Orders from '../libraries/models/Orders';
 import Tasks from '../libraries/models/Tasks';
+import RenderPDF from '../components/items/RenderPDF';
 
 
 export default function Test() {
@@ -463,7 +464,7 @@ export default function Test() {
 
   return (
     <>
-    <div className='bg-fogra_dark w-screen h-screen p-3'>
+      {/* <div className='bg-fogra_dark w-screen h-screen p-3'>
 
       <div className='p-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
         <h1 className='mr-2 text-alica_blue w-40'>REQUEST TESTS</h1>
@@ -706,8 +707,10 @@ export default function Test() {
       </div>
     
       <EditCurrentModal />
-    </div>
+    </div> */}
 
+
+      <RenderPDF />
     </>
   )
 }
