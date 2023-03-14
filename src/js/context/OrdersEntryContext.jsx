@@ -1,9 +1,10 @@
-import { createContext, useContext, useReducer, useRef } from "react";
+import { createContext, useContext, useReducer, useRef, useEffect } from "react";
 import Current from "../libraries/models/Current";
 import Stock from "../libraries/models/Stock";
 import Orders from "../libraries/models/Orders";
 import ordersEntryReducer from '../reducer/ordersEntryReducer'
 import {Modal} from 'flowbite';
+import { useReactToPrint } from "react-to-print";
 
 const OrdersEntryContext = createContext();
 
@@ -26,6 +27,16 @@ const Provider = ({children}) => {
     chosen_stock: {},
     chosen_stock_units: [],
     toggle_filtered_stock_table: false,
+    print_pdf_rows: {
+      total:0,
+      list:[],
+      head_info: {
+        current_name: "",
+        phone: "",
+        date: "",
+        delivery_date: "",
+      }
+    },
     table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ KAYNAĞI", "FATURA DURUMU", "SİPARİŞ TARİHİ", "TESLİM TARİHİ", "TOPLAM TUTAR"],
     show_table_columns: ["", "ÜRÜN AD", "MALZEME", "ÜRÜN GRUBU", "BİRİM", "MİKTAR", "BİRİM FİYAT", "TUTAR", "KDV ORAN", "KDV TUTAR", "TOPLAM TUTAR", "AÇIKLAMA"],
   })
@@ -51,7 +62,46 @@ const Provider = ({children}) => {
 
   const addOrdersEntryProductSearchInputRef = useRef("")
 
+  const componentRef = useRef(null)
+
   //b Functions -------------------------------------------------------
+  const printPDF = (order) => {
+    let head_info = {};
+    for(let c of state.all_currents) {
+      if (order.details.current_id === c.id) {
+        head_info = {
+          current_name: c.details.name,
+          phone: c.details.phone,
+          date: order.details.date.split("T")[0],
+          delivery_date: order.details.delivery_date.split("T")[0],
+        }
+      }
+    }
+    
+    let rows = {
+      list: order.items,
+      total: order.details.total_fee,
+      head_info:head_info
+    }
+
+    dispatch({
+      type: 'PRINT_PDF_ROWS',
+      value: rows
+    })
+  }
+
+  useEffect(() => {             //. Before set print_pdf_rows
+    if (state.print_pdf_rows.head_info.current_name !== "") {
+      handlePrint();
+    }
+  }, [state.print_pdf_rows])
+  
+
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: 'Sipariş',
+  });
+
   //- Main Table Funcs
   const showStocks = async () => {
     let query = {
@@ -516,6 +566,8 @@ const Provider = ({children}) => {
 
     addOrdersEntryProductSearchInputRef,
 
+    componentRef,
+
     //, States, Variables etc.
     ...state,
     dispatch,
@@ -532,6 +584,7 @@ const Provider = ({children}) => {
     hideEntryProductDetailsModal,
     hideGetOrderDetailsModal,
     invoicedCheck,
+    printPDF,
     removeOrder,
     removeProduct,
     showAddEntryOrderProductModal,

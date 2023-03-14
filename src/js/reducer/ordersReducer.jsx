@@ -103,5 +103,11 @@ export default function reducer(state, action) {
         ...state,
         print_pdf_modal: action.value
       }
+
+    case 'PRINT_PDF_ROWS':
+      return {
+        ...state,
+        print_pdf_rows: action.value
+      }
   }
 }

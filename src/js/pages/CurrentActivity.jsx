@@ -69,7 +69,7 @@ export default function CurrentActivity() {
           <div className='flex flex-row col-span-1 mb-2 relative'>
             <span className="w-1/3 shadow-input flex justify-center min-h-[34px] border border-alica_blue_light text-sm items-center bg-steel_blue_light font-medium text-prussian_blue px-1 py-[6px]">Cari Kod / İsim</span>
             <div className='w-2/3 shadow-input relative z-[2]'>
-              <input type="text" id='search_input' ref={cur_act_data.curActSearchInputRef} onChange={(e) => cur_act_data.filterCurrents(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-l-none focus:border-shadow_blue focus:ring-transparent block" placeholder="Cari İsim ya da Cari Kod ile arayın" required />
+              <input type="text" id='search_input' autoComplete='off' ref={cur_act_data.curActSearchInputRef} onChange={(e) => cur_act_data.filterCurrents(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-l-none focus:border-shadow_blue focus:ring-transparent block" placeholder="Cari İsim ya da Cari Kod ile arayın" required />
               <button id='search_button' type="button" className="absolute inset-y-0 right-0 flex items-center pr-3">
                 <i id='search_button_icon' className="fa-solid fa-magnifying-glass text-indigo_dye"></i>
               </button>

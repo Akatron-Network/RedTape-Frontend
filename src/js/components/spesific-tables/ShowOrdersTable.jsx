@@ -56,23 +56,23 @@ export default function ShowOrdersTable() {
                 product_group = s.details.product_group
               }
             }
-            
+            console.log(p);
             return (
               <tr key={i} className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold">
                   {p.row})
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {name}
+                  {name === "" ? "-" : name}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {material}
+                  {material === "" ? "-" : material}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {product_group}
+                  {product_group === "" ? "-" : product_group}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {p.unit}
+                  {p.unit === "" ? "-" : p.unit}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {CurrencyFormat(parseFloat(p.amount))}
@@ -87,7 +87,7 @@ export default function ShowOrdersTable() {
                   %{(p.tax_rate) * 100}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {CurrencyFormat(parseFloat((p.amount * p.price) * p.tax_rate))}
+                  {p.tax_rate === 0 ? "-" : CurrencyFormat(parseFloat((p.amount * p.price) * p.tax_rate))}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold">
                   {CurrencyFormat(parseFloat((p.amount * p.price) * (1 + p.tax_rate)))}

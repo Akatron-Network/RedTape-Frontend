@@ -61,7 +61,7 @@ export default function OrdersTable() {
                   %{(p.tax_rate) * 100}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {CurrencyFormat(p.tax_sum)}
+                  {p.tax_sum === 0 ? "-" : CurrencyFormat(p.tax_sum)}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold">
                   {CurrencyFormat(p.total)}

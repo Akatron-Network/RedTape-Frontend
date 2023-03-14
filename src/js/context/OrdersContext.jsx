@@ -23,11 +23,21 @@ const Provider = ({ children }) => {
     filtered_stocks: [],
     chosen_stock: {},
     print_pdf_modal: {},
+    print_pdf_rows: {
+      total:0,
+      list:[],
+      head_info: {
+        current_name: "",
+        phone: "",
+        date: "",
+        delivery_date: "",
+      }
+    },
     chosen_stock_units: [],
     chosen_stock_edit_units: [],
     product_list: [],
     edit_product_modal: false,
-    invoiced: false,
+    invoiced: true,
     product_details: {},
     table_total: "0",
     date: {
@@ -101,14 +111,31 @@ const Provider = ({ children }) => {
   }
   
   const printPDF = () => {
-    
     let pdf_modal = showPrintPDFModal();
     pdf_modal.show();
   }
-  
+
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: 'Deneme 1',
+    documentTitle: 'Sipariş',
+    
+    onAfterPrint: () => {
+      dispatch({
+        type: 'PRINT_PDF_ROWS',
+        value: {
+          total:0,
+          list:[],
+          head_info: {
+            current_name: "",
+            phone: "",
+            date: "",
+            delivery_date: "",
+          }
+        }
+      })
+
+      hidePrintPDFModal();
+    }
   });
 
   //- Current Autocomplete
@@ -401,6 +428,17 @@ const Provider = ({ children }) => {
       table_total = table_total + parseFloat(p.total)
     }
 
+    let rows = {
+      ...state.print_pdf_rows,
+      list: new_product_list,
+      total: table_total,
+    }
+
+    dispatch({
+      type: 'PRINT_PDF_ROWS',
+      value: rows
+    })
+
     dispatch({
       type: 'TABLE_TOTAL',
       value: table_total,
@@ -414,7 +452,7 @@ const Provider = ({ children }) => {
     ordersUnitRef.current.value = "default"
     ordersAmountRef.current.value = ""
     ordersPriceRef.current.value = ""
-    ordersTaxRateRef.current.value = "default"
+    ordersTaxRateRef.current.value = "%0"
     ordersDescriptionRef.current.value = ""
 
     dispatch({
@@ -440,6 +478,17 @@ const Provider = ({ children }) => {
     for (let p of state.product_list) {               //. Update total cost
       table_total = table_total + parseFloat(p.total)
     }
+
+    let rows = {
+      ...state.print_pdf_rows,
+      list: list,
+      total: table_total,
+    }
+    
+    dispatch({
+      type: 'PRINT_PDF_ROWS',
+      value: rows
+    })
 
     dispatch({
       type: 'TABLE_TOTAL',
@@ -507,6 +556,27 @@ const Provider = ({ children }) => {
     details["amount_sum"] = amount_sum
     details["tax_sum"] = tax_sum
     details["total"] = total
+    
+    let table_total = 0;                  
+    for (let p of state.product_list) {               //. Update total cost
+      table_total = table_total + parseFloat(p.total)
+    }
+
+    let rows = {
+      ...state.print_pdf_rows,
+      list: state.product_list,
+      total: table_total,
+    }
+    
+    dispatch({
+      type: 'PRINT_PDF_ROWS',
+      value: rows
+    })
+
+    dispatch({
+      type: 'TABLE_TOTAL',
+      value: table_total,
+    })
 
     hideProductModal();
   }
@@ -632,6 +702,22 @@ const Provider = ({ children }) => {
 
     let create = await Orders.createOrder(data)
   
+    let rows = {
+      ...state.print_pdf_rows,
+      head_info : {
+        current_name: state.chosen_current.details.name,
+        phone: state.chosen_current.details.phone,
+        date: ordersCurGTEDateRef.current.value,
+        delivery_date: ordersCurLTEDateRef.current.value,
+      }
+    }
+
+    dispatch({
+      type: 'PRINT_PDF_ROWS',
+      value: rows
+    })
+
+    printPDF(),
     clearOrder();
   }
 
@@ -706,7 +792,6 @@ const Provider = ({ children }) => {
     hidePrintPDFModal,
     hideProductModal,
     invoicedCheck,
-    printPDF,
     removeProduct,
     toggleFilteredCurrentTable,
     toggleFilteredStockTable,

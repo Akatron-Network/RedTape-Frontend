@@ -6,9 +6,11 @@ import EditOrdersEntryProductModal from '../components/modals/EditOrdersEntryPro
 import EditOrdersEntryModal from '../components/modals/EditOrdersEntryModal'
 import { useOrdersEntry } from '../context/OrdersEntryContext'
 import AddOrderEntryProductModal from '../components/modals/AddOrderEntryProductModal'
+import RenderPDF from '../components/items/RenderPDF'
 
 export default function OrdersEntry() {
   const orders_entry_data = useOrdersEntry();
+  console.log(orders_entry_data);
 
   useEffect(() => {
     orders_entry_data.showCurrents();
@@ -42,6 +44,9 @@ export default function OrdersEntry() {
       <EditOrdersEntryProductModal />
       <AddOrderEntryProductModal />
       
+      <div className='hidden'>
+        <RenderPDF reference={orders_entry_data.componentRef} data={orders_entry_data.print_pdf_rows} stocks={orders_entry_data.all_stocks} />
+      </div>
     </>
   )
 }

@@ -5,7 +5,7 @@ import Tooltip from '../items/Tooltip';
 
 export default function OrdersTable() {
 
-  const { table_columns, all_orders, all_currents, getOrderDetails, removeOrder } = useOrdersEntry();
+  const { table_columns, all_orders, all_currents, getOrderDetails, removeOrder, printPDF } = useOrdersEntry();
 
   return (
     
@@ -24,7 +24,7 @@ export default function OrdersTable() {
                 </th>
               )
             })}
-            <th scope="col" className="p-2 h-10 w-28 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10">
+            <th scope="col" className="p-2 h-10 w-[116px] font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10">
               <span className="sr-only">Düzenle</span>
             </th>
           </tr>
@@ -66,6 +66,9 @@ export default function OrdersTable() {
                   {CurrencyFormat(p.details.total_fee)}
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
+                  <Tooltip message={"Yazdır"}>
+                    <button type='button' onClick={() => printPDF(p)} className='ml-1 clear-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-print"></i></button>
+                  </Tooltip>
                   <Tooltip message={"Ürünü Düzenle"}>
                     <button type='button' onClick={() => getOrderDetails(p.details.id)} className='ml-1 golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                   </Tooltip>
