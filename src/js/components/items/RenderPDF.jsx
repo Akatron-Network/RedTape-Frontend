@@ -14,8 +14,6 @@ RenderPDF.defaultProps = {data:{
 }}
 
 export default function RenderPDF(props) {
-  console.log(props);
-
   const jsx_render = () => {
     return (
         <>

@@ -1,4 +1,5 @@
 import AllRoutes from './AllRoutes'
+import AdminPanelProvider from './context/AdminPanelContext'
 import MainProvider from './context/MainContext'
 import CurrentProvider from './context/CurrentContext'
 import CurrentActivityProvider from './context/CurrentActivityContext'
@@ -10,23 +11,25 @@ import TasksProvider from './context/TasksContext';
 
 function App() {
   return (
-    <MainProvider>
-      <CurrentProvider>
-        <CurrentActivityProvider>
-          <StockProvider>
-            <OrdersProvider>
-              <OrdersEntryProvider>
-                <TasksProvider>
+    <AdminPanelProvider>
+      <MainProvider>
+        <CurrentProvider>
+          <CurrentActivityProvider>
+            <StockProvider>
+              <OrdersProvider>
+                <OrdersEntryProvider>
+                  <TasksProvider>
 
-                  <AllRoutes />
+                    <AllRoutes />
 
-                </TasksProvider>
-              </OrdersEntryProvider>
-            </OrdersProvider>
-          </StockProvider>
-        </CurrentActivityProvider>
-      </CurrentProvider>
-    </MainProvider>
+                  </TasksProvider>
+                </OrdersEntryProvider>
+              </OrdersProvider>
+            </StockProvider>
+          </CurrentActivityProvider>
+        </CurrentProvider>
+      </MainProvider>
+    </AdminPanelProvider>
   )
 }
 

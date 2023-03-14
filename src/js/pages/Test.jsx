@@ -464,7 +464,7 @@ export default function Test() {
 
   return (
     <>
-      {/* <div className='bg-fogra_dark w-screen h-screen p-3'>
+      <div className='bg-fogra_dark w-screen h-screen p-3'>
 
       <div className='p-3 border border-blue-700 bg-oxford_blue rounded-md w-fit flex items-center'>
         <h1 className='mr-2 text-alica_blue w-40'>REQUEST TESTS</h1>
@@ -550,7 +550,7 @@ export default function Test() {
 
         <button onClick={showCurrent}
           className='text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5'>
-          Show User Test
+          Show Current Test
         </button>
 
         <button onClick={createCurrent}
@@ -705,12 +705,7 @@ export default function Test() {
         </button>
 
       </div>
-    
-      <EditCurrentModal />
-    </div> */}
-
-
-      <RenderPDF />
+    </div>
     </>
   )
 }

@@ -56,7 +56,6 @@ export default function ShowOrdersTable() {
                 product_group = s.details.product_group
               }
             }
-            console.log(p);
             return (
               <tr key={i} className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold">

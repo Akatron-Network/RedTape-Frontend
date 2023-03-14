@@ -77,7 +77,7 @@ const Provider = ({ children }) => {
   }
 
   const getStockDetails = async (id) => {
-    let dt = await Stock.getStock(id)
+    let dt = await Stock.getStock(id.id)
 
     let stock_modal = showStockModal();
     stock_modal.show();
@@ -174,7 +174,7 @@ const Provider = ({ children }) => {
   }
 
   const removeStock = async (id) => {
-    let rmv = await Stock.removeStock(id);
+    let rmv = await Stock.removeStock(id.id);
 
     await showStockList();
   }

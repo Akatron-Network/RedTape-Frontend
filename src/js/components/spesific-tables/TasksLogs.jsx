@@ -28,7 +28,7 @@ export default function TasksLogs() {
             let responsible_user = "";
             for (let u of all_users) {
               if (p.registry_username === u.username) {
-                responsible_user = u.data.displayname
+                responsible_user = u.details.displayname
               }
             }
 

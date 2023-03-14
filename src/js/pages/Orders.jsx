@@ -16,7 +16,6 @@ import RenderPDF from '../components/items/RenderPDF'
 
 export default function Orders() {
   const orders_data = useOrders();
-  console.log(orders_data);
 
   useEffect(() => {
     orders_data.getAllCurrents();

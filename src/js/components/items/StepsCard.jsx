@@ -21,7 +21,7 @@ export default function StepsCard(props) {
             <option value="default" disabled>Görevli seçin...</option>
             {(all_users !== undefined) ? 
               (all_users).map((p, index) => {
-                return <option key={index} value={p.username}>{p.data.displayname}</option>
+                return <option key={index} value={p.username}>{p.details.displayname}</option>
               }) 
               : undefined
             }

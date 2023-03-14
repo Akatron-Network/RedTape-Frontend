@@ -3,7 +3,7 @@ import Request from "../Request";
 export default class User {
   constructor(username, data = undefined) {
     this.username = username
-    this.data = data
+    this.details = data
   }
 
   async editUser(details) {
@@ -32,12 +32,13 @@ export default class User {
   }
 
   //b STATIC CONSTRUCT METHODS ------------------------------------------------
-  static async createUser(username, password) {
+  static async createUser(username, password, admin = false) {
     let q = Request.userRequest();
 
     let create = await q.post({
       username: username,
-      password: password
+      password: password,
+      admin: admin
     })
     if (!create.Success) throw new Error('User create failed')
 

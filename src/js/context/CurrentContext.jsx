@@ -221,7 +221,7 @@ const Provider = ({ children }) => {
 
   //? Get current details to fill inputs
   const getCurrentDetails = async (id) => {
-    let dt = await Current.getCurrent(id)
+    let dt = await Current.getCurrent(id.id)
 
     let current_modal = showCurrentModal();
     current_modal.show();
@@ -296,7 +296,7 @@ const Provider = ({ children }) => {
   }
 
   const removeCurrent = async (id) => {
-    let rmv = await Current.removeCurrent(id);
+    let rmv = await Current.removeCurrent(id.id);
 
     await showCurrentList();
   }

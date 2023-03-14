@@ -363,7 +363,7 @@ const Provider = ({children}) => {
   }
 
   const getCurActDetails = async (id) => {
-    let dt = await CurrentActivity.getCurrentActivity(id)
+    let dt = await CurrentActivity.getCurrentActivity(id.id)
 
     let cur_act_modal = showCurActModal();
     cur_act_modal.show();
@@ -413,7 +413,7 @@ const Provider = ({children}) => {
   }
 
   const removeCurAct = async (id) => {
-    let remove = await CurrentActivity.removeCurrentActivity(id);
+    let remove = await CurrentActivity.removeCurrentActivity(id.id);
     
     await getCurrentActivity();
   }

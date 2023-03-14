@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from './pages/Login'
+import AdminPanel from './pages/AdminPanel'
 import MainPage from './pages/MainPage'
 import Current from './pages/Current'
 import CurrentActivity from './pages/CurrentActivity'
@@ -23,6 +24,7 @@ export default function AllRoutes() {
           <Route path="orders" element={<Orders />} />
           <Route path="orders-entry" element={<OrdersEntry />} />
           <Route path="tasks" element={<Tasks />} />
+          <Route path="admin-panel" element={<AdminPanel />} />
           {/* <Route index={true} element={<Collections />} />
           <Route path=":colID" element={<Folders />} />
           <Route path=":colID/:foldID" element={<Files />} />

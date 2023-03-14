@@ -47,7 +47,7 @@ export default function AssignedTasksTable() {
 
               for (let u of all_users) {
                   if (p.details.current_step.responsible_username === u.username) {
-                    responsible_username = u.data.displayname
+                    responsible_username = u.details.displayname
                   }
               }
 

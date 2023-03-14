@@ -58,13 +58,22 @@ export default class Table {
               return (
                 <tr key={"d_" + d_index} className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   {this.rows.map((r, r_index) => {  //, (r = "order")
-
                     let val = d.details[r];
                     let cls = "py-[0.20rem] px-3 text-prussian_blue"
 
-                    if (r === "date" || r === "expiry_date") {                    //. Remove timezone from date
+                    if (r === "date" || r === "expiry_date") {  //. Remove timezone from date
                       val = val.split("T")[0]
                     }
+
+                    if (r === "register_date" || r === "lastlogin_date") {
+                      val = val.split("T")[0] + " - " + val.split('T')[1].split('.')[0]
+                    }
+                    
+                    if (r === "admin") {
+                      if (d.details[r] === true) val = "Yetkili"
+                      else val = "Yetkili Değil"
+                    }
+
 
                     if (r === "debt" || r === "amount" || r === "balance") {      //. Differenct css for keys
 
@@ -107,22 +116,22 @@ export default class Table {
 
                       if (b.type === "show") {
                         
-                        btn = <Tooltip message={"Siparişi Görüntüle"}>
-                                <button type="button" key={"be_" + d_index + "_" + b_index} onClick={() => b.func(d.id)} className={b.class}><i className={b.icon}></i></button>
+                        btn = <Tooltip message={"Görüntüle"}>
+                                <button type="button" key={"be_" + d_index + "_" + b_index} onClick={() => b.func(d)} className={b.class}><i className={b.icon}></i></button>
                               </Tooltip>
 
                       }
                       else if (b.type === "edit") {
                           
-                        btn = <Tooltip message={"Siparişi Düzenle"}>
-                                <button type="button" key={"bx_" + d_index + "_" + b_index} onClick={() => b.func(d.id)} className={b.class}><i className={b.icon}></i></button>
+                        btn = <Tooltip message={"Düzenle"}>
+                                <button type="button" key={"bx_" + d_index + "_" + b_index} onClick={() => b.func(d)} className={b.class}><i className={b.icon}></i></button>
                               </Tooltip>
 
                       }
                       else if (b.type === "remove") {
                           
-                        btn = <Tooltip message={"Siparişi Sil"}>
-                                <button type="button" key={"bx_" + d_index + "_" + b_index} onClick={() => b.func(d.id)} className={b.class}><i className={b.icon}></i></button>
+                        btn = <Tooltip message={"Sil"}>
+                                <button type="button" key={"bx_" + d_index + "_" + b_index} onClick={() => b.func(d)} className={b.class}><i className={b.icon}></i></button>
                               </Tooltip>
 
                       }
