@@ -30,7 +30,7 @@ export default function AllRoutes() {
           <Route path=":colID/:foldID" element={<Files />} />
           <Route path=":colID/:foldID/:fileID" element={<ChartLayout />} /> */}
         </Route>
-        <Route path="/test" element={<Test />} />
+        {/* <Route path="/test" element={<Test />} /> */}
       </Routes>
     </BrowserRouter>
   )
