@@ -12,19 +12,19 @@ export default function AutoSearch(props) {
         <tbody>
           {props.data.map((f, i) => {
             return (
-              <tr key={i} onClick={() => props.func(f.details.id)} className="bg-gray-100 cursor-pointer border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
-                <td className="py-[0.20rem] px-3 text-prussian_blue whitespace-nowrap">
-                  #{f.details.id}
+              <tr key={i} onClick={() => props.func(f.details.id)} className="bg-gray-100 cursor-pointer border-b h-[30px] border-alica_blue hover:bg-alica_blue_middle transition duration-300">
+                <td className="py-[0.20rem] px-3 text-[13px] text-prussian_blue whitespace-nowrap">
+                  {f.details.id}
                 </td>
-                <td className="py-[0.20rem] px-3 text-prussian_blue whitespace-nowrap">
+                <td className="py-[0.20rem] px-3 text-[13px] text-prussian_blue whitespace-nowrap">
                   {f.details.name}
                 </td>
                 {props.cols.length > 2 ?            //. For stock autocomplete
                   <>
-                    <td className="py-[0.20rem] px-3 text-prussian_blue whitespace-nowrap">
+                    <td className="py-[0.20rem] text-[13px] px-3 text-prussian_blue whitespace-nowrap">
                       {f.details.material}
                     </td>
-                    <td className="py-[0.20rem] px-3 text-prussian_blue whitespace-nowrap">
+                    <td className="py-[0.20rem] text-[13px] px-3 text-prussian_blue whitespace-nowrap">
                       {f.details.product_group}
                     </td>
                   </>

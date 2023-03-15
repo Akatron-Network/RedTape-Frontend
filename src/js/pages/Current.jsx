@@ -10,6 +10,7 @@ import EditCurrentModal from '../components/modals/EditCurrentModal'
 
 export default function Current() {
   const current_data = useCurrent();
+  console.log(current_data);
 
   useEffect(() => {
     current_data.getProvinceList();
@@ -34,6 +35,7 @@ export default function Current() {
           <div className='col-span-2'><InputDefault type={"text"} name={"Telefon - 1"} reference={current_data.currentPhoneIRef} /></div>
           <div className='col-span-2'><InputDefault type={"text"} name={"Telefon - 2"} reference={current_data.currentPhoneIIRef} /></div>
           <div className='col-span-2'><InputDefault type={"text"} name={"E-mail Adresi"} reference={current_data.currentMailRef} /></div>
+          <div className='col-span-2'><InputSelect name={"Cari Tip"} reference={current_data.currentTypeRef} options={["Borç", "Alacak"]} func={() => {}} /></div>
           <div className='col-span-2'><InputDefault type={"text"} name={"Kod 1"} reference={current_data.currentCodeIRef} /></div>
           <div className='col-span-2'><InputDefault type={"text"} name={"Kod 2"} reference={current_data.currentCodeIIRef} /></div>
           <div className='col-span-2'><InputDefault type={"text"} name={"Kod 3"} reference={current_data.currentCodeIIIRef} /></div>

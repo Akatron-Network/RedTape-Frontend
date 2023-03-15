@@ -78,7 +78,7 @@ export default function CurrentActivity() {
               "opacity-100 transition duration-300 absolute overflow-y-auto shadow-button right-0 top-full w-2/3 z-[1] border border-t-0 h-60 border-shadow_blue bg-alica_blue" 
               : "absolute transition duration-300 overflow-y-auto shadow-button right-0 top-full w-2/3 z-[1] border border-t-0 h-60 border-shadow_blue bg-alica_blue opacity-0 pointer-events-none"
             }>
-              <AutoSearch data={cur_act_data.filtered_currents} func={cur_act_data.chooseFilteredCurrent} cols={[]} />
+              <AutoSearch data={cur_act_data.filtered_currents} func={cur_act_data.chooseFilteredCurrent} cols={["Cari Kod", "Cari İsim"]} />
             </div>
           </div>
 

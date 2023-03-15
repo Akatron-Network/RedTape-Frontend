@@ -110,8 +110,13 @@ const Provider = ({children}) => {
   }
   
   const getAllCurrents = async () => {
+    let query = {
+      skip: 0,
+      take: 1000,
+      where: {},
+    }
 
-    let currents = await Current.showCurrent();
+    let currents = await Current.showCurrent(query);
 
     dispatch({
       type: 'ALL_CURRENTS',

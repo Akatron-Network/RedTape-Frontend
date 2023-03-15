@@ -5,6 +5,7 @@ export default class Request {
   constructor(func_name) {
     this.func_name = func_name;
     this.base_url = "http://debiapi.akatron.net:999/" + this.func_name;
+    // this.base_url = "http://127.0.0.1:999/" + this.func_name;
   }
 
   static routes = {

@@ -11,8 +11,8 @@ export default class Table {
   //? Get data from method and save as this.data
   async getData(skip, take, where) {
     this.query = {
-      skip: skip,
-      take: take,
+      skip: 0,
+      take: 1000,
       where: where
     }
     

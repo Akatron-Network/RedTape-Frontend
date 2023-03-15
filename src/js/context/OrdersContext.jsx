@@ -140,8 +140,13 @@ const Provider = ({ children }) => {
 
   //- Current Autocomplete
   const getAllCurrents = async () => {
+    let query = {
+      skip: 0,
+      take: 1000,
+      where: {},
+    }
 
-    let currents = await Current.showCurrent();
+    let currents = await Current.showCurrent(query);
 
     dispatch({
       type: 'ALL_CURRENTS',
@@ -283,8 +288,13 @@ const Provider = ({ children }) => {
 
   //- Stock Autocomplete
   const getAllStocks = async () => {
+    let query = {
+      skip: 0,
+      take: 1000,
+      where: {},
+    }
 
-    let stock = await Stock.showStock();
+    let stock = await Stock.showStock(query);
 
     dispatch({
       type: 'ALL_STOCKS',
