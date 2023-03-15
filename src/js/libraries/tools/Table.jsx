@@ -41,6 +41,14 @@ export default class Table {
                   cls = "py-2 px-3 font-bold h-10 text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10 text-right w-[170px]"
                 }
 
+                if (h === "CARİ İSİM") {
+                  cls = "py-2 px-3 h-10 w-[390px] font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
+                }
+
+                if (h === "BİRİM 2") {
+                  cls = "py-2 px-3 h-10 min-w-[70px] font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
+                }
+
                 return (
                   <th key={index} className={cls}>
                     {h}

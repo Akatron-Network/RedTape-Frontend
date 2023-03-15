@@ -10,7 +10,6 @@ import EditCurrentModal from '../components/modals/EditCurrentModal'
 
 export default function Current() {
   const current_data = useCurrent();
-  console.log(current_data);
 
   useEffect(() => {
     current_data.getProvinceList();

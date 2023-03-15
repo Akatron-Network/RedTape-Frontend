@@ -154,17 +154,24 @@ const Provider = ({children}) => {
     if (event.target.value === "") {
       printCurrentDetails(undefined);   //. For clearing out current details inputs
     }
+    
+    if(state.toggle_filtered_table !== true) {
+      dispatch({
+        type: 'TOGGLE_FILTERED_TABLE',
+        value: true
+      })
+    }
 
-    const searchWord = event.target.value.toLowerCase();
+    const searchWord = event.target.value.toLocaleUpperCase('TR');
     const newFilter = state.all_currents.filter((source) => {
       var condition = false;
 
       if (source.details.name !== undefined) {
         condition =
-          (source.details.id).toString().toLowerCase().includes(searchWord) ||
-          source.details.name.toLowerCase().includes(searchWord);
+          (source.details.id).toString().toLocaleUpperCase('TR').includes(searchWord) ||
+          source.details.name.toLocaleUpperCase('TR').includes(searchWord);
       } else {
-        condition = source.id.toLowerCase().includes(searchWord);
+        condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
       }
 
       return condition;
@@ -198,7 +205,7 @@ const Provider = ({children}) => {
 
   const printCurrentDetails = (details) => {
 
-    if(details === undefined) {
+    if(details === undefined || details === null || details === "") {
       curActIDRef.current.innerHTML = "";
       curActNameRef.current.innerHTML = "";
       curActAddressRef.current.innerHTML = "";
@@ -214,18 +221,25 @@ const Provider = ({children}) => {
       })
     }
     else {
-      curActIDRef.current.innerHTML = details.details.id
-      curActNameRef.current.innerHTML = details.details.name
-      curActAddressRef.current.innerHTML = details.details.address
-      curActTaxOfficeNoRef.current.innerHTML = details.details.tax_office + " - " +  details.details.tax_no
-      curActPhoneIRef.current.innerHTML = details.details.phone
-      curActPhoneIIRef.current.innerHTML = details.details.phone_2
-      curActMailRef.current.innerHTML =  details.details.mail
+      details.details.id === null || details.details.id === undefined ? curActIDRef.current.innerHTML = "-" :  curActIDRef.current.innerHTML = details.details.id
+      details.details.name === null || details.details.name === undefined ? curActNameRef.current.innerHTML = "-" :  curActNameRef.current.innerHTML = details.details.name
+      details.details.address === null || details.details.address === undefined  ? curActAddressRef.current.innerHTML = "-" :  curActAddressRef.current.innerHTML = details.details.address
+
+      let tax_office = "";
+      let tax_no = "";
+      if (details.details.tax_office !== null && details.details.tax_office !== undefined) tax_office = details.details.tax_office
+      if (details.details.tax_no !== null && details.details.tax_no !== undefined) tax_no = details.details.tax_no
+      curActTaxOfficeNoRef.current.innerHTML = tax_office + " - " + tax_no
+
+      details.details.phone === null || details.details.phone === undefined ? curActPhoneIRef.current.innerHTML = "-" :  curActPhoneIRef.current.innerHTML = details.details.phone
+      details.details.phone_2 === null || details.details.phone_2 === undefined ? curActPhoneIIRef.current.innerHTML = "-" :  curActPhoneIIRef.current.innerHTML = details.details.phone_2
+      details.details.mail === null || details.details.mail === undefined ? curActMailRef.current.innerHTML = "-" :  curActMailRef.current.innerHTML =  details.details.mail
       
-      if (details.details.province === "default") {
+      
+      if (details.details.province === "default" || details.details.province === null || details.details.province === undefined) {
         details.details.province = ""
       }
-      if (details.details.district === "default") {
+      if (details.details.district === "default" || details.details.district === null || details.details.district === undefined) {
         details.details.district = ""
       }
 

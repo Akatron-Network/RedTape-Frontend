@@ -424,19 +424,19 @@ const Provider = ({children}) => {
       printStockDetails(undefined);   //. For clearing out current details inputs
     }
 
-    const searchWord = e.target.value.toLowerCase();
+    const searchWord = e.target.value.toLocaleUpperCase('TR');
     const newFilter = state.all_stocks.filter((source) => {
       var condition = false;
 
       if (source.details.name !== undefined) {
         condition =
-          (source.details.id).toString().toLowerCase().includes(searchWord) ||
-          (source.details.name).toLowerCase().includes(searchWord) ||
-          (source.details.material).toLowerCase().includes(searchWord) ||
-          (source.details.product_group).toLowerCase().includes(searchWord);
+          (source.details.id).toString().toLocaleUpperCase('TR').includes(searchWord) ||
+          (source.details.name).toLocaleUpperCase('TR').includes(searchWord) ||
+          (source.details.material).toLocaleUpperCase('TR').includes(searchWord) ||
+          (source.details.product_group).toLocaleUpperCase('TR').includes(searchWord);
       } 
       else {
-        condition = source.id.toLowerCase().includes(searchWord);
+        condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
       }
 
       return condition;

@@ -116,7 +116,7 @@ export default function Orders() {
               :
               "absolute transition duration-200 overflow-y-auto shadow-button right-0 top-full w-full z-[18] border border-t-0 h-60 border-shadow_blue bg-alica_blue opacity-0 pointer-events-none"
             }>
-              <AutoSearch data={orders_data.filtered_stocks} func={orders_data.chooseFilteredStock} cols={["Stok Kod", "Stok İsim", "Malzeme", "Ürün Grubu"]} />
+              <AutoSearch data={orders_data.filtered_stocks} func={orders_data.chooseFilteredStock} cols={["Stok Kod", "Stok İsim"]} /> {/* "Malzeme", "Ürün Grubu" */}
             </div>
           </div>
 

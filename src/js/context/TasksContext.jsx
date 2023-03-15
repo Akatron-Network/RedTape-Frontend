@@ -210,7 +210,7 @@ const Provider = ({ children }) => {
       row: steps.length + 1,
       name: "",
       responsible_username: "",
-      planned_finish_date: ""
+      planned_finish_date: new Date().toISOString().split('T')[0]
     }
 
     steps.push(new_step);
@@ -285,7 +285,7 @@ const Provider = ({ children }) => {
     
     show.map((p) => {     //. If state = Gecikti, get and set 'Gecikti' rows
       if (p.details.current_step !== null) {
-        if (Date.now() > (new Date(p.details.current_step.planned_finish_date)).getTime()) {
+        if (Date.now() > (new Date(p.details.current_step.planned_finish_date)).getTime() + 86400000) {
           if ((p.details.state !== "Tamamlandı") && (p.details.state !== "İptal Edildi")) { 
             list.push(p)
           }
@@ -339,6 +339,7 @@ const Provider = ({ children }) => {
 
   const createOrEditTask = async () => {
     let steps = [...state.task_steps];
+    
 
     for (let s of steps) {
       s.planned_finish_date = s.planned_finish_date + "T00:00:00Z"
@@ -349,6 +350,7 @@ const Provider = ({ children }) => {
       description: tasksDescription.current.value,
       task_steps: steps
     }
+    console.log(data);
     
     if (state.tasks_editable) {
 

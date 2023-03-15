@@ -15,8 +15,8 @@ const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(currentReducer, {
     districts: [],
     provinces: [],
-    table_columns: ["CARİ KOD", "CARİ İSİM", "TC KİMLİK NUMARASI", "TELEFON", "ADRES"], //, removed ["order"]
-    table_rows: ["id", "name", "identification_no", "phone", "address"],        //, removed ["order"]
+    table_columns: ["CARİ KOD", "CARİ İSİM", "CARİ TİP", "TELEFON", "ADRES"], //, removed ["order"]
+    table_rows: ["id", "name", "current_type", "phone", "address"],        //, removed ["order"]
     render_table: "",
     current_details: {},
     all_currents: [],
@@ -34,6 +34,7 @@ const Provider = ({ children }) => {
   const currentPhoneIRef = useRef("")
   const currentPhoneIIRef = useRef("")
   const currentMailRef = useRef("")
+  const currentTypeRef = useRef("")
   const currentCodeIRef = useRef("")
   const currentCodeIIRef = useRef("")
   const currentCodeIIIRef = useRef("")
@@ -50,6 +51,7 @@ const Provider = ({ children }) => {
   const currentPhoneIEditRef = useRef("")
   const currentPhoneIIEditRef = useRef("")
   const currentMailEditRef = useRef("")
+  const currentTypeEditRef = useRef("")
   const currentCodeIEditRef = useRef("")
   const currentCodeIIEditRef = useRef("")
   const currentCodeIIIEditRef = useRef("")
@@ -70,6 +72,7 @@ const Provider = ({ children }) => {
     currentPhoneIRef,
     currentPhoneIIRef,
     currentMailRef,
+    currentTypeRef,
     currentCodeIRef,
     currentCodeIIRef,
     currentCodeIIIRef,
@@ -88,6 +91,7 @@ const Provider = ({ children }) => {
     currentPhoneIEditRef,
     currentPhoneIIEditRef,
     currentMailEditRef,
+    currentTypeEditRef,
     currentCodeIEditRef,
     currentCodeIIEditRef,
     currentCodeIIIEditRef,
@@ -118,6 +122,9 @@ const Provider = ({ children }) => {
   }
   
   const createCurrent = async () => {
+    let mail = currentMailEditRef.current.value;
+    if (mail === "") mail = undefined
+
     let current_details = {
       name: currentNameRef.current.value,
       address: currentAddressRef.current.value,
@@ -128,7 +135,8 @@ const Provider = ({ children }) => {
       identification_no: currentIDNoRef.current.value,
       phone: currentPhoneIRef.current.value,
       phone_2: currentPhoneIIRef.current.value,
-      mail: currentMailRef.current.value,
+      mail: mail,
+      current_type: currentTypeRef.current.value,
       code_1: currentCodeIRef.current.value,
       code_2: currentCodeIIRef.current.value,
       code_3: currentCodeIIIRef.current.value,
@@ -144,8 +152,8 @@ const Provider = ({ children }) => {
   
   const clearCurrentInputs = () => {
 
-    for (let i of currentInputs) {                                //. Loop for clear inputs
-      if (i === currentProvinceRef || i === currentDistrictRef) { //. Check select inputs
+    for (let i of currentInputs) {                                                          //. Loop for clear inputs
+      if (i === currentProvinceRef || i === currentDistrictRef || i === currentTypeRef) {   //. Check select inputs
         i.current.value = "default"
       }
       else {
@@ -165,6 +173,7 @@ const Provider = ({ children }) => {
   const showCurrentList = async () => {
     let t = new Table(Current.showCurrent, state.table_columns, state.table_rows);
     let dt = await t.getData();
+    console.log(dt);
 
     dispatch({                //. Set all currents
       type: 'ALL_CURRENTS',
@@ -239,6 +248,7 @@ const Provider = ({ children }) => {
     currentPhoneIEditRef.current.value = dt.details.phone
     currentPhoneIIEditRef.current.value = dt.details.phone_2
     currentMailEditRef.current.value = dt.details.mail
+    currentTypeEditRef.current.value = dt.details.current_type
     currentCodeIEditRef.current.value = dt.details.code_1
     currentCodeIIEditRef.current.value = dt.details.code_2
     currentCodeIIIEditRef.current.value = dt.details.code_3
@@ -259,6 +269,9 @@ const Provider = ({ children }) => {
   const editCurrent = async (id) => {
     let details = new Current(id)
 
+    let mail = currentMailEditRef.current.value;
+    if (mail === "") mail = undefined
+
     let changes = {
       name: currentNameEditRef.current.value,
       address: currentAddressEditRef.current.value,
@@ -269,7 +282,8 @@ const Provider = ({ children }) => {
       identification_no: currentIDNoEditRef.current.value,
       phone: currentPhoneIEditRef.current.value,
       phone_2: currentPhoneIIEditRef.current.value,
-      mail: currentMailEditRef.current.value,
+      mail: mail,
+      current_type: currentTypeEditRef.current.value,
       code_1: currentCodeIEditRef.current.value,
       code_2: currentCodeIIEditRef.current.value,
       code_3: currentCodeIIIEditRef.current.value,
@@ -286,7 +300,7 @@ const Provider = ({ children }) => {
   const clearCurrentEditInputs = () => {
 
     for (let i of currentEditInputs) {                                    //. Loop for clear inputs
-      if (i === currentProvinceEditRef || i === currentDistrictEditRef) { //. Check select inputs
+      if (i === currentProvinceEditRef || i === currentDistrictEditRef || i === currentTypeEditRef) { //. Check select inputs
         i.current.value = "default"
       }
       else {
@@ -315,6 +329,7 @@ const Provider = ({ children }) => {
     currentPhoneIRef,
     currentPhoneIIRef,
     currentMailRef,
+    currentTypeRef,
     currentCodeIRef,
     currentCodeIIRef,
     currentCodeIIIRef,
@@ -331,6 +346,7 @@ const Provider = ({ children }) => {
     currentPhoneIEditRef,
     currentPhoneIIEditRef,
     currentMailEditRef,
+    currentTypeEditRef,
     currentCodeIEditRef,
     currentCodeIIEditRef,
     currentCodeIIIEditRef,
