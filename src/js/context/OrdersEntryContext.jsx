@@ -23,6 +23,7 @@ const Provider = ({children}) => {
     entry_product_modal: {},
     entry_product_units: [],
     filtered_stocks: [],
+    filtered_orders: [],
     invoiced: false,
     chosen_stock: {},
     chosen_stock_units: [],
@@ -96,7 +97,6 @@ const Provider = ({children}) => {
     }
   }, [state.print_pdf_rows])
   
-
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
     documentTitle: 'Sipariş',
@@ -149,6 +149,11 @@ const Provider = ({children}) => {
 
     dispatch({
       type: "ALL_ORDERS",
+      value: resp
+    })
+
+    dispatch({
+      type: 'FILTERED_ORDERS',
       value: resp
     })
   }
@@ -435,9 +440,9 @@ const Provider = ({children}) => {
           (source.details.material).toLocaleUpperCase('TR').includes(searchWord) ||
           (source.details.product_group).toLocaleUpperCase('TR').includes(searchWord);
       } 
-      else {
-        condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
-      }
+      // else {
+      //   condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
+      // }
 
       return condition;
     });
@@ -542,6 +547,31 @@ const Provider = ({children}) => {
     clearAddOrderEntryProduct();
   }
 
+  //- Table Search Funcs
+  const filterOrders = async (event) => {
+    const searchWord = event.target.value.toLocaleUpperCase('TR');
+console.log(state.all_orders);
+
+    const newFilter = state.all_orders.filter((source) => {
+      var condition = false;
+
+      condition =
+        source.details.id.toString().toLocaleUpperCase('TR').includes(searchWord) ||
+        source.details.current_id.toString().toLocaleUpperCase('TR').includes(searchWord);
+      // else {
+      //   condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
+      // }
+
+      return condition;
+    });
+    console.log(newFilter);
+    
+    dispatch({
+      type: 'FILTERED_ORDERS',
+      value: newFilter
+    })
+  }
+
   const orders_entry = {
 
     //, Refs
@@ -578,6 +608,7 @@ const Provider = ({children}) => {
     editEntryProduct,
     editOrdersEntry,
     filterStocks,
+    filterOrders,
     getOrderDetails,
     getProductDetails,
     hideAddEntryOrderProductModal,

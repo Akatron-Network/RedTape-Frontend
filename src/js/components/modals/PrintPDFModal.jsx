@@ -15,9 +15,11 @@ export default function PrintPDFModal() {
               <button type="button" onClick={() => hidePrintPDFModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-sm p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
 
-            <div className="p-5 flex justify-center">
+            <div className="p-5 flex flex-col text-center">
 
-              <button onClick={handlePrint} className='save-btn text-base flex items-center p-2 px-3'>
+              <p className='mb-5'>Sipariş oluşturma başarıyla tamamlandı!</p>
+
+              <button onClick={handlePrint} className='save-btn text-base flex items-center p-2 px-3 relative left-1/2 -translate-x-1/2'>
                 <i className="fa-solid fa-print text-lg mr-2"></i>Yazdır
               </button>
             </div>

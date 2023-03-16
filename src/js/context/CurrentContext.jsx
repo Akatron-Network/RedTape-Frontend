@@ -173,7 +173,6 @@ const Provider = ({ children }) => {
   const showCurrentList = async () => {
     let t = new Table(Current.showCurrent, state.table_columns, state.table_rows);
     let dt = await t.getData();
-    console.log(dt);
 
     dispatch({                //. Set all currents
       type: 'ALL_CURRENTS',
@@ -315,6 +314,49 @@ const Provider = ({ children }) => {
     await showCurrentList();
   }
 
+  //- Table Search Funcs
+  const filterCurrents = async (event) => {
+    const searchWord = event.target.value.toLocaleUpperCase('TR');
+    const newFilter = state.all_currents.filter((source) => {
+      var condition = false;
+
+      if (source.details.name !== undefined) {
+        condition =
+          (source.details.id).toString().toLocaleUpperCase('TR').includes(searchWord) ||
+          source.details.name.toLocaleUpperCase('TR').includes(searchWord);
+      } 
+      // else {
+      //   condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
+      // }
+
+      return condition;
+    });
+    
+    let t = new Table(Current.showCurrent, state.table_columns, state.table_rows);
+    let dt = t.dataFilter(newFilter);
+
+    t.setExecuteButtons([     //. Buttons in the table
+      {
+        func: (id) => getCurrentDetails(id),
+        class: "golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90",
+        type: "edit",
+        icon: "fa-solid fa-pen-to-square"
+      },
+      {
+        func: (id) => removeCurrent(id),
+        class: "ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90",
+        type: "remove",
+        icon: "fa-solid fa-xmark"
+      }
+    ])
+
+    dispatch({               //. Get rendered table
+      type: 'RENDER_TABLE',
+      render: t.render()
+    })
+  }
+
+
   //- Current Context Data
   const current = {
     
@@ -362,6 +404,7 @@ const Provider = ({ children }) => {
     clearCurrentInputs,
     createCurrent,
     editCurrent,
+    filterCurrents,
     getCurrentDetails,
     getDistrictList,
     getProvinceList,

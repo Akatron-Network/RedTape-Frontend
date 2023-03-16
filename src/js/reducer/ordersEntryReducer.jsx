@@ -80,6 +80,12 @@ export default function reducer(state, action) {
         filtered_stocks: action.value
       }
 
+    case 'FILTERED_ORDERS':
+      return {
+        ...state,
+        filtered_orders: action.value
+      }
+
     case 'CHOSEN_STOCK':
       return {
         ...state,

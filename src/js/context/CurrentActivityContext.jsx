@@ -170,9 +170,10 @@ const Provider = ({children}) => {
         condition =
           (source.details.id).toString().toLocaleUpperCase('TR').includes(searchWord) ||
           source.details.name.toLocaleUpperCase('TR').includes(searchWord);
-      } else {
-        condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
-      }
+      } 
+      // else {
+      //   condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
+      // }
 
       return condition;
     });

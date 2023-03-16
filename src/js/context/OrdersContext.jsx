@@ -200,9 +200,10 @@ const Provider = ({ children }) => {
         condition =
           (source.details.id).toString().toLocaleUpperCase('TR').includes(searchWord) ||
           source.details.name.toLocaleUpperCase('TR').includes(searchWord);
-      } else {
-        condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
-      }
+      } 
+      // else {
+      //   condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
+      // }
       
       return condition;
     });
@@ -274,7 +275,7 @@ const Provider = ({ children }) => {
   const clearCurrentDetails = () => {
     ordersCurSearchInputRef.current.value = "";
     ordersSourceRef.current.value = "";
-    ordersInvoicedRef.current.value = "default";
+    ordersInvoicedRef.current.value = "Faturalı";
     ordersCurGTEDateRef.current.value = state.date.current
     ordersCurLTEDateRef.current.value = state.date.current
 
@@ -358,9 +359,9 @@ const Provider = ({ children }) => {
           // (source.details.material).toLocaleUpperCase('TR').includes(searchWord) ||
           // (source.details.product_group).toLocaleUpperCase('TR').includes(searchWord);
       } 
-      else {
-        condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
-      }
+      // else {
+      //   condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
+      // }
 
       return condition;
     });

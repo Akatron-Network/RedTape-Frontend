@@ -350,7 +350,6 @@ const Provider = ({ children }) => {
       description: tasksDescription.current.value,
       task_steps: steps
     }
-    console.log(data);
     
     if (state.tasks_editable) {
 

@@ -5,8 +5,8 @@ import Tooltip from '../items/Tooltip';
 
 export default function OrdersTable() {
 
-  const { table_columns, all_orders, all_currents, getOrderDetails, removeOrder, printPDF } = useOrdersEntry();
-
+  const { table_columns, filtered_orders, all_currents, getOrderDetails, removeOrder, printPDF } = useOrdersEntry();
+  
   return (
     
     <div className="shadow-table overflow-auto max-h-[730px]">
@@ -30,7 +30,7 @@ export default function OrdersTable() {
           </tr>
         </thead>
         <tbody>
-          {all_orders.map((p, i) => {
+          {filtered_orders.map((p, i) => {
 
             let cur_name = "";
             for (let c of all_currents) {
@@ -82,7 +82,7 @@ export default function OrdersTable() {
         </tbody>
       </table>
       <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 bottom-[-1px] sticky" aria-label="Table navigation">
-        <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{all_orders.length}</span> kayıt bulunmaktadır.</span>
+        <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{filtered_orders.length}</span> kayıt bulunmaktadır.</span>
       </nav>
     </div>
     

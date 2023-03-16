@@ -19,6 +19,12 @@ export default class Table {
     this.data = await this.method(this.query)
     return this.data;
   }
+
+  //f For data filter
+  dataFilter(data) {
+    this.data = data;
+    return this.data;
+  }
   
   //? Get button details from table
   setExecuteButtons(btn_details) {

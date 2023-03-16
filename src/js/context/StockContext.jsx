@@ -220,6 +220,48 @@ const Provider = ({ children }) => {
     stockCodeIIIEditRef.current.value = ""
     stockCodeIVEditRef.current.value = ""
   }
+  
+  //- Table Search Funcs
+  const filterStocks = async (event) => {
+    const searchWord = event.target.value.toLocaleUpperCase('TR');
+    const newFilter = state.all_stocks.filter((source) => {
+      var condition = false;
+
+      if (source.details.name !== undefined) {
+        condition =
+          (source.details.id).toString().toLocaleUpperCase('TR').includes(searchWord) ||
+          source.details.name.toLocaleUpperCase('TR').includes(searchWord);
+      } 
+      // else {
+      //   condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
+      // }
+
+      return condition;
+    });
+    
+    let t = new Table(Stock.showStock, state.table_columns, state.table_rows);
+    let dt = t.dataFilter(newFilter);
+
+    t.setExecuteButtons([     //. Buttons in the table
+      {
+        func: (id) => getStockDetails(id),
+        class: "golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90",
+        type: "edit",
+        icon: "fa-solid fa-pen-to-square"
+      },
+      {
+        func: (id) => removeStock(id),
+        class: "ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90",
+        type: "remove",
+        icon: "fa-solid fa-xmark"
+      }
+    ])
+
+    dispatch({               //. Get rendered table
+      type: 'RENDER_TABLE',
+      value: t.render()
+    })
+  }
 
   const stock = {
 
@@ -259,6 +301,7 @@ const Provider = ({ children }) => {
     clearStockInputs,
     createStock,
     editStock,
+    filterStocks,
     hideStockModal,
     showStockList,
 
