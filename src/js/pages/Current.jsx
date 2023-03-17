@@ -34,7 +34,7 @@ export default function Current() {
           <div className='col-span-2'><InputDefault type={"text"} name={"Telefon - 1"} reference={current_data.currentPhoneIRef} /></div>
           <div className='col-span-2'><InputDefault type={"text"} name={"Telefon - 2"} reference={current_data.currentPhoneIIRef} /></div>
           <div className='col-span-2'><InputDefault type={"text"} name={"E-mail Adresi"} reference={current_data.currentMailRef} /></div>
-          <div className='col-span-2'><InputSelect name={"Cari Tip"} reference={current_data.currentTypeRef} options={["Borç", "Alacak"]} func={() => {}} /></div>
+          <div className='col-span-2'><InputSelect name={"Cari Tip"} reference={current_data.currentTypeRef} options={["BORÇ", "ALACAK"]} func={() => {}} /></div>
           <div className='col-span-2'><InputDefault type={"text"} name={"Kod 1"} reference={current_data.currentCodeIRef} /></div>
           <div className='col-span-2'><InputDefault type={"text"} name={"Kod 2"} reference={current_data.currentCodeIIRef} /></div>
           <div className='col-span-2'><InputDefault type={"text"} name={"Kod 3"} reference={current_data.currentCodeIIIRef} /></div>
@@ -53,7 +53,7 @@ export default function Current() {
             <PageSubTitle title={"Cari Tablosu"} />
             <div className='flex flex-row shadow-input ellipsis h-[30px]'>
               <span className="w-1/3 truncate flex justify-center min-h-[34px] border border-alica_blue_light text-sm items-center bg-steel_blue_light font-medium text-prussian_blue px-1 py-[6px">Ara<i className="fa-solid fa-magnifying-glass text-indigo_dye ml-2"></i></span>
-              <input onChange={(e) => current_data.filterCurrents(e)} type={"text"} className="w-2/3 min-h-[34px] py-[6px] bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-l-none focus:border-shadow_blue focus:ring-transparent block" placeholder="Tabloda ara..." required />
+              <input onChange={(e) => current_data.filterCurrents(e)} type={"text"} className="w-2/3 min-h-[34px] py-[6px] bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-l-none focus:border-shadow_blue focus:ring-transparent block" placeholder="Cari Kod / İsim  ile ara..." required />
             </div>
           </div>
           

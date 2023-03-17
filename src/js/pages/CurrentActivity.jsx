@@ -113,9 +113,15 @@ export default function CurrentActivity() {
           <div className='col-span-2 xl:col-span-1'><InputSelect name={"Borç-Alacak"} reference={cur_act_data.curActDebtAmountRef} options={["Borç", "Alacak"]} func={() => {}} /></div>
           <div className='col-span-2 xl:col-span-1'><InputDefault type={"number"} name={"Tutar"} reference={cur_act_data.curActBalanceRef} /></div>
           <div className='my-2 col-span-5'>
-            <button type="button" onClick={cur_act_data.createCurrentActivity} className="save-btn float-right ml-2">Cari Hareket Ekle</button>
+
+            {Object.keys(cur_act_data.chosen_current).length < 1 ? 
+              <button type="button" onClick={cur_act_data.createCurrentActivity} className="save-btn float-right ml-2 pointer-events-none opacity-30">Cari Hareket Ekle</button>
+              : 
+              <button type="button" onClick={cur_act_data.createCurrentActivity} className="save-btn float-right ml-2">Cari Hareket Ekle</button>
+            }
             <button type="button" className="clear-btn float-right" onClick={cur_act_data.clearCurActEntryInputs}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
-          </div>  
+          
+          </div>
         </div>      
 
         <div className='col-span-3'>

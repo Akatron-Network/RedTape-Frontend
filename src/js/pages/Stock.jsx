@@ -47,7 +47,7 @@ export default function Stock() {
             <PageSubTitle title={"Stok Tablosu"} />
             <div className='flex flex-row shadow-input ellipsis h-[30px]'>
               <span className="w-1/3 truncate flex justify-center min-h-[34px] border border-alica_blue_light text-sm items-center bg-steel_blue_light font-medium text-prussian_blue px-1 py-[6px">Ara<i className="fa-solid fa-magnifying-glass text-indigo_dye ml-2"></i></span>
-              <input onChange={(e) => stock_data.filterStocks(e)} type={"text"} className="w-2/3 min-h-[34px] py-[6px] bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-l-none focus:border-shadow_blue focus:ring-transparent block" placeholder="Tabloda ara..." required />
+              <input onChange={(e) => stock_data.filterStocks(e)} type={"text"} className="w-2/3 min-h-[34px] py-[6px] bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-l-none focus:border-shadow_blue focus:ring-transparent block" placeholder="Stok Kod / İsim ile ara..." required />
             </div>
           </div>
           <Table data={stock_data.render_table} all_currents={stock_data.all_currents} />

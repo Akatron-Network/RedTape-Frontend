@@ -4,10 +4,12 @@ import Current from '../libraries/models/Current'
 import TurkeyProvDist from '../libraries/tools/TurkeyProvDist'
 import Table from '../libraries/tools/Table';
 import {Modal} from 'flowbite';
+import { useMain } from './MainContext';
 
 const CurrentContext = createContext();
 
 const Provider = ({ children }) => {
+  const { createLoadingModal } = useMain();
 
   //b State and Ref Management ----------------------------------------
 
@@ -122,6 +124,9 @@ const Provider = ({ children }) => {
   }
   
   const createCurrent = async () => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let mail = currentMailEditRef.current.value;
     if (mail === "") mail = undefined
 
@@ -148,6 +153,8 @@ const Provider = ({ children }) => {
 
     await showCurrentList();    
     clearCurrentInputs();
+    
+    modal.hide();
   }
   
   const clearCurrentInputs = () => {
@@ -171,6 +178,9 @@ const Provider = ({ children }) => {
   //- Current Table Funcs
   //? Show spesific currents
   const showCurrentList = async () => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let t = new Table(Current.showCurrent, state.table_columns, state.table_rows);
     let dt = await t.getData();
 
@@ -198,37 +208,17 @@ const Provider = ({ children }) => {
       type: 'RENDER_TABLE',
       render: t.render()
     })
+
+    setTimeout(() => {
+      modal.hide();
+    }, 300);
   }
   
-  //? Create modal object for show-hide etc.
-  const showCurrentModal = () => {
-    const options = {
-      backdrop: 'static',
-    };
-    
-    let el = document.getElementById("editCurrentModal");
-    const modal = new Modal(el, options);
-
-    dispatch({        //. Set current modal object
-      type: 'EDIT_CURRENT_MODAL',
-      value: modal
-    })
-
-    return modal;
-  }
-
-  const hideCurrentModal = () => {
-    state.edit_current_modal.hide();
-    clearCurrentEditInputs();
-
-    dispatch({        //. Set current modal object
-      type: 'EDIT_CURRENT_MODAL',
-      value: {}
-    })
-  }
-
   //? Get current details to fill inputs
   const getCurrentDetails = async (id) => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let dt = await Current.getCurrent(id.id)
 
     let current_modal = showCurrentModal();
@@ -263,9 +253,14 @@ const Provider = ({ children }) => {
     for (let d of dist) {
       if (d === dt.details.district) currentDistrictEditRef.current.value = d
     }    
+    
+    modal.hide();
   }
 
   const editCurrent = async (id) => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let details = new Current(id)
 
     let mail = currentMailEditRef.current.value;
@@ -293,7 +288,9 @@ const Provider = ({ children }) => {
     let cr = await details.editCurrent(changes)
 
     await showCurrentList();
-    if (cr.Success) hideCurrentModal();
+    hideCurrentModal();
+
+    modal.hide();
   }
   
   const clearCurrentEditInputs = () => {
@@ -309,9 +306,13 @@ const Provider = ({ children }) => {
   }
 
   const removeCurrent = async (id) => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let rmv = await Current.removeCurrent(id.id);
 
     await showCurrentList();
+    modal.hide();
   }
 
   //- Table Search Funcs
@@ -353,6 +354,33 @@ const Provider = ({ children }) => {
     dispatch({               //. Get rendered table
       type: 'RENDER_TABLE',
       render: t.render()
+    })
+  }
+
+  //? Create modal object for show-hide etc.
+  const showCurrentModal = () => {
+    const options = {
+      backdrop: 'static',
+    };
+    
+    let el = document.getElementById("editCurrentModal");
+    const modal = new Modal(el, options);
+
+    dispatch({        //. Set current modal object
+      type: 'EDIT_CURRENT_MODAL',
+      value: modal
+    })
+
+    return modal;
+  }
+
+  const hideCurrentModal = () => {
+    state.edit_current_modal.hide();
+    clearCurrentEditInputs();
+
+    dispatch({        //. Set current modal object
+      type: 'EDIT_CURRENT_MODAL',
+      value: {}
     })
   }
 

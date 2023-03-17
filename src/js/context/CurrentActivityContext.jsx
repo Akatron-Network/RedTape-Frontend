@@ -4,10 +4,14 @@ import CurrentActivity from '../libraries/models/CurrentActivity';
 import currentActivityReducer from '../reducer/currentActivityReducer'
 import Table from '../libraries/tools/Table';
 import {Modal} from 'flowbite';
+import { useMain } from './MainContext';
 
 const CurrentActivityContext = createContext();
 
 const Provider = ({children}) => {
+
+  const { createLoadingModal } = useMain();
+
   //b State and Ref Management ----------------------------------------
   
   //- Current Details States
@@ -110,6 +114,9 @@ const Provider = ({children}) => {
   }
   
   const getAllCurrents = async () => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let query = {
       skip: 0,
       take: 1000,
@@ -127,6 +134,8 @@ const Provider = ({children}) => {
       type: 'FILTERED_CURRENTS',
       value: currents
     })
+    
+    modal.hide();
 
   }
 
@@ -205,7 +214,6 @@ const Provider = ({children}) => {
   }
 
   const printCurrentDetails = (details) => {
-
     if(details === undefined || details === null || details === "") {
       curActIDRef.current.innerHTML = "";
       curActNameRef.current.innerHTML = "";
@@ -222,6 +230,7 @@ const Provider = ({children}) => {
       })
     }
     else {
+      //f If they are empty " - " if they dont empty values
       details.details.id === null || details.details.id === undefined ? curActIDRef.current.innerHTML = "-" :  curActIDRef.current.innerHTML = details.details.id
       details.details.name === null || details.details.name === undefined ? curActNameRef.current.innerHTML = "-" :  curActNameRef.current.innerHTML = details.details.name
       details.details.address === null || details.details.address === undefined  ? curActAddressRef.current.innerHTML = "-" :  curActAddressRef.current.innerHTML = details.details.address
@@ -251,6 +260,8 @@ const Provider = ({children}) => {
 
   //- Table Functions
   const getCurrentActivity = async () => {
+    let modal = createLoadingModal()
+    modal.show();
 
     if (JSON.stringify(state.chosen_current) === "{}") {  //. If chosen current is empty reset the table
       return dispatch({     //. Reset rendered table
@@ -314,9 +325,14 @@ const Provider = ({children}) => {
       type: 'RENDER_TABLE',
       render: act.render()
     })
+    
+    modal.hide();
   }
 
   const createCurrentActivity = async () => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let balance = 0;
 
     if (curActDebtAmountRef.current.value === "Borç") {
@@ -338,6 +354,8 @@ const Provider = ({children}) => {
 
     await getCurrentActivity();
     clearCurActEntryInputs();
+
+    modal.hide();
   }
   
   const clearCurActEntryInputs = () => {
@@ -348,6 +366,85 @@ const Provider = ({children}) => {
     curActBalanceRef.current.value = "";
   }
 
+  const clearCurActEditInputs = () => {
+    curActDateEditRef.current.value = state.date.current
+    curActDescriptionEditRef.current.value = "";
+    curActExpiryDateEditRef.current.value = "";
+    curActDebtAmountEditRef.current.value = "default";
+    curActBalanceEditRef.current.value = "";
+  }
+
+  const getCurActDetails = async (id) => {
+    let modal = createLoadingModal()
+    modal.show();
+
+    let dt = await CurrentActivity.getCurrentActivity(id.id)
+
+    let cur_act_modal = showCurActModal();
+    cur_act_modal.show();
+    
+    dispatch({        //. Set current details
+      type: 'CUR_ACT_DETAILS',
+      value: dt
+    })
+
+    curActDateEditRef.current.value = dt.details.date.split("T")[0];
+    curActDescriptionEditRef.current.value = dt.details.description;
+    curActExpiryDateEditRef.current.value = dt.details.expiry_date.split("T")[0];
+
+    if (dt.details.balance > 0) {                                       //. If balance is positive 
+      curActDebtAmountEditRef.current.value = "Borç";
+      curActBalanceEditRef.current.value = dt.details.balance;
+    }
+    else {                                                             //. If balance is negative 
+      curActDebtAmountEditRef.current.value = "Alacak";
+      curActBalanceEditRef.current.value = (dt.details.balance * -1); 
+    }
+
+    modal.hide();
+  }
+
+  const editCurrentActivity = async (id) => {
+    let modal = createLoadingModal()
+    modal.show();
+
+    let details = new CurrentActivity(id)
+    let balance = 0;
+
+    if (curActDebtAmountEditRef.current.value === "Borç") {
+      balance = curActBalanceEditRef.current.value
+    }
+    else if (curActDebtAmountEditRef.current.value === "Alacak") {
+      balance =  - curActBalanceEditRef.current.value
+    }
+
+    let changes = {
+      balance: parseFloat(balance),
+      date: curActDateEditRef.current.value + "T00:00:00.000Z",
+      description: curActDescriptionEditRef.current.value,
+      expiry_date: curActExpiryDateEditRef.current.value + "T00:00:00.000Z",
+    }
+
+    let cr = await details.editCurrentActivity(changes)
+
+    await getCurrentActivity();
+    hideCurActModal();
+    
+    modal.hide();
+  }
+
+  const removeCurAct = async (id) => {
+    let modal = createLoadingModal()
+    modal.show();
+
+    let remove = await CurrentActivity.removeCurrentActivity(id.id);
+    
+    await getCurrentActivity();
+
+    modal.hide();
+  }
+
+  //- Modal Funcs
   const showCurActModal = () => {
     const options = {
       backdrop: 'static',
@@ -372,70 +469,6 @@ const Provider = ({children}) => {
       type: 'EDIT_CUR_ACT_MODAL',
       value: {}
     })
-  }
-
-  const clearCurActEditInputs = () => {
-    curActDateEditRef.current.value = state.date.current
-    curActDescriptionEditRef.current.value = "";
-    curActExpiryDateEditRef.current.value = "";
-    curActDebtAmountEditRef.current.value = "default";
-    curActBalanceEditRef.current.value = "";
-  }
-
-  const getCurActDetails = async (id) => {
-    let dt = await CurrentActivity.getCurrentActivity(id.id)
-
-    let cur_act_modal = showCurActModal();
-    cur_act_modal.show();
-    
-    dispatch({        //. Set current details
-      type: 'CUR_ACT_DETAILS',
-      value: dt
-    })
-
-    curActDateEditRef.current.value = dt.details.date.split("T")[0];
-    curActDescriptionEditRef.current.value = dt.details.description;
-    curActExpiryDateEditRef.current.value = dt.details.expiry_date.split("T")[0];
-
-    if (dt.details.balance > 0) {                                       //. If balance is positive 
-      curActDebtAmountEditRef.current.value = "Borç";
-      curActBalanceEditRef.current.value = dt.details.balance;
-    }
-    else {                                                             //. If balance is negative 
-      curActDebtAmountEditRef.current.value = "Alacak";
-      curActBalanceEditRef.current.value = (dt.details.balance * -1); 
-    }
-
-  }
-
-  const editCurrentActivity = async (id) => {
-    let details = new CurrentActivity(id)
-    let balance = 0;
-
-    if (curActDebtAmountEditRef.current.value === "Borç") {
-      balance = curActBalanceEditRef.current.value
-    }
-    else if (curActDebtAmountEditRef.current.value === "Alacak") {
-      balance =  - curActBalanceEditRef.current.value
-    }
-
-    let changes = {
-      balance: parseFloat(balance),
-      date: curActDateEditRef.current.value + "T00:00:00.000Z",
-      description: curActDescriptionEditRef.current.value,
-      expiry_date: curActExpiryDateEditRef.current.value + "T00:00:00.000Z",
-    }
-
-    let cr = await details.editCurrentActivity(changes)
-
-    await getCurrentActivity();
-    if (cr.Success) hideCurActModal();
-  }
-
-  const removeCurAct = async (id) => {
-    let remove = await CurrentActivity.removeCurrentActivity(id.id);
-    
-    await getCurrentActivity();
   }
 
   //b -----------------------------------------------------------------

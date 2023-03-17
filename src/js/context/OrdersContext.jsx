@@ -5,10 +5,12 @@ import ordersReducer from '../reducer/ordersReducer'
 import {Modal} from 'flowbite';
 import Orders from "../libraries/models/Orders";
 import { useReactToPrint } from "react-to-print";
+import { useMain } from "./MainContext";
 
 const OrdersContext = createContext()
 
 const Provider = ({ children }) => {
+  const { createLoadingModal } = useMain();
 
   //b State and Ref Management ----------------------------------------
 
@@ -140,6 +142,9 @@ const Provider = ({ children }) => {
 
   //- Current Autocomplete
   const getAllCurrents = async () => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let query = {
       skip: 0,
       take: 1000,
@@ -158,6 +163,7 @@ const Provider = ({ children }) => {
       value: currents
     })
 
+    modal.hide();
   }
   
   const toggleFilteredCurrentTable = (e) => {
@@ -235,7 +241,6 @@ const Provider = ({ children }) => {
   }
 
   const printCurrentDetails = (details) => {
-
     if(details === undefined) {
       ordersCurIDRef.current.innerHTML = "";
       ordersCurNameRef.current.innerHTML = "";
@@ -269,7 +274,6 @@ const Provider = ({ children }) => {
 
       ordersCurProvDistRef.current.innerHTML = details.details.province + " - " +  details.details.district
     }
-
   }
 
   const clearCurrentDetails = () => {
@@ -296,6 +300,9 @@ const Provider = ({ children }) => {
 
   //- Stock Autocomplete
   const getAllStocks = async () => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let query = {
       skip: 0,
       take: 1000,
@@ -313,7 +320,9 @@ const Provider = ({ children }) => {
       type: 'FILTERED_STOCKS',
       value: stock
     })
-
+    
+    
+    modal.hide();
   }
   
   const toggleFilteredStockTable = (e) => {
@@ -687,6 +696,9 @@ const Provider = ({ children }) => {
 
   //- Order Funcs
   const createOrder = async () => {
+    let modal = createLoadingModal()
+    modal.show();
+
     if(ordersInvoicedRef.current.value === "Faturalı") { var invoiced = true }
     else if(ordersInvoicedRef.current.value === "Faturasız") { var invoiced = false }
 
@@ -744,6 +756,8 @@ const Provider = ({ children }) => {
 
     printPDF(),
     clearOrder();
+    
+    modal.hide();
   }
 
   const clearOrder = () => {

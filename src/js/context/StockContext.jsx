@@ -3,14 +3,16 @@ import stockReducer from '../reducer/stockReducer'
 import Stock from '../libraries/models/Stock'
 import Table from '../libraries/tools/Table'
 import { Modal } from 'flowbite';
+import { useMain } from './MainContext';
 
 const StockContext = createContext();
 
 const Provider = ({ children }) => {
+  const { createLoadingModal } = useMain();
 
   //- Stock Refs and States
   const [state, dispatch] = useReducer(stockReducer , {
-    table_columns: ["ID", "STOK İSMİ", "MALZEME", "ÜRÜN GRUBU", "BİRİM 1", "BİRİM 2", "ÇEV. ORANI", "ALIŞ", "SATIŞ"],
+    table_columns: ["STOK KOD", "STOK İSİM", "MALZEME", "ÜRÜN GRUBU", "BİRİM 1", "BİRİM 2", "ÇEV. ORANI", "ALIŞ", "SATIŞ"],
     table_rows: ["id", "name", "material", "product_group", "unit", "unit_2", "conversion_rate", "buy_price", "sell_price"],
     all_stocks: [],
     render_table: "",
@@ -47,6 +49,9 @@ const Provider = ({ children }) => {
   
   //b Functions etc. ------------------------------------------------------
   const showStockList = async () => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let t = new Table(Stock.showStock, state.table_columns, state.table_rows);
     let dt = await t.getData();
 
@@ -74,9 +79,16 @@ const Provider = ({ children }) => {
       type: 'RENDER_TABLE',
       value: t.render()
     })
+    
+    setTimeout(() => {
+      modal.hide();
+    }, 300);
   }
 
   const getStockDetails = async (id) => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let dt = await Stock.getStock(id.id)
 
     let stock_modal = showStockModal();
@@ -100,9 +112,13 @@ const Provider = ({ children }) => {
     stockCodeIIIEditRef.current.value = dt.details.code_3;
     stockCodeIVEditRef.current.value = dt.details.code_4;
 
+    modal.hide();
   }
   
   const editStock = async (id) => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let details = new Stock(id)
 
     let changes = {
@@ -123,10 +139,14 @@ const Provider = ({ children }) => {
     let st = await details.editStock(changes)
 
     await showStockList();
-    if (st.Success) hideStockModal();
+    hideStockModal();
+
+    modal.hide();
   }
 
   const createStock = async () => {
+    let modal = createLoadingModal()
+    modal.show();
 
     let check = [stockConversionRateRef.current.value, stockBuyPriceRef.current.value, stockSellPriceRef.current.value]
     
@@ -156,6 +176,8 @@ const Provider = ({ children }) => {
 
     await showStockList();
     clearStockInputs();
+    
+    modal.hide();
   }
 
   const clearStockInputs = () => {
@@ -174,9 +196,14 @@ const Provider = ({ children }) => {
   }
 
   const removeStock = async (id) => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let rmv = await Stock.removeStock(id.id);
 
     await showStockList();
+    
+    modal.hide();
   }
 
   //- Modal Funcs

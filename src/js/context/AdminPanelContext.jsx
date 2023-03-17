@@ -3,10 +3,13 @@ import User from '../libraries/models/User';
 import Table from '../libraries/tools/Table';
 import adminPanelReducer from '../reducer/adminPanelReducer'
 import {Modal} from 'flowbite';
+import { useMain } from './MainContext';
 
 const AdminPanelContext = createContext();
 
 const Provider = ({ children }) => {
+  const { createLoadingModal } = useMain();
+
   //b State and Ref Management ----------------------------------------
   
   //- Current Details States
@@ -44,6 +47,9 @@ const Provider = ({ children }) => {
   
   //? Users Func
   const showUserList = async () => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let t = new Table(User.showUser, state.table_columns, state.table_rows);
     let dt = await t.getData();
 
@@ -71,9 +77,14 @@ const Provider = ({ children }) => {
       type: 'RENDER_TABLE',
       render: t.render()
     })
+    
+    modal.hide();
   }
 
   const createUser = async () => {
+    let modal = createLoadingModal()
+    modal.show();
+
     if(userPasswordRef.current.value.length > 7) {
 
       let resp = await User.createUser(
@@ -90,6 +101,7 @@ const Provider = ({ children }) => {
       document.getElementById("passwordWarn").classList.add("block");
     }
 
+    modal.hide();
   }
 
   const clearUserInputs = () => {
@@ -102,6 +114,9 @@ const Provider = ({ children }) => {
   }
   
   const getUserDetails = async (dt) => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let details = await User.getUserDetails(dt.username)
     
     const show_user_modal = showUserModal();
@@ -117,9 +132,14 @@ const Provider = ({ children }) => {
 
     userNameEditRef.current.innerHTML = details.details.displayname;
     userPasswordEditRef.current.value = "";
+    
+    modal.hide();
   }
 
   const editUser = async (dt) => {
+    let modal = createLoadingModal()
+    modal.show();
+
     let details = new User(dt)
 
     if (userPasswordEditRef.current.value !== "") {
@@ -144,23 +164,28 @@ const Provider = ({ children }) => {
 
     showUserList();
     hideUserModal();
+    
+    modal.hide();
   }
 
   const clearUserEditInputs = () => {
-    userNameEditRef.current.innerHTML = "",
     userPasswordEditRef.current.value = "",
     document.getElementById('default-checkbox-edit').checked = false;
     
     document.getElementById("passwordEditWarn").classList.remove("block");
     document.getElementById("passwordEditWarn").classList.add("hidden");
-
   }
 
   const removeUser = async (dt) => {
+    let modal = createLoadingModal()
+    modal.show();
+    
     let resp = await User.getUserDetails(dt.username)
     let rmv = await resp.removeUser()
     
     showUserList();
+
+    modal.hide();
   }
 
   //? Create modal object for show-hide etc.

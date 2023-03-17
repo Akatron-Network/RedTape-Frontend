@@ -11,8 +11,8 @@ import TasksProvider from './context/TasksContext';
 
 function App() {
   return (
-    <AdminPanelProvider>
-      <MainProvider>
+    <MainProvider>
+      <AdminPanelProvider>
         <CurrentProvider>
           <CurrentActivityProvider>
             <StockProvider>
@@ -28,8 +28,8 @@ function App() {
             </StockProvider>
           </CurrentActivityProvider>
         </CurrentProvider>
-      </MainProvider>
-    </AdminPanelProvider>
+      </AdminPanelProvider>
+    </MainProvider>
   )
 }
 

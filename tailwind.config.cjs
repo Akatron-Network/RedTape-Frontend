@@ -34,6 +34,7 @@ module.exports = {
         sea_green_light: "#4EA66D",
 
         modal_bg: "#0000006E",
+        dark_modal_bg: "#000000BF",
         esprint_red: "#AC0B03",
         esprint_gray: "#1A1A18"
       },

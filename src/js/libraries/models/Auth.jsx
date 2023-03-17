@@ -48,7 +48,7 @@ export default class Auth {
       username: username,
       password: password
     })
-
+    
     if(!get.Success) throw new Error('Login failed')    //. Check Success
     
     let auth = new Auth(                                //. Create Auth Object with get func response
@@ -59,7 +59,7 @@ export default class Auth {
     )
 
     auth.localSync();                                   //. Set Items to LocalStorage
-
+    
     return auth;                                        //r return to Auth Object
   }
   

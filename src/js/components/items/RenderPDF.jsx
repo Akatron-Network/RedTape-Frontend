@@ -2,16 +2,18 @@ import React from 'react'
 import logo from '../../../img/esprint-logo.jpg';
 import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
 
-RenderPDF.defaultProps = {data:{
-  total:0,
-  list:[],
-  head_info: {
-    current_name: "",
-    phone: "",
-    date: "",
-    delivery_date: "",
+RenderPDF.defaultProps = {
+  data:{
+    total:0,
+    list:[],
+    head_info: {
+      current_name: "",
+      phone: "",
+      date: "",
+      delivery_date: "",
+    }
   }
-}}
+}
 
 export default function RenderPDF(props) {
   const jsx_render = () => {

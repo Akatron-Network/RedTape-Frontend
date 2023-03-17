@@ -28,7 +28,7 @@ export default function EditCurrentModal() {
               <div className='col-span-1'><InputDefault type={"text"} name={"Telefon - 1"} reference={current_data.currentPhoneIEditRef} /></div>
               <div className='col-span-1'><InputDefault type={"text"} name={"Telefon - 2"} reference={current_data.currentPhoneIIEditRef} /></div>
               <div className='col-span-1'><InputDefault type={"text"} name={"E-mail Adresi"} reference={current_data.currentMailEditRef} /></div>
-              <div className='col-span-1'><InputSelect name={"Cari Tip"} reference={current_data.currentTypeEditRef} options={["Borç", "Alacak"]} func={() => {}} /></div>
+              <div className='col-span-1'><InputSelect name={"Cari Tip"} reference={current_data.currentTypeEditRef} options={["BORÇ", "ALACAK"]} func={() => {}} /></div>
               <div className='col-span-1'><InputDefault type={"text"} name={"Kod 1"} reference={current_data.currentCodeIEditRef} /></div>
               <div className='col-span-1'><InputDefault type={"text"} name={"Kod 2"} reference={current_data.currentCodeIIEditRef} /></div>
               <div className='col-span-1'><InputDefault type={"text"} name={"Kod 3"} reference={current_data.currentCodeIIIEditRef} /></div>
