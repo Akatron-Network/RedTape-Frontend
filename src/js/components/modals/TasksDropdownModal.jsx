@@ -2,9 +2,11 @@ import React from 'react'
 import PageSubTitle from '../items/PageSubTitle'
 import { useTasks } from '../../context/TasksContext'
 import InputComment from '../items/InputComment';
+import { useMain } from '../../context/MainContext';
 
 export default function TasksDropdownModal() {
   const { dropdown_button_for_modal, dropdownFuncsApply, hideDropdownModal, tasksStepDescriptionRef, dropdown_modal_title } = useTasks();
+  const { funcLoad } = useMain();
 
   return (
     <>
@@ -22,7 +24,7 @@ export default function TasksDropdownModal() {
             </div>
 
             <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
-              <button type="button" className="save-btn ml-2 float-right" onClick={() => dropdownFuncsApply(dropdown_button_for_modal.data, dropdown_button_for_modal.title)}><i className="fa-solid fa-floppy-disk mr-2"></i>{dropdown_button_for_modal.title}</button>
+              <button type="button" className="save-btn ml-2 float-right" onClick={() => funcLoad(dropdownFuncsApply, dropdown_button_for_modal.data, dropdown_button_for_modal.title)}><i className="fa-solid fa-floppy-disk mr-2"></i>{dropdown_button_for_modal.title}</button>
             </div>
           </div>
         </div>

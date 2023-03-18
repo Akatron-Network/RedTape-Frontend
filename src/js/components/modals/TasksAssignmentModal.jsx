@@ -7,9 +7,11 @@ import { useTasks } from '../../context/TasksContext'
 import UnassignedTasksProductTable from '../spesific-tables/UnassignedTasksProductTable';
 import StepsCard from '../items/StepsCard'
 import TasksLogs from '../spesific-tables/TasksLogs';
+import { useMain } from '../../context/MainContext'
 
 export default function TasksAssignmentModal() {
   const tasks_data = useTasks();
+  const { funcLoad } = useMain();
 
   return (
     <>
@@ -64,8 +66,8 @@ export default function TasksAssignmentModal() {
             <div className='px-5 pb-5'><UnassignedTasksProductTable /></div>
             
             <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
-              {tasks_data.tasks_editable && tasks_data.admin_check.admin ? <button type="button" className="danger-btn ml-2 float-right" onClick={() => tasks_data.removeTask()}><i className="fa-solid fa-trash-can mr-2"></i>Görevi Tamamen Sil</button> : undefined } 
-              <button type="button" className={tasks_data.task_steps.length < 1 ? "save-btn ml-2 float-right opacity-30 pointer-events-none" : "save-btn ml-2 float-right"} onClick={() => tasks_data.createOrEditTask()}><i className="fa-solid fa-handshake-simple mr-2"></i>{tasks_data.tasks_editable ? "Görev Detaylarını Onayla" : "Görev Ata"}</button> 
+              {tasks_data.tasks_editable && tasks_data.admin_check.admin ? <button type="button" className="danger-btn ml-2 float-right" onClick={() => funcLoad(tasks_data.removeTask)}><i className="fa-solid fa-trash-can mr-2"></i>Görevi Tamamen Sil</button> : undefined } 
+              <button type="button" className={tasks_data.task_steps.length < 1 ? "save-btn ml-2 float-right opacity-30 pointer-events-none" : "save-btn ml-2 float-right"} onClick={() => funcLoad(tasks_data.createOrEditTask)}><i className="fa-solid fa-handshake-simple mr-2"></i>{tasks_data.tasks_editable ? "Görev Detaylarını Onayla" : "Görev Ata"}</button> 
             </div>
           </div>
         </div>

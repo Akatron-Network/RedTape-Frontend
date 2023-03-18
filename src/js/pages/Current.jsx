@@ -7,13 +7,23 @@ import PageMainTitle from '../components/items/PageMainTitle'
 import PageSubTitle from '../components/items/PageSubTitle'
 import { useCurrent } from '../context/CurrentContext'
 import EditCurrentModal from '../components/modals/EditCurrentModal'
+import { useMain } from '../context/MainContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function Current() {
   const current_data = useCurrent();
+  const { adminAll, adminCheck, funcLoad } = useMain();
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
-    current_data.getProvinceList();
-    current_data.showCurrentList();
+    if(!adminAll) navigate("/")
+  }, [adminAll])
+
+  useEffect(() => {
+    adminCheck();
+    current_data.getProvinceList;
+    funcLoad(current_data.showCurrentList);
   }, [])
 
   return (
@@ -42,7 +52,7 @@ export default function Current() {
           <div className='col-span-2 my-4'><InputComment name={"Açıklama"} reference={current_data.currentDescriptionRef} /></div>
 
           <div>
-            <button type="button" className="save-btn ml-2 float-right" onClick={() => current_data.createCurrent()}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
+            <button type="button" className="save-btn ml-2 float-right" onClick={() => funcLoad(current_data.createCurrent)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
             <button type="button" className="clear-btn float-right" onClick={() => current_data.clearCurrentInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
           </div>
         </div>

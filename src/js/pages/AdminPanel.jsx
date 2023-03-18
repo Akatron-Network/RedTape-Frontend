@@ -5,14 +5,25 @@ import PageSubTitle from '../components/items/PageSubTitle';
 import { useAdminPanel } from '../context/AdminPanelContext';
 import Table from '../components/items/Table';
 import EditUserModal from '../components/modals/EditUserModal';
+import { useMain } from '../context/MainContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function AdminPanel() {
   const admin_panel_data = useAdminPanel();
+  const { adminAll, adminCheck, funcLoad } = useMain();
+  
+  const navigate = useNavigate();
+  console.log(adminAll);
 
   useEffect(() => {
-    admin_panel_data.showUserList();
+    if(!adminAll) navigate("/")
+  }, [adminAll])
+
+  useEffect(() => {
+    adminCheck();
+    funcLoad(admin_panel_data.showUserList);
   }, [])
-  
+
   return (
     <>
       <PageMainTitle title={"Admin Paneli"} />
@@ -31,7 +42,7 @@ export default function AdminPanel() {
           </div>
           <div id='passwordWarn' className="col-span-2 mt-2 mb-1 text-right hidden"><span className='text-sm text-red-600'><span className='font-bold'>Hata:</span> Şifre 7 karakterden kısa olamaz!</span></div>
           <div className='mt-2'>
-            <button type="button" className="save-btn ml-2 float-right" onClick={() => admin_panel_data.createUser()}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
+            <button type="button" className="save-btn ml-2 float-right" onClick={() => funcLoad(admin_panel_data.createUser)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
             <button type="button" className="clear-btn float-right" onClick={() => admin_panel_data.clearUserInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
           </div>
         </div>

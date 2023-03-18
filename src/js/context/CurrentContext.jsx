@@ -9,7 +9,7 @@ import { useMain } from './MainContext';
 const CurrentContext = createContext();
 
 const Provider = ({ children }) => {
-  const { createLoadingModal } = useMain();
+  const { funcLoad } = useMain();
 
   //b State and Ref Management ----------------------------------------
 
@@ -124,9 +124,6 @@ const Provider = ({ children }) => {
   }
   
   const createCurrent = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let mail = currentMailEditRef.current.value;
     if (mail === "") mail = undefined
 
@@ -153,8 +150,6 @@ const Provider = ({ children }) => {
 
     await showCurrentList();    
     clearCurrentInputs();
-    
-    modal.hide();
   }
   
   const clearCurrentInputs = () => {
@@ -178,9 +173,6 @@ const Provider = ({ children }) => {
   //- Current Table Funcs
   //? Show spesific currents
   const showCurrentList = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let t = new Table(Current.showCurrent, state.table_columns, state.table_rows);
     let dt = await t.getData();
 
@@ -191,13 +183,13 @@ const Provider = ({ children }) => {
 
     t.setExecuteButtons([     //. Buttons in the table
       {
-        func: (id) => getCurrentDetails(id),
+        func: (id) => funcLoad(getCurrentDetails, id),
         class: "golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90",
         type: "edit",
         icon: "fa-solid fa-pen-to-square"
       },
       {
-        func: (id) => removeCurrent(id),
+        func: (id) => funcLoad(removeCurrent, id),
         class: "ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90",
         type: "remove",
         icon: "fa-solid fa-xmark"
@@ -208,17 +200,10 @@ const Provider = ({ children }) => {
       type: 'RENDER_TABLE',
       render: t.render()
     })
-
-    setTimeout(() => {
-      modal.hide();
-    }, 300);
   }
   
   //? Get current details to fill inputs
   const getCurrentDetails = async (id) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let dt = await Current.getCurrent(id.id)
 
     let current_modal = showCurrentModal();
@@ -254,13 +239,9 @@ const Provider = ({ children }) => {
       if (d === dt.details.district) currentDistrictEditRef.current.value = d
     }    
     
-    modal.hide();
   }
 
   const editCurrent = async (id) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let details = new Current(id)
 
     let mail = currentMailEditRef.current.value;
@@ -289,8 +270,6 @@ const Provider = ({ children }) => {
 
     await showCurrentList();
     hideCurrentModal();
-
-    modal.hide();
   }
   
   const clearCurrentEditInputs = () => {
@@ -306,13 +285,9 @@ const Provider = ({ children }) => {
   }
 
   const removeCurrent = async (id) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let rmv = await Current.removeCurrent(id.id);
 
     await showCurrentList();
-    modal.hide();
   }
 
   //- Table Search Funcs

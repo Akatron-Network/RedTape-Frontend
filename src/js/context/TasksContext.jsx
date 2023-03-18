@@ -6,12 +6,10 @@ import Stock from '../libraries/models/Stock';
 import Orders from '../libraries/models/Orders';
 import User from '../libraries/models/User';
 import Tasks from '../libraries/models/Tasks';
-import { useMain } from './MainContext';
 
 const TasksContext = createContext();
 
-const Provider = ({ children }) => {
-  const { createLoadingModal } = useMain();
+const Provider = ({ children }) => {  
   
   //- Stock Refs and States
   const [state, dispatch] = useReducer(tasksReducer, {
@@ -55,7 +53,8 @@ const Provider = ({ children }) => {
   //- Permisson check for Tables, buttons etc.
   //f Admin Check
   const adminCheck = async () => {
-    let dt = JSON.parse(localStorage.user_details);
+    if(localStorage.user_details !== undefined) var dt = JSON.parse(localStorage.user_details);
+    else { return; }
 
     let val = {
       admin: false,
@@ -96,9 +95,6 @@ const Provider = ({ children }) => {
   
   //f Get Orders for unassigned tasks
   const showOrders = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let query = {
       skip: 0,
       take: 1000,
@@ -111,8 +107,6 @@ const Provider = ({ children }) => {
       type: "ALL_ORDERS",
       value: resp
     })
-    
-    modal.hide();
   }
 
   //f Get Stocks
@@ -143,9 +137,6 @@ const Provider = ({ children }) => {
 
   //f Show TasksAssignmentModal and filled in the inputs
   const makeTasksAssignment = async (dt) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let tasks_assignment_modal = showModal("tasksAssignmentModal", "TASKS_ASSIGNMENT_MODAL");   //. Create and show Tasks Assignment Modal
     tasks_assignment_modal.show();
 
@@ -173,8 +164,6 @@ const Provider = ({ children }) => {
         editTaskOrderCurLTEDateRef.current.value = o.details.delivery_date.split("T")[0]
       }
     }
-    
-    modal.hide();
   }
 
   const clearTasksAssignmentInputs = () => {
@@ -348,9 +337,6 @@ const Provider = ({ children }) => {
   }
 
   const createOrEditTask = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let steps = [...state.task_steps];
 
     for (let s of steps) {
@@ -381,8 +367,6 @@ const Provider = ({ children }) => {
     await showOrders();
 
     hideTasksAssignmentModal();
-    
-    modal.hide();
   }
 
   //f Prepare modal for all dropdown funcs
@@ -408,9 +392,6 @@ const Provider = ({ children }) => {
 
   //f Check type with title and use funcs
   const dropdownFuncsApply = async (dt, title) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let data = {};
     let resp = {};
 
@@ -433,8 +414,6 @@ const Provider = ({ children }) => {
     
     await showTasks(state.state_type, state.admin_check.username);
     hideDropdownModal();
-    
-    modal.hide();
   }
 
   const editTask = async (dt) => {    
@@ -510,17 +489,12 @@ const Provider = ({ children }) => {
   }, [state.tasks_editable])
   
   const removeTask = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let remove = await Tasks.removeTask(state.chosen_task_for_edit.id)
 
     await showTasks(state.state_type, state.admin_check.username);
     await showOrders();
 
     hideTasksAssignmentModal();
-    
-    modal.hide();
   }
   
   //- Modal Funcs

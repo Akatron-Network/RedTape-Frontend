@@ -10,7 +10,6 @@ import { useMain } from "./MainContext";
 const OrdersEntryContext = createContext();
 
 const Provider = ({children}) => {
-  const { createLoadingModal } = useMain();
 
   //b State and Ref Management ----------------------------------------
   const [state, dispatch] = useReducer(ordersEntryReducer, {
@@ -141,9 +140,6 @@ const Provider = ({children}) => {
   }
   
   const showOrders = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let query = {
       skip: 0,
       take: 1000,
@@ -161,28 +157,16 @@ const Provider = ({children}) => {
       type: 'FILTERED_ORDERS',
       value: resp
     })
-    
-    setTimeout(() => {
-      modal.hide();
-    }, 300);
   }
 
   const removeOrder = async (id) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let remove = await Orders.removeOrder(id);
 
     await showOrders();
-    
-    modal.hide();
   }
 
   //- Edit Orders
   const getOrderDetails = async (id) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let dt = [];
 
     for (let o of state.all_orders) {
@@ -223,14 +207,9 @@ const Provider = ({children}) => {
 
     let show_get_order_details_modal = showModal("showOrdersEntryModal", "GET_ORDER_MODAL");
     show_get_order_details_modal.show();
-    
-    modal.hide();
   }
 
   const getProductDetails = async (id) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let dt = [];
 
     for (let o of state.get_order_items) {
@@ -265,15 +244,10 @@ const Provider = ({children}) => {
     entryProductDescriptionEditRef.current.value = dt.description
     
     let entry_product_modal = showModal("editOrdersEntryProductModal", "ENTRY_PRODUCT_MODAL");
-    entry_product_modal.show();  
-    
-    modal.hide();
+    entry_product_modal.show();
   }
 
   const editOrdersEntry = async (dt) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let invoiced = true;
     if (ordersEntryInvoicedEditRef.current.value === "Faturasız") invoiced = false;
 
@@ -293,14 +267,9 @@ const Provider = ({children}) => {
       hideGetOrderDetailsModal()
       showOrders();
     }
-    
-    modal.hide();
   }
 
   const editEntryProduct = async (dt) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let items = [...state.get_order_items]
 
     for (let ind in items) {
@@ -323,8 +292,6 @@ const Provider = ({children}) => {
     })
 
     hideEntryProductDetailsModal();
-    
-    modal.hide();
   }
 
   const removeProduct = async (id) => {

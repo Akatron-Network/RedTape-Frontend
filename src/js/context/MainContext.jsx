@@ -4,8 +4,11 @@ import { createContext, useContext, useState } from 'react'
 const MainContext = createContext();
 
 const Provider = ({ children }) => {
+
   const [sidePanel, setSidePanel] = useState(false)
-  const [errorText, setErrorText] = useState("");
+  const [errorText, setErrorText] = useState({code: "", message: "", response: ""});
+  const [errorModal, setErrorModal] = useState({});
+  const [adminAll, setAdminAll] = useState(true)
   
   //f Loading Modal
   const createLoadingModal = () => {
@@ -25,36 +28,65 @@ const Provider = ({ children }) => {
       backdrop: 'static',
     };
     
-    let el = document.getElementById("loadingModal");
+    let el = document.getElementById("errorModal");
     const modal = new Modal(el, options);
+
+    setErrorModal(modal);
     
     return modal;
   }
 
+  const hideErrorModal = () => {
+    errorModal.hide();
+
+    setErrorModal({});
+  }
+
   //f Function Load for error handling and loading
   const funcLoad = async (func, ...arg) => {
-    let modal = createLoadingModal()
-    modal.show();
-
-    try {
-      await func(...arg)
-    } catch (error) {
-      console.log(error);
-    }
+    let loading_modal = createLoadingModal();
+    let error_modal = createErrorModal();
     
-    modal.hide();
+    try {
+      loading_modal.show();
+
+      await func(...arg)
+
+      loading_modal.hide();
+      
+    } catch (error) {
+      loading_modal.hide();
+      error_modal.show();
+
+      let response = undefined;
+      if(error.response !== undefined && error.response !== null) response = error.response.data.Data
+      setErrorText({code: error.code, message: error.message, response: response})
+    }
+  }
+
+  //f Admin Check
+  const adminCheck = async () => {
+    if(localStorage.user_details !== undefined) var dt = JSON.parse(localStorage.user_details);
+    else { return; }
+    
+    if (dt.admin) { setAdminAll(true) }
+    else { setAdminAll(false) }
   }
 
   const main = {
     //* Refs
 
     //* States, Variables etc.
+    adminAll,
     errorText,
     sidePanel,
 
     //* Functions
+    adminCheck,
+    createErrorModal,
     createLoadingModal,
     funcLoad,
+    hideErrorModal,
     setSidePanel,
   }
 

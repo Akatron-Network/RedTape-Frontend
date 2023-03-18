@@ -9,12 +9,22 @@ import { useCurrentActivity } from '../context/CurrentActivityContext'
 import AutoSearch from '../components/items/AutoSearch'
 import Table from '../components/items/Table'
 import EditCurActModal from '../components/modals/EditCurActModal'
+import { useMain } from '../context/MainContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function CurrentActivity() {  
   const cur_act_data = useCurrentActivity();
+  const { adminAll, adminCheck, funcLoad } = useMain();
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
-    cur_act_data.getAllCurrents();
+    if(!adminAll) navigate("/")
+  }, [adminAll])
+
+  useEffect(() => {
+    adminCheck();
+    funcLoad(cur_act_data.getAllCurrents);
     cur_act_data.getDate();
     document.addEventListener('click', cur_act_data.toggleFilteredTable);
 
@@ -86,7 +96,7 @@ export default function CurrentActivity() {
           <div className='col-span-1'><InputDate name={"Bitiş Tarihi"} reference={cur_act_data.curActLTEDateRef} defaultValue={cur_act_data.date.current} /></div>
 
           <div className='float-right my-2'>
-            <button onClick={cur_act_data.getCurrentActivity} type="button" className="save-btn float-right"><i className="fa-solid fa-magnifying-glass text-ghost_white mr-2"></i>Bilgileri Getir</button>
+            <button onClick={() => funcLoad(cur_act_data.getCurrentActivity)} type="button" className="save-btn float-right"><i className="fa-solid fa-magnifying-glass text-ghost_white mr-2"></i>Bilgileri Getir</button>
           </div>
         </div>
 
@@ -115,9 +125,9 @@ export default function CurrentActivity() {
           <div className='my-2 col-span-5'>
 
             {Object.keys(cur_act_data.chosen_current).length < 1 ? 
-              <button type="button" onClick={cur_act_data.createCurrentActivity} className="save-btn float-right ml-2 pointer-events-none opacity-30">Cari Hareket Ekle</button>
+              <button type="button" onClick={() => funcLoad(cur_act_data.createCurrentActivity)} className="save-btn float-right ml-2 pointer-events-none opacity-30">Cari Hareket Ekle</button>
               : 
-              <button type="button" onClick={cur_act_data.createCurrentActivity} className="save-btn float-right ml-2">Cari Hareket Ekle</button>
+              <button type="button" onClick={() => funcLoad(cur_act_data.createCurrentActivity)} className="save-btn float-right ml-2">Cari Hareket Ekle</button>
             }
             <button type="button" className="clear-btn float-right" onClick={cur_act_data.clearCurActEntryInputs}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
           

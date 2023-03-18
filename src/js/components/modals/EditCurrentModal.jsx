@@ -4,9 +4,11 @@ import InputSelect from '../items/InputSelect'
 import InputComment from '../items/InputComment'
 import PageSubTitle from '../items/PageSubTitle'
 import { useCurrent } from '../../context/CurrentContext'
+import { useMain } from '../../context/MainContext'
 
 export default function EditCurrentModal() {
   const current_data = useCurrent();
+  const { funcLoad } = useMain();
 
   return (
     <>
@@ -37,7 +39,7 @@ export default function EditCurrentModal() {
             </div>
             <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
               <button type="button" className="clear-btn float-right" onClick={() => current_data.clearCurrentEditInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
-              <button type="button" className="save-btn ml-2 float-right" onClick={() => current_data.editCurrent(current_data.current_details.id)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
+              <button type="button" className="save-btn ml-2 float-right" onClick={() => funcLoad(current_data.editCurrent, current_data.current_details.id)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
             </div>
           </div>
         </div>

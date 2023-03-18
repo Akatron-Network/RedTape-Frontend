@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMain } from '../../context/MainContext';
 
 export default function Sidebar() {
   const { sidePanel, setSidePanel } = useMain();
   const [admin, setAdmin] = useState(false)
+  const navigate = useNavigate();
 
   useEffect(() => { //* When click outside the sidepanel close sidepanel
     document.addEventListener('click', closeSidePanel)
@@ -21,13 +22,14 @@ export default function Sidebar() {
   }
   
   const adminCheck = async () => {
-    let dt = JSON.parse(localStorage.user_details);
+    if(localStorage.user_details !== undefined) var dt = JSON.parse(localStorage.user_details);
+    else {navigate("/login"); return;}
+
     setAdmin(false);
 
     if (dt.admin) {
       setAdmin(true);
     }
-
   }
   
 

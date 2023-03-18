@@ -1,10 +1,12 @@
 import React from 'react'
+import { useMain } from '../../context/MainContext';
 import { useOrders } from '../../context/OrdersContext'
 import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
 import Tooltip from '../items/Tooltip'
 
 export default function OrdersTable() {
   const {table_columns, product_list, removeProduct, getProductDetails, table_total} = useOrders();
+  const { funcLoad } = useMain();
   
   return (
     
@@ -71,10 +73,10 @@ export default function OrdersTable() {
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Ürünü Düzenle"}>
-                    <button onClick={() => getProductDetails(p.row)} className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                    <button onClick={() => funcLoad(getProductDetails, p.row)} className='golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                   </Tooltip>
                   <Tooltip message={"Ürünü Sil"}>
-                    <button onClick={() => removeProduct(p.row)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                    <button onClick={() => funcLoad(removeProduct, p.row)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </Tooltip>
                 </td>
               </tr>

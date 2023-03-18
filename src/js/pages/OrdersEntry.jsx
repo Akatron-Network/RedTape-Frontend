@@ -7,13 +7,23 @@ import EditOrdersEntryModal from '../components/modals/EditOrdersEntryModal'
 import { useOrdersEntry } from '../context/OrdersEntryContext'
 import AddOrderEntryProductModal from '../components/modals/AddOrderEntryProductModal'
 import RenderPDF from '../components/items/RenderPDF'
+import { useMain } from '../context/MainContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function OrdersEntry() {
   const orders_entry_data = useOrdersEntry();
+  const { adminAll, adminCheck, funcLoad } = useMain();
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if(!adminAll) navigate("/")
+  }, [adminAll])
+
+  useEffect(() => {
+    adminCheck();
     orders_entry_data.showCurrents();
-    orders_entry_data.showOrders();
+    funcLoad(orders_entry_data.showOrders);
     orders_entry_data.showStocks();
 
     document.addEventListener('click', function(e) {

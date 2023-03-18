@@ -5,15 +5,17 @@ import TasksAssignmentModal from '../components/modals/TasksAssignmentModal'
 import TasksDropdownModal from '../components/modals/TasksDropdownModal'
 import AssignedTasksTable from '../components/spesific-tables/AssignedTasksTable'
 import UnassignedTasksTable from '../components/spesific-tables/UnassignedTasksTable'
+import { useMain } from '../context/MainContext'
 import { useTasks } from '../context/TasksContext'
 
 export default function Tasks() {
   const tasks_data = useTasks();
+  const { funcLoad } = useMain();
 
   useEffect(() => {
     tasks_data.adminCheck();
     tasks_data.showCurrents();
-    tasks_data.showOrders();
+    funcLoad(tasks_data.showOrders);
     tasks_data.showStocks();
     // tasks_data.showTasks(); //. In adminCheck function
     tasks_data.showUsers();

@@ -4,9 +4,11 @@ import InputSelect from '../items/InputSelect'
 import InputDefault from '../items/InputDefault'
 import PageSubTitle from '../items/PageSubTitle'
 import { useOrdersEntry } from '../../context/OrdersEntryContext'
+import { useMain } from '../../context/MainContext'
 
 export default function EditOrdersEntryProductModal() {
   const orders_entry_data = useOrdersEntry();
+  const { funcLoad } = useMain();
 
   return (
     <>
@@ -30,7 +32,7 @@ export default function EditOrdersEntryProductModal() {
             </div>
 
             <div className="flex items-center px-5 py-3 mt-4 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
-              <button type="button" className="save-btn ml-2 float-right" onClick={() => orders_entry_data.editEntryProduct(orders_entry_data.entry_product_details)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
+              <button type="button" className="save-btn ml-2 float-right" onClick={() => funcLoad(orders_entry_data.editEntryProduct, orders_entry_data.entry_product_details)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
             </div>
           </div>
         </div>

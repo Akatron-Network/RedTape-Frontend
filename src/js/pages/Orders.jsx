@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import PageMainTitle from '../components/items/PageMainTitle'
 import PageSubTitle from '../components/items/PageSubTitle'
 import InputDate from '../components/items/InputDate'
@@ -13,13 +13,23 @@ import { useOrders } from '../context/OrdersContext'
 import EditProductModal from '../components/modals/EditProductModal'
 import PrintPDFModal from '../components/modals/PrintPDFModal'
 import RenderPDF from '../components/items/RenderPDF'
+import { useMain } from '../context/MainContext'
+import { useNavigate } from 'react-router-dom'
 
 export default function Orders() {
   const orders_data = useOrders();
+  const { adminAll, adminCheck, funcLoad } = useMain();
+  
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if(!adminAll) navigate("/")
+  }, [adminAll])
+
+  useEffect(() => {
+    adminCheck();
     orders_data.getAllCurrents();
-    orders_data.getAllStocks();
+    funcLoad(orders_data.getAllStocks);
     orders_data.getDate();
 
     document.addEventListener('click', function(e) {
@@ -126,10 +136,10 @@ export default function Orders() {
           <div className={orders_data.invoiced !== true ? "col-span-2 lg:col-span-1 opacity-40 pointer-events-none" : "col-span-2 lg:col-span-1"}><InputSelectNoSpan name={"KDV Oranı"} reference={orders_data.ordersTaxRateRef} options={["%0", "%8", "%18"]} /></div>
           <div className='col-span-4 lg:col-span-2'><InputDefaultNoSpan name={"Açıklama"} reference={orders_data.ordersDescriptionRef} type={"text"} /></div>       
 
-          <button className='col-span-2 lg:col-span-1 truncate clear-btn w-full' onClick={orders_data.addProduct}><i className="fa-solid fa-plus mr-1"></i>Ürün Ekle</button>
+          <button className='col-span-2 lg:col-span-1 truncate clear-btn w-full' onClick={() => funcLoad(orders_data.addProduct)}><i className="fa-solid fa-plus mr-1"></i>Ürün Ekle</button>
           <div className="col-span-10 mt-3"><OrdersTable /></div>
           
-          <div className="col-span-10 mt-2 flex justify-end"><button className='save-btn w-fit' onClick={orders_data.createOrder}><i className="fa-solid fa-bag-shopping mr-2"></i>Sipariş Oluştur</button></div>
+          <div className="col-span-10 mt-2 flex justify-end"><button className='save-btn w-fit' onClick={() => funcLoad(orders_data.createOrder)}><i className="fa-solid fa-bag-shopping mr-2"></i>Sipariş Oluştur</button></div>
           
         </div>
         

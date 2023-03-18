@@ -4,9 +4,11 @@ import InputSelect from '../items/InputSelect'
 import InputDate from '../items/InputDate'
 import PageSubTitle from '../items/PageSubTitle'
 import { useCurrentActivity } from '../../context/CurrentActivityContext'
+import { useMain } from '../../context/MainContext'
 
 export default function EditCurrentActivityModal() {
   const cur_act_data = useCurrentActivity();
+  const { funcLoad } = useMain();
 
   return (
     <>
@@ -26,7 +28,7 @@ export default function EditCurrentActivityModal() {
             </div>
             <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
               <button type="button" className="clear-btn float-right" onClick={() => cur_act_data.clearCurActEditInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
-              <button type="button" className="save-btn ml-2 float-right" onClick={() => cur_act_data.editCurrentActivity(cur_act_data.cur_act_details.id)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
+              <button type="button" className="save-btn ml-2 float-right" onClick={() => funcLoad(cur_act_data.editCurrentActivity, cur_act_data.cur_act_details.id)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
             </div>
           </div>
         </div>

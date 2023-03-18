@@ -5,12 +5,14 @@ import PageSubTitle from '../components/items/PageSubTitle'
 import { useStock } from '../context/StockContext'
 import Table from '../components/items/Table'
 import EditStockModal from '../components/modals/EditStockModal'
+import { useMain } from '../context/MainContext'
 
 export default function Stock() {
   const stock_data = useStock();
+  const { funcLoad } = useMain();
 
   useEffect(() => {
-    stock_data.showStockList();
+    funcLoad(stock_data.showStockList);
   }, [])
   
 
@@ -36,7 +38,7 @@ export default function Stock() {
           <div className='col-span-2'><InputDefault type={"text"} name={"Kod 4"} reference={stock_data.stockCodeIVRef} /></div>
         
           <div className='mt-4'>
-            <button type="button" className="save-btn ml-2 float-right" onClick={() => stock_data.createStock()}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
+            <button type="button" className="save-btn ml-2 float-right" onClick={() => funcLoad(stock_data.createStock)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
             <button type="button" className="clear-btn float-right" onClick={() => stock_data.clearStockInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
           </div>
         </div>

@@ -5,9 +5,11 @@ import InputFilled from '../items/InputFilled'
 import PageSubTitle from '../items/PageSubTitle'
 import { useOrdersEntry } from '../../context/OrdersEntryContext'
 import ShowOrdersTable from '../spesific-tables/ShowOrdersTable'
+import { useMain } from '../../context/MainContext'
 
 export default function EditOrdersEntryModal() {
   const orders_entry_data = useOrdersEntry();
+  const { funcLoad } = useMain();
 
   return (
     <>
@@ -16,7 +18,7 @@ export default function EditOrdersEntryModal() {
           <div className="relative bg-ghost_white rounded-sm shadow">
             <div className="flex items-start justify-between px-5 pt-3 pb-0 border-b border-steel_blue_light rounded-t">
               <PageSubTitle title={"Sipariş Düzenle"} />
-              <button type="button" onClick={() => orders_entry_data.hideGetOrderDetailsModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-sm p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
+              <button type="button" onClick={() => funcLoad(orders_entry_data.hideGetOrderDetailsModal)} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-sm p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
 
             <div className="p-5 grid grid-cols-1 grid-flow-row gap-[1px] w-full lg:w-[45%] xl:w-[40%] relative">
@@ -35,7 +37,7 @@ export default function EditOrdersEntryModal() {
             </div>
 
             <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
-              <button type="button" className="save-btn" onClick={() => orders_entry_data.editOrdersEntry(orders_entry_data.get_order_details)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
+              <button type="button" className="save-btn" onClick={() => funcLoad(orders_entry_data.editOrdersEntry, orders_entry_data.get_order_details)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button>
             </div>
           </div>
         </div>

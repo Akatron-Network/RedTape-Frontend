@@ -1,11 +1,12 @@
 import React from 'react'
+import { useMain } from '../../context/MainContext';
 import { useOrdersEntry } from '../../context/OrdersEntryContext'
 import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
 import Tooltip from '../items/Tooltip';
 
 export default function OrdersTable() {
-
   const { table_columns, filtered_orders, all_currents, getOrderDetails, removeOrder, printPDF } = useOrdersEntry();
+  const { funcLoad } = useMain();
   
   return (
     
@@ -67,13 +68,13 @@ export default function OrdersTable() {
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Yazdır"}>
-                    <button type='button' onClick={() => printPDF(p)} className='ml-1 clear-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-print"></i></button>
+                    <button type='button' onClick={() => funcLoad(printPDF, p)} className='ml-1 clear-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-print"></i></button>
                   </Tooltip>
                   <Tooltip message={"Ürünü Düzenle"}>
-                    <button type='button' onClick={() => getOrderDetails(p.details.id)} className='ml-1 golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                    <button type='button' onClick={() => funcLoad(getOrderDetails, p.details.id)} className='ml-1 golden-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                   </Tooltip>
                   <Tooltip message={"Ürünü Sil"}>
-                    <button type='button' onClick={() => removeOrder(p.details.id)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                    <button type='button' onClick={() => funcLoad(removeOrder, p.details.id)} className='ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </Tooltip>
                 </td>
               </tr>

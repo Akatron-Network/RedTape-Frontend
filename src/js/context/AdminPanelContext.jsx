@@ -8,7 +8,7 @@ import { useMain } from './MainContext';
 const AdminPanelContext = createContext();
 
 const Provider = ({ children }) => {
-  const { createLoadingModal } = useMain();
+  const { funcLoad } = useMain();
 
   //b State and Ref Management ----------------------------------------
   
@@ -47,9 +47,6 @@ const Provider = ({ children }) => {
   
   //? Users Func
   const showUserList = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let t = new Table(User.showUser, state.table_columns, state.table_rows);
     let dt = await t.getData();
 
@@ -60,13 +57,13 @@ const Provider = ({ children }) => {
 
     t.setExecuteButtons([     //. Buttons in the table
       {
-        func: (id) => getUserDetails(id),
+        func: (id) => funcLoad(getUserDetails, id),
         class: "golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90",
         type: "edit",
         icon: "fa-solid fa-pen-to-square"
       },
       {
-        func: (id) => removeUser(id),
+        func: (id) => funcLoad(removeUser, id),
         class: "ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90",
         type: "remove",
         icon: "fa-solid fa-xmark"
@@ -77,14 +74,9 @@ const Provider = ({ children }) => {
       type: 'RENDER_TABLE',
       render: t.render()
     })
-    
-    modal.hide();
   }
 
   const createUser = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     if(userPasswordRef.current.value.length > 7) {
 
       let resp = await User.createUser(
@@ -100,8 +92,6 @@ const Provider = ({ children }) => {
       document.getElementById("passwordWarn").classList.remove("hidden");
       document.getElementById("passwordWarn").classList.add("block");
     }
-
-    modal.hide();
   }
 
   const clearUserInputs = () => {
@@ -114,9 +104,6 @@ const Provider = ({ children }) => {
   }
   
   const getUserDetails = async (dt) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let details = await User.getUserDetails(dt.username)
     
     const show_user_modal = showUserModal();
@@ -132,14 +119,9 @@ const Provider = ({ children }) => {
 
     userNameEditRef.current.innerHTML = details.details.displayname;
     userPasswordEditRef.current.value = "";
-    
-    modal.hide();
   }
 
   const editUser = async (dt) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let details = new User(dt)
 
     if (userPasswordEditRef.current.value !== "") {
@@ -164,8 +146,6 @@ const Provider = ({ children }) => {
 
     showUserList();
     hideUserModal();
-    
-    modal.hide();
   }
 
   const clearUserEditInputs = () => {
@@ -177,15 +157,10 @@ const Provider = ({ children }) => {
   }
 
   const removeUser = async (dt) => {
-    let modal = createLoadingModal()
-    modal.show();
-    
     let resp = await User.getUserDetails(dt.username)
     let rmv = await resp.removeUser()
     
     showUserList();
-
-    modal.hide();
   }
 
   //? Create modal object for show-hide etc.
@@ -236,7 +211,6 @@ const Provider = ({ children }) => {
     hideUserModal,
     removeUser,
     showUserList,
-
   }
 
   return (

@@ -2,9 +2,11 @@ import React from 'react'
 import InputDefault from '../items/InputDefault'
 import PageSubTitle from '../items/PageSubTitle'
 import { useStock } from '../../context/StockContext'
+import { useMain } from '../../context/MainContext';
 
 export default function EditStockModal() {
   const stock_data = useStock();
+  const { funcLoad } = useMain();
 
   return (
     <>
@@ -34,7 +36,7 @@ export default function EditStockModal() {
 
             <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
               <button type="button" className="clear-btn float-right" onClick={() => stock_data.clearStockEditInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
-              <button type="button" className="save-btn ml-2 float-right" onClick={() => stock_data.editStock(stock_data.stock_details.id)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
+              <button type="button" className="save-btn ml-2 float-right" onClick={() => funcLoad(stock_data.editStock, stock_data.stock_details.id)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
             </div>
           </div>
         </div>

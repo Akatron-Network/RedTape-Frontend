@@ -5,9 +5,11 @@ import InputDefault from '../items/InputDefault'
 import PageSubTitle from '../items/PageSubTitle'
 import { useOrdersEntry } from '../../context/OrdersEntryContext'
 import AutoSearch from '../items/AutoSearch'
+import { useMain } from '../../context/MainContext'
 
 export default function AddOrderEntryProductModal() {
   const orders_entry_data = useOrdersEntry();
+  const { funcLoad } = useMain();
 
   return (
     <>
@@ -49,7 +51,7 @@ export default function AddOrderEntryProductModal() {
             </div>
 
             <div className="flex items-center px-5 py-3 mt-4 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
-              <button type="button" className="save-btn ml-2 float-right" onClick={() => orders_entry_data.addOrderEntryProduct()}><i className="fa-solid fa-floppy-disk mr-2"></i>Yeni Kalem Oluştur</button> 
+              <button type="button" className="save-btn ml-2 float-right" onClick={() => funcLoad(orders_entry_data.addOrderEntryProduct)}><i className="fa-solid fa-floppy-disk mr-2"></i>Yeni Kalem Oluştur</button> 
             </div>
           </div>
         </div>

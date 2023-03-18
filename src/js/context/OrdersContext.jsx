@@ -10,7 +10,6 @@ import { useMain } from "./MainContext";
 const OrdersContext = createContext()
 
 const Provider = ({ children }) => {
-  const { createLoadingModal } = useMain();
 
   //b State and Ref Management ----------------------------------------
 
@@ -142,9 +141,6 @@ const Provider = ({ children }) => {
 
   //- Current Autocomplete
   const getAllCurrents = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let query = {
       skip: 0,
       take: 1000,
@@ -162,8 +158,6 @@ const Provider = ({ children }) => {
       type: 'FILTERED_CURRENTS',
       value: currents
     })
-
-    modal.hide();
   }
   
   const toggleFilteredCurrentTable = (e) => {
@@ -300,9 +294,6 @@ const Provider = ({ children }) => {
 
   //- Stock Autocomplete
   const getAllStocks = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let query = {
       skip: 0,
       take: 1000,
@@ -320,9 +311,6 @@ const Provider = ({ children }) => {
       type: 'FILTERED_STOCKS',
       value: stock
     })
-    
-    
-    modal.hide();
   }
   
   const toggleFilteredStockTable = (e) => {
@@ -696,9 +684,6 @@ const Provider = ({ children }) => {
 
   //- Order Funcs
   const createOrder = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     if(ordersInvoicedRef.current.value === "Faturalı") { var invoiced = true }
     else if(ordersInvoicedRef.current.value === "Faturasız") { var invoiced = false }
 
@@ -756,8 +741,6 @@ const Provider = ({ children }) => {
 
     printPDF(),
     clearOrder();
-    
-    modal.hide();
   }
 
   const clearOrder = () => {

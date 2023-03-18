@@ -1,11 +1,13 @@
 import React from 'react'
 import InputDefault from '../items/InputDefault'
 import PageSubTitle from '../items/PageSubTitle'
-import { useAdminPanel } from '../../context/AdminPanelContext';
 import InputFilled from '../items/InputFilled';
+import { useAdminPanel } from '../../context/AdminPanelContext';
+import { useMain } from '../../context/MainContext';
 
 export default function EditUserModal() {
   const admin_panel_data = useAdminPanel();
+  const { funcLoad } = useMain();
 
   return (
     <>
@@ -31,7 +33,7 @@ export default function EditUserModal() {
 
             <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
               <button type="button" className="clear-btn float-right" onClick={() => admin_panel_data.clearUserEditInputs()}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
-              <button type="button" className="save-btn ml-2 float-right" onClick={() => admin_panel_data.editUser(admin_panel_data.chosen_user_details.username)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
+              <button type="button" className="save-btn ml-2 float-right" onClick={() => funcLoad(admin_panel_data.editUser, admin_panel_data.chosen_user_details.username)}><i className="fa-solid fa-floppy-disk mr-2"></i>Kaydet</button> 
             </div>
           </div>
         </div>

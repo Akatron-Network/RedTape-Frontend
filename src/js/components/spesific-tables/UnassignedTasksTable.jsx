@@ -2,9 +2,10 @@ import React from 'react'
 import { useTasks } from '../../context/TasksContext'
 import Tooltip from '../items/Tooltip';
 import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
+import { useMain } from '../../context/MainContext';
 
 export default function UnassignedTasksTable() {
-
+  const { funcLoad } = useMain();
   const { unassigned_tasks_table_columns, all_orders, all_currents, makeTasksAssignment } = useTasks();
 
   return (
@@ -67,7 +68,7 @@ export default function UnassignedTasksTable() {
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Görev Ata"}>
-                    <button type='button' onClick={() => makeTasksAssignment(p)} className='clear-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-handshake-simple"></i></button>
+                    <button type='button' onClick={() => funcLoad(makeTasksAssignment, p)} className='clear-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-handshake-simple"></i></button>
                   </Tooltip>
                 </td>
               </tr>

@@ -1,4 +1,4 @@
-import { useRef, useEffect, createContext, useContext, useReducer } from 'react';
+import { useRef, createContext, useContext, useReducer } from 'react';
 import Current from '../libraries/models/Current';
 import CurrentActivity from '../libraries/models/CurrentActivity';
 import currentActivityReducer from '../reducer/currentActivityReducer'
@@ -9,8 +9,7 @@ import { useMain } from './MainContext';
 const CurrentActivityContext = createContext();
 
 const Provider = ({children}) => {
-
-  const { createLoadingModal } = useMain();
+  const { funcLoad } = useMain();
 
   //b State and Ref Management ----------------------------------------
   
@@ -114,9 +113,6 @@ const Provider = ({children}) => {
   }
   
   const getAllCurrents = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let query = {
       skip: 0,
       take: 1000,
@@ -134,9 +130,6 @@ const Provider = ({children}) => {
       type: 'FILTERED_CURRENTS',
       value: currents
     })
-    
-    modal.hide();
-
   }
 
   const toggleFilteredTable = (e) => {
@@ -260,9 +253,6 @@ const Provider = ({children}) => {
 
   //- Table Functions
   const getCurrentActivity = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     if (JSON.stringify(state.chosen_current) === "{}") {  //. If chosen current is empty reset the table
       return dispatch({     //. Reset rendered table
         type: 'RENDER_TABLE',
@@ -308,13 +298,13 @@ const Provider = ({children}) => {
     
     act.setExecuteButtons([     //. Buttons in the table
       {
-        func: (id) => getCurActDetails(id),
+        func: (id) => funcLoad(getCurActDetails, id),
         class: "golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90",
         type: "edit",
         icon: "fa-solid fa-pen-to-square"
       },
       {
-        func: (id) => removeCurAct(id),
+        func: (id) => funcLoad(removeCurAct, id),
         class: "ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90",
         type: "remove",
         icon: "fa-solid fa-xmark"
@@ -325,14 +315,9 @@ const Provider = ({children}) => {
       type: 'RENDER_TABLE',
       render: act.render()
     })
-    
-    modal.hide();
   }
 
   const createCurrentActivity = async () => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let balance = 0;
 
     if (curActDebtAmountRef.current.value === "Borç") {
@@ -354,14 +339,12 @@ const Provider = ({children}) => {
 
     await getCurrentActivity();
     clearCurActEntryInputs();
-
-    modal.hide();
   }
   
   const clearCurActEntryInputs = () => {
     curActDateRef.current.value = state.date.current
     curActDescriptionRef.current.value = "";
-    curActExpiryDateRef.current.value = "";
+    curActExpiryDateRef.current.value = state.date.current;
     curActDebtAmountRef.current.value = "default";
     curActBalanceRef.current.value = "";
   }
@@ -375,9 +358,6 @@ const Provider = ({children}) => {
   }
 
   const getCurActDetails = async (id) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let dt = await CurrentActivity.getCurrentActivity(id.id)
 
     let cur_act_modal = showCurActModal();
@@ -400,14 +380,9 @@ const Provider = ({children}) => {
       curActDebtAmountEditRef.current.value = "Alacak";
       curActBalanceEditRef.current.value = (dt.details.balance * -1); 
     }
-
-    modal.hide();
   }
 
   const editCurrentActivity = async (id) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let details = new CurrentActivity(id)
     let balance = 0;
 
@@ -429,19 +404,12 @@ const Provider = ({children}) => {
 
     await getCurrentActivity();
     hideCurActModal();
-    
-    modal.hide();
   }
 
   const removeCurAct = async (id) => {
-    let modal = createLoadingModal()
-    modal.show();
-
     let remove = await CurrentActivity.removeCurrentActivity(id.id);
     
     await getCurrentActivity();
-
-    modal.hide();
   }
 
   //- Modal Funcs
