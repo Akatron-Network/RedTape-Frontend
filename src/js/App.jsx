@@ -12,26 +12,26 @@ import TasksProvider from './context/TasksContext';
 function App() {
   return (
     <>
-    <MainProvider>
-      <AdminPanelProvider>
-        <CurrentProvider>
-          <CurrentActivityProvider>
-            <StockProvider>
-              <OrdersProvider>
-                <OrdersEntryProvider>
-                  <TasksProvider>
-
-                    <AllRoutes />
-
-                  </TasksProvider>
-                </OrdersEntryProvider>
-              </OrdersProvider>
-            </StockProvider>
-          </CurrentActivityProvider>
-        </CurrentProvider>
-      </AdminPanelProvider>
-    </MainProvider>
     
+      <MainProvider>
+        <AdminPanelProvider>
+          <CurrentProvider>
+            <CurrentActivityProvider>
+              <StockProvider>
+                <OrdersProvider>
+                  <OrdersEntryProvider>
+                    <TasksProvider>
+
+                      <AllRoutes />
+
+                    </TasksProvider>
+                  </OrdersEntryProvider>
+                </OrdersProvider>
+              </StockProvider>
+            </CurrentActivityProvider>
+          </CurrentProvider>
+        </AdminPanelProvider>
+      </MainProvider>
       
     </>
   )

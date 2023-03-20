@@ -11,6 +11,7 @@ RenderPDF.defaultProps = {
       phone: "",
       date: "",
       delivery_date: "",
+      id: "",
     }
   }
 }
@@ -105,9 +106,12 @@ export default function RenderPDF(props) {
       <div ref={props.reference} style={{height: window.innerHeight}} className="w-full p-5">
         
         <div style={{height: (window.innerHeight / 2)}}>
-          <div className='flex items-center w-full border-2 border-esprint_gray p-3'>
+          <div className='flex items-center w-full border-2 border-esprint_gray p-3 relative'>
             <img className='w-[35%]' src={logo} alt="" />
-            <h1 className='h-fit text-3xl text-esprint_gray w-[65%] text-center'>SİPARİŞ FORMU</h1>
+            <div className='flex w-[65%] justify-center'>
+              <h1 className='h-fit text-3xl text-esprint_gray'>SİPARİŞ FORMU</h1>
+              <h1 className='h-fit text-sm text-esprint_gray absolute right-1 bottom-0 font-bold'><span className='text-esprint_red font-bold'>Sipariş Kodu:</span>&nbsp;{props.data.head_info.id}</h1>
+            </div>
           </div>
           <div className='h-[445px] overflow-hidden'>
 
@@ -118,9 +122,12 @@ export default function RenderPDF(props) {
 
 
         <div style={{height: (window.innerHeight / 2)}} className='relative top-[75px]'>
-          <div className='flex items-center w-full border-2 border-esprint_gray p-3'>
+          <div className='flex items-center w-full border-2 border-esprint_gray p-3 relative'>
             <img className='w-[35%]' src={logo} alt="" />
-            <h1 className='h-fit text-3xl text-esprint_gray w-[65%] text-center'>SİPARİŞ FORMU</h1>
+            <div className='flex w-[65%] justify-center'>
+              <h1 className='h-fit text-3xl text-esprint_gray'>SİPARİŞ FORMU</h1>
+              <h1 className='h-fit text-sm text-esprint_gray absolute right-1 bottom-0 font-bold'><span className='text-esprint_red font-bold'>Sipariş Kodu:</span>&nbsp;{props.data.head_info.id}</h1>
+            </div>
           </div>
           <div className='h-[445px] overflow-hidden'>
 

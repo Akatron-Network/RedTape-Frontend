@@ -37,6 +37,7 @@ const Provider = ({children}) => {
         phone: "",
         date: "",
         delivery_date: "",
+        id: "",
       }
     },
     table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ KAYNAĞI", "FATURA DURUMU", "SİPARİŞ TARİHİ", "TESLİM TARİHİ", "TOPLAM TUTAR"],
@@ -68,6 +69,7 @@ const Provider = ({children}) => {
 
   //b Functions -------------------------------------------------------
   const printPDF = (order) => {
+    console.log(order);
     let head_info = {};
     for(let c of state.all_currents) {
       if (order.details.current_id === c.id) {
@@ -76,6 +78,7 @@ const Provider = ({children}) => {
           phone: c.details.phone,
           date: order.details.date.split("T")[0],
           delivery_date: order.details.delivery_date.split("T")[0],
+          id: order.id
         }
       }
     }

@@ -32,6 +32,7 @@ const Provider = ({ children }) => {
         phone: "",
         date: "",
         delivery_date: "",
+        id: "",
       }
     },
     chosen_stock_units: [],
@@ -131,6 +132,7 @@ const Provider = ({ children }) => {
             phone: "",
             date: "",
             delivery_date: "",
+            id: "",
           }
         }
       })
@@ -723,6 +725,7 @@ const Provider = ({ children }) => {
     }
 
     let create = await Orders.createOrder(data)
+    console.log(create);
   
     let rows = {
       ...state.print_pdf_rows,
@@ -731,6 +734,7 @@ const Provider = ({ children }) => {
         phone: state.chosen_current.details.phone,
         date: ordersCurGTEDateRef.current.value,
         delivery_date: ordersCurLTEDateRef.current.value,
+        id: create.id,
       }
     }
 
