@@ -4,21 +4,7 @@ import CurrencyFormat from '../../libraries/tools/CurrencyFormat'
 import Tooltip from '../items/Tooltip'
 
 export default function ShowOrdersTable() {
-  const {show_table_columns, get_order_items, all_stocks, getProductDetails, removeProduct } = useOrdersEntry();
-
-  const totalFee = () => {
-    let total_fee = 0;
-
-    if (get_order_items.length > 0) {
-
-      for (let o of get_order_items) {
-        total_fee = total_fee + (o.amount * o.price) + (1 + o.tax_rate)
-      }
-
-    }
-    
-    return CurrencyFormat(total_fee);
-  }
+  const {show_table_columns, get_order_items, all_stocks, getProductDetails, removeProduct, totalFee } = useOrdersEntry();
   
   return (
     

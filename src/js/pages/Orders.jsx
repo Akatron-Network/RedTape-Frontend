@@ -36,6 +36,11 @@ export default function Orders() {
       orders_data.toggleFilteredCurrentTable(e);
       orders_data.toggleFilteredStockTable(e);
     })
+    
+    orders_data.dispatch({
+      type: 'INVOICED',
+      value: true
+    })
 
     return () => {
       document.addEventListener('click', function(e) {

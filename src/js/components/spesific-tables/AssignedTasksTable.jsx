@@ -14,7 +14,7 @@ export default function AssignedTasksTable() {
           <tr>
             {assigned_tasks_table_columns.map((c, i) => {
               let cls = "p-2 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
-              if(c === "SİPARİŞ DURUMU") cls= "p-2 h-10 font-bold text-xs text-center sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
+              if(c === "SİPARİŞ DURUMU" || c === "TAHSİLAT DURUMU") cls= "p-2 h-10 font-bold text-xs text-center sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
 
               return (
                 <th key={i} className={cls}>
@@ -56,6 +56,11 @@ export default function AssignedTasksTable() {
               }
             }
 
+            let queue = false;
+            let ln = all_tasks.length;
+            if (i === ln - 1 || i === ln - 2 || i === ln - 3 || i === ln - 4) queue = true
+            console.log(queue);
+
             let row_cls = "bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300"
             if (p.details.state === "İptal Edildi") row_cls = "bg-red-400 border-b h-9 border-alica_blue hover:bg-red-500 transition duration-300"
             else if (p.details.state === "Tamamlandı") row_cls = "bg-green-400 border-b h-9 border-alica_blue hover:bg-green-500 transition duration-300"
@@ -90,36 +95,40 @@ export default function AssignedTasksTable() {
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold text-center">
                   {p.details.state}
                 </td>
+                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center">
+                  {p.details.order.credit_current_act === null ? "Tahsil Edilmedi" : "Tahsil Edildi"}
+                </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                  <div className="dropdown inline-block">
+                  <div className="dropdown relative inline-block">
                     <button type='button' onClick={() => {}} className='save-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-bars"></i></button>
-                    <ul className="dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-10 -mt-[15px] w-max text-left">
+                    <ul className={!queue ? "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-3 -mt-[15px] w-max text-left bg-white rounded" : "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-3 -mt-[211px] w-max text-left bg-white rounded"}>
                       
-                      <li onClick={() => dropdownFuncs(p, "İşlemi Tamamla")} className="bg-white text-sky-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
-                        <i className="fa-solid fa-check mr-2 w-4 text-center text-sky-700"></i>İşlemi Tamamla
+                      <li onClick={() => dropdownFuncs(p, "İşlemi Tamamla")} className="text-sky-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
+                        <i className="fa-solid fa-check mr-2 w-4 text-center"></i>İşlemi Tamamla
                       </li>
-                      <li onClick={() => dropdownFuncs(p, "İşlemi İptal Et")} className="bg-white text-orange-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
-                        <i className="fa-solid fa-xmark mr-2 w-4 text-center text-orange-500"></i>İşlemi İptal Et
+                      <li onClick={() => dropdownFuncs(p, "İşlemi İptal Et")} className=" text-orange-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
+                        <i className="fa-solid fa-xmark mr-2 w-4 text-center"></i>İşlemi İptal Et
                       </li>
-                      <li onClick={() => editTask(p)} className={admin_check.admin ? "bg-white text-yellow-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer" : "bg-white text-yellow-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-b"}>
-                        <i className="fa-solid fa-pen-to-square mr-2 w-4 text-center text-yellow-500"></i>Görev Detaylarını Görüntüle
+                      <li onClick={() => editTask(p)} className={admin_check.admin ? "text-yellow-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer" : "text-yellow-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-b"}>
+                        <i className="fa-solid fa-pen-to-square mr-2 w-4 text-center"></i>Görev Detaylarını Görüntüle
                       </li>
                       {admin_check.admin ? 
                         <>
-                          <li onClick={() => dropdownFuncs(p, "Görevi Tamamla")} className="bg-white text-green-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
-                            <i className="fa-solid fa-square-check mr-2 w-4 text-center text-green-700"></i>Görevi Tamamla
+                          <li onClick={() => dropdownFuncs(p, "Görevi Tamamla")} className="text-green-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
+                            <i className="fa-solid fa-square-check mr-2 w-4 text-center"></i>Görevi Tamamla
                           </li>
-                          <li onClick={() => dropdownFuncs(p, "Görevi Baştan Başlat")} className="bg-white text-indigo-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
-                            <i className="fa-solid fa-repeat mr-2 w-4 text-center text-indigo-700"></i>Görevi Baştan Başlat
+                          <li onClick={() => dropdownFuncs(p, "Görevi Baştan Başlat")} className="text-indigo-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
+                            <i className="fa-solid fa-repeat mr-2 w-4 text-center"></i>Görevi Baştan Başlat
                           </li>
-                          <li onClick={() => dropdownFuncs(p, "Görevi İptal Et")} className="bg-white text-red-600 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate cursor-pointer rounded-b">
-                            <i className="fa-solid fa-square-xmark mr-2 w-4 text-center text-red-600"></i>Görevi İptal Et
+                          <li onClick={() => dropdownFuncs(p, "Görevi İptal Et")} className="text-red-600 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate cursor-pointer rounded-b">
+                            <i className="fa-solid fa-square-xmark mr-2 w-4 text-center"></i>Görevi İptal Et
+                          </li>
+                          <li onClick={() => dropdownFuncs(p, "Tahsil Et")} className={p.details.order.credit_current_act === null ? "text-cyan-600 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate cursor-pointer rounded-b" : "text-cyan-600 transition duration-200 opacity-30 pointer-events-none hover:bg-alica_blue_middle py-1 px-3 block truncate cursor-pointer rounded-b"}>
+                            <i className="fa-solid fa-money-bill-1-wave mr-2 w-4 text-center"></i>Tahsil Et
                           </li>
                         </>
                         : undefined
                       }
-                        
-                      
                       
                     </ul>
                   </div>

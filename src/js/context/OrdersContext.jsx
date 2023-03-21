@@ -606,6 +606,8 @@ const Provider = ({ children }) => {
   }
 
   const invoicedCheck = (value) => {
+    let list = [...state.print_pdf_rows.list]
+
     if (value === "Faturasız") {
       dispatch({
         type: 'INVOICED',
@@ -613,6 +615,19 @@ const Provider = ({ children }) => {
       })
 
       ordersTaxRateRef.current.value = "%0"
+
+      let total = 0;
+      if(list.length > 0) {
+        for (let l of list) {
+          l.tax_rate = 0;
+          l.tax_sum = 0;
+          l.amount_sum = (l.amount * l.price)
+          l.total = (l.amount * l.price)
+          total = total + l.total
+        }
+        state.print_pdf_rows.total = total;
+        state.table_total = total;
+      }
     }
     else {
       dispatch({
@@ -711,8 +726,8 @@ const Provider = ({ children }) => {
 
     let data = {
       current_id: state.chosen_current.id,
-      date: ordersCurGTEDateRef.current.value + "T00:00:00Z",
-      delivery_date: ordersCurLTEDateRef.current.value + "T00:00:00Z",
+      date: ordersCurGTEDateRef.current.value + "T00:00:00.000Z",
+      delivery_date: ordersCurLTEDateRef.current.value + "T00:00:00.000Z",
       order_source: ordersSourceRef.current.value,
       invoiced: invoiced,
       printed: false,
@@ -725,7 +740,6 @@ const Provider = ({ children }) => {
     }
 
     let create = await Orders.createOrder(data)
-    console.log(create);
   
     let rows = {
       ...state.print_pdf_rows,

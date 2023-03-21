@@ -6,6 +6,7 @@ import ordersEntryReducer from '../reducer/ordersEntryReducer'
 import {Modal} from 'flowbite';
 import { useReactToPrint } from "react-to-print";
 import { useMain } from "./MainContext";
+import CurrencyFormat from "../libraries/tools/CurrencyFormat";
 
 const OrdersEntryContext = createContext();
 
@@ -69,7 +70,6 @@ const Provider = ({children}) => {
 
   //b Functions -------------------------------------------------------
   const printPDF = (order) => {
-    console.log(order);
     let head_info = {};
     for(let c of state.all_currents) {
       if (order.details.current_id === c.id) {
@@ -236,8 +236,9 @@ const Provider = ({children}) => {
       value: units
     })
 
-    let tax_rate = "%8"
+    let tax_rate = "%0"
     if (dt.tax_rate === 0.18) tax_rate = "%18"
+    else if (dt.tax_rate === 0.8) tax_rate = "%8"
 
     entryProductNameEditRef.current.innerHTML = name
     entryProductUnitEditRef.current.value = dt.unit
@@ -325,7 +326,8 @@ const Provider = ({children}) => {
       items[p].row = parseInt(p) + 1 
     }
 
-    let tax_rate = ((addOrderEntryProductTaxRateEditRef.current.value).replace("%", "") / 100);
+    let tax_rate = 0;
+    if(state.invoiced) ((addOrderEntryProductTaxRateEditRef.current.value).replace("%", "") / 100)
     let amount_sum = ((parseFloat(addOrderEntryProductAmountEditRef.current.value)) * (parseFloat(addOrderEntryProductPriceEditRef.current.value)));
     let tax_sum = (parseFloat(amount_sum) * parseFloat(tax_rate));
     let total = parseFloat(amount_sum + tax_sum).toFixed(2)
@@ -366,7 +368,7 @@ const Provider = ({children}) => {
     addOrderEntryProductUnitEditRef.current.value = "default"
     addOrderEntryProductAmountEditRef.current.value = ""
     addOrderEntryProductPriceEditRef.current.value = ""
-    addOrderEntryProductTaxRateEditRef.current.value = "default"
+    addOrderEntryProductTaxRateEditRef.current.value = "%0"
     addOrderEntryProductDescriptionEditRef.current.value = ""
   }
 
@@ -386,7 +388,7 @@ const Provider = ({children}) => {
           let i = items[ind]
           items[ind] = {
             ...i,
-            tax_rate: ((entryProductTaxRateEditRef.current.value).replace("%", "") / 100),
+            tax_rate: 0,
           }
         }
   
@@ -396,7 +398,6 @@ const Provider = ({children}) => {
         })
 
       }
-
     }
     else {
       dispatch({
@@ -404,6 +405,20 @@ const Provider = ({children}) => {
         value: true
       }) 
     }
+  }
+
+  const totalFee = () => {
+    let total_fee = 0;
+
+    if (state.get_order_items.length > 0) {
+
+      for (let o of state.get_order_items) {
+        total_fee = total_fee + (o.amount * o.price) * (1 + o.tax_rate)
+      }
+
+    }
+    
+    return CurrencyFormat(total_fee);
   }
 
   //- Stocks Autocomplete
@@ -566,7 +581,6 @@ const Provider = ({children}) => {
 
       return condition;
     });
-    console.log(newFilter);
     
     dispatch({
       type: 'FILTERED_ORDERS',
@@ -625,6 +639,7 @@ const Provider = ({children}) => {
     showStocks,
     showOrders,
     toggleFilteredStockTable,
+    totalFee,
   }
   
   return (

@@ -6,6 +6,7 @@ import Stock from '../libraries/models/Stock';
 import Orders from '../libraries/models/Orders';
 import User from '../libraries/models/User';
 import Tasks from '../libraries/models/Tasks';
+import CurrentActivity from '../libraries/models/CurrentActivity';
 
 const TasksContext = createContext();
 
@@ -19,7 +20,7 @@ const Provider = ({ children }) => {
     all_stocks: [],
     all_tasks: [],
     all_users: [],
-    assigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ TARİHİ", "SİP. TESLİM TARİHİ", "AKTİF GÖREV", "GÖREV BİTİŞ TARİHİ", "SORUMLU",	"SİPARİŞ DURUMU"],
+    assigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ TARİHİ", "SİP. TESLİM TARİHİ", "AKTİF GÖREV", "GÖREV BİTİŞ TARİHİ", "SORUMLU",	"SİPARİŞ DURUMU", "TAHSİLAT DURUMU"],
     chosen_order_for_task: {items:[]},
     chosen_task_for_edit: {details:{logs: [], task_steps: []}},
     dropdown_button_for_modal: {title: "", data: {}},
@@ -242,7 +243,7 @@ const Provider = ({ children }) => {
       tasksNameRef.current[t.row - 1].value = t.name
       tasksResponsibleUsernameRef.current[t.row - 1].value = t.responsible_username
       
-      //. Check "T00:00:00Z" format
+      //. Check "T00:00:00.000Z" format
       if (t.planned_finish_date.includes("T")) tasksPlannedFinishDate.current[t.row - 1].value = t.planned_finish_date.split("T")[0]
       else tasksPlannedFinishDate.current[t.row - 1].value = t.planned_finish_date
     }
@@ -339,8 +340,8 @@ const Provider = ({ children }) => {
   const createOrEditTask = async () => {
     let steps = [...state.task_steps];
 
-    for (let s of steps) {
-      s.planned_finish_date = s.planned_finish_date + "T00:00:00Z"
+    for (let s of steps) {  //. Check includes time format
+      if(!s.planned_finish_date.includes("T")) s.planned_finish_date = s.planned_finish_date + "T00:00:00.000Z";
     }
 
     let data = {
@@ -370,7 +371,7 @@ const Provider = ({ children }) => {
   }
 
   //f Prepare modal for all dropdown funcs
-  const dropdownFuncs = (dt, title) => {
+  const dropdownFuncs = async (dt, title) => {    
     let tasks_dropdown_modal = showModal('tasksDropdownModal', "TASKS_DROPDOWN_MODAL");
     tasks_dropdown_modal.show();
 
@@ -411,6 +412,20 @@ const Provider = ({ children }) => {
     else if (title === "Görevi Tamamla") { resp = await Tasks.completeTask(data) }
     else if (title === "Görevi Baştan Başlat") { resp = await Tasks.reOpenTask(data) }
     else if (title === "Görevi İptal Et") { resp = await Tasks.cancelTask(data) }
+    else if (title === "Tahsil Et") {
+      let balance = - dt.details.order.total_fee
+
+      let act_data = {
+        current_id: dt.details.order.current_id,
+        credit_order_id: dt.details.order.id,
+        balance: parseFloat(balance),
+        date: new Date().toISOString(),
+        description: tasksStepDescriptionRef.current.value,
+        expiry_date: new Date().toISOString(),
+      }
+
+      let resp = await CurrentActivity.createCurrentActivity(act_data);
+    }
     
     await showTasks(state.state_type, state.admin_check.username);
     hideDropdownModal();

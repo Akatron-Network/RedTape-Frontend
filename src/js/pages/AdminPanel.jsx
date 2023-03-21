@@ -13,7 +13,6 @@ export default function AdminPanel() {
   const { adminAll, adminCheck, funcLoad } = useMain();
   
   const navigate = useNavigate();
-  console.log(adminAll);
 
   useEffect(() => {
     if(!adminAll) navigate("/")
