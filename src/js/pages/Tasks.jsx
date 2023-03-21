@@ -10,7 +10,6 @@ import { useTasks } from '../context/TasksContext'
 
 export default function Tasks() {
   const tasks_data = useTasks();
-  console.log(tasks_data);
   const { funcLoad } = useMain();
 
   useEffect(() => {

@@ -59,7 +59,6 @@ export default function AssignedTasksTable() {
             let queue = false;
             let ln = all_tasks.length;
             if (i === ln - 1 || i === ln - 2 || i === ln - 3 || i === ln - 4) queue = true
-            console.log(queue);
 
             let row_cls = "bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300"
             if (p.details.state === "İptal Edildi") row_cls = "bg-red-400 border-b h-9 border-alica_blue hover:bg-red-500 transition duration-300"
