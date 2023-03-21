@@ -105,7 +105,7 @@ const Provider = ({ children }) => {
     let resp = new TurkeyProvDist()
 
     dispatch({    //- Get provinces
-      type: 'GET_PROVINCES',
+      type: 'PROVINCES',
       value: resp.getProvinceList()
     })
     
@@ -116,7 +116,7 @@ const Provider = ({ children }) => {
     let dist = resp.getDistrictList(province);
 
     dispatch({    //. Get districts when we chose province
-      type: 'GET_DISTRICTS',
+      type: 'DISTRICTS',
       value: dist
     })
 

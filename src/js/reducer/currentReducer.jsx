@@ -2,13 +2,13 @@ export default function reducer(state, action) {
 
   switch (action.type) {
 
-    case 'GET_DISTRICTS': //- Get districts when we chose province
+    case 'DISTRICTS': //- Get districts when we chose province
       return {
         ...state,
         districts: action.value
       }
     
-    case 'GET_PROVINCES':
+    case 'PROVINCES':
       return {
         ...state,
         provinces: action.value

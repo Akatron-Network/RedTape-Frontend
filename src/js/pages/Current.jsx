@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Current() {
   const current_data = useCurrent();
+  console.log(current_data);
   const { adminAll, adminCheck, funcLoad } = useMain();
   
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function Current() {
 
   useEffect(() => {
     adminCheck();
-    current_data.getProvinceList;
+    current_data.getProvinceList();
     funcLoad(current_data.showCurrentList);
   }, [])
 
