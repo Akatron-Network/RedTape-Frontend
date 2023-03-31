@@ -60,7 +60,7 @@ export default function OrdersEntry() {
       <EditOrdersEntryProductModal />
       <AddOrderEntryProductModal />
       
-      <div className=''>
+      <div className='hidden'>
         <RenderPDF reference={orders_entry_data.componentRef} data={orders_entry_data.print_pdf_rows} stocks={orders_entry_data.all_stocks} />
       </div>
     </>
