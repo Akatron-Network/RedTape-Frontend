@@ -4,7 +4,9 @@ import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
 
 RenderPDF.defaultProps = {
   data:{
-    total:0,
+    // total: 0,
+    subtotal: 0,
+    tax: 0,
     list:[],
     head_info: {
       current_name: "",
@@ -48,16 +50,16 @@ export default function RenderPDF(props) {
                   <th className='p-1 border border-neutral-800 bg-esprint_gray text-ghost_white'>BİRİM</th> */}
                   <th className='p-1 border border-neutral-800 bg-esprint_gray text-ghost_white'>MİKTAR</th>
                   {/* <th className='p-1 border border-neutral-800 bg-esprint_gray text-ghost_white'>BİRİM FİY.</th> */}
-                  <th className='p-1 border border-neutral-800 bg-esprint_gray text-ghost_white'>TUTAR</th>
-                  <th className='p-1 border border-neutral-800 bg-esprint_gray text-ghost_white'>KDV ORAN</th>
+                  <th className='p-1 border border-neutral-800 bg-esprint_gray text-ghost_white'>FİYAT</th>
+                  <th className='p-1 border border-neutral-800 bg-esprint_gray text-ghost_white w-[100px]'>KDV ORAN</th>
                   {/* <th className='p-1 border border-neutral-800 bg-esprint_gray text-ghost_white'>KDV TUTAR</th> */}
-                  <th className='p-1 border border-neutral-800 bg-esprint_gray text-ghost_white text-center'>TOPLAM TUTAR</th>
+                  <th className='p-1 border border-neutral-800 bg-esprint_gray text-ghost_white text-center w-[155px]'>TUTAR (KDV' siz)</th>
                 </tr>
               </thead>
               <tbody>
                 {props.data.list.map((p, i) => {
 
-                  if (i > 12) return;
+                  if (i > 10) return;
                   else {
                     let tax_rate = "%8";
                     if (p.tax_rate === 0) tax_rate = "-"
@@ -79,7 +81,7 @@ export default function RenderPDF(props) {
                         <td className='p-1 border border-neutral-800'>{CurrencyFormat(parseFloat(p.amount))}</td>
                         <td className='p-1 border border-neutral-800'>{CurrencyFormat(parseFloat(p.price))}</td>
                         <td className='p-1 border border-neutral-800'>{tax_rate}</td>
-                        <td className='p-1 border border-neutral-800 text-center'>{CurrencyFormat(parseFloat((p.amount * p.price) * (1 + p.tax_rate)))}</td>
+                        <td className='p-1 border border-neutral-800 text-center'>{CurrencyFormat(parseFloat((p.amount * p.price)))}</td>
                       </tr>
                     )
                   }
@@ -90,8 +92,24 @@ export default function RenderPDF(props) {
                   <td></td>
                   <td></td>
                   <td></td>
+                  <td className='p-1 border border-neutral-800 text-neutral-900 text-center bg-neutral-400 font-bold'>Ara Toplam</td>
+                  <td className='p-1 border border-neutral-800 text-center font-bold'>{CurrencyFormat(props.data.subtotal)} TL</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td className='p-1 border border-neutral-800 text-neutral-900 text-center bg-neutral-400 font-bold'>Toplam KDV</td>
+                  <td className='p-1 border border-neutral-800 text-center font-bold'>{CurrencyFormat(props.data.tax)} TL</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                   <td className='p-1 border border-neutral-800 text-ghost_white text-center bg-esprint_red font-bold'>TOPLAM</td>
-                  <td className='p-1 border border-neutral-800 text-center font-bold'>{CurrencyFormat(props.data.total)} TL</td>
+                  <td className='p-1 border border-neutral-800 text-center font-bold'>{CurrencyFormat(props.data.subtotal + props.data.tax)} TL</td>
                 </tr>
 
               </tbody>

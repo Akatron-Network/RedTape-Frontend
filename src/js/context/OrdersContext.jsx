@@ -25,6 +25,8 @@ const Provider = ({ children }) => {
     chosen_stock: {},
     print_pdf_modal: {},
     print_pdf_rows: {
+      subtotal: 0,
+      tax: 0,
       total:0,
       list:[],
       head_info: {
@@ -125,7 +127,9 @@ const Provider = ({ children }) => {
       dispatch({
         type: 'PRINT_PDF_ROWS',
         value: {
-          total:0,
+          subtotal: 0,
+          tax: 0,
+          total: 0,
           list:[],
           head_info: {
             current_name: "",
@@ -447,14 +451,19 @@ const Provider = ({ children }) => {
     })
 
     let table_total = 0;
-
+    let subtotal = 0;
+    let tax = 0;
     for (let p of new_product_list) {
       table_total = table_total + parseFloat(p.total)
+      subtotal = subtotal + parseFloat(p.amount_sum)
+      tax = tax + parseFloat(p.tax_sum)
     }
 
     let rows = {
       ...state.print_pdf_rows,
       list: new_product_list,
+      subtotal: subtotal,
+      tax: tax,
       total: table_total,
     }
 
@@ -498,14 +507,20 @@ const Provider = ({ children }) => {
       state.product_list[p].row = parseInt(p) + 1      
     }
 
-    let table_total = 0;                  
+    let table_total = 0;
+    let subtotal = 0;
+    let tax = 0;
     for (let p of state.product_list) {               //. Update total cost
       table_total = table_total + parseFloat(p.total)
+      subtotal = subtotal + parseFloat(p.amount_sum)
+      tax = tax + parseFloat(p.tax_sum)
     }
 
     let rows = {
       ...state.print_pdf_rows,
       list: list,
+      subtotal: subtotal,
+      tax: tax,
       total: table_total,
     }
     
@@ -581,14 +596,20 @@ const Provider = ({ children }) => {
     details["tax_sum"] = tax_sum
     details["total"] = total
     
-    let table_total = 0;                  
+    let table_total = 0;
+    let subtotal = 0;
+    let tax = 0;           
     for (let p of state.product_list) {               //. Update total cost
       table_total = table_total + parseFloat(p.total)
+      subtotal = subtotal + parseFloat(p.amount_sum)
+      tax = tax + parseFloat(p.tax_sum)
     }
 
     let rows = {
       ...state.print_pdf_rows,
       list: state.product_list,
+      subtotal: subtotal,
+      tax: tax,
       total: table_total,
     }
     

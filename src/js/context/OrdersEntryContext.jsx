@@ -31,6 +31,8 @@ const Provider = ({children}) => {
     chosen_stock_units: [],
     toggle_filtered_stock_table: false,
     print_pdf_rows: {
+      subtotal: 0,
+      tax: 0,
       total:0,
       list:[],
       head_info: {
@@ -82,9 +84,18 @@ const Provider = ({children}) => {
         }
       }
     }
+
+    let subtotal = 0;
+    let tax = 0;
+    for (let i of order.details.items) {
+      subtotal = subtotal + (i.amount * i.price)
+      tax = tax + ((i.amount * i.price) * i.tax_rate)
+    }
     
     let rows = {
       list: order.items,
+      subtotal: subtotal,
+      tax: tax,
       total: order.details.total_fee,
       head_info:head_info
     }
@@ -572,12 +583,13 @@ const Provider = ({children}) => {
     const newFilter = state.all_orders.filter((source) => {
       var condition = false;
 
-      condition =
-        source.details.id.toString().toLocaleUpperCase('TR').includes(searchWord) ||
-        source.details.current_id.toString().toLocaleUpperCase('TR').includes(searchWord);
-      // else {
-      //   condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
-      // }
+      for (let c of state.all_currents) {
+        if (c.details.name.toString().toLocaleUpperCase('TR').includes(searchWord)) {
+          if (source.details.current_id === c.id) {
+            condition = true
+          }
+        }
+      }
 
       return condition;
     });

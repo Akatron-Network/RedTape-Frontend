@@ -25,7 +25,7 @@ const Provider = ({children}) => {
       early: ""
     },
     table_columns: ["TARİH", "AÇIKLAMA", "VADE TARİHİ", "BORÇ TUTARI", "ALACAK TUTARI", "NET BAKİYE"],
-    table_rows: ["date", "description", "expiry_date", "debt", "amount", "balance"],
+    table_rows: ["date", "description", "expiry_date", "debt", "amount", "cumulative_balance"],
     edit_cur_act_modal: {},
     cur_act_details: {},
     render_table: (
