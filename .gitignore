@@ -22,3 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+src/js/libraries/Request.jsx
+vite.config.js

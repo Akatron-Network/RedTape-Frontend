@@ -7,6 +7,7 @@ export default class Request {
     this.base_url = "http://debiapi.akatron.net:999/" + this.func_name;
     // this.base_url = "http://127.0.0.1:999/" + this.func_name;
     // this.base_url = "http://192.168.127.16:999/" + this.func_name;
+    // this.base_url = "http://93.180.133.185:999/" + this.func_name;
   }
 
   static routes = {
