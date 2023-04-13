@@ -25,7 +25,7 @@ const Provider = ({ children }) => {
     chosen_task_for_edit: {details:{logs: [], task_steps: []}},
     dropdown_button_for_modal: {title: "", data: {}},
     dropdown_modal_title: "",
-    state_type: {state: ""},
+    state_type: {state: "Aktif"},
     tasks_editable: false,
     tasks_assignment_modal: {},
     tasks_dropdown_modal: {},
@@ -74,7 +74,7 @@ const Provider = ({ children }) => {
       value: val
     })
 
-    await showTasks({}, val.username)
+    await showTasks({"state": "Aktif"}, val.username)
   }
 
   //- Main Table Funcs

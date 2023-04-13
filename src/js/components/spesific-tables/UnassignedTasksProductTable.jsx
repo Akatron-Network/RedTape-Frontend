@@ -14,7 +14,10 @@ export default function UnassignedTasksProductTable() {
           <tr>
             {unassigned_tasks_product_table_columns.map((c, i) => {
               let cls = "p-2 font-bold h-10 text-xs text-prussian_blue bg-steel_blue_light sticky top-0"
-              if(c === "TOPLAM TUTAR") cls= "p-2 font-bold h-10 text-xs text-prussian_blue bg-steel_blue_light text-center sticky top-0"
+              if (c === "TOPLAM TUTAR") cls= "p-2 pr-5 font-bold h-10 text-xs text-prussian_blue bg-steel_blue_light text-right sticky top-0"
+              else if(c === "BİRİM FİYAT" || c === "TUTAR" || c === "KDV TUTAR" || c === "TUTAR") cls = "p-2 font-bold h-10 text-xs text-right text-prussian_blue bg-steel_blue_light sticky top-0"
+              else if(c === "KDV ORAN") cls = "p-2 font-bold h-10 text-xs text-center text-prussian_blue bg-steel_blue_light sticky top-0"
+
 
               return (
                 <th key={i} className={cls}>
@@ -61,20 +64,20 @@ export default function UnassignedTasksProductTable() {
                     <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                       {CurrencyFormat(parseFloat(p.amount))}
                     </td>
-                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                      {CurrencyFormat(parseFloat(p.price))}
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-right">
+                      {CurrencyFormat(parseFloat(p.price))} <i className="fa-solid fa-turkish-lira-sign"></i>
                     </td>
-                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                      {CurrencyFormat(parseFloat(p.amount * p.price))}
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-right">
+                      {CurrencyFormat(parseFloat(p.amount * p.price))} <i className="fa-solid fa-turkish-lira-sign"></i>
                     </td>
-                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center">
                       %{(p.tax_rate) * 100}
                     </td>
-                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                      {CurrencyFormat(parseFloat((p.amount * p.price) * p.tax_rate))}
+                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-right">
+                      {CurrencyFormat(parseFloat((p.amount * p.price) * p.tax_rate))} <i className="fa-solid fa-turkish-lira-sign"></i>
                     </td>
-                    <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold">
-                      {CurrencyFormat(parseFloat((p.amount * p.price) * (1 + p.tax_rate)))}
+                    <td className="py-[0.20rem] px-2 pr-5 text-prussian_blue text-[13px] text-right font-bold">
+                      {CurrencyFormat(parseFloat((p.amount * p.price) * (1 + p.tax_rate)))} <i className="fa-solid fa-turkish-lira-sign"></i>
                     </td>
                   </>
                   : 

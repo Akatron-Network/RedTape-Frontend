@@ -17,7 +17,7 @@ export default function OrdersTable() {
           <tr>
             {table_columns.map((c, i) => {
               let cls = "p-2 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
-              if(c === "TOPLAM TUTAR") cls= "p-2 h-10 font-bold text-xs text-center sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
+              if(c === "TOPLAM TUTAR") cls= "p-2 pr-5 h-10 font-bold text-xs text-right sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
 
               return (
                 <th key={i} className={cls}>
@@ -63,8 +63,8 @@ export default function OrdersTable() {
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {p.details.delivery_date.split("T")[0]}
                 </td>
-                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center font-bold">
-                  {CurrencyFormat(p.details.total_fee)}
+                <td className="py-[0.20rem] pl-2 pr-5 text-prussian_blue text-[13px] text-right font-bold">
+                  {CurrencyFormat(p.details.total_fee)} <i className="fa-solid fa-turkish-lira-sign"></i>
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Yazdır"}>

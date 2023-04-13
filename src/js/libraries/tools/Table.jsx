@@ -1,6 +1,7 @@
 import CurrencyFormat from './CurrencyFormat'
 import Tooltip from '../../components/items/Tooltip'
 import User from '../models/User'
+import CurrentActivity from '../models/CurrentActivity';
 
 export default class Table {
   constructor(method, columns = [], rows = []) {
@@ -15,7 +16,7 @@ export default class Table {
       skip: 0,
       take: 1000,
       where: where,
-      orderBy: (this.method !== User.showUser) ? {id: "desc"} : undefined
+      orderBy: (this.method !== User.showUser && this.method !== CurrentActivity.showCurrentActivity) ? {id: "desc"} : undefined
     }
     
     this.data = await this.method(this.query)
@@ -103,16 +104,17 @@ export default class Table {
                       }
   
                       if (r === "cumulative_balance" && d.details["cumulative_balance"] > 0) {          //. Green background according to balance
-                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-green-300"
+                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-green-300 font-bold"
                       }
                       else if (r === "cumulative_balance" && d.details["cumulative_balance"] < 0) {     //. Red background according to balance
-                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-red-300"
+                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-red-300 font-bold"
                       }
+
                       val = CurrencyFormat(val)
 
                       return(
                         <td key={"r_" + d_index + "_" + r_index} className={cls}>
-                          {val} {/* For TL  ( ₺ ) */}
+                          {val === undefined ? "" : <> {val} <i className="fa-solid fa-turkish-lira-sign"></i></>} 
                         </td>
                       )
 
@@ -126,6 +128,7 @@ export default class Table {
                     }
 
                   })}
+
                   <td key={d_index} className="py-[0.20rem] w-20 px-1 text-prussian_blue text-right">
                     {this.buttons.map((b, b_index) => {
                       let btn = "";
