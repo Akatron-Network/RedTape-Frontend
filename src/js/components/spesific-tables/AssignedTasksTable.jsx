@@ -1,5 +1,6 @@
 import React from 'react'
 import { useTasks } from '../../context/TasksContext'
+import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
 
 export default function AssignedTasksTable() {
 
@@ -15,6 +16,7 @@ export default function AssignedTasksTable() {
             {assigned_tasks_table_columns.map((c, i) => {
               let cls = "p-2 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
               if(c === "SİPARİŞ DURUMU" || c === "TAHSİLAT DURUMU") cls= "p-2 h-10 font-bold text-xs text-center sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
+              if(c === "TOPLAM TUTAR") cls= "p-2 pr-5 h-10 font-bold text-xs text-right sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
 
               return (
                 <th key={i} className={cls}>
@@ -29,7 +31,6 @@ export default function AssignedTasksTable() {
         </thead>
         <tbody>
           {all_tasks.map((p, i) => {
-
             let cur_name = "";
             for (let c of all_currents) {
               if (p.details.order.current_id === c.details.id) {
@@ -97,6 +98,12 @@ export default function AssignedTasksTable() {
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center">
                   {p.details.order.credit_current_act === null ? "Tahsil Edilmedi" : "Tahsil Edildi"}
                 </td>
+                {admin_check.admin ? 
+                  <td className="py-[0.20rem] pl-2 pr-5 text-prussian_blue text-[13px] font-bold text-right">
+                    {CurrencyFormat(p.details.order.total_fee)} <i className="fa-solid fa-turkish-lira-sign"></i>
+                  </td>
+                  : undefined
+                }
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <div className="dropdown relative inline-block">
                     <button type='button' onClick={() => {}} className='save-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-bars"></i></button>

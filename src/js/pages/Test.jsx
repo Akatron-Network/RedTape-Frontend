@@ -383,6 +383,7 @@ export default function Test() {
       skip: 0,
       take: 1000,
       where: {},
+      orderBy: {id: "desc"}
     }
 
     let show = await Tasks.showTasks(query)

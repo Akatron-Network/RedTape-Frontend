@@ -14,7 +14,6 @@ import { useNavigate } from 'react-router-dom'
 
 export default function CurrentActivity() {  
   const cur_act_data = useCurrentActivity();
-  console.log(cur_act_data);
   const { adminAll, adminCheck, funcLoad } = useMain();
   
   const navigate = useNavigate();

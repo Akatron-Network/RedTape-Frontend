@@ -123,6 +123,7 @@ const Provider = ({children}) => {
       skip: 0,
       take: 1000,
       where: {},
+      orderBy: {id: "desc"}
     }
 
     let resp = await Stock.showStock(query)
@@ -143,6 +144,7 @@ const Provider = ({children}) => {
       skip: 0,
       take: 1000,
       where: {},
+      orderBy: {id: "desc"}
     }
 
     let resp = await Current.showCurrent(query)
@@ -158,6 +160,7 @@ const Provider = ({children}) => {
       skip: 0,
       take: 1000,
       where: {},
+      orderBy: {id: "desc"}
     }
 
     let resp = await Orders.showOrders(query);

@@ -20,7 +20,7 @@ const Provider = ({ children }) => {
     all_stocks: [],
     all_tasks: [],
     all_users: [],
-    assigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ TARİHİ", "SİP. TESLİM TARİHİ", "AKTİF GÖREV", "GÖREV BİTİŞ TARİHİ", "SORUMLU",	"SİPARİŞ DURUMU", "TAHSİLAT DURUMU"],
+    assigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ TARİHİ", "SİP. TESLİM TARİHİ", "AKTİF GÖREV", "GÖREV BİTİŞ TARİHİ", "SORUMLU",	"SİPARİŞ DURUMU", "TAHSİLAT DURUMU", "TOPLAM TUTAR"],
     chosen_order_for_task: {items:[]},
     chosen_task_for_edit: {details:{logs: [], task_steps: []}},
     dropdown_button_for_modal: {title: "", data: {}},
@@ -84,6 +84,7 @@ const Provider = ({ children }) => {
       skip: 0,
       take: 1000,
       where: {},
+      orderBy: {id: "desc"}
     }
 
     let resp = await Current.showCurrent(query)
@@ -100,6 +101,7 @@ const Provider = ({ children }) => {
       skip: 0,
       take: 1000,
       where: {"task": null },       //. For show unassigned tasks
+      orderBy: {id: "desc"}
     }
 
     let resp = await Orders.showOrders(query);
@@ -116,6 +118,7 @@ const Provider = ({ children }) => {
       skip: 0,
       take: 1000,
       where: {},
+      orderBy: {id: "desc"}
     }
 
     let resp = await Stock.showStock(query)
@@ -273,6 +276,7 @@ const Provider = ({ children }) => {
       skip: 0,
       take: 1000,
       where: where,
+      orderBy: {id: "desc"}
     }
 
     let show = await Tasks.showTasks(query)

@@ -151,6 +151,7 @@ const Provider = ({ children }) => {
       skip: 0,
       take: 1000,
       where: {},
+      orderBy: {id: "desc"}
     }
 
     let currents = await Current.showCurrent(query);
@@ -304,6 +305,7 @@ const Provider = ({ children }) => {
       skip: 0,
       take: 1000,
       where: {},
+      orderBy: {id: "desc"}
     }
 
     let stock = await Stock.showStock(query);

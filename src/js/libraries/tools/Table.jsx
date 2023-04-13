@@ -1,5 +1,6 @@
 import CurrencyFormat from './CurrencyFormat'
 import Tooltip from '../../components/items/Tooltip'
+import User from '../models/User'
 
 export default class Table {
   constructor(method, columns = [], rows = []) {
@@ -13,7 +14,8 @@ export default class Table {
     this.query = {
       skip: 0,
       take: 1000,
-      where: where
+      where: where,
+      orderBy: (this.method !== User.showUser) ? {id: "desc"} : undefined
     }
     
     this.data = await this.method(this.query)
