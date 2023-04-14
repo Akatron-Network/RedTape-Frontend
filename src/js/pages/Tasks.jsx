@@ -23,7 +23,7 @@ export default function Tasks() {
 
 
   return (
-    <div className='pb-40'>
+    <div> {/* className='pb-40' */}
       <PageMainTitle title={"Görev Takip Paneli"} />
 
       {tasks_data.admin_check.admin ? 

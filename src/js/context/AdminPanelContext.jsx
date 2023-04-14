@@ -58,13 +58,13 @@ const Provider = ({ children }) => {
     t.setExecuteButtons([     //. Buttons in the table
       {
         func: (id) => funcLoad(getUserDetails, id),
-        class: "golden-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90",
+        class: "golden-btn shadow-md px-1 w-8 rounded-[4px] active:scale-90",
         type: "edit",
         icon: "fa-solid fa-pen-to-square"
       },
       {
         func: (id) => funcLoad(removeUser, id),
-        class: "ml-1 danger-btn shadow-md px-2 w-8 rounded-[4px] active:scale-90",
+        class: "ml-1 danger-btn shadow-md px-1 w-8 rounded-[4px] active:scale-90",
         type: "remove",
         icon: "fa-solid fa-xmark"
       }

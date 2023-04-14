@@ -23,7 +23,7 @@ const Provider = ({ children }) => {
     assigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ TARİHİ", "SİP. TESLİM TARİHİ", "AKTİF GÖREV", "GÖREV BİTİŞ TARİHİ", "SORUMLU",	"SİPARİŞ DURUMU", "TAHSİLAT DURUMU", "TOPLAM TUTAR"],
     chosen_order_for_task: {items:[]},
     chosen_task_for_edit: {details:{logs: [], task_steps: []}},
-    dropdown_button_for_modal: {title: "", data: {}},
+    dropdown_button_for_modal: {title: "", data: {}, constructor: undefined},
     dropdown_modal_title: "",
     state_type: {state: "Aktif"},
     tasks_editable: false,
@@ -386,7 +386,8 @@ const Provider = ({ children }) => {
 
     let btn = {
       data: dt,
-      title: title
+      title: title,
+      constructor: dt.constructor
     }
 
     dispatch({
@@ -430,9 +431,29 @@ const Provider = ({ children }) => {
 
       let resp = await CurrentActivity.createCurrentActivity(act_data);
     }
-    
+        
     await showTasks(state.state_type, state.admin_check.username);
     hideDropdownModal();
+  }
+
+  //f Check type with title and use funcs for in unassigned table buttons
+  const unassignedDropdownFuncsApply = async (dt, title) => {
+    //. Create a new task
+    let create_task_data = {
+      order_id: dt.id,
+      description: "Direkt Görev",
+      task_steps: [
+        {
+            "row": 1,
+            "name": "Direkt İşlem",
+            "responsible_username": state.all_users[0].username,
+            "planned_finish_date": new Date().toISOString().split('T')[0] + "T00:00:00.000Z"
+        }
+      ]
+    }
+
+    let create_dt = await Tasks.createTask(create_task_data)          //. First create task
+    let dropdown_dt = await dropdownFuncsApply(create_dt, title)      //. Then which function do we want to use
   }
 
   const editTask = async (dt) => {    
@@ -554,7 +575,7 @@ const Provider = ({ children }) => {
 
     dispatch({
       type: "DROPDOWN_BUTTON_FOR_MODAL",
-      value: {title: "", data: {}},
+      value: {title: "", data: {}, constructor: undefined},
     })
   }
 
@@ -599,7 +620,7 @@ const Provider = ({ children }) => {
     showStocks,
     showTasks,
     showUsers,
-
+    unassignedDropdownFuncsApply,
   }
 
   return(

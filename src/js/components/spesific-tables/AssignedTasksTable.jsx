@@ -8,15 +8,15 @@ export default function AssignedTasksTable() {
 
   return (
     
-    <div className="shadow-table overflow-auto max-h-[730px]">
+    <div className={all_tasks.length !== 0 ? "shadow-table overflow-auto max-h-[550px] min-h-[416.38px] relative bg-ghost_white" : "shadow-table overflow-auto max-h-[550px] relative bg-ghost_white"}>
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>
           <tr>
             {assigned_tasks_table_columns.map((c, i) => {
-              let cls = "p-2 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
-              if(c === "SİPARİŞ DURUMU" || c === "TAHSİLAT DURUMU") cls= "p-2 h-10 font-bold text-xs text-center sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
-              if(c === "TOPLAM TUTAR") cls= "p-2 pr-5 h-10 font-bold text-xs text-right sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
+              let cls = "p-2 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-[1]"
+              if(c === "SİPARİŞ DURUMU" || c === "TAHSİLAT DURUMU") cls= "p-2 h-10 font-bold text-xs text-center sticky top-0 text-prussian_blue bg-steel_blue_light z-[1]"
+              if(c === "TOPLAM TUTAR") cls= "p-2 pr-5 h-10 font-bold text-xs text-right sticky top-0 text-prussian_blue bg-steel_blue_light z-[1]"
 
               return (
                 <th key={i} className={cls}>
@@ -24,7 +24,7 @@ export default function AssignedTasksTable() {
                 </th>
               )
             })}
-            <th scope="col" className="p-2 h-10 w-9 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10">
+            <th scope="col" className="p-2 h-10 w-9 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-[1]">
               <span className="sr-only">Düzenle</span>
             </th>
           </tr>
@@ -59,7 +59,10 @@ export default function AssignedTasksTable() {
 
             let queue = false;
             let ln = all_tasks.length;
-            if (i === ln - 1 || i === ln - 2 || i === ln - 3 || i === ln - 4) queue = true
+
+            if(ln > 5) {
+              if (i === ln - 1 || i === ln - 2 || i === ln - 3 || i === ln - 4) queue = true
+            }
 
             let row_cls = "bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300"
             if (p.details.state === "İptal Edildi") row_cls = "bg-red-400 border-b h-9 border-alica_blue hover:bg-red-500 transition duration-300"
@@ -106,8 +109,8 @@ export default function AssignedTasksTable() {
                 }
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <div className="dropdown relative inline-block">
-                    <button type='button' onClick={() => {}} className='save-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-bars"></i></button>
-                    <ul className={!queue ? "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-3 -mt-[15px] w-max text-left bg-white rounded" : "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-3 -mt-[211px] w-max text-left bg-white rounded"}>
+                    <button type='button' onClick={() => {}} className='save-btn shadow-md px-1 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-bars"></i></button>
+                    <ul className={!queue ? "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-[15px] -mt-[15px] w-max text-left bg-white rounded" : "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-3 -mt-[211px] w-max text-left bg-white rounded"}>
                       
                       <li onClick={() => dropdownFuncs(p, "İşlemi Tamamla")} className="text-sky-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
                         <i className="fa-solid fa-check mr-2 w-4 text-center"></i>İşlemi Tamamla
@@ -144,7 +147,7 @@ export default function AssignedTasksTable() {
           })}
         </tbody>
       </table>
-      <nav className="flex justify-between items-center py-2 px-3 z-[1] bg-steel_blue_light h-10 bottom-0 sticky" aria-label="Table navigation">
+      <nav className={all_tasks.length > 8 || all_tasks.length === 0 ? "flex justify-between items-center py-2 px-3 z-[1] bg-steel_blue_light h-10 bottom-0 sticky" : "flex justify-between items-center py-2 px-3 z-[1] bg-steel_blue_light h-10 bottom-0 absolute w-full"} aria-label="Table navigation">
         <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{all_tasks.length}</span> kayıt bulunmaktadır.</span>
       </nav>
     </div>

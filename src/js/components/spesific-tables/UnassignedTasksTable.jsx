@@ -6,11 +6,11 @@ import { useMain } from '../../context/MainContext';
 
 export default function UnassignedTasksTable() {
   const { funcLoad } = useMain();
-  const { unassigned_tasks_table_columns, all_orders, all_currents, makeTasksAssignment } = useTasks();
+  const { unassigned_tasks_table_columns, all_orders, all_currents, makeTasksAssignment, dropdownFuncs } = useTasks();
 
   return (
     
-    <div className="shadow-table overflow-auto max-h-[730px]">
+    <div className="shadow-table overflow-auto max-h-[550px]">
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>
@@ -25,7 +25,7 @@ export default function UnassignedTasksTable() {
                 </th>
               )
             })}
-            <th scope="col" className="p-2 h-10 w-9 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10">
+            <th scope="col" className="p-2 h-10 w-[112px] font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10">
               <span className="sr-only">Düzenle</span>
             </th>
           </tr>
@@ -68,7 +68,13 @@ export default function UnassignedTasksTable() {
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Görev Ata"}>
-                    <button type='button' onClick={() => funcLoad(makeTasksAssignment, p)} className='clear-btn shadow-md px-2 w-fit rounded-[4px] active:scale-90'><i className="fa-solid fa-handshake-simple"></i></button>
+                    <button type='button' onClick={() => funcLoad(makeTasksAssignment, p)} className='clear-btn w-8 shadow-md px-1 rounded-[4px] active:scale-90'><i className="fa-solid fa-handshake-simple"></i></button>
+                  </Tooltip>
+                  <Tooltip message={"Görevi Tamamla"}>
+                    <button type='button' onClick={() => dropdownFuncs(p, "Görevi Tamamla")} className='clear-btn w-8 bg-green-600 hover:bg-green-400 text-oxford_blue hover:text-mn_blue shadow-md px-2 rounded-[4px] active:scale-90 ml-1'><i className="fa-solid fa-square-check"></i></button>
+                  </Tooltip>
+                  <Tooltip message={"Tahsil Et"}>
+                    <button type='button' onClick={() => dropdownFuncs(p, "Tahsil Et")} className='clear-btn w-8 bg-cyan-600 hover:bg-cyan-400 text-oxford_blue hover:text-mn_blue shadow-md px-2 rounded-[4px] active:scale-90 ml-1'><i className="fa-solid fa-money-bill-1-wave"></i></button>
                   </Tooltip>
                 </td>
               </tr>
