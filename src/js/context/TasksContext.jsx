@@ -21,6 +21,12 @@ const Provider = ({ children }) => {
     all_tasks: [],
     all_users: [],
     assigned_tasks_table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ TARİHİ", "SİP. TESLİM TARİHİ", "AKTİF GÖREV", "GÖREV BİTİŞ TARİHİ", "SORUMLU",	"SİPARİŞ DURUMU", "TAHSİLAT DURUMU", "TOPLAM TUTAR"],
+    badges: {
+      aktif: 0,
+      iptal_edilenler: 0,
+      gecikenler: 0,
+      tahsil_edilmeyenler: 0,
+    },
     chosen_order_for_task: {items:[]},
     chosen_task_for_edit: {details:{logs: [], task_steps: []}},
     dropdown_button_for_modal: {title: "", data: {}, constructor: undefined},
@@ -136,6 +142,52 @@ const Provider = ({ children }) => {
     dispatch({
       type: "ALL_USERS",
       value: users
+    })
+  }
+
+  //f Get Badges
+  const showBadges = async () => {
+    let badges = {
+      aktif: 0,
+      iptal_edilenler: 0,
+      gecikenler: 0,
+      tahsil_edilmeyenler: 0,
+    }
+
+    let query = {
+      skip: 0,
+      take: 1000,
+      where: undefined,
+      orderBy: {id: "desc"}
+    }
+
+    let show = await Tasks.showTasks(query)
+
+    for (let t of show) {
+      if (t.details.state === "Aktif") {
+        badges.aktif = badges.aktif + 1
+      }
+
+      if (t.details.state === "İptal Edildi") {
+        badges.iptal_edilenler = badges.iptal_edilenler + 1
+      }
+
+      if (t.details.current_step !== null) {        //. If state = Gecikti
+        if (Date.now() > (new Date(t.details.current_step.planned_finish_date)).getTime() + 86400000) {
+          if ((t.details.state !== "Tamamlandı") && (t.details.state !== "İptal Edildi")) { 
+            badges.gecikenler = badges.gecikenler + 1
+          }
+        }
+      }
+
+      if (t.details.order.credit_current_act === null) {        //. If state = Tahsil Edilmedi
+        badges.tahsil_edilmeyenler = badges.tahsil_edilmeyenler + 1
+      }
+    }
+
+    dispatch({
+      type: "BADGES",
+      value: badges
     })
   }
 
@@ -261,9 +313,9 @@ const Provider = ({ children }) => {
   //- Tasks Class Funcs
   const showTasks = async (st = {}, resp_user = undefined) => {
     if(state.admin_check.admin) {resp_user = undefined}
-
+    
     let last_state = st.state;
-    if (last_state === "Gecikti") {  //. Get all tasks
+    if (last_state === "Gecikti" || last_state === "Tahsil Edilmedi") {  //. Get all tasks
       last_state = undefined;
     }
 
@@ -280,22 +332,13 @@ const Provider = ({ children }) => {
     }
 
     let show = await Tasks.showTasks(query)
-    let list = []
 
     dispatch({
       type: "ALL_TASKS",
       value: show
     })
-    
-    show.map((p) => {     //. If state = Gecikti, get and set 'Gecikti' rows
-      if (p.details.current_step !== null) {
-        if (Date.now() > (new Date(p.details.current_step.planned_finish_date)).getTime() + 86400000) {
-          if ((p.details.state !== "Tamamlandı") && (p.details.state !== "İptal Edildi")) { 
-            list.push(p)
-          }
-        }
-      }
-    })
+
+    let list = []
 
     document.getElementById("btn_1").classList.remove("!bg-indigo_dye"); 
     document.getElementById("btn_1").classList.remove("!text-white")
@@ -307,6 +350,8 @@ const Provider = ({ children }) => {
     document.getElementById("btn_4").classList.remove("!text-white")
     document.getElementById("btn_5").classList.remove("!bg-orange-600"); 
     document.getElementById("btn_5").classList.remove("!text-white")
+    document.getElementById("btn_6").classList.remove("!bg-cyan-600"); 
+    document.getElementById("btn_6").classList.remove("!text-white")
     
     //. Check state type
     if (st.state === undefined) {
@@ -324,6 +369,16 @@ const Provider = ({ children }) => {
     else if (st.state === "Gecikti") {
       document.getElementById("btn_4").classList.add("!bg-gray-700"); 
       document.getElementById("btn_4").classList.add("!text-white")
+    
+      show.map((p) => {     
+        if (p.details.current_step !== null) {        //. If state = Gecikti, get and set 'Gecikti' rows
+          if (Date.now() > (new Date(p.details.current_step.planned_finish_date)).getTime() + 86400000) {
+            if ((p.details.state !== "Tamamlandı") && (p.details.state !== "İptal Edildi")) { 
+              list.push(p)
+            }
+          }
+        }
+      })
       
       dispatch({
         type: "ALL_TASKS",
@@ -334,11 +389,26 @@ const Provider = ({ children }) => {
       document.getElementById("btn_5").classList.add("!bg-orange-600"); 
       document.getElementById("btn_5").classList.add("!text-white")
     }
+    else if (st.state === "Tahsil Edilmedi") {
+      document.getElementById("btn_6").classList.add("!bg-cyan-600"); 
+      document.getElementById("btn_6").classList.add("!text-white")
+
+      show.map((p) => {        //. If state = Tahsil Edilmedi, get and set 'Tahsil Edilmedi' rows
+        if (p.details.order.credit_current_act === null) { list.push(p) }
+      })
+
+      dispatch({
+        type: "ALL_TASKS",
+        value: list
+      })
+    }
 
     dispatch({
       type: "STATE_TYPE",
       value: {state: st.state}
     })
+
+    await showBadges();
   }
 
   const createOrEditTask = async () => {
@@ -369,7 +439,6 @@ const Provider = ({ children }) => {
     }
 
     await showTasks(state.state_type, state.admin_check.username);
-    await showOrders();
 
     hideTasksAssignmentModal();
   }
@@ -389,7 +458,6 @@ const Provider = ({ children }) => {
       title: title,
       constructor: dt.constructor
     }
-    console.log(btn);
 
     dispatch({
       type: "DROPDOWN_BUTTON_FOR_MODAL",
@@ -399,8 +467,6 @@ const Provider = ({ children }) => {
 
   //f Check type with title and use funcs
   const dropdownFuncsApply = async (dt, title) => {
-    console.log(dt);
-    console.log(title);
     let data = {};
     let resp = {};
 
@@ -442,7 +508,6 @@ const Provider = ({ children }) => {
 
   //f Check type with title and use funcs for in unassigned table buttons
   const unassignedDropdownFuncsApply = async (dt, title) => {
-    console.log(dt);
     //. Create a new task
     let create_task_data = {
       order_id: dt.id,
@@ -620,6 +685,7 @@ const Provider = ({ children }) => {
     makeTasksAssignment,
     removeStep,
     removeTask,
+    showBadges,
     showCurrents,
     showOrders,
     showStocks,

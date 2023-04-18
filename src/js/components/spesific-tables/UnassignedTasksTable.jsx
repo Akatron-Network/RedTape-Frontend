@@ -32,8 +32,6 @@ export default function UnassignedTasksTable() {
         </thead>
         <tbody>
           {all_orders.map((p, i) => {
-            console.log(p);
-
             let cur_name = "";
             for (let c of all_currents) {
               if (p.details.current_id === c.details.id) {

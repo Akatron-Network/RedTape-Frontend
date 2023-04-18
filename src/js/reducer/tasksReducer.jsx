@@ -104,5 +104,11 @@ export default function reducer(state, action) {
         state_type: action.value
       }
 
+    case 'BADGES':
+      return {
+        ...state,
+        badges: action.value
+      }
+
   }
 }
