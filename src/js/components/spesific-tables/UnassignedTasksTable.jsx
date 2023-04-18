@@ -32,6 +32,7 @@ export default function UnassignedTasksTable() {
         </thead>
         <tbody>
           {all_orders.map((p, i) => {
+            console.log(p);
 
             let cur_name = "";
             for (let c of all_currents) {
@@ -74,7 +75,12 @@ export default function UnassignedTasksTable() {
                     <button type='button' onClick={() => dropdownFuncs(p, "Görevi Tamamla")} className='clear-btn w-8 bg-green-600 hover:bg-green-400 text-oxford_blue hover:text-mn_blue shadow-md px-2 rounded-[4px] active:scale-90 ml-1'><i className="fa-solid fa-square-check"></i></button>
                   </Tooltip>
                   <Tooltip message={"Tahsil Et"}>
-                    <button type='button' onClick={() => dropdownFuncs(p, "Tahsil Et")} className='clear-btn w-8 bg-cyan-600 hover:bg-cyan-400 text-oxford_blue hover:text-mn_blue shadow-md px-2 rounded-[4px] active:scale-90 ml-1'><i className="fa-solid fa-money-bill-1-wave"></i></button>
+                    <button type='button' onClick={() => dropdownFuncs(p, "Tahsil Et")} 
+                     className={p.details.credit_current_act === null ? 
+                      'clear-btn w-8 bg-cyan-600 hover:bg-cyan-400 text-oxford_blue hover:text-mn_blue shadow-md px-2 rounded-[4px] active:scale-90 ml-1' 
+                      : 
+                      'clear-btn w-8 bg-cyan-600 hover:bg-cyan-400 text-oxford_blue hover:text-mn_blue shadow-md px-2 rounded-[4px] active:scale-90 ml-1 opacity-30 pointer-events-none'}>
+                      <i className="fa-solid fa-money-bill-1-wave"></i></button>
                   </Tooltip>
                 </td>
               </tr>

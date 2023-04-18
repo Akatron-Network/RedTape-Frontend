@@ -389,6 +389,7 @@ const Provider = ({ children }) => {
       title: title,
       constructor: dt.constructor
     }
+    console.log(btn);
 
     dispatch({
       type: "DROPDOWN_BUTTON_FOR_MODAL",
@@ -398,6 +399,8 @@ const Provider = ({ children }) => {
 
   //f Check type with title and use funcs
   const dropdownFuncsApply = async (dt, title) => {
+    console.log(dt);
+    console.log(title);
     let data = {};
     let resp = {};
 
@@ -433,11 +436,13 @@ const Provider = ({ children }) => {
     }
         
     await showTasks(state.state_type, state.admin_check.username);
+    await showOrders();
     hideDropdownModal();
   }
 
   //f Check type with title and use funcs for in unassigned table buttons
   const unassignedDropdownFuncsApply = async (dt, title) => {
+    console.log(dt);
     //. Create a new task
     let create_task_data = {
       order_id: dt.id,
