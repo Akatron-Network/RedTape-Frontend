@@ -17,7 +17,7 @@ export default function Current() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!adminAll) navigate("/")
+    if(!adminAll) navigate("/dashboard")
   }, [adminAll])
 
   useEffect(() => {

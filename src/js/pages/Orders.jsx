@@ -23,7 +23,7 @@ export default function Orders() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!adminAll) navigate("/")
+    if(!adminAll) navigate("/dashboard")
   }, [adminAll])
 
   useEffect(() => {

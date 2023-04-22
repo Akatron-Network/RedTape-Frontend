@@ -21,7 +21,7 @@ export default function Login() {
 
     try {
       let lgn = await Auth.login(usr, pss)
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       warn.classList.remove('hidden')
     }

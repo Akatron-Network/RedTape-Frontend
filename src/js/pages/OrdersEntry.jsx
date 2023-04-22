@@ -17,7 +17,7 @@ export default function OrdersEntry() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if(!adminAll) navigate("/")
+    if(!adminAll) navigate("/dashboard")
   }, [adminAll])
 
   useEffect(() => {

@@ -7,6 +7,7 @@ import StockProvider from './context/StockContext'
 import OrdersProvider from './context/OrdersContext'
 import OrdersEntryProvider from './context/OrdersEntryContext'
 import TasksProvider from './context/TasksContext';
+import DashboardProvider from './context/DashboardContext'
 
 
 function App() {
@@ -14,23 +15,25 @@ function App() {
     <>
     
       <MainProvider>
-        <AdminPanelProvider>
-          <CurrentProvider>
-            <CurrentActivityProvider>
-              <StockProvider>
-                <OrdersProvider>
-                  <OrdersEntryProvider>
-                    <TasksProvider>
+        <DashboardProvider>
+          <AdminPanelProvider>
+            <CurrentProvider>
+              <CurrentActivityProvider>
+                <StockProvider>
+                  <OrdersProvider>
+                    <OrdersEntryProvider>
+                      <TasksProvider>
 
-                      <AllRoutes />
+                        <AllRoutes />
 
-                    </TasksProvider>
-                  </OrdersEntryProvider>
-                </OrdersProvider>
-              </StockProvider>
-            </CurrentActivityProvider>
-          </CurrentProvider>
-        </AdminPanelProvider>
+                      </TasksProvider>
+                    </OrdersEntryProvider>
+                  </OrdersProvider>
+                </StockProvider>
+              </CurrentActivityProvider>
+            </CurrentProvider>
+          </AdminPanelProvider>
+        </DashboardProvider>
       </MainProvider>
       
     </>

@@ -18,7 +18,8 @@ export default class Request {
     current_act: "current_act",
     stock: "stock",
     order: "order",
-    tasks: "task"
+    tasks: "task",
+    dashboard: "dashboard"
   }
 
   static loginRequest() { return new Request(Request.routes.login) }
@@ -29,6 +30,7 @@ export default class Request {
   static stocktRequest() { return new Request(Request.routes.stock) }
   static orderRequest() { return new Request(Request.routes.order) }
   static tasksRequest() { return new Request(Request.routes.tasks) }
+  static dashboardRequest() { return new Request(Request.routes.dashboard) }
 
   async get(data) {
 

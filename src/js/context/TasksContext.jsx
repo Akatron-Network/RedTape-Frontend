@@ -163,26 +163,58 @@ const Provider = ({ children }) => {
 
     let show = await Tasks.showTasks(query)
 
-    for (let t of show) {
-      if (t.details.state === "Aktif") {
-        badges.aktif = badges.aktif + 1
-      }
+    if (state.admin_check.username === undefined) { //. Check admin or not
 
-      if (t.details.state === "İptal Edildi") {
-        badges.iptal_edilenler = badges.iptal_edilenler + 1
-      }
-
-      if (t.details.current_step !== null) {        //. If state = Gecikti
-        if (Date.now() > (new Date(t.details.current_step.planned_finish_date)).getTime() + 86400000) {
-          if ((t.details.state !== "Tamamlandı") && (t.details.state !== "İptal Edildi")) { 
-            badges.gecikenler = badges.gecikenler + 1
+      for (let t of show) {
+        
+        if ((t.details.state === "Aktif")) {
+          badges.aktif = badges.aktif + 1
+        }
+  
+        if ((t.details.state === "İptal Edildi")) {
+          badges.iptal_edilenler = badges.iptal_edilenler + 1
+        }
+  
+        if (t.details.current_step !== null) {        //. If state = Gecikti
+          if (Date.now() > (new Date(t.details.current_step.planned_finish_date)).getTime() + 86400000) {
+            if ((t.details.state !== "Tamamlandı") && (t.details.state !== "İptal Edildi")) { 
+              badges.gecikenler = badges.gecikenler + 1
+            }
           }
+        }
+  
+        if (t.details.order.credit_current_act === null) {        //. If state = Tahsil Edilmedi
+          badges.tahsil_edilmeyenler = badges.tahsil_edilmeyenler + 1
         }
       }
 
-      if (t.details.order.credit_current_act === null) {        //. If state = Tahsil Edilmedi
-        badges.tahsil_edilmeyenler = badges.tahsil_edilmeyenler + 1
+    }
+    else {
+      for (let t of show) {
+        
+        if (t.details.current_step !== null) {
+        
+          if ((t.details.state === "Aktif") && (t.details.current_step.responsible_username === state.admin_check.username)) {
+            badges.aktif = badges.aktif + 1
+          }
+    
+          if ((t.details.state === "İptal Edildi") && (t.details.current_step.responsible_username === state.admin_check.username)) {
+            badges.iptal_edilenler = badges.iptal_edilenler + 1
+          }
+    
+          if ((Date.now() > (new Date(t.details.current_step.planned_finish_date)).getTime() + 86400000) && (t.details.current_step.responsible_username === state.admin_check.username)) { //. If state = Gecikti
+            if ((t.details.state !== "Tamamlandı") && (t.details.state !== "İptal Edildi")) { 
+              badges.gecikenler = badges.gecikenler + 1
+            }
+          }
+    
+          if ((t.details.order.credit_current_act === null) && (t.details.current_step.responsible_username === state.admin_check.username)) {  //. If state = Tahsil Edilmedi
+            badges.tahsil_edilmeyenler = badges.tahsil_edilmeyenler + 1
+          }
+
+        }
       }
+
     }
 
     dispatch({
@@ -191,6 +223,11 @@ const Provider = ({ children }) => {
     })
   }
 
+  useEffect(() => {
+    console.log(state.admin_check.username);
+    if (state.admin_check.username !== undefined) showBadges();
+  }, [state.admin_check.username])
+  
   //f Show TasksAssignmentModal and filled in the inputs
   const makeTasksAssignment = async (dt) => {
     let tasks_assignment_modal = showModal("tasksAssignmentModal", "TASKS_ASSIGNMENT_MODAL");   //. Create and show Tasks Assignment Modal
@@ -436,6 +473,7 @@ const Provider = ({ children }) => {
     }
     else {
       let create = await Tasks.createTask(data)
+      await showOrders();
     }
 
     await showTasks(state.state_type, state.admin_check.username);

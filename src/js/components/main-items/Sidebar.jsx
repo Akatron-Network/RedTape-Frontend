@@ -40,28 +40,25 @@ export default function Sidebar() {
 
 
         {admin ? 
-          <li>
-            <Link to={"/admin-panel"} className="sidebar-elm">
-              <div className='text-center w-6'>
-                <i className="fa-solid fa-user-tie"></i>
-              </div>
-              <span className="sidebar-elm-text">Admin Paneli</span>
-            </Link>
-          </li>
-          : undefined
-        }
-
-        <li>
-          <Link to={"/current"} className="sidebar-elm">
-            <div className='text-center w-6'>
-              <i className="fa-solid fa-user-pen"></i>
-            </div>
-            <span className="sidebar-elm-text">Cari Kayıt</span>
-          </Link>
-        </li>
-
-        {admin ? 
           <>
+            <li>
+              <Link to={"/admin-panel"} className="sidebar-elm">
+                <div className='text-center w-6'>
+                  <i className="fa-solid fa-user-tie"></i>
+                </div>
+                <span className="sidebar-elm-text">Admin Paneli</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link to={"/current"} className="sidebar-elm">
+                <div className='text-center w-6'>
+                  <i className="fa-solid fa-user-pen"></i>
+                </div>
+                <span className="sidebar-elm-text">Cari Kayıt</span>
+              </Link>
+            </li>
+
             <li>
               <Link to={"/current-activity"} className="sidebar-elm">
                 <div className='text-center w-6'>

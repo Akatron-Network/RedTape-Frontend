@@ -14,7 +14,7 @@ export default function Navbar() {
   return (
     <header className="bg-oxford_blue shadow-navbar w-full z-50 fixed">
       <div className="container mx-[3px] flex flex-wrap p-2 px-[11px] flex-row items-center">
-        <Link to={"/"} className="flex title-font font-medium items-center mb-0">
+        <Link to={"/dashboard"} className="flex title-font font-medium items-center mb-0">
           <img className='h-7' src="/src/img/red-tape-logo.png" alt="RedTape Logo" />
           <span className="mx-3 text-xl text-steel_blue font-roboto">RedTape</span>
         </Link>

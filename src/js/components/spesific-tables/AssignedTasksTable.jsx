@@ -17,6 +17,7 @@ export default function AssignedTasksTable() {
               let cls = "p-2 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-[1]"
               if(c === "SİPARİŞ DURUMU" || c === "TAHSİLAT DURUMU") cls= "p-2 h-10 font-bold text-xs text-center sticky top-0 text-prussian_blue bg-steel_blue_light z-[1]"
               if(c === "TOPLAM TUTAR") cls= "p-2 pr-5 h-10 font-bold text-xs text-right sticky top-0 text-prussian_blue bg-steel_blue_light z-[1]"
+              if(c === "TOPLAM TUTAR" && !admin_check.admin)  cls= "p-2 pr-5 h-10 font-bold text-xs text-right sticky top-0 text-prussian_blue bg-steel_blue_light z-[1] hidden"
 
               return (
                 <th key={i} className={cls}>

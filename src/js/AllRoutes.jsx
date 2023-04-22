@@ -11,6 +11,7 @@ import Orders from './pages/Orders'
 import OrdersEntry from './pages/OrdersEntry'
 import Tasks from './pages/Tasks'
 import Test from './pages/Test'
+import Dashboard from "./components/main-items/Dashboard";
 
 export default function AllRoutes() {
   return (
@@ -18,6 +19,7 @@ export default function AllRoutes() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<MainPage />}>
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="current" element={<Current />} />
           <Route path="current-activity" element={<CurrentActivity />} />
           <Route path="stock" element={<Stock />} />
