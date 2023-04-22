@@ -223,8 +223,8 @@ const Provider = ({ children }) => {
     })
   }
 
-  useEffect(() => {
-    console.log(state.admin_check.username);
+  //f When username change (for admin or not) check again badges
+  useEffect(() => { 
     if (state.admin_check.username !== undefined) showBadges();
   }, [state.admin_check.username])
   
