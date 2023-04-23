@@ -19,7 +19,7 @@ export default function EditCurrentActivityModal() {
               <PageSubTitle title={"Cari Hareket Düzenle"} />
               <button type="button" onClick={() => cur_act_data.hideCurActModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-md p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
-            <div className="p-5 grid grid-cols-1 gap-[1px]">
+            <div className="p-5 grid grid-cols-1 gap-[2px]">
               <div className='col-span-1'><InputDate name={"Tarih"} reference={cur_act_data.curActDateEditRef} /></div>
               <div className='col-span-1'><InputDefault type={"text"} name={"Açıklama"} reference={cur_act_data.curActDescriptionEditRef} /></div>
               <div className='col-span-1'><InputDate name={"Vade Tarihi"} reference={cur_act_data.curActExpiryDateEditRef}/></div>

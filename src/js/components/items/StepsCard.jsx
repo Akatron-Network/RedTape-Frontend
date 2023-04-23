@@ -5,7 +5,7 @@ export default function StepsCard(props) {
   const { all_users, task_steps, tasksNameRef, tasksResponsibleUsernameRef, tasksPlannedFinishDate, removeStep, tasks_editable, editTasksDescriptionRef, editTasksFinishDate} = useTasks();
   
   return (
-      <div className='xl:col-span-3 col-span-6 grid gap-[1px]'>
+      <div className='xl:col-span-3 col-span-6 grid gap-[2px]'>
         <span className="w-full shadow-input truncate flex justify-center min-h-[34px] border border-alica_blue_light text-sm items-center bg-steel_blue_light font-medium text-prussian_blue px-1 py-[6px] rounded-md">{props.row}. Adım</span>
         
         {/* <InputDefault type={"text"} name={"Görev"} reference={(el) => {if (tasksNameRef.current !== null) tasksNameRef.current[props.alias] = el}} /> */}

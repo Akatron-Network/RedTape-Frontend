@@ -21,7 +21,7 @@ export default function Stock() {
       <PageMainTitle title={"Stok Kayıt Paneli"} />
 
       <div className='grid md:grid-cols-3 md:gap-20 grid-cols-1'>
-        <div className='grid grid-cols-1 gap-[1px] col-span-1 auto-rows-max'>          
+        <div className='grid grid-cols-1 gap-[2px] col-span-1 auto-rows-max'>          
           <PageSubTitle title={"Yeni Stok Oluştur"} /> 
 
           <div className='col-span-2'><InputDefault type={"text"} name={"Stok Adı"} reference={stock_data.stockNameRef} /></div>

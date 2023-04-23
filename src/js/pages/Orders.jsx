@@ -71,7 +71,7 @@ export default function Orders() {
 
       <div className='grid md:grid-cols-3 md:gap-5 auto-rows-max'>
 
-        <div className='col-span-2 md:col-span-1 grid grid-cols-1 gap-[1px] auto-rows-max'>
+        <div className='col-span-2 md:col-span-1 grid grid-cols-1 gap-[2px] auto-rows-max'>
 
           <div className='flex flex-row col-span-1 mb-2 relative'>
             <span className="w-1/3 shadow-input flex justify-center min-h-[34px] border border-alica_blue_light text-sm items-center bg-steel_blue_light font-medium text-prussian_blue px-1 py-[6px] rounded-l-md">Cari Kod / İsim</span>

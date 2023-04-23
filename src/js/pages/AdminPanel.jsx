@@ -28,7 +28,7 @@ export default function AdminPanel() {
       <PageMainTitle title={"Admin Paneli"} />
 
       <div className='grid md:grid-cols-3 md:gap-20 grid-cols-1'>
-        <div className='grid grid-cols-1 gap-[1px] col-span-1 auto-rows-max'>          
+        <div className='grid grid-cols-1 gap-[2px] col-span-1 auto-rows-max'>          
           <PageSubTitle title={"Yeni Kullanıcı Oluştur"} /> 
 
           <div className='col-span-2'><InputDefault type={"text"} name={"Kullanıcı Adı"} reference={admin_panel_data.userNameRef} /></div>

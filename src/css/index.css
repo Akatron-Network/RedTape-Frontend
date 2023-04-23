@@ -6,7 +6,7 @@
   html {
     /* font-family: 'Cabin', sans-serif; */
     @apply
-      bg-gray-100 /* bg-ghost_white */
+      bg-ghost_white/* bg-ghost_white */
       font-roboto
   }
 

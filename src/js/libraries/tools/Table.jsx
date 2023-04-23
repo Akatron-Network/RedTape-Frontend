@@ -45,18 +45,18 @@ export default class Table {
                 // if (h === "order") { h = "" }
                 console.log(this.columns.length);
 
-                let cls = "py-2 px-3 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
+                let cls = "py-2 px-3 h-10 font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-10"
 
                 if (h === "NET BAKİYE" || h === "BORÇ TUTARI" || h === "ALACAK TUTARI") {
-                  cls = "py-2 px-3 font-bold h-10 text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10 text-right w-[170px]"
+                  cls = "py-2 px-3 font-normal h-10 text-xs sticky top-0 text-ghost_white bg-indigo_dye z-10 text-right w-[170px]"
                 }
 
                 if (h === "CARİ İSİM") {
-                  cls = "py-2 px-3 h-10 w-[390px] font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
+                  cls = "py-2 px-3 h-10 w-[390px] font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-10"
                 }
 
                 if (h === "BİRİM 2") {
-                  cls = "py-2 px-3 h-10 min-w-[70px] font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
+                  cls = "py-2 px-3 h-10 min-w-[70px] font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-10"
                 }
 
                 return (
@@ -66,7 +66,7 @@ export default class Table {
                 )
 
               })}
-              <th className="py-2 px-3 w-20 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10">
+              <th className="py-2 px-3 w-20 h-10 font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-10">
                 <span className="sr-only">Düzenle</span>
               </th>
             </tr>
@@ -74,7 +74,7 @@ export default class Table {
           <tbody>
             {this.data.map((d, d_index) => {        // d = { id: 1, details: {...} }
               return (
-                <tr key={"d_" + d_index} className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
+                <tr key={"d_" + d_index} className="bg-ghost_white border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
                   {this.rows.map((r, r_index) => {  //, (r = "order")
                     let val = d.details[r];
                     let cls = "py-[0.20rem] px-3 text-prussian_blue"
@@ -166,8 +166,8 @@ export default class Table {
             })}
           </tbody>
         </table>
-        <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-steel_blue_light h-10 text-xs sticky bottom-0 text-prussian_blue z-10" aria-label="Table navigation">
-          <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{this.data.length}</span> kayıt bulunmaktadır.</span>
+        <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-indigo_dye h-10 text-xs sticky bottom-0 text-steel_blue z-10" aria-label="Table navigation">
+          <span className="text-sm font-normal text-steel_blue">Toplamda <span className="font-normal text-alica_blue_middle">{this.data.length}</span> kayıt bulunmaktadır.</span>
             {/* <ul className="inline-flex items-center -space-x-px text-prussian_blue">
               <li onClick={() => this.setPageNumbers(this.left_page_num)}>
                 <a href="#" className="py-[2px] px-1 ml-0 mx-[1px] text-pine_tree rounded-l-md hover:bg-alica_blue hover:text-prussian_blue ">

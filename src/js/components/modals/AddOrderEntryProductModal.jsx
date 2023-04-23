@@ -20,7 +20,7 @@ export default function AddOrderEntryProductModal() {
               <PageSubTitle title={"Yeni Kalem Ekle"} />
               <button type="button" onClick={() => orders_entry_data.hideAddEntryOrderProductModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-md p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
-            <div className="pt-4 px-5 grid grid-cols-1 gap-[1px]">
+            <div className="pt-4 px-5 grid grid-cols-1 gap-[2px]">
               
               <div className='col-span-2'>
 

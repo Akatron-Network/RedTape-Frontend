@@ -17,7 +17,7 @@ export default function EditStockModal() {
               <PageSubTitle title={"Stok Düzenle"} />
               <button type="button" onClick={() => stock_data.hideStockModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-md p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
-            <div className="p-5 grid grid-cols-1 gap-[1px]">
+            <div className="p-5 grid grid-cols-1 gap-[2px]">
 
               <div className='col-span-2'><InputDefault type={"text"} name={"Stok Adı"} reference={stock_data.stockNameEditRef} /></div>
               <div className='col-span-2'><InputDefault type={"text"} name={"Malzeme"} reference={stock_data.stockMaterialEditRef} /></div>

@@ -19,7 +19,7 @@ export default function EditUserModal() {
               <button type="button" onClick={() => admin_panel_data.hideUserModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-md p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
             
-            <div className="p-5 grid grid-cols-1 gap-[1px]">
+            <div className="p-5 grid grid-cols-1 gap-[2px]">
               <div className='col-span-1'><InputFilled type={"text"} name={"Kullanıcı Adı"} reference={admin_panel_data.userNameEditRef} /></div>
               <div className='col-span-1'><InputDefault type={"password"} name={"Parola"} reference={admin_panel_data.userPasswordEditRef} /></div>
               <div className='col-span-1'>
