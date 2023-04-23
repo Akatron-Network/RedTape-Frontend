@@ -17,10 +17,10 @@ export default function TasksAssignmentModal() {
     <>
       <div id="tasksAssignmentModal" data-modal-target="tasksAssignmentModal" data-modal-backdrop="static" tabIndex="-1" aria-hidden="true" className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden bg-modal_bg overflow-y-auto md:inset-0 h-modal md:h-full">
         <div className="relative w-full h-full max-w-[90%] max-h-[900px] overflow-auto md:h-auto">
-          <div className="relative bg-ghost_white rounded-sm shadow">
-            <div className="flex items-start justify-between px-5 pt-3 pb-0 border-b border-steel_blue_light rounded-t">
+          <div className="relative bg-ghost_white rounded-md shadow">
+            <div className="flex items-start justify-between px-5 pt-3 pb-0 border-b border-steel_blue_light">
               <PageSubTitle title={tasks_data.tasks_editable ? "Görev Detayları" : "Görev Ata"} />
-              <button type="button" onClick={() => tasks_data.hideTasksAssignmentModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-sm p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
+              <button type="button" onClick={() => tasks_data.hideTasksAssignmentModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-md p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
 
             <div className='grid xl:grid-cols-5 grid-cols-6 p-5 gap-1 pointer-events-none'>
@@ -64,7 +64,7 @@ export default function TasksAssignmentModal() {
             <div className='pl-5 pt-3'><PageSubTitle title={"Sipariş Ürün Tablosu"} /></div>
             <div className='px-5 pb-5'><UnassignedTasksProductTable /></div>
             
-            <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light rounded-b justify-end">
+            <div className="flex items-center px-5 py-3 space-x-2 border-t border-steel_blue_light justify-end">
               {tasks_data.tasks_editable && tasks_data.admin_check.admin ? <button type="button" className="danger-btn ml-2 float-right" onClick={() => funcLoad(tasks_data.removeTask)}><i className="fa-solid fa-trash-can mr-2"></i>Görevi Tamamen Sil</button> : undefined } 
               {tasks_data.admin_check.admin ? <button type="button" className={tasks_data.task_steps.length < 1 ? "save-btn ml-2 float-right opacity-30 pointer-events-none" : "save-btn ml-2 float-right"} onClick={() => funcLoad(tasks_data.createOrEditTask)}><i className="fa-solid fa-handshake-simple mr-2"></i>{tasks_data.tasks_editable ? "Görev Detaylarını Onayla" : "Görev Ata"}</button>  : undefined }
             </div>

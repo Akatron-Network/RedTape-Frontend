@@ -10,7 +10,7 @@ export default function OrdersTable() {
   
   return (
     
-    <div className="overflow-auto max-h-[639px] shadow-table">
+    <div className="overflow-auto max-h-[639px] shadow-table rounded-md">
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>
@@ -75,10 +75,10 @@ export default function OrdersTable() {
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Ürünü Düzenle"}>
-                    <button onClick={() => funcLoad(getProductDetails, p.row)} className='golden-btn shadow-md px-1 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                    <button onClick={() => funcLoad(getProductDetails, p.row)} className='golden-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                   </Tooltip>
                   <Tooltip message={"Ürünü Sil"}>
-                    <button onClick={() => funcLoad(removeProduct, p.row)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                    <button onClick={() => funcLoad(removeProduct, p.row)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </Tooltip>
                 </td>
               </tr>

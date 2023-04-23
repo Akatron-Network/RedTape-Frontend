@@ -7,7 +7,7 @@ export default function UnassignedTasksProductTable() {
   
   return (
     
-    <div className="overflow-auto max-h-[639px] shadow-table">
+    <div className="overflow-auto max-h-[639px] shadow-table rounded-md">
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>

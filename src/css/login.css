@@ -48,7 +48,7 @@
 
 .login > input {
   display: block;
-  border-radius: 5px;
+  border-radius: 6px;
   font-size: 15px;
   background: #BFC7AD;
   width: 100%;
@@ -76,7 +76,7 @@
   font-size: 16px;
   border: 0;
   padding: 10px;
-  border-radius: 5px;
+  border-radius: 6px;
   background-color: #112236;
   -webkit-transition: background-color 300ms;
   -moz-transition: background-color 300ms;

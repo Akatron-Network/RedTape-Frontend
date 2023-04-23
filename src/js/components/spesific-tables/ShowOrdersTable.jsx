@@ -8,7 +8,7 @@ export default function ShowOrdersTable() {
   
   return (
     
-    <div className="overflow-auto max-h-[639px] shadow-table">
+    <div className="overflow-auto max-h-[639px] shadow-table rounded-md">
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>
@@ -85,10 +85,10 @@ export default function ShowOrdersTable() {
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Siparişi Düzenle"}>
-                    <button onClick={() => getProductDetails(p.id)} className='golden-btn shadow-md px-1 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                    <button onClick={() => getProductDetails(p.id)} className='golden-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                   </Tooltip>
                   <Tooltip message={"Siparişi Sil"}>
-                    <button onClick={() => removeProduct(p.id)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                    <button onClick={() => removeProduct(p.id)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </Tooltip>
                 </td>
               </tr>

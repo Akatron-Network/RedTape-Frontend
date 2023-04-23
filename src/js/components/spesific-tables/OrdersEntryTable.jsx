@@ -10,7 +10,7 @@ export default function OrdersTable() {
   
   return (
     
-    <div className="shadow-table overflow-auto max-h-[730px]">
+    <div className="shadow-table overflow-auto max-h-[730px] rounded-md">
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>
@@ -68,13 +68,13 @@ export default function OrdersTable() {
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Yazdır"}>
-                    <button type='button' onClick={() => funcLoad(printPDF, p)} className='ml-1 clear-btn shadow-md px-1 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-print"></i></button>
+                    <button type='button' onClick={() => funcLoad(printPDF, p)} className='ml-1 clear-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-print"></i></button>
                   </Tooltip>
                   <Tooltip message={"Ürünü Düzenle"}>
-                    <button type='button' onClick={() => funcLoad(getOrderDetails, p.details.id)} className='ml-1 golden-btn shadow-md px-1 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                    <button type='button' onClick={() => funcLoad(getOrderDetails, p.details.id)} className='ml-1 golden-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                   </Tooltip>
                   <Tooltip message={"Ürünü Sil"}>
-                    <button type='button' onClick={() => funcLoad(removeOrder, p.details.id)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                    <button type='button' onClick={() => funcLoad(removeOrder, p.details.id)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </Tooltip>
                 </td>
               </tr>

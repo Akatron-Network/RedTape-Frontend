@@ -7,7 +7,7 @@ export default function TasksLogs() {
 
   return (
     
-    <div className="shadow-table overflow-auto max-h-[380px]">
+    <div className="shadow-table overflow-auto max-h-[380px] rounded-md">
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>

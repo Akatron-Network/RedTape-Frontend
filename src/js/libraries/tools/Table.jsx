@@ -43,6 +43,7 @@ export default class Table {
             <tr>
               {this.columns.map((h, index) => {       //, h = 'Header1'
                 // if (h === "order") { h = "" }
+                console.log(this.columns.length);
 
                 let cls = "py-2 px-3 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10"
 

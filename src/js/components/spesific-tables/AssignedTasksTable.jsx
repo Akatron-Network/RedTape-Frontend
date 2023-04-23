@@ -8,7 +8,7 @@ export default function AssignedTasksTable() {
 
   return (
     
-    <div className={all_tasks.length !== 0 ? "shadow-table overflow-auto max-h-[550px] min-h-[416.38px] relative bg-ghost_white" : "shadow-table overflow-auto max-h-[550px] relative bg-ghost_white"}>
+    <div className={all_tasks.length !== 0 ? "shadow-table overflow-auto max-h-[550px] min-h-[416.38px] relative bg-ghost_white rounded-md" : "shadow-table overflow-auto max-h-[550px] relative bg-ghost_white rounded-md"}>
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>
@@ -110,7 +110,7 @@ export default function AssignedTasksTable() {
                 }
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <div className="dropdown relative inline-block">
-                    <button type='button' onClick={() => {}} className='save-btn shadow-md px-1 w-8 rounded-[4px] active:scale-90'><i className="fa-solid fa-bars"></i></button>
+                    <button type='button' onClick={() => {}} className='save-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-bars"></i></button>
                     <ul className={!queue ? "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-[15px] -mt-[15px] w-max text-left bg-white rounded" : "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-3 -mt-[211px] w-max text-left bg-white rounded"}>
                       
                       <li onClick={() => dropdownFuncs(p, "İşlemi Tamamla")} className="text-sky-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
