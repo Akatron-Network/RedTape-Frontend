@@ -16,7 +16,7 @@ export default function AddOrderEntryProductModal() {
       <div id="addOrderEntryProductModal" data-modal-target="addOrderEntryProductModal" data-modal-backdrop="static" tabIndex="-1" aria-hidden="true" className="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden bg-modal_bg overflow-y-auto md:inset-0 h-modal md:h-full">
         <div className="relative w-full h-full max-w-lg md:h-auto">
           <div className="relative bg-ghost_white rounded-md shadow">
-            <div className="flex items-start justify-between px-5 pt-3 pb-0 border-b border-steel_blue_light">
+            <div className="flex items-start justify-between px-4 pt-3 pb-0 border-b border-steel_blue_light">
               <PageSubTitle title={"Yeni Kalem Ekle"} />
               <button type="button" onClick={() => orders_entry_data.hideAddEntryOrderProductModal()} className="text-oxford_blue bg-transparent text-base hover:bg-gray-300 hover:text-mn_blue transition duration-200 rounded-md p-1.5 ml-auto inline-flex items-center"><i className="fa-solid fa-xmark"></i></button>
             </div>
@@ -25,9 +25,9 @@ export default function AddOrderEntryProductModal() {
               <div className='col-span-2'>
 
                 <div className='flex flex-row col-span-1 mb-2 relative'>
-                  <span className="w-1/3 shadow-input flex justify-center min-h-[34px] border border-alica_blue_light text-sm items-center bg-steel_blue_light font-medium text-prussian_blue px-1 py-[6px] rounded-l-md">Stok Adı</span>
+                  <span className="w-1/3 shadow-input flex justify-center min-h-[34px] border border-alica_blue text-sm items-center bg-indigo_dye font-medium text-ghost_white px-1 py-[6px] rounded-l-md">Stok Adı</span>
                   <div className='w-2/3 shadow-input relative z-[21] rounded-md'>
-                    <input id='add_entry_order_product_input' autoComplete='off' type="text" ref={orders_entry_data.addOrdersEntryProductSearchInputRef} onChange={(e) => orders_entry_data.filterStocks(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-r-md focus:border-shadow_blue focus:ring-transparent block" placeholder="Stok kodu, stok ismi, malzeme, ürün grubu ile arayın" required />
+                    <input id='add_entry_order_product_input' autoComplete='off' type="text" ref={orders_entry_data.addOrdersEntryProductSearchInputRef} onChange={(e) => orders_entry_data.filterStocks(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-alica_blue text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-r-md focus:border-indigo_dye focus:ring-transparent block" placeholder="Stok kodu, stok ismi, malzeme, ürün grubu ile arayın" required />
                     <button type="button" id='add_entry_order_product_button' className="absolute inset-y-0 right-0 flex items-center pr-3">
                       <i id='add_entry_order_product_button_icon' className="fa-solid fa-magnifying-glass text-indigo_dye"></i>
                     </button>
@@ -50,7 +50,7 @@ export default function AddOrderEntryProductModal() {
             
             </div>
 
-            <div className="flex items-center px-5 py-3 mt-4 space-x-2 border-t border-steel_blue_light justify-end">
+            <div className="flex items-center p-4 mt-4 space-x-2 border-t border-steel_blue_light justify-end">
               <button type="button" className="save-btn ml-2 float-right" onClick={() => funcLoad(orders_entry_data.addOrderEntryProduct)}><i className="fa-solid fa-floppy-disk mr-2"></i>Yeni Kalem Oluştur</button> 
             </div>
           </div>

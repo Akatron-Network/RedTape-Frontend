@@ -31,7 +31,7 @@
 .login::before {
   left: 40%;
   bottom: -130%;
-  background-color: rgba(17, 34, 54, 0.2);
+  background-color: #04263072;
   -webkit-animation: wawes 6s infinite linear;
   -moz-animation: wawes 6s infinite linear;
   animation: wawes 6s infinite linear;
@@ -40,7 +40,7 @@
 .login::after {
   left: 35%;
   bottom: -125%;
-  background-color: rgba(17, 34, 54, 0.4);
+  background-color: #04263072;
   -webkit-animation: wawes 7s infinite;
   -moz-animation: wawes 7s infinite;
   animation: wawes 7s infinite;
@@ -72,12 +72,12 @@
 
 .login > button {
   cursor: pointer;
-  color: #A3BAD2;
+  color: #8ABCB2;
   font-size: 16px;
   border: 0;
   padding: 10px;
   border-radius: 6px;
-  background-color: #112236;
+  background-color: #042630;
   -webkit-transition: background-color 300ms;
   -moz-transition: background-color 300ms;
   transition: background-color 300ms;
@@ -90,8 +90,8 @@
 }
 
 .login > button:hover {
-  background-color: #2A425B;
-  color: #DBE4ED;
+  background-color: #284C52;
+  color: #BECFCD;
 }
 
 @-webkit-keyframes wawes {

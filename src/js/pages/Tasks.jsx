@@ -57,9 +57,9 @@ export default function Tasks() {
           </button>
           
           <button onClick={() => tasks_data.showTasks({"state": "İptal Edildi"}, tasks_data.admin_check.username)} id="btn_3" type="button" 
-            className="flex items-center truncate !overflow-visible relative text-red-700 hover:text-white border-b border-red-700 hover:bg-red-700 transition-all duration-200 min-h-[28px] font-medium rounded-md text-sm px-5 text-center mr-2 mb-2">
+            className="flex items-center truncate !overflow-visible relative text-eggplant hover:text-white border-b border-eggplant hover:bg-eggplant transition-all duration-200 min-h-[28px] font-medium rounded-md text-sm px-5 text-center mr-2 mb-2">
             İptal Edilenler
-            <span className="inline-flex items-center justify-center w-5 h-4 p-2 pb-[9px] ml-2 text-xs text-white bg-red-500 rounded-full">
+            <span className="inline-flex items-center justify-center w-5 h-4 p-2 pb-[9px] ml-2 text-xs text-white bg-eggplant_light rounded-full">
               {tasks_data.badges.iptal_edilenler}
             </span>
           </button>

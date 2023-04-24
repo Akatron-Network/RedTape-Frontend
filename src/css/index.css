@@ -78,6 +78,26 @@
     active:scale-95
   }
 
+  .render-btn {
+    @apply
+    py-1
+    transition duration-300
+    shadow-button
+    px-3
+    text-sm
+    w-fit
+    border
+    border-transparent
+    focus:outline-none
+    rounded-md
+    bg-purple
+    text-fogra_dark
+    hover:bg-purple_light
+    hover:text-prussian_blue
+    focus:z-10
+    active:scale-95
+  }
+
   .golden-btn {
     @apply
     py-1
@@ -86,13 +106,13 @@
     px-3
     text-sm
     w-fit
-    text-oxford_blue
+    text-fogra_dark
     border
     border-transparent
     focus:outline-none
-    bg-golden
+    bg-queen_blue
     rounded-md
-    hover:bg-golden_light
+    hover:bg-shadow_blue
     hover:text-prussian_blue
     focus:z-10
     active:scale-95
@@ -128,32 +148,37 @@
   }
 
   ::-webkit-scrollbar-track {
-    background-color: #37526E;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
+    background-color: #284C52;
+    border: 1px solid #163941
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #112236;
+    background: #042630;
     border: 1px solid transparent;
     border-radius: 6px;
     background-clip: content-box;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background-color: #1E3249;
+    background-color: #042630;
   }
 
   ::-webkit-scrollbar-thumb:active {
-    background-color: #DBE4ED;
+    background-color: #E3E6E6;
   }
 
   ::-webkit-scrollbar-corner{
-    background: #37526E;
+    background: #284C52;
   }
 
   .dropdown:hover .dropdown-menu {
     display: block;
   }
+
+  div::-webkit-scrollbar-track {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
+
   
 }

@@ -43,7 +43,6 @@ export default class Table {
             <tr>
               {this.columns.map((h, index) => {       //, h = 'Header1'
                 // if (h === "order") { h = "" }
-                console.log(this.columns.length);
 
                 let cls = "py-2 px-3 h-10 font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-10"
 
@@ -74,7 +73,7 @@ export default class Table {
           <tbody>
             {this.data.map((d, d_index) => {        // d = { id: 1, details: {...} }
               return (
-                <tr key={"d_" + d_index} className="bg-ghost_white border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
+                <tr key={"d_" + d_index} className="bg-white border-b h-9 border-alica_blue hover:bg-alica_blue_light transition duration-300">
                   {this.rows.map((r, r_index) => {  //, (r = "order")
                     let val = d.details[r];
                     let cls = "py-[0.20rem] px-3 text-prussian_blue"
@@ -105,10 +104,10 @@ export default class Table {
                       }
   
                       if (r === "cumulative_balance" && d.details["cumulative_balance"] > 0) {          //. Green background according to balance
-                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-green-300 font-bold"
+                        cls = "py-[0.20rem] px-3 text-fogra text-right bg-green-500 font-bold"
                       }
                       else if (r === "cumulative_balance" && d.details["cumulative_balance"] < 0) {     //. Red background according to balance
-                        cls = "py-[0.20rem] px-3 text-prussian_blue text-right bg-red-300 font-bold"
+                        cls = "py-[0.20rem] px-3 text-fogra text-right bg-eggplant_light font-bold"
                       }
 
                       val = CurrencyFormat(val)
@@ -166,7 +165,7 @@ export default class Table {
             })}
           </tbody>
         </table>
-        <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-indigo_dye h-10 text-xs sticky bottom-0 text-steel_blue z-10" aria-label="Table navigation">
+        <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-indigo_dye h-10 text-xs sticky bottom-0 z-10" aria-label="Table navigation">
           <span className="text-sm font-normal text-steel_blue">Toplamda <span className="font-normal text-alica_blue_middle">{this.data.length}</span> kayıt bulunmaktadır.</span>
             {/* <ul className="inline-flex items-center -space-x-px text-prussian_blue">
               <li onClick={() => this.setPageNumbers(this.left_page_num)}>

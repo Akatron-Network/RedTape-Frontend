@@ -26,8 +26,8 @@ module.exports = {
 
         purple: "#636792",
         purple_light: "#9295B5",
-        eggplant: "#C53030",
-        eggplant_light: "#D34A4A",
+        eggplant: "#B92F2F",
+        eggplant_light: "#E93535",
         golden: "#FBB623",
         golden_light: "#FBC44B",
         sea_green: "#408759",

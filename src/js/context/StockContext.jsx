@@ -66,7 +66,7 @@ const Provider = ({ children }) => {
       },
       {
         func: (id) => funcLoad(removeStock, id),
-        class: "ml-1 danger-btn shadow-md px-1 w-8 rounded-md active:scale-90",
+        class: "danger-btn shadow-md px-1 w-8 rounded-md active:scale-90",
         type: "remove",
         icon: "fa-solid fa-xmark"
       }
@@ -251,7 +251,7 @@ const Provider = ({ children }) => {
       },
       {
         func: (id) => removeStock(id),
-        class: "ml-1 danger-btn shadow-md px-1 w-8 rounded-md active:scale-90",
+        class: "danger-btn shadow-md px-1 w-8 rounded-md active:scale-90",
         type: "remove",
         icon: "fa-solid fa-xmark"
       }

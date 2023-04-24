@@ -4,15 +4,15 @@ export default function AutoSearch(props) {
   return (
     <>
       <table className="w-full text-sm text-left text-pine_tree">
-        <thead className="text-xs text-prussian_blue bg-steel_blue_light">
+        <thead className="text-xs text-ghost_white bg-indigo_dye">
           <tr>
-            {props.cols.map((c, i) => <th key={i} className="py-2 px-3 font-bold text-sm truncate">{c}</th>)}
+            {props.cols.map((c, i) => <th key={i} className="py-2 px-3 font-normal text-sm truncate">{c}</th>)}
           </tr>
         </thead>
         <tbody>
           {props.data.map((f, i) => {
             return (
-              <tr key={i} onClick={() => props.func(f.details.id)} className="bg-gray-100 cursor-pointer border-b h-[30px] border-alica_blue hover:bg-alica_blue_middle transition duration-300">
+              <tr key={i} onClick={() => props.func(f.details.id)} className="bg-white cursor-pointer border-b h-[30px] border-alica_blue hover:bg-alica_blue_light transition duration-300">
                 <td className="py-[0.20rem] px-3 text-[13px] text-prussian_blue whitespace-nowrap">
                   {f.details.id}
                 </td>

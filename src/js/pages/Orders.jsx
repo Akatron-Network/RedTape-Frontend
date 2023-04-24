@@ -74,9 +74,9 @@ export default function Orders() {
         <div className='col-span-2 md:col-span-1 grid grid-cols-1 gap-[2px] auto-rows-max'>
 
           <div className='flex flex-row col-span-1 mb-2 relative'>
-            <span className="w-1/3 shadow-input flex justify-center min-h-[34px] border border-alica_blue_light text-sm items-center bg-steel_blue_light font-medium text-prussian_blue px-1 py-[6px] rounded-l-md">Cari Kod / İsim</span>
+            <span className="w-1/3 shadow-input flex justify-center min-h-[34px] border border-alica_blue text-sm items-center bg-indigo_dye font-medium text-ghost_white px-1 py-[6px] rounded-l-md">Cari Kod / İsim</span>
             <div className='w-2/3 shadow-input relative z-[21] rounded-r-md'>
-              <input id='search_current_input' autoComplete='off' type="text" ref={orders_data.ordersCurSearchInputRef} onChange={(e) => orders_data.filterCurrents(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-r-md focus:border-shadow_blue focus:ring-transparent block" placeholder="Cari İsim ya da Cari Kod ile arayın" required />
+              <input id='search_current_input' autoComplete='off' type="text" ref={orders_data.ordersCurSearchInputRef} onChange={(e) => orders_data.filterCurrents(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-alica_blue text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-r-md focus:border-indigo_dye focus:ring-transparent block" placeholder="Cari İsim ya da Cari Kod ile arayın" required />
               <button type="button" id='search_current_button' className="absolute inset-y-0 right-0 flex items-center pr-3">
                 <i id='search_current_button_icon' className="fa-solid fa-magnifying-glass text-indigo_dye"></i>
               </button>
@@ -116,10 +116,10 @@ export default function Orders() {
 
           <div className='flex flex-row col-span-5 lg:col-span-3 relative rounded-md'>
             <div className='w-full shadow-input relative z-[19] rounded-md'>
-              {/* <input id='search_button' type="text" ref={orders_data.ordersCurSearchInputRef} onChange={(e) => orders_data.filterCurrents(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-l-none focus:border-shadow_blue focus:ring-transparent block" placeholder="Cari İsim ya da Cari Kod ile arayın" required /> */}
+              {/* <input id='search_button' type="text" ref={orders_data.ordersCurSearchInputRef} onChange={(e) => orders_data.filterCurrents(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-white text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-l-none focus:border-indigo_dye focus:ring-transparent block" placeholder="Cari İsim ya da Cari Kod ile arayın" required /> */}
               
               <div className="relative col-span-2 lg:col-span-1" >
-                <input type="text" ref={orders_data.ordersNameRef} autoComplete='off' id="search_stock_input" onChange={(e) => orders_data.filterStocks(e)} className="block p-2 pb-[.30rem] min-h-[34px] w-full text-prussian_blue text-sm bg-white border border-white appearance-none placeholder:text-mn_blue focus:border-shadow_blue focus:ring-transparent peer rounded-md" placeholder=" " />
+                <input type="text" ref={orders_data.ordersNameRef} autoComplete='off' id="search_stock_input" onChange={(e) => orders_data.filterStocks(e)} className="block p-2 pb-[.30rem] min-h-[34px] w-full text-prussian_blue text-sm bg-white border border-alica_blue_middle appearance-none placeholder:text-mn_blue focus:border-indigo_dye focus:ring-transparent peer rounded-md" placeholder=" " />
                 <label htmlFor="search_stock_input" className="absolute truncate cursor-text text-sm text-mn_blue bg-white px-1 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] left-2.5 opacity-70 peer-focus:text-queen_blue peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:opacity-100 peer-focus:top-1 peer-focus:text-base peer-focus:-translate-y-4 rounded-md">Ürün Adı</label>
               </div>
               <button id='search_stock_button' type="button" className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -141,7 +141,7 @@ export default function Orders() {
           <div className={orders_data.invoiced !== true ? "col-span-2 lg:col-span-1 opacity-40 pointer-events-none" : "col-span-2 lg:col-span-1"}><InputSelectNoSpan name={"KDV Oranı"} reference={orders_data.ordersTaxRateRef} options={["%0", "%8", "%18"]} /></div>
           <div className='col-span-4 lg:col-span-2'><InputDefaultNoSpan name={"Açıklama"} reference={orders_data.ordersDescriptionRef} type={"text"} /></div>       
 
-          <button className='col-span-2 lg:col-span-1 truncate clear-btn w-full' onClick={() => funcLoad(orders_data.addProduct)}><i className="fa-solid fa-plus mr-1"></i>Ürün Ekle</button>
+          <button className='col-span-2 lg:col-span-1 truncate clear-btn w-full' onClick={() => funcLoad(orders_data.addProduct)}><i className="fa-solid fa-plus mr-2"></i>Ürün Ekle</button>
           <div className="col-span-10 mt-3"><OrdersTable /></div>
           
           <div className="col-span-10 mt-2 flex justify-end"><button className='save-btn w-fit' onClick={() => funcLoad(orders_data.createOrder)}><i className="fa-solid fa-bag-shopping mr-2"></i>Sipariş Oluştur</button></div>

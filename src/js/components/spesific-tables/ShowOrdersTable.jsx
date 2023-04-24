@@ -8,16 +8,16 @@ export default function ShowOrdersTable() {
   
   return (
     
-    <div className="overflow-auto max-h-[639px] shadow-table rounded-md">
+    <div className="overflow-auto max-h-[639px] shadow-table rounded-md border border-alica_blue">
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>
           <tr>
             {show_table_columns.map((c, i) => {
-              let cls = "p-2 font-bold h-10 text-xs text-prussian_blue bg-steel_blue_light sticky top-0"
-              if(c === "TOPLAM TUTAR") cls = "p-2 pr-5 font-bold h-10 text-xs text-right text-prussian_blue bg-steel_blue_light sticky top-0"
-              else if(c === "BİRİM FİYAT" || c === "TUTAR" || c === "KDV TUTAR" || c === "TUTAR") cls = "p-2 font-bold h-10 text-xs text-right text-prussian_blue bg-steel_blue_light sticky top-0"
-              else if(c === "KDV ORAN") cls = "p-2 font-bold h-10 text-xs text-center text-prussian_blue bg-steel_blue_light sticky top-0"
+              let cls = "p-2 font-normal h-10 text-xs text-ghost_white bg-indigo_dye sticky top-0"
+              if(c === "TOPLAM TUTAR") cls = "p-2 pr-5 font-normal h-10 text-xs text-right text-ghost_white bg-indigo_dye sticky top-0"
+              else if(c === "BİRİM FİYAT" || c === "TUTAR" || c === "KDV TUTAR" || c === "TUTAR") cls = "p-2 font-normal h-10 text-xs text-right text-ghost_white bg-indigo_dye sticky top-0"
+              else if(c === "KDV ORAN") cls = "p-2 font-normal h-10 text-xs text-center text-ghost_white bg-indigo_dye sticky top-0"
 
 
               return (
@@ -26,7 +26,7 @@ export default function ShowOrdersTable() {
                 </th>
               )
             })}
-            <th scope="col" className="p-2 w-20 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-10">
+            <th scope="col" className="p-2 w-20 h-10 font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-10">
               <span className="sr-only">Düzenle</span>
             </th>
           </tr>
@@ -46,7 +46,7 @@ export default function ShowOrdersTable() {
               }
             }
             return (
-              <tr key={i} className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
+              <tr key={i} className="bg-white border-b h-9 border-alica_blue hover:bg-alica_blue_light transition duration-300">
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold">
                   {p.row})
                 </td>
@@ -96,9 +96,9 @@ export default function ShowOrdersTable() {
           })}
         </tbody>
       </table>
-      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 sticky bottom-0" aria-label="Table navigation">
-        <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{get_order_items.length}</span> kayıt bulunmaktadır.</span>
-        <span className="text-sm font-normal text-queen_blue">Toplam tutar <span className="font-semibold text-prussian_blue">{totalFee()}</span></span>
+      <nav className="flex justify-between items-center py-2 px-3 bg-indigo_dye h-10 sticky bottom-0" aria-label="Table navigation">
+        <span className="text-sm font-normal text-steel_blue">Toplamda <span className="font-normal text-alica_blue_middle">{get_order_items.length}</span> kayıt bulunmaktadır.</span>
+        <span className="text-sm font-normal text-steel_blue">Toplam tutar <span className="font-normal text-alica_blue_middle">{totalFee()}</span></span>
       </nav>
     </div>
   )

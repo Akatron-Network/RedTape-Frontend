@@ -36,7 +36,7 @@ export default function CurrentActivity() {
         render: (
           <>
             <table className="w-full text-sm text-left text-pine_tree">
-              <thead className="text-xs text-prussian_blue bg-steel_blue_light">
+              <thead className="text-xs text-ghost_white bg-indigo_dye">
                 <tr>
                   <th className="py-2 px-3 font-bold text-sm">TARİH</th>
                   <th className="py-2 px-3 font-bold text-sm">AÇIKLAMA</th>
@@ -48,8 +48,8 @@ export default function CurrentActivity() {
                 </tr>
               </thead>
             </table>
-            <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-steel_blue_light h-10" aria-label="Table navigation">
-              <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">0</span> kayıt bulunmaktadır.</span>
+            <nav className="flex justify-between items-center py-2 px-3 pr-1 bg-indigo_dye h-10" aria-label="Table navigation">
+              <span className="text-sm font-normal text-steel_blue">Toplamda <span className="font-normal text-alica_blue_middle">0</span> kayıt bulunmaktadır.</span>
             </nav>
           </>
         )
@@ -125,9 +125,9 @@ export default function CurrentActivity() {
           <div className='my-2 col-span-5'>
 
             {Object.keys(cur_act_data.chosen_current).length < 1 ? 
-              <button type="button" onClick={() => funcLoad(cur_act_data.createCurrentActivity)} className="save-btn float-right ml-2 pointer-events-none opacity-30">Cari Hareket Ekle</button>
+              <button type="button" onClick={() => funcLoad(cur_act_data.createCurrentActivity)} className="save-btn float-right ml-2 pointer-events-none opacity-30"><i className="fa-solid fa-plus mr-2"></i>Cari Hareket Ekle</button>
               : 
-              <button type="button" onClick={() => funcLoad(cur_act_data.createCurrentActivity)} className="save-btn float-right ml-2">Cari Hareket Ekle</button>
+              <button type="button" onClick={() => funcLoad(cur_act_data.createCurrentActivity)} className="save-btn float-right ml-2"><i className="fa-solid fa-plus mr-2"></i>Cari Hareket Ekle</button>
             }
             <button type="button" className="clear-btn float-right" onClick={cur_act_data.clearCurActEntryInputs}><i className="fa-solid fa-eraser mr-2"></i>Temizle</button>
           

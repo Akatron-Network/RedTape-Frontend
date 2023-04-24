@@ -7,16 +7,16 @@ export default function UnassignedTasksProductTable() {
   
   return (
     
-    <div className="overflow-auto max-h-[639px] shadow-table rounded-md">
+    <div className="overflow-auto max-h-[639px] shadow-table rounded-md border border-alica_blue">
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>
           <tr>
             {unassigned_tasks_product_table_columns.map((c, i) => {
-              let cls = "p-2 font-bold h-10 text-xs text-prussian_blue bg-steel_blue_light sticky top-0"
-              if (c === "TOPLAM TUTAR") cls= "p-2 pr-5 font-bold h-10 text-xs text-prussian_blue bg-steel_blue_light text-right sticky top-0"
-              else if(c === "BİRİM FİYAT" || c === "TUTAR" || c === "KDV TUTAR" || c === "TUTAR") cls = "p-2 font-bold h-10 text-xs text-right text-prussian_blue bg-steel_blue_light sticky top-0"
-              else if(c === "KDV ORAN") cls = "p-2 font-bold h-10 text-xs text-center text-prussian_blue bg-steel_blue_light sticky top-0"
+              let cls = "p-2 font-normal h-10 text-xs text-ghost_white bg-indigo_dye sticky top-0"
+              if (c === "TOPLAM TUTAR") cls= "p-2 pr-5 font-normal h-10 text-xs text-ghost_white bg-indigo_dye text-right sticky top-0"
+              else if(c === "BİRİM FİYAT" || c === "TUTAR" || c === "KDV TUTAR" || c === "TUTAR") cls = "p-2 font-normal h-10 text-xs text-right text-ghost_white bg-indigo_dye sticky top-0"
+              else if(c === "KDV ORAN") cls = "p-2 font-normal h-10 text-xs text-center text-ghost_white bg-indigo_dye sticky top-0"
 
 
               return (
@@ -43,7 +43,7 @@ export default function UnassignedTasksProductTable() {
             }
             
             return (
-              <tr key={i} className="bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300">
+              <tr key={i} className="bg-white border-b h-9 border-alica_blue hover:bg-alica_blue_light transition duration-300">
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold">
                   {p.row})
                 </td>
@@ -110,8 +110,8 @@ export default function UnassignedTasksProductTable() {
           })}
         </tbody>
       </table>
-      <nav className="flex justify-between items-center py-2 px-3 bg-steel_blue_light h-10 sticky bottom-0" aria-label="Table navigation">
-        <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{chosen_order_for_task.items.length}</span> kayıt bulunmaktadır.</span>
+      <nav className="flex justify-between items-center py-2 px-3 bg-indigo_dye h-10 sticky bottom-0" aria-label="Table navigation">
+        <span className="text-sm font-normal text-steel_blue">Toplamda <span className="font-normal text-alica_blue_middle">{chosen_order_for_task.items.length}</span> kayıt bulunmaktadır.</span>
       </nav>
     </div>
   )

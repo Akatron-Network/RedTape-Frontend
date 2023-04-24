@@ -8,16 +8,16 @@ export default function AssignedTasksTable() {
 
   return (
     
-    <div className={all_tasks.length !== 0 ? "shadow-table overflow-auto max-h-[550px] min-h-[416.38px] relative bg-ghost_white rounded-md" : "shadow-table overflow-auto max-h-[550px] relative bg-ghost_white rounded-md"}>
+    <div className={all_tasks.length !== 0 ? "shadow-table overflow-auto max-h-[550px] min-h-[416.38px] relative bg-alica_blue_light rounded-md border border-alica_blue" : "shadow-table overflow-auto max-h-[550px] relative bg-alica_blue_light rounded-md border border-alica_blue"}>
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>
           <tr>
             {assigned_tasks_table_columns.map((c, i) => {
-              let cls = "p-2 h-10 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-[1]"
-              if(c === "SİPARİŞ DURUMU" || c === "TAHSİLAT DURUMU") cls= "p-2 h-10 font-bold text-xs text-center sticky top-0 text-prussian_blue bg-steel_blue_light z-[1]"
-              if(c === "TOPLAM TUTAR") cls= "p-2 pr-5 h-10 font-bold text-xs text-right sticky top-0 text-prussian_blue bg-steel_blue_light z-[1]"
-              if(c === "TOPLAM TUTAR" && !admin_check.admin)  cls= "p-2 pr-5 h-10 font-bold text-xs text-right sticky top-0 text-prussian_blue bg-steel_blue_light z-[1] hidden"
+              let cls = "p-2 h-10 font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-[1]"
+              if(c === "SİPARİŞ DURUMU" || c === "TAHSİLAT DURUMU") cls= "p-2 h-10 font-normal text-xs text-center sticky top-0 text-ghost_white bg-indigo_dye z-[1]"
+              if(c === "TOPLAM TUTAR") cls= "p-2 pr-5 h-10 font-normal text-xs text-right sticky top-0 text-ghost_white bg-indigo_dye z-[1]"
+              if(c === "TOPLAM TUTAR" && !admin_check.admin)  cls= "p-2 pr-5 h-10 font-normal text-xs text-right sticky top-0 text-ghost_white bg-indigo_dye z-[1] hidden"
 
               return (
                 <th key={i} className={cls}>
@@ -25,7 +25,7 @@ export default function AssignedTasksTable() {
                 </th>
               )
             })}
-            <th scope="col" className="p-2 h-10 w-9 font-bold text-xs sticky top-0 text-prussian_blue bg-steel_blue_light z-[1]">
+            <th scope="col" className="p-2 h-10 w-9 font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-[1]">
               <span className="sr-only">Düzenle</span>
             </th>
           </tr>
@@ -65,10 +65,15 @@ export default function AssignedTasksTable() {
               if (i === ln - 1 || i === ln - 2 || i === ln - 3 || i === ln - 4) queue = true
             }
 
-            let row_cls = "bg-gray-100 border-b h-9 border-alica_blue hover:bg-alica_blue_middle transition duration-300"
-            if (p.details.state === "İptal Edildi") row_cls = "bg-red-400 border-b h-9 border-alica_blue hover:bg-red-500 transition duration-300"
-            else if (p.details.state === "Tamamlandı") row_cls = "bg-green-400 border-b h-9 border-alica_blue hover:bg-green-500 transition duration-300"
-            else if (p.details.state === "Gecikti") row_cls = "bg-gray-400 border-b h-9 border-alica_blue hover:bg-gray-500 transition duration-300"
+            let row_cls = "bg-white border-b h-9 border-alica_blue hover:bg-alica_blue_light transition duration-300"
+            // if (p.details.state === "İptal Edildi") row_cls = "bg-red-400 border-b h-9 border-alica_blue hover:bg-red-500 transition duration-300"
+            // else if (p.details.state === "Tamamlandı") row_cls = "bg-green-400 border-b h-9 border-alica_blue hover:bg-green-500 transition duration-300"
+            // else if (p.details.state === "Gecikti") row_cls = "bg-gray-400 border-b h-9 border-alica_blue hover:bg-gray-500 transition duration-300"
+            
+            let state_cls = "px-4 py-1 rounded-md text-fogra";
+            if (p.details.state === "İptal Edildi") state_cls += " bg-eggplant_light"
+            else if (p.details.state === "Tamamlandı") state_cls += " bg-green-500"
+            else if (p.details.state === "Gecikti") state_cls += " bg-gray-400"
             
             return (
               <tr key={i} className={row_cls}>
@@ -96,8 +101,10 @@ export default function AssignedTasksTable() {
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {responsible_username}
                 </td>
-                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold text-center">
-                  {p.details.state}
+                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold flex justify-center items-center h-[inherit]">
+                  <div className={state_cls}>
+                    {p.details.state}
+                  </div>
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-center">
                   {p.details.order.credit_current_act === null ? "Tahsil Edilmedi" : "Tahsil Edildi"}
@@ -113,27 +120,27 @@ export default function AssignedTasksTable() {
                     <button type='button' onClick={() => {}} className='save-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-bars"></i></button>
                     <ul className={!queue ? "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-[15px] -mt-[15px] w-max text-left bg-white rounded" : "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-3 -mt-[211px] w-max text-left bg-white rounded"}>
                       
-                      <li onClick={() => dropdownFuncs(p, "İşlemi Tamamla")} className="text-sky-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
+                      <li onClick={() => dropdownFuncs(p, "İşlemi Tamamla")} className="text-sky-700 transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
                         <i className="fa-solid fa-check mr-2 w-4 text-center"></i>İşlemi Tamamla
                       </li>
-                      <li onClick={() => dropdownFuncs(p, "İşlemi İptal Et")} className=" text-orange-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
+                      <li onClick={() => dropdownFuncs(p, "İşlemi İptal Et")} className=" text-orange-500 transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer">
                         <i className="fa-solid fa-xmark mr-2 w-4 text-center"></i>İşlemi İptal Et
                       </li>
-                      <li onClick={() => editTask(p)} className={admin_check.admin ? "text-yellow-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer" : "text-yellow-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-b"}>
+                      <li onClick={() => editTask(p)} className={admin_check.admin ? "text-yellow-500 transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer" : "text-yellow-500 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer rounded-b"}>
                         <i className="fa-solid fa-pen-to-square mr-2 w-4 text-center"></i>Görev Detaylarını Görüntüle
                       </li>
                       {admin_check.admin ? 
                         <>
-                          <li onClick={() => dropdownFuncs(p, "Görevi Tamamla")} className="text-green-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
+                          <li onClick={() => dropdownFuncs(p, "Görevi Tamamla")} className="text-green-700 transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer">
                             <i className="fa-solid fa-square-check mr-2 w-4 text-center"></i>Görevi Tamamla
                           </li>
-                          <li onClick={() => dropdownFuncs(p, "Görevi Baştan Başlat")} className="text-indigo-700 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate border-b-0 cursor-pointer">
+                          <li onClick={() => dropdownFuncs(p, "Görevi Baştan Başlat")} className="text-indigo-700 transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer">
                             <i className="fa-solid fa-repeat mr-2 w-4 text-center"></i>Görevi Baştan Başlat
                           </li>
-                          <li onClick={() => dropdownFuncs(p, "Görevi İptal Et")} className="text-red-600 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate cursor-pointer rounded-b">
+                          <li onClick={() => dropdownFuncs(p, "Görevi İptal Et")} className="text-red-600 transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate cursor-pointer rounded-b">
                             <i className="fa-solid fa-square-xmark mr-2 w-4 text-center"></i>Görevi İptal Et
                           </li>
-                          <li onClick={() => dropdownFuncs(p, "Tahsil Et")} className={p.details.order.credit_current_act === null ? "text-cyan-600 transition duration-200 hover:bg-alica_blue_middle py-1 px-3 block truncate cursor-pointer rounded-b" : "text-cyan-600 transition duration-200 opacity-30 pointer-events-none hover:bg-alica_blue_middle py-1 px-3 block truncate cursor-pointer rounded-b"}>
+                          <li onClick={() => dropdownFuncs(p, "Tahsil Et")} className={p.details.order.credit_current_act === null ? "text-cyan-600 transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate cursor-pointer rounded-b" : "text-cyan-600 transition duration-200 opacity-30 pointer-events-none hover:bg-alica_blue_middle py-1 px-3 block truncate cursor-pointer rounded-b"}>
                             <i className="fa-solid fa-money-bill-1-wave mr-2 w-4 text-center"></i>Tahsil Et
                           </li>
                         </>
@@ -148,8 +155,8 @@ export default function AssignedTasksTable() {
           })}
         </tbody>
       </table>
-      <nav className={all_tasks.length > 8 || all_tasks.length === 0 ? "flex justify-between items-center py-2 px-3 z-[1] bg-steel_blue_light h-10 bottom-0 sticky" : "flex justify-between items-center py-2 px-3 z-[1] bg-steel_blue_light h-10 bottom-0 absolute w-full"} aria-label="Table navigation">
-        <span className="text-sm font-normal text-queen_blue">Toplamda <span className="font-semibold text-prussian_blue">{all_tasks.length}</span> kayıt bulunmaktadır.</span>
+      <nav className={all_tasks.length > 8 || all_tasks.length === 0 ? "flex justify-between items-center py-2 px-3 z-[1] bg-indigo_dye h-10 bottom-0 sticky" : "flex justify-between items-center py-2 px-3 z-[1] bg-indigo_dye h-10 bottom-0 absolute w-full"} aria-label="Table navigation">
+        <span className="text-sm font-normal text-steel_blue">Toplamda <span className="font-normal text-alica_blue_middle">{all_tasks.length}</span> kayıt bulunmaktadır.</span>
       </nav>
     </div>
     
