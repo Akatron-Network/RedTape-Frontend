@@ -66,14 +66,14 @@
     px-3
     text-sm
     w-fit
-    text-oxford_blue
+    text-fogra_dark
     border
     border-transparent
     focus:outline-none
     bg-shadow_blue
     rounded-md
     hover:bg-steel_blue
-    hover:text-mn_blue
+    hover:text-prussian_blue
     focus:z-10
     active:scale-95
   }

@@ -1,10 +1,10 @@
 import React from 'react'
-import InputFilled from '../items/InputFilled'
 import InputSelect from '../items/InputSelect'
 import InputDefault from '../items/InputDefault'
 import PageSubTitle from '../items/PageSubTitle'
 import { useOrders } from '../../context/OrdersContext';
 import { useMain } from '../../context/MainContext'
+import InputFilledOldVersion from '../items/InputFilledOldVersion'
 
 export default function EditProductModal() {
   const orders_data = useOrders();
@@ -21,7 +21,7 @@ export default function EditProductModal() {
             </div>
             <div className="pt-4 px-5 grid grid-cols-1 gap-[2px]">
               
-              <div className='col-span-2'><InputFilled name={"Ürün Adı"} reference={orders_data.ordersNameEditRef} /></div>
+              <div className='col-span-2'><InputFilledOldVersion name={"Ürün Adı"} reference={orders_data.ordersNameEditRef} /></div>
               <div className='col-span-2'><InputSelect name={"Birim"} reference={orders_data.ordersUnitEditRef} options={orders_data.chosen_stock_edit_units} func={() => {}} /></div>
               <div className='col-span-2'><InputDefault name={"Miktar"} reference={orders_data.ordersAmountEditRef} type={"number"} /></div>
               <div className='col-span-2'><InputDefault name={"Birim Fiyat"} reference={orders_data.ordersPriceEditRef} type={"number"} /></div>

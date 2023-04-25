@@ -31,7 +31,7 @@
 .login::before {
   left: 40%;
   bottom: -130%;
-  background-color: #04263072;
+  background-color: #093A4976;
   -webkit-animation: wawes 6s infinite linear;
   -moz-animation: wawes 6s infinite linear;
   animation: wawes 6s infinite linear;
@@ -40,7 +40,7 @@
 .login::after {
   left: 35%;
   bottom: -125%;
-  background-color: #04263072;
+  background-color: #093A4976;
   -webkit-animation: wawes 7s infinite;
   -moz-animation: wawes 7s infinite;
   animation: wawes 7s infinite;

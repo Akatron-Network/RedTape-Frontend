@@ -379,15 +379,15 @@ const Provider = ({ children }) => {
 
     document.getElementById("btn_1").classList.remove("!bg-indigo_dye"); 
     document.getElementById("btn_1").classList.remove("!text-white")
-    document.getElementById("btn_2").classList.remove("!bg-green-700"); 
+    document.getElementById("btn_2").classList.remove("!bg-sea_green"); 
     document.getElementById("btn_2").classList.remove("!text-white")
-    document.getElementById("btn_3").classList.remove("!bg-red-700"); 
+    document.getElementById("btn_3").classList.remove("!bg-eggplant_light"); 
     document.getElementById("btn_3").classList.remove("!text-white")
-    document.getElementById("btn_4").classList.remove("!bg-gray-700"); 
+    document.getElementById("btn_4").classList.remove("!bg-gray-500"); 
     document.getElementById("btn_4").classList.remove("!text-white")
-    document.getElementById("btn_5").classList.remove("!bg-orange-600"); 
+    document.getElementById("btn_5").classList.remove("!bg-blues"); 
     document.getElementById("btn_5").classList.remove("!text-white")
-    document.getElementById("btn_6").classList.remove("!bg-cyan-600"); 
+    document.getElementById("btn_6").classList.remove("!bg-not_tahsil"); 
     document.getElementById("btn_6").classList.remove("!text-white")
     
     //. Check state type
@@ -396,15 +396,15 @@ const Provider = ({ children }) => {
       document.getElementById("btn_1").classList.add("!text-white")
     }
     else if (st.state === "Tamamlandı") {
-      document.getElementById("btn_2").classList.add("!bg-green-700"); 
+      document.getElementById("btn_2").classList.add("!bg-sea_green"); 
       document.getElementById("btn_2").classList.add("!text-white")
     }
     else if (st.state === "İptal Edildi") {
-      document.getElementById("btn_3").classList.add("!bg-red-700"); 
+      document.getElementById("btn_3").classList.add("!bg-eggplant_light"); 
       document.getElementById("btn_3").classList.add("!text-white")
     }
     else if (st.state === "Gecikti") {
-      document.getElementById("btn_4").classList.add("!bg-gray-700"); 
+      document.getElementById("btn_4").classList.add("!bg-gray-500"); 
       document.getElementById("btn_4").classList.add("!text-white")
     
       show.map((p) => {     
@@ -423,11 +423,11 @@ const Provider = ({ children }) => {
       })
     }
     else if (st.state === "Aktif") {
-      document.getElementById("btn_5").classList.add("!bg-orange-600"); 
+      document.getElementById("btn_5").classList.add("!bg-blues"); 
       document.getElementById("btn_5").classList.add("!text-white")
     }
     else if (st.state === "Tahsil Edilmedi") {
-      document.getElementById("btn_6").classList.add("!bg-cyan-600"); 
+      document.getElementById("btn_6").classList.add("!bg-not_tahsil"); 
       document.getElementById("btn_6").classList.add("!text-white")
 
       show.map((p) => {        //. If state = Tahsil Edilmedi, get and set 'Tahsil Edilmedi' rows

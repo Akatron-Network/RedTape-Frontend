@@ -38,9 +38,12 @@ export default function UnassignedTasksTable() {
                 cur_name = c.details.name
               }
             }
+
+            if (i%2 === 0) { var row_cls = "bg-white border-b h-9 border-alica_blue hover:bg-steel_blue_light transition duration-300" }
+            else { var row_cls = "bg-alica_blue_light border-b h-9 border-alica_blue hover:bg-steel_blue_light transition duration-300" }
             
             return (
-              <tr key={i} className="bg-white border-b h-9 border-alica_blue hover:bg-alica_blue_light transition duration-300">
+              <tr key={i} className={row_cls}>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {p.details.id}
                 </td>
@@ -67,17 +70,17 @@ export default function UnassignedTasksTable() {
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Görev Ata"}>
-                    <button type='button' onClick={() => funcLoad(makeTasksAssignment, p)} className='clear-btn w-8 shadow-md px-1 rounded-md active:scale-90'><i className="fa-solid fa-handshake-simple"></i></button>
+                    <button type='button' onClick={() => funcLoad(makeTasksAssignment, p)} className='clear-btn bg-queen_blue hover:bg-shadow_blue w-8 shadow-md px-1 rounded-md active:scale-90'><i className="fa-solid fa-handshake-simple"></i></button>
                   </Tooltip>
                   <Tooltip message={"Görevi Tamamla"}>
-                    <button type='button' onClick={() => dropdownFuncs(p, "Görevi Tamamla")} className='clear-btn w-8 bg-green-600 hover:bg-green-400 text-oxford_blue hover:text-mn_blue shadow-md px-2 rounded-md active:scale-90 ml-1'><i className="fa-solid fa-square-check"></i></button>
+                    <button type='button' onClick={() => dropdownFuncs(p, "Görevi Tamamla")} className='clear-btn w-8 bg-sea_green hover:bg-sea_green_light shadow-md px-2 rounded-md active:scale-90 ml-1'><i className="fa-solid fa-square-check"></i></button>
                   </Tooltip>
                   <Tooltip message={"Tahsil Et"}>
                     <button type='button' onClick={() => dropdownFuncs(p, "Tahsil Et")} 
                      className={p.details.credit_current_act === null ? 
-                      'clear-btn w-8 bg-cyan-600 hover:bg-cyan-400 text-oxford_blue hover:text-mn_blue shadow-md px-2 rounded-md active:scale-90 ml-1' 
+                      'clear-btn w-8 bg-not_tahsil_dark hover:bg-not_tahsil_light shadow-md px-2 rounded-md active:scale-90 ml-1' 
                       : 
-                      'clear-btn w-8 bg-cyan-600 hover:bg-cyan-400 text-oxford_blue hover:text-mn_blue shadow-md px-2 rounded-md active:scale-90 ml-1 opacity-30 pointer-events-none'}>
+                      'clear-btn w-8 bg-not_tahsil_dark hover:bg-not_tahsil_light shadow-md px-2 rounded-md active:scale-90 ml-1 opacity-30 pointer-events-none'}>
                       <i className="fa-solid fa-money-bill-1-wave"></i></button>
                   </Tooltip>
                 </td>

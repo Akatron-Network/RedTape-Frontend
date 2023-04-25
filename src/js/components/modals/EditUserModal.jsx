@@ -1,9 +1,9 @@
 import React from 'react'
 import InputDefault from '../items/InputDefault'
 import PageSubTitle from '../items/PageSubTitle'
-import InputFilled from '../items/InputFilled';
 import { useAdminPanel } from '../../context/AdminPanelContext';
 import { useMain } from '../../context/MainContext';
+import InputFilledOldVersion from '../items/InputFilledOldVersion';
 
 export default function EditUserModal() {
   const admin_panel_data = useAdminPanel();
@@ -20,7 +20,7 @@ export default function EditUserModal() {
             </div>
             
             <div className="p-4 grid grid-cols-1 gap-[2px]">
-              <div className='col-span-1'><InputFilled type={"text"} name={"Kullanıcı Adı"} reference={admin_panel_data.userNameEditRef} /></div>
+              <div className='col-span-1'><InputFilledOldVersion type={"text"} name={"Kullanıcı Adı"} reference={admin_panel_data.userNameEditRef} /></div>
               <div className='col-span-1'><InputDefault type={"password"} name={"Parola"} reference={admin_panel_data.userPasswordEditRef} /></div>
               <div className='col-span-1'>
                 <div className="flex items-center mt-[6px] ml-[2px]">

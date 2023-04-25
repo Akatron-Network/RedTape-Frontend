@@ -11,8 +11,12 @@ export default function AutoSearch(props) {
         </thead>
         <tbody>
           {props.data.map((f, i) => {
+
+            if (i%2 === 0) { var row_cls = "bg-white cursor-pointer border-b h-[30px] border-alica_blue hover:bg-steel_blue_light transition duration-300" }
+            else { var row_cls = "bg-alica_blue_light cursor-pointer border-b h-[30px] border-alica_blue hover:bg-steel_blue_light transition duration-300" }
+
             return (
-              <tr key={i} onClick={() => props.func(f.details.id)} className="bg-white cursor-pointer border-b h-[30px] border-alica_blue hover:bg-alica_blue_light transition duration-300">
+              <tr key={i} onClick={() => props.func(f.details.id)} className={row_cls}>
                 <td className="py-[0.20rem] px-3 text-[13px] text-prussian_blue whitespace-nowrap">
                   {f.details.id}
                 </td>

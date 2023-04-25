@@ -71,7 +71,7 @@ export default function Orders() {
 
       <div className='grid md:grid-cols-3 md:gap-5 auto-rows-max'>
 
-        <div className='col-span-2 md:col-span-1 grid grid-cols-1 gap-[2px] auto-rows-max'>
+        <div className='col-span-3 md:col-span-2 lg:col-span-1 grid grid-cols-1 gap-[2px] auto-rows-max md:mb-0 mb-3'>
 
           <div className='flex flex-row col-span-1 mb-2 relative'>
             <span className="w-1/3 shadow-input flex justify-center min-h-[34px] border border-alica_blue text-sm items-center bg-indigo_dye font-medium text-ghost_white px-1 py-[6px] rounded-l-md">Cari Kod / İsim</span>
@@ -96,18 +96,18 @@ export default function Orders() {
           
         </div>
 
-        <div className='grid grid-cols-2 col-span-2 h-fit bg-transparent'>
-          <div className='col-span-1 mr-[2px]'>
-            <div className="mb-[1px]"><InputFilled name={"Cari Kod"} reference={orders_data.ordersCurIDRef} /></div>
-            <div className="mb-[1px]"><InputFilled name={"Cari İsim"} reference={orders_data.ordersCurNameRef} /></div>
-            <div className="mb-[1px]"><InputFilled name={"Adres"} reference={orders_data.ordersCurAddressRef} /></div>
-            <div className="mb-[1px]"><InputFilled name={"İl - İlçe"} reference={orders_data.ordersCurProvDistRef} /></div>
+        <div className='grid grid-cols-2 col-span-3 lg:col-span-2 gap-8 h-fit bg-transparent border border-alica_blue_light py-2 px-6 rounded-md !bg-white shadow-md mb-5 md:mb-0'>
+          <div className='col-span-2 md:col-span-1'>
+            <div className="mb-[2px]"><InputFilled name={"Cari Kod"} reference={orders_data.ordersCurIDRef} /></div>
+            <div className="mb-[2px]"><InputFilled name={"Cari İsim"} reference={orders_data.ordersCurNameRef} /></div>
+            <div className="mb-[2px]"><InputFilled name={"Adres"} reference={orders_data.ordersCurAddressRef} /></div>
+            <div className="mb-[2px]"><InputFilled name={"İl - İlçe"} reference={orders_data.ordersCurProvDistRef} /></div>
           </div>
-          <div className='col-span-1'>
-            <div className="mb-[1px]"><InputFilled name={"Vergi Dairesi - No"} reference={orders_data.ordersCurTaxOfficeNoRef} /></div>
-            <div className="mb-[1px]"><InputFilled name={"Telefon - 1"} reference={orders_data.ordersCurPhoneIRef} /></div>
-            <div className="mb-[1px]"><InputFilled name={"Telefon - 2"} reference={orders_data.ordersCurPhoneIIRef} /></div>
-            <div className="mb-[1px]"><InputFilled name={"E-mail Adresi"} reference={orders_data.ordersCurMailRef} /></div>
+          <div className='col-span-2 md:col-span-1 mb-2'>
+            <div className="mb-[2px]"><InputFilled name={"Vergi Dairesi - No"} reference={orders_data.ordersCurTaxOfficeNoRef} /></div>
+            <div className="mb-[2px]"><InputFilled name={"Telefon - 1"} reference={orders_data.ordersCurPhoneIRef} /></div>
+            <div className="mb-[2px]"><InputFilled name={"Telefon - 2"} reference={orders_data.ordersCurPhoneIIRef} /></div>
+            <div className="mb-[2px]"><InputFilled name={"E-mail Adresi"} reference={orders_data.ordersCurMailRef} /></div>
           </div>
         </div>
         

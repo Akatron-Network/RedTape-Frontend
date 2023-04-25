@@ -27,11 +27,17 @@ module.exports = {
         purple: "#636792",
         purple_light: "#9295B5",
         eggplant: "#B92F2F",
-        eggplant_light: "#E93535",
+        eggplant_light: "#E34744",
         golden: "#FBB623",
         golden_light: "#FBC44B",
-        sea_green: "#408759",
-        sea_green_light: "#4EA66D",
+        sea_green: "#3CB371",
+        sea_green_light: "#58CB8B",
+        blues: "#0C4C8A",
+
+        not_tahsil: "#D48155",
+        not_tahsil_light: "#E79468",
+        not_tahsil_dark: "#E37B43",
+        
 
         modal_bg: "#0000006E",
         dark_modal_bg: "#000000BF",

@@ -71,9 +71,13 @@ export default class Table {
             </tr>
           </thead>
           <tbody>
+
             {this.data.map((d, d_index) => {        // d = { id: 1, details: {...} }
+              if (d_index%2 === 0) { var row_cls = "bg-white border-b h-9 border-alica_blue hover:bg-steel_blue_light transition duration-300" }
+              else { var row_cls = "bg-alica_blue_light border-b h-9 border-alica_blue hover:bg-steel_blue_light transition duration-300" }
+
               return (
-                <tr key={"d_" + d_index} className="bg-white border-b h-9 border-alica_blue hover:bg-alica_blue_light transition duration-300">
+                <tr key={"d_" + d_index} className={row_cls}>
                   {this.rows.map((r, r_index) => {  //, (r = "order")
                     let val = d.details[r];
                     let cls = "py-[0.20rem] px-3 text-prussian_blue"

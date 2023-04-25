@@ -238,7 +238,6 @@ const Provider = ({children}) => {
       details.details.phone_2 === null || details.details.phone_2 === undefined ? curActPhoneIIRef.current.innerHTML = "-" :  curActPhoneIIRef.current.innerHTML = details.details.phone_2
       details.details.mail === null || details.details.mail === undefined ? curActMailRef.current.innerHTML = "-" :  curActMailRef.current.innerHTML =  details.details.mail
       
-      
       if (details.details.province === "default" || details.details.province === null || details.details.province === undefined) {
         details.details.province = ""
       }

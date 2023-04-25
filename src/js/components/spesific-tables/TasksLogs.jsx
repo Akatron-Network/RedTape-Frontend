@@ -41,9 +41,12 @@ export default function TasksLogs() {
             const date = new Date(p.registry_date);
             
             const newDate = (addHours(date, 3)).toISOString();
+            
+            if (i%2 === 0) { var row_cls = "bg-white border-b h-9 border-alica_blue hover:bg-steel_blue_light transition duration-300" }
+            else { var row_cls = "bg-alica_blue_light border-b h-9 border-alica_blue hover:bg-steel_blue_light transition duration-300" }
 
             return (
-              <tr key={i} className="bg-white border-b h-9 border-alica_blue hover:bg-alica_blue_light transition duration-300">
+              <tr key={i} className={row_cls}>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold">
                   {parseInt(i) + 1 + ")"}
                 </td>                

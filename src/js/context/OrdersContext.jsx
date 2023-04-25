@@ -258,18 +258,32 @@ const Provider = ({ children }) => {
       })
     }
     else {
-      ordersCurIDRef.current.innerHTML = details.details.id
-      ordersCurNameRef.current.innerHTML = details.details.name
-      ordersCurAddressRef.current.innerHTML = details.details.address
-      ordersCurTaxOfficeNoRef.current.innerHTML = details.details.tax_office + " - " +  details.details.tax_no
-      ordersCurPhoneIRef.current.innerHTML = details.details.phone
-      ordersCurPhoneIIRef.current.innerHTML = details.details.phone_2
-      ordersCurMailRef.current.innerHTML =  details.details.mail
+      // ordersCurIDRef.current.innerHTML = details.details.id
+      // ordersCurNameRef.current.innerHTML = details.details.name
+      // ordersCurAddressRef.current.innerHTML = details.details.address
+      // ordersCurTaxOfficeNoRef.current.innerHTML = details.details.tax_office + " - " +  details.details.tax_no
+      // ordersCurPhoneIRef.current.innerHTML = details.details.phone
+      // ordersCurPhoneIIRef.current.innerHTML = details.details.phone_2
+      // ordersCurMailRef.current.innerHTML =  details.details.mail
+      //f If they are empty " - " if they dont empty values
+      details.details.id === null || details.details.id === undefined ? ordersCurIDRef.current.innerHTML = "-" :  ordersCurIDRef.current.innerHTML = details.details.id
+      details.details.name === null || details.details.name === undefined ? ordersCurNameRef.current.innerHTML = "-" :  ordersCurNameRef.current.innerHTML = details.details.name
+      details.details.address === null || details.details.address === undefined  ? ordersCurAddressRef.current.innerHTML = "-" :  ordersCurAddressRef.current.innerHTML = details.details.address
       
-      if (details.details.province === "default") {
+      let tax_office = "";
+      let tax_no = "";
+      if (details.details.tax_office !== null && details.details.tax_office !== undefined) tax_office = details.details.tax_office
+      if (details.details.tax_no !== null && details.details.tax_no !== undefined) tax_no = details.details.tax_no
+      ordersCurTaxOfficeNoRef.current.innerHTML = tax_office + " - " + tax_no
+
+      details.details.phone === null || details.details.phone === undefined ? ordersCurPhoneIRef.current.innerHTML = "-" :  ordersCurPhoneIRef.current.innerHTML = details.details.phone
+      details.details.phone_2 === null || details.details.phone_2 === undefined ? ordersCurPhoneIIRef.current.innerHTML = "-" :  ordersCurPhoneIIRef.current.innerHTML = details.details.phone_2
+      details.details.mail === null || details.details.mail === undefined ? ordersCurMailRef.current.innerHTML = "-" :  ordersCurMailRef.current.innerHTML =  details.details.mail
+      
+      if (details.details.province === "default" || details.details.province === null || details.details.province === undefined) {
         details.details.province = ""
       }
-      if (details.details.district === "default") {
+      if (details.details.district === "default" || details.details.district === null || details.details.district === undefined) {
         details.details.district = ""
       }
 
