@@ -88,10 +88,10 @@ export default function ShowOrdersTable() {
                   {p.description}
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
-                  <Tooltip message={"Siparişi Düzenle"}>
+                  <Tooltip message={"Ürünü Düzenle"}>
                     <button onClick={() => getProductDetails(p.id)} className='golden-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                   </Tooltip>
-                  <Tooltip message={"Siparişi Sil"}>
+                  <Tooltip message={"Ürünü Sil"}>
                     <button onClick={() => removeProduct(p.id)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </Tooltip>
                 </td>

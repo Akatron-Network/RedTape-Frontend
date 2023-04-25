@@ -73,10 +73,10 @@ export default function OrdersTable() {
                   <Tooltip message={"Yazdır"}>
                     <button type='button' onClick={() => funcLoad(printPDF, p)} className='ml-1 render-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-print"></i></button>
                   </Tooltip>
-                  <Tooltip message={"Ürünü Düzenle"}>
+                  <Tooltip message={"Siparişi Düzenle"}>
                     <button type='button' onClick={() => funcLoad(getOrderDetails, p.details.id)} className='ml-1 golden-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                   </Tooltip>
-                  <Tooltip message={"Ürünü Sil"}>
+                  <Tooltip message={"Siparişi Sil"}>
                     <button type='button' onClick={() => funcLoad(removeOrder, p.details.id)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </Tooltip>
                 </td>
