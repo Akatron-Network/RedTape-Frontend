@@ -26,7 +26,7 @@ export default function ShowOrdersTable() {
                 </th>
               )
             })}
-            <th scope="col" className="p-2 w-20 h-10 font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-10">
+            <th scope="col" className="p-2 w-[77px] h-10 font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-10">
               <span className="sr-only">Düzenle</span>
             </th>
           </tr>

@@ -39,7 +39,7 @@ const Provider = ({children}) => {
               <th className="py-2 px-3 font-normal text-sm text-right w-[170px]">BORÇ TUTARI</th>
               <th className="py-2 px-3 font-normal text-sm text-right w-[170px]">ALACAK TUTARI</th>
               <th className="py-2 px-3 font-normal text-sm text-right w-[170px]">NET BAKİYE</th>
-              <th className="py-2 px-3 w-20 font-normal text-sm"><span className="sr-only">Düzenle</span></th>
+              <th className="py-2 px-3 w-[77px] font-normal text-sm"><span className="sr-only">Düzenle</span></th>
             </tr>
           </thead>
         </table>
@@ -266,7 +266,7 @@ const Provider = ({children}) => {
                   <th className="py-2 px-3 font-normal text-sm text-right w-[170px]">BORÇ TUTARI</th>
                   <th className="py-2 px-3 font-normal text-sm text-right w-[170px]">ALACAK TUTARI</th>
                   <th className="py-2 px-3 font-normal text-sm text-right w-[170px]">NET BAKİYE</th>
-                  <th className="py-2 px-3 w-20 font-normal text-sm"><span className="sr-only">Düzenle</span></th>
+                  <th className="py-2 px-3 w-[77px] font-normal text-sm"><span className="sr-only">Düzenle</span></th>
                 </tr>
               </thead>
             </table>

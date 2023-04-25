@@ -44,7 +44,7 @@ export default function CurrentActivity() {
                   <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">BORÇ TUTARI</th>
                   <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">ALACAK TUTARI</th>
                   <th className="py-2 px-3 font-bold text-sm text-right w-[170px]">NET BAKİYE</th>
-                  <th className="py-2 px-3 w-20 font-bold text-sm"><span className="sr-only">Düzenle</span></th>
+                  <th className="py-2 px-3 w-[77px] font-bold text-sm"><span className="sr-only">Düzenle</span></th>
                 </tr>
               </thead>
             </table>
@@ -77,7 +77,7 @@ export default function CurrentActivity() {
         <div className='col-span-3 md:col-span-2 lg:col-span-1 grid grid-cols-1 gap-[2px] auto-rows-max md:mb-0 mb-3'>
 
           <div className='flex flex-row col-span-1 mb-2 relative'>
-            <span className="w-1/3 shadow-input flex justify-center min-h-[34px] border border-alica_blue text-sm items-center bg-indigo_dye font-medium text-ghost_white px-1 py-[6px] rounded-l-md">Cari Kod / İsim</span>
+            <span className="w-1/3 shadow-input flex justify-start min-h-[34px] border border-alica_blue text-sm items-center bg-indigo_dye font-medium text-ghost_white px-3 py-[6px] rounded-l-md">Cari Kod / İsim</span>
             <div className='w-2/3 shadow-input relative z-[2] rounded-r-md'>
               <input type="text" id='search_input' autoComplete='off' ref={cur_act_data.curActSearchInputRef} onChange={(e) => cur_act_data.filterCurrents(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-alica_blue text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-r-md focus:border-indigo_dye focus:ring-transparent block" placeholder="Cari İsim ya da Cari Kod ile arayın" required />
               <button id='search_button' type="button" className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -100,7 +100,7 @@ export default function CurrentActivity() {
           </div>
         </div>
 
-        <div className='grid grid-cols-2 col-span-3 lg:col-span-2 gap-8 h-fit bg-transparent border border-alica_blue_light py-2 px-6 rounded-md !bg-white shadow-md mb-5 md:mb-0'>
+        <div className='grid grid-cols-2 col-span-3 lg:col-span-2 gap-8 h-fit bg-transparent border border-indigo_dye py-2 px-6 rounded-md !bg-white shadow-md mb-5 md:mb-0'>
           <div className='col-span-2 md:col-span-1'>
             <div className="mb-[2px]"><InputFilled name={"Cari Kod"} reference={cur_act_data.curActIDRef} /></div>
             <div className="mb-[2px]"><InputFilled name={"Cari İsim"} reference={cur_act_data.curActNameRef} /></div>

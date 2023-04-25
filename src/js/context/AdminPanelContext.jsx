@@ -28,7 +28,7 @@ const Provider = ({ children }) => {
               <th className="py-2 px-3 font-normal text-sm">KAYIT TARİHİ</th>
               <th className="py-2 px-3 font-normal text-sm">SON GİRİŞ TARİHİ</th>
               <th className="py-2 px-3 font-normal text-sm">YETKİ</th>
-              <th className="py-2 px-3 w-20 font-normal text-sm"><span className="sr-only">Düzenle</span></th>
+              <th className="py-2 px-3 w-[77px] font-normal text-sm"><span className="sr-only">Düzenle</span></th>
             </tr>
           </thead>
         </table>

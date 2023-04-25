@@ -65,7 +65,7 @@ export default class Table {
                 )
 
               })}
-              <th className="py-2 px-3 w-20 h-10 font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-10">
+              <th className="py-2 px-3 w-[77px] h-10 font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-10">
                 <span className="sr-only">Düzenle</span>
               </th>
             </tr>
@@ -133,7 +133,7 @@ export default class Table {
 
                   })}
 
-                  <td key={d_index} className="py-[0.20rem] w-20 px-1 text-prussian_blue text-right">
+                  <td key={d_index} className="py-[0.20rem] w-[77px] px-1 text-prussian_blue text-right">
                     {this.buttons.map((b, b_index) => {
                       let btn = "";
 

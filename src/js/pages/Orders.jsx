@@ -74,7 +74,7 @@ export default function Orders() {
         <div className='col-span-3 md:col-span-2 lg:col-span-1 grid grid-cols-1 gap-[2px] auto-rows-max md:mb-0 mb-3'>
 
           <div className='flex flex-row col-span-1 mb-2 relative'>
-            <span className="w-1/3 shadow-input flex justify-center min-h-[34px] border border-alica_blue text-sm items-center bg-indigo_dye font-medium text-ghost_white px-1 py-[6px] rounded-l-md">Cari Kod / İsim</span>
+            <span className="w-1/3 shadow-input flex justify-start min-h-[34px] border border-alica_blue text-sm items-center bg-indigo_dye font-medium text-ghost_white px-3 py-[6px] rounded-l-md">Cari Kod / İsim</span>
             <div className='w-2/3 shadow-input relative z-[21] rounded-r-md'>
               <input id='search_current_input' autoComplete='off' type="text" ref={orders_data.ordersCurSearchInputRef} onChange={(e) => orders_data.filterCurrents(e)} className="w-full min-h-[34px] py-[6px] pr-9 bg-white border border-alica_blue text-prussian_blue text-sm placeholder:text-mn_blue placeholder:opacity-70 rounded-r-md focus:border-indigo_dye focus:ring-transparent block" placeholder="Cari İsim ya da Cari Kod ile arayın" required />
               <button type="button" id='search_current_button' className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -96,7 +96,7 @@ export default function Orders() {
           
         </div>
 
-        <div className='grid grid-cols-2 col-span-3 lg:col-span-2 gap-8 h-fit bg-transparent border border-alica_blue_light py-2 px-6 rounded-md !bg-white shadow-md mb-5 md:mb-0'>
+        <div className='grid grid-cols-2 col-span-3 lg:col-span-2 gap-8 h-fit bg-transparent border border-indigo_dye py-2 px-6 rounded-md !bg-white shadow-md mb-5 md:mb-0'>
           <div className='col-span-2 md:col-span-1'>
             <div className="mb-[2px]"><InputFilled name={"Cari Kod"} reference={orders_data.ordersCurIDRef} /></div>
             <div className="mb-[2px]"><InputFilled name={"Cari İsim"} reference={orders_data.ordersCurNameRef} /></div>
