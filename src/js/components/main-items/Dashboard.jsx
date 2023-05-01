@@ -14,7 +14,10 @@ export default function Dashboard() {
   useEffect(() => {
     funcLoad(showDashboard);
     adminCheck();
-    resizeCheck();
+
+    setTimeout(() => {
+      resizeCheck();
+    }, 200);
 
     window.addEventListener('resize', resizeCheck)
     return () => {
@@ -85,7 +88,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div id="table_chart_card" className="transition duration-300 shadow-xl rounded-lg col-span-2 bg-white p-5 h-fit">
+          <div id="table_chart_card" className="transition duration-300 shadow-xl rounded-lg col-span-2 bg-white p-5 h-fit overflow-hidden">
             <div className='pb-4 text-gray-600'>Cari Aktif Bakiye</div>
             <div className="inline items-center">
               <DashboardTable />
