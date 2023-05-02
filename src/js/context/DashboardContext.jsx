@@ -15,7 +15,6 @@ const Provider = ({ children }) => {
 
   const showDashboard = async () => {
     let dt = await Dashboard.showDashboard();
-    console.log(dt);
     let get_months = getMonthlySales(dt);
 
     let charts_info = {
@@ -39,9 +38,9 @@ const Provider = ({ children }) => {
     let time = {}
 
     for (let s of sales) {
-      const find_month = new Date(s.registry_date.split("T")[0]);
-      let m = find_month.getMonth() + 1
-      let y = find_month.getFullYear();
+
+      let m = s.month
+      let y = s.year
       let t = m + " " + y
 
       if (m === 1) t = "Ocak " + y
