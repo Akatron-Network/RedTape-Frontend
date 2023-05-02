@@ -17,7 +17,7 @@ export default function Dashboard() {
 
     setTimeout(() => {
       resizeCheck();
-    }, 200);
+    }, 500);
 
     window.addEventListener('resize', resizeCheck)
     return () => {

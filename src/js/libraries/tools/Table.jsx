@@ -107,7 +107,7 @@ export default class Table {
                         cls = "py-[0.20rem] px-3 text-prussian_blue text-right"
                       }
   
-                      if (r === "cumulative_balance" && d.details["cumulative_balance"] > 0) {          //. Green background according to balance
+                      if (r === "cumulative_balance" && d.details["cumulative_balance"] >= 0) {          //. Green background according to balance
                         cls = "py-[0.20rem] px-3 text-fogra text-right bg-green-500 font-bold"
                       }
                       else if (r === "cumulative_balance" && d.details["cumulative_balance"] < 0) {     //. Red background according to balance
@@ -118,7 +118,7 @@ export default class Table {
 
                       return(
                         <td key={"r_" + d_index + "_" + r_index} className={cls}>
-                          {val === undefined ? "" : <> {val} <i className="fa-solid fa-turkish-lira-sign"></i></>} 
+                          {val === undefined ? <>0,00 <i className="fa-solid fa-turkish-lira-sign"></i></> : <> {val} <i className="fa-solid fa-turkish-lira-sign"></i></>} 
                         </td>
                       )
 
