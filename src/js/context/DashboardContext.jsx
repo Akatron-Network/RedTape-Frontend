@@ -39,7 +39,7 @@ const Provider = ({ children }) => {
 
     for (let s of sales) {
 
-      let m = s.month
+      let m = parseInt(s.month)
       let y = s.year
       let t = m + " " + y
 
