@@ -15,11 +15,11 @@ export default function Navbar() {
     <header className="bg-oxford_blue shadow-navbar w-full z-50 fixed">
       <div className="container mx-[3px] flex flex-wrap p-2 px-[11px] flex-row items-center">
         <Link to={"/dashboard"} className="flex title-font font-medium items-center mb-0">
-          <img className='h-7' src="/src/img/red-tape-logo.png" alt="RedTape Logo" />
-          <span className="mx-3 text-xl text-steel_blue font-roboto">RedTape</span>
+          <img className='h-7' src="/src/img/red-tape-logo.png" alt="Verna Logo" />
+          <span className="mx-3 text-xl text-steel_blue font-roboto">VERNA</span>
         </Link>
 
-        <div className="h-7 border-r border-indigo_dye pr-[3px] pl-5 mr-2 ml-4" >
+        <div className="h-7 border-r border-indigo_dye pr-[3px] pl-8 mr-2 ml-4" >
           <div id='menu-btn' onClick={() => setSidePanel(!sidePanel)}
             className='text-queen_blue p-2 flex h-7 active:scale-105 hover:bg-prussian_blue hover:text-steel_blue items-center rounded transition duration-200 cursor-pointer'>
             <i className="fa-solid fa-bars text-[20px]"></i>

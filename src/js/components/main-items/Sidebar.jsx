@@ -94,6 +94,15 @@ export default function Sidebar() {
                 <span className="sidebar-elm-text">Sipariş Kayıtları</span>
               </Link>
             </li>
+          
+            <li>
+              <Link to={"/offers"} className="sidebar-elm">
+                <div className='text-center w-6'>
+                  <i className="fa-solid fa-tags"></i>
+                </div>
+                <span className="sidebar-elm-text">Teklif</span>
+              </Link>
+            </li>
           </>
         : undefined}
 

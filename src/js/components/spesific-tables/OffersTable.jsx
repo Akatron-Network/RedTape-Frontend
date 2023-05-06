@@ -1,11 +1,11 @@
 import React from 'react'
 import { useMain } from '../../context/MainContext';
-import { useOrders } from '../../context/OrdersContext'
+import { useOffers } from '../../context/OffersContext'
 import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
 import Tooltip from '../items/Tooltip'
 
-export default function OrdersTable() {
-  const {table_columns, product_list, removeProduct, getProductDetails, table_total} = useOrders();
+export default function OffersTable() {
+  const {table_columns, product_list, removeProduct, getProductDetails, table_total} = useOffers();
   const { funcLoad } = useMain();
   
   return (

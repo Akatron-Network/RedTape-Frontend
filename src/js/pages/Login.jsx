@@ -30,7 +30,7 @@ export default function Login() {
   return (
     <div className='w-full h-screen bg-prussian_blue'>
       <form className="login bg-queen_blue" onSubmit={(e) => login(e)}>
-        <h1 className='font-righteous mb-2 text-4xl text-oxford_blue text-right'>RedTape</h1>
+        <h1 className='font-righteous mb-2 text-4xl text-oxford_blue text-right'>Verna</h1>
         {/* <input className='focus:ring-transparent' type="text" placeholder="Kullanıcı Adı" />
         <input className='focus:ring-transparent' type="password" placeholder="Şifre" /> */}
         <div className="relative z-0 mb-5">

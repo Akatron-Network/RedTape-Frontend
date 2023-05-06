@@ -1,28 +1,33 @@
 import { createContext, useContext, useReducer, useRef } from "react"
+import offersReducer from '../reducer/offersReducer';
 import Current from "../libraries/models/Current";
 import Stock from "../libraries/models/Stock";
-import ordersReducer from '../reducer/ordersReducer'
-import {Modal} from 'flowbite';
-import Orders from "../libraries/models/Orders";
+import { Modal } from "flowbite";
+import Offers from "../libraries/models/Offers";
 import { useReactToPrint } from "react-to-print";
-import { useMain } from "./MainContext";
 
-const OrdersContext = createContext()
+const OffersContext = createContext()
 
 const Provider = ({ children }) => {
 
   //b State and Ref Management ----------------------------------------
 
-  //- Current Details States
-  const [state, dispatch] = useReducer(ordersReducer, {
-    toggle_filtered_current_table: false,
-    toggle_filtered_stock_table: false,
+  //- Offers Details States
+  const [state, dispatch] = useReducer(offersReducer, {
     all_currents: [],
-    filtered_currents: [],
-    chosen_current: {},
     all_stocks: [],
-    filtered_stocks: [],
+    chosen_current: {},
     chosen_stock: {},
+    chosen_stock_edit_units: [],
+    chosen_stock_units: [],
+    date: {
+      current: "",
+      early: "",
+    },
+    edit_product_modal: false,
+    filtered_currents: [],
+    filtered_stocks: [],
+    invoiced: true,
     print_pdf_modal: {},
     print_pdf_rows: {
       subtotal: 0,
@@ -37,52 +42,54 @@ const Provider = ({ children }) => {
         id: "",
       }
     },
-    chosen_stock_units: [],
-    chosen_stock_edit_units: [],
-    product_list: [],
-    edit_product_modal: false,
-    invoiced: true,
     product_details: {},
-    table_total: "0",
-    date: {
-      current: "",
-      early: "",
-    },
+    product_list: [],
     table_columns: ["", "ÜRÜN AD", "MALZEME", "ÜRÜN GRUBU", "BİRİM", "MİKTAR", "BİRİM FİYAT", "TUTAR", "KDV ORAN", "KDV TUTAR", "TOPLAM TUTAR", "AÇIKLAMA"],
+    table_total: 0,
+    toggle_filtered_current_table: false,
+    toggle_filtered_stock_table: false,
   });
 
-  const ordersCurSearchInputRef = useRef("");
-  const ordersSourceRef = useRef("");
-  const ordersInvoicedRef = useRef("");
-  const ordersGTEDateRef = useRef("");
-  const ordersLTEDateRef = useRef("");
+  const offersNewCurCheckedRef = useRef(false)
+  
+  const offersCurSearchInputRef = useRef()
+  const offersSourceRef = useRef("");
+  const offersInvoicedRef = useRef("");
+  const offersGTEDateRef = useRef("");
+  const offersLTEDateRef = useRef("");
 
-  const ordersCurIDRef = useRef("");
-  const ordersCurNameRef = useRef("");
-  const ordersCurAddressRef = useRef("");
-  const ordersCurProvDistRef = useRef("");
-  const ordersCurTaxOfficeNoRef = useRef("");
-  const ordersCurPhoneIRef = useRef("");
-  const ordersCurPhoneIIRef = useRef("");
-  const ordersCurMailRef = useRef("");
+  const offersCurIDRef = useRef("");
+  const offersCurNameRef = useRef("");
+  const offersCurAddressRef = useRef("");
+  const offersCurProvDistRef = useRef("");
+  const offersCurTaxOfficeNoRef = useRef("");
+  const offersCurPhoneIRef = useRef("");
+  const offersCurPhoneIIRef = useRef("");
+  const offersCurMailRef = useRef("");
 
-  const ordersNameRef = useRef("");
-  const ordersUnitRef = useRef("");
-  const ordersAmountRef = useRef("");
-  const ordersPriceRef = useRef("");
-  const ordersTaxRateRef = useRef("");
-  const ordersDescriptionRef = useRef("");
+  const offersNewCurNameRef = useRef("");
+  const offersNewCurMailRef = useRef("");
+  const offersNewCurPhoneIRef = useRef("");
+  const offersNewCurAddressRef = useRef("");
 
-  const ordersNameEditRef = useRef("");
-  const ordersUnitEditRef = useRef("");
-  const ordersAmountEditRef = useRef("");
-  const ordersPriceEditRef = useRef("");
-  const ordersTaxRateEditRef = useRef("");
-  const ordersDescriptionEditRef = useRef("");
+  const offersStockSearchInputRef = useRef("");
+  const offersUnitRef = useRef("");
+  const offersAmountRef = useRef("");
+  const offersPriceRef = useRef("");
+  const offersTaxRateRef = useRef("");
+  const offersDescriptionRef = useRef("");
 
-  const componentRef = useRef();
+  const offersStockSearchInputEditRef = useRef("");
+  const offersUnitEditRef = useRef("");
+  const offersAmountEditRef = useRef("");
+  const offersPriceEditRef = useRef("");
+  const offersTaxRateEditRef = useRef("");
+  const offersDescriptionEditRef = useRef("");
 
-  //b Functions -------------------------------------------------------
+  const componentRef = useRef("");
+
+
+  //b Functions etc. ------------------------------------------------------
   const getDate = () => {
 
     const date = new Date();
@@ -113,7 +120,7 @@ const Provider = ({ children }) => {
     })
 
   }
-  
+
   const printPDF = () => {
     let pdf_modal = showPrintPDFModal();
     pdf_modal.show();
@@ -121,7 +128,7 @@ const Provider = ({ children }) => {
 
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: 'Sipariş',
+    documentTitle: 'Teklif',
     
     onAfterPrint: () => {
       dispatch({
@@ -169,7 +176,7 @@ const Provider = ({ children }) => {
   
   const toggleFilteredCurrentTable = (e) => {
 
-    if(e.target.id !== 'search_current_button' && e.target.id !== 'search_current_input' && e.target.id !== 'search_current_button_icon') {
+    if(e.target.id !== 'offers_search_current_button' && e.target.id !== 'offers_search_current_input' && e.target.id !== 'offers_search_current_button_icon') {
       dispatch({
         type: 'TOGGLE_FILTERED_CURRENT_TABLE',
         value: false
@@ -207,10 +214,7 @@ const Provider = ({ children }) => {
         condition =
           (source.details.id).toString().toLocaleUpperCase('TR').includes(searchWord) ||
           source.details.name.toLocaleUpperCase('TR').includes(searchWord);
-      } 
-      // else {
-      //   condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
-      // }
+      }
       
       return condition;
     });
@@ -236,21 +240,21 @@ const Provider = ({ children }) => {
       value: false
     })
 
-    ordersCurSearchInputRef.current.value = cr.details.id + " - " + cr.details.name
+    offersCurSearchInputRef.current.value = cr.details.id + " - " + cr.details.name
 
     printCurrentDetails(cr);
   }
 
   const printCurrentDetails = (details) => {
     if(details === undefined) {
-      ordersCurIDRef.current.innerHTML = "";
-      ordersCurNameRef.current.innerHTML = "";
-      ordersCurAddressRef.current.innerHTML = "";
-      ordersCurProvDistRef.current.innerHTML = "";
-      ordersCurTaxOfficeNoRef.current.innerHTML = "";
-      ordersCurPhoneIRef.current.innerHTML = "";
-      ordersCurPhoneIIRef.current.innerHTML = "";
-      ordersCurMailRef.current.innerHTML =  "";
+      offersCurIDRef.current.innerHTML = "";
+      offersCurNameRef.current.innerHTML = "";
+      offersCurAddressRef.current.innerHTML = "";
+      offersCurProvDistRef.current.innerHTML = "";
+      offersCurTaxOfficeNoRef.current.innerHTML = "";
+      offersCurPhoneIRef.current.innerHTML = "";
+      offersCurPhoneIIRef.current.innerHTML = "";
+      offersCurMailRef.current.innerHTML =  "";
       
       dispatch({
         type: 'CHOSEN_CURRENT',
@@ -258,27 +262,20 @@ const Provider = ({ children }) => {
       })
     }
     else {
-      // ordersCurIDRef.current.innerHTML = details.details.id
-      // ordersCurNameRef.current.innerHTML = details.details.name
-      // ordersCurAddressRef.current.innerHTML = details.details.address
-      // ordersCurTaxOfficeNoRef.current.innerHTML = details.details.tax_office + " - " +  details.details.tax_no
-      // ordersCurPhoneIRef.current.innerHTML = details.details.phone
-      // ordersCurPhoneIIRef.current.innerHTML = details.details.phone_2
-      // ordersCurMailRef.current.innerHTML =  details.details.mail
       //f If they are empty " - " if they dont empty values
-      details.details.id === null || details.details.id === undefined ? ordersCurIDRef.current.innerHTML = "-" :  ordersCurIDRef.current.innerHTML = details.details.id
-      details.details.name === null || details.details.name === undefined ? ordersCurNameRef.current.innerHTML = "-" :  ordersCurNameRef.current.innerHTML = details.details.name
-      details.details.address === null || details.details.address === undefined  ? ordersCurAddressRef.current.innerHTML = "-" :  ordersCurAddressRef.current.innerHTML = details.details.address
+      details.details.id === null || details.details.id === undefined ? offersCurIDRef.current.innerHTML = "-" :  offersCurIDRef.current.innerHTML = details.details.id
+      details.details.name === null || details.details.name === undefined ? offersCurNameRef.current.innerHTML = "-" :  offersCurNameRef.current.innerHTML = details.details.name
+      details.details.address === null || details.details.address === undefined  ? offersCurAddressRef.current.innerHTML = "-" :  offersCurAddressRef.current.innerHTML = details.details.address
       
       let tax_office = "";
       let tax_no = "";
       if (details.details.tax_office !== null && details.details.tax_office !== undefined) tax_office = details.details.tax_office
       if (details.details.tax_no !== null && details.details.tax_no !== undefined) tax_no = details.details.tax_no
-      ordersCurTaxOfficeNoRef.current.innerHTML = tax_office + " - " + tax_no
+      offersCurTaxOfficeNoRef.current.innerHTML = tax_office + " - " + tax_no
 
-      details.details.phone === null || details.details.phone === undefined ? ordersCurPhoneIRef.current.innerHTML = "-" :  ordersCurPhoneIRef.current.innerHTML = details.details.phone
-      details.details.phone_2 === null || details.details.phone_2 === undefined ? ordersCurPhoneIIRef.current.innerHTML = "-" :  ordersCurPhoneIIRef.current.innerHTML = details.details.phone_2
-      details.details.mail === null || details.details.mail === undefined ? ordersCurMailRef.current.innerHTML = "-" :  ordersCurMailRef.current.innerHTML =  details.details.mail
+      details.details.phone === null || details.details.phone === undefined ? offersCurPhoneIRef.current.innerHTML = "-" :  offersCurPhoneIRef.current.innerHTML = details.details.phone
+      details.details.phone_2 === null || details.details.phone_2 === undefined ? offersCurPhoneIIRef.current.innerHTML = "-" :  offersCurPhoneIIRef.current.innerHTML = details.details.phone_2
+      details.details.mail === null || details.details.mail === undefined ? offersCurMailRef.current.innerHTML = "-" :  offersCurMailRef.current.innerHTML =  details.details.mail
       
       if (details.details.province === "default" || details.details.province === null || details.details.province === undefined) {
         details.details.province = ""
@@ -287,25 +284,35 @@ const Provider = ({ children }) => {
         details.details.district = ""
       }
 
-      ordersCurProvDistRef.current.innerHTML = details.details.province + " - " +  details.details.district
+      offersCurProvDistRef.current.innerHTML = details.details.province + " - " +  details.details.district
     }
   }
 
   const clearCurrentDetails = () => {
-    ordersCurSearchInputRef.current.value = "";
-    ordersSourceRef.current.value = "";
-    ordersInvoicedRef.current.value = "Faturalı";
-    ordersGTEDateRef.current.value = state.date.current
-    ordersLTEDateRef.current.value = state.date.current
 
-    ordersCurIDRef.current.innerHTML = "";
-    ordersCurNameRef.current.innerHTML = "";
-    ordersCurAddressRef.current.innerHTML = "";
-    ordersCurProvDistRef.current.innerHTML = "";
-    ordersCurTaxOfficeNoRef.current.innerHTML = "";
-    ordersCurPhoneIRef.current.innerHTML = "";
-    ordersCurPhoneIIRef.current.innerHTML = "";
-    ordersCurMailRef.current.innerHTML =  "";
+    if (offersNewCurCheckedRef.current.checked) {
+      offersNewCurNameRef.current.value = "";
+      offersNewCurMailRef.current.value = "";
+      offersNewCurPhoneIRef.current.value = "";
+      offersNewCurAddressRef.current.value = "";
+
+    }
+    else {
+      offersCurSearchInputRef.current.value = "";
+      offersSourceRef.current.value = "";
+      offersInvoicedRef.current.value = "Faturalı";
+      offersGTEDateRef.current.value = state.date.current
+      offersLTEDateRef.current.value = state.date.current
+  
+      offersCurIDRef.current.innerHTML = "";
+      offersCurNameRef.current.innerHTML = "";
+      offersCurAddressRef.current.innerHTML = "";
+      offersCurProvDistRef.current.innerHTML = "";
+      offersCurTaxOfficeNoRef.current.innerHTML = "";
+      offersCurPhoneIRef.current.innerHTML = "";
+      offersCurPhoneIIRef.current.innerHTML = "";
+      offersCurMailRef.current.innerHTML =  "";
+    }
 
     dispatch({
       type: 'CHOSEN_CURRENT',
@@ -337,7 +344,7 @@ const Provider = ({ children }) => {
   
   const toggleFilteredStockTable = (e) => {
 
-    if(e.target.id !== 'search_stock_button' && e.target.id !== 'search_stock_input' && e.target.id !== 'search_stock_button_icon') {
+    if(e.target.id !== 'offers_search_stock_button' && e.target.id !== 'offers_search_stock_input' && e.target.id !== 'offers_search_stock_button_icon') {
       dispatch({
         type: 'TOGGLE_FILTERED_STOCK_TABLE',
         value: false
@@ -406,7 +413,7 @@ const Provider = ({ children }) => {
       value: false
     })
 
-    ordersNameRef.current.value = st.details.id + " - " + st.details.name
+    offersStockSearchInputRef.current.value = st.details.id + " - " + st.details.name
 
     printStockDetails(st);
   }
@@ -436,20 +443,20 @@ const Provider = ({ children }) => {
       new_product_list[p].row = parseInt(p) + 1      
     }
 
-    let tax_rate = ((ordersTaxRateRef.current.value).replace("%", "") / 100);
+    let tax_rate = ((offersTaxRateRef.current.value).replace("%", "") / 100);
 
-    let amount_sum = ((parseFloat(ordersAmountRef.current.value)) * (parseFloat(ordersPriceRef.current.value)));
+    let amount_sum = ((parseFloat(offersAmountRef.current.value)) * (parseFloat(offersPriceRef.current.value)));
     let tax_sum = (parseFloat(amount_sum) * parseFloat(tax_rate));
     let total = parseFloat(amount_sum + tax_sum).toFixed(2)
 
     let new_product = {                                           //. Create new product
       row: (new_product_list.length + 1),                         //. Row number one more than list length
       stock_id: state.chosen_stock.details.id,
-      unit: ordersUnitRef.current.value,                          //. Birim
-      amount: parseFloat(ordersAmountRef.current.value),          //. Miktar
-      price: parseFloat(ordersPriceRef.current.value),            //. Birim Fiyat
+      unit: offersUnitRef.current.value,                          //. Birim
+      amount: parseFloat(offersAmountRef.current.value),          //. Miktar
+      price: parseFloat(offersPriceRef.current.value),            //. Birim Fiyat
       tax_rate: parseFloat(tax_rate),                             //. Kdv Oranı
-      description: ordersDescriptionRef.current.value,            //. Açıklama
+      description: offersDescriptionRef.current.value,            //. Açıklama
 
       stock_name: state.chosen_stock.details.name,                //. Ürün Ad (Çıkartılacak)
       material: state.chosen_stock.details.material,              //. Malzeme (Çıkartılacak)
@@ -497,12 +504,12 @@ const Provider = ({ children }) => {
   }
 
   const clearProductInputs = () => {
-    ordersNameRef.current.value = ""
-    ordersUnitRef.current.value = "default"
-    ordersAmountRef.current.value = ""
-    ordersPriceRef.current.value = ""
-    ordersTaxRateRef.current.value = "%0"
-    ordersDescriptionRef.current.value = ""
+    offersStockSearchInputRef.current.value = ""
+    offersUnitRef.current.value = "default"
+    offersAmountRef.current.value = ""
+    offersPriceRef.current.value = ""
+    offersTaxRateRef.current.value = "%0"
+    offersDescriptionRef.current.value = ""
 
     dispatch({
       type: 'CHOSEN_STOCK',
@@ -579,12 +586,12 @@ const Provider = ({ children }) => {
       }
     }
     
-    ordersNameEditRef.current.innerHTML = dt.stock_id + "-" + dt.stock_name
-    ordersUnitEditRef.current.value = dt.unit
-    ordersAmountEditRef.current.value = dt.amount
-    ordersPriceEditRef.current.value = dt.price
-    ordersTaxRateEditRef.current.value = "%" + (dt.tax_rate * 100)
-    ordersDescriptionEditRef.current.value = dt.description
+    offersStockSearchInputEditRef.current.innerHTML = dt.stock_id + "-" + dt.stock_name
+    offersUnitEditRef.current.value = dt.unit
+    offersAmountEditRef.current.value = dt.amount
+    offersPriceEditRef.current.value = dt.price
+    offersTaxRateEditRef.current.value = "%" + (dt.tax_rate * 100)
+    offersDescriptionEditRef.current.value = dt.description
 
   }
   
@@ -597,16 +604,16 @@ const Provider = ({ children }) => {
       }
     }
 
-    let tax_rate = ((ordersTaxRateEditRef.current.value).replace("%", "") / 100);
-    let amount_sum = ((parseFloat(ordersAmountEditRef.current.value)) * (parseFloat(ordersPriceEditRef.current.value)));
+    let tax_rate = ((offersTaxRateEditRef.current.value).replace("%", "") / 100);
+    let amount_sum = ((parseFloat(offersAmountEditRef.current.value)) * (parseFloat(offersPriceEditRef.current.value)));
     let tax_sum = (parseFloat(amount_sum) * parseFloat(tax_rate));
     let total = parseFloat(amount_sum + tax_sum)
 
-    details["unit"] = ordersUnitEditRef.current.value
-    details["amount"] = parseFloat(ordersAmountEditRef.current.value)
-    details["price"] = parseFloat(ordersPriceEditRef.current.value)
+    details["unit"] = offersUnitEditRef.current.value
+    details["amount"] = parseFloat(offersAmountEditRef.current.value)
+    details["price"] = parseFloat(offersPriceEditRef.current.value)
     details["tax_rate"] = tax_rate
-    details["description"] = ordersDescriptionEditRef.current.value
+    details["description"] = offersDescriptionEditRef.current.value
 
     details["amount_sum"] = amount_sum
     details["tax_sum"] = tax_sum
@@ -651,7 +658,7 @@ const Provider = ({ children }) => {
         value: false
       })
 
-      ordersTaxRateRef.current.value = "%0"
+      offersTaxRateRef.current.value = "%0"
 
       let total = 0;
       if(list.length > 0) {
@@ -680,7 +687,7 @@ const Provider = ({ children }) => {
       backdrop: 'static',
     };
     
-    let el = document.getElementById("editProductModal");
+    let el = document.getElementById("editOffersProductModal");
     const modal = new Modal(el, options);
 
     dispatch({        //. Set current modal object
@@ -701,12 +708,26 @@ const Provider = ({ children }) => {
     })
   }
 
+  const clearProductEditInputs = () => {
+    offersStockSearchInputEditRef.current.innerHTML = "";
+    offersUnitEditRef.current.value = "default";
+    offersAmountEditRef.current.value = "";
+    offersPriceEditRef.current.value = "";
+    offersTaxRateEditRef.current.value = "default";
+    offersDescriptionEditRef.current.value = "";
+    
+    dispatch({
+      type: 'CHOSEN_STOCK_EDIT_UNITS',
+      value: []
+    })
+  }
+
   const showPrintPDFModal = () => {
     const options = {
       backdrop: 'static',
     };
     
-    let el = document.getElementById("printPDFModal");
+    let el = document.getElementById("printOffersPDFModal");
     const modal = new Modal(el, options);
 
     dispatch({
@@ -719,27 +740,12 @@ const Provider = ({ children }) => {
   
   const hidePrintPDFModal = () => {
     state.print_pdf_modal.hide();
-
   }
   
-  const clearProductEditInputs = () => {
-    ordersNameEditRef.current.innerHTML = "";
-    ordersUnitEditRef.current.value = "default";
-    ordersAmountEditRef.current.value = "";
-    ordersPriceEditRef.current.value = "";
-    ordersTaxRateEditRef.current.value = "default";
-    ordersDescriptionEditRef.current.value = "";
-    
-    dispatch({
-      type: 'CHOSEN_STOCK_EDIT_UNITS',
-      value: []
-    })
-  }
-
-  //- Order Funcs
-  const createOrder = async () => {
-    if(ordersInvoicedRef.current.value === "Faturalı") { var invoiced = true }
-    else if(ordersInvoicedRef.current.value === "Faturasız") { var invoiced = false }
+  //- Offer Funcs
+  const createOffer = async () => {
+    if(offersInvoicedRef.current.value === "Faturalı") { var invoiced = true }
+    else if(offersInvoicedRef.current.value === "Faturasız") { var invoiced = false }
 
     let items = [];
     let total_fee = 0;
@@ -761,31 +767,69 @@ const Provider = ({ children }) => {
       items.push(js)
     }
 
+
     let data = {
-      current_id: state.chosen_current.id,
-      date: ordersGTEDateRef.current.value + "T00:00:00.000Z",
-      delivery_date: ordersLTEDateRef.current.value + "T00:00:00.000Z",
-      order_source: ordersSourceRef.current.value,
+      date: offersGTEDateRef.current.value + "T00:00:00.000Z",
+      delivery_date: offersLTEDateRef.current.value + "T00:00:00.000Z",
+      order_source: offersSourceRef.current.value,
       invoiced: invoiced,
       printed: false,
       total_fee: Number(total_fee),
-      code_1: state.chosen_current.details.code_1,
-      code_2: state.chosen_current.details.code_2,
-      code_3: state.chosen_current.details.code_3,
-      code_4: state.chosen_current.details.code_4,
       items: items
     }
 
-    let create = await Orders.createOrder(data)
+    if (offersNewCurCheckedRef.current.checked) {
+      data = {
+        ...data,
+        unregistered_current: {
+          name: offersNewCurNameRef.current.value,
+          phone: offersNewCurPhoneIRef.current.value,
+          mail: offersNewCurMailRef.current.value,
+          address: offersNewCurAddressRef.current.value
+        },
+      }
+
+    }
+    else {
+      data = {
+        ...data,
+        current_id: state.chosen_current.id,
+        code_1: state.chosen_current.details.code_1,
+        code_2: state.chosen_current.details.code_2,
+        code_3: state.chosen_current.details.code_3,
+        code_4: state.chosen_current.details.code_4,
+      }
+    }
+
+    let create = await Offers.createOffer(data)
   
     let rows = {
       ...state.print_pdf_rows,
       head_info : {
-        current_name: state.chosen_current.details.name,
-        phone: state.chosen_current.details.phone,
-        date: ordersGTEDateRef.current.value,
-        delivery_date: ordersLTEDateRef.current.value,
+        date: offersGTEDateRef.current.value,
+        delivery_date: offersLTEDateRef.current.value,
         id: create.id,
+      }
+    }
+
+    if (offersNewCurCheckedRef.current.checked) {
+      rows = {
+        ...rows,
+        head_info : {
+          ...rows.head_info,
+          current_name: offersNewCurNameRef.current.value,
+          phone: offersNewCurPhoneIRef.current.value,
+        }
+      }
+    }
+    else {
+      rows = {
+        ...rows,
+        head_info : {
+          ...rows.head_info,
+          current_name: state.chosen_current.details.name,
+          phone: state.chosen_current.details.phone,
+        }
       }
     }
 
@@ -795,10 +839,10 @@ const Provider = ({ children }) => {
     })
 
     printPDF(),
-    clearOrder();
+    clearOffer();
   }
 
-  const clearOrder = () => {
+  const clearOffer = () => {
 
     dispatch({
       type: 'PRODUCT_LIST',
@@ -807,43 +851,52 @@ const Provider = ({ children }) => {
     
     dispatch({
       type: 'TABLE_TOTAL',
-      value: "0",
+      value: 0,
     })
 
     clearProductInputs();
     clearCurrentDetails();
   }
 
-  const orders = {
+  //- Offers Context Data
+  const offers = {
+    
     //, Refs
-    ordersCurSearchInputRef,
-    ordersSourceRef,
-    ordersInvoicedRef,
-    ordersGTEDateRef,
-    ordersLTEDateRef,
+    offersNewCurCheckedRef,
 
-    ordersCurIDRef,
-    ordersCurNameRef,
-    ordersCurAddressRef,
-    ordersCurProvDistRef,
-    ordersCurTaxOfficeNoRef,
-    ordersCurPhoneIRef,
-    ordersCurPhoneIIRef,
-    ordersCurMailRef,
+    offersCurSearchInputRef,
+    offersSourceRef,
+    offersInvoicedRef,
+    offersGTEDateRef,
+    offersLTEDateRef,
 
-    ordersNameRef,
-    ordersUnitRef,
-    ordersAmountRef,
-    ordersPriceRef,
-    ordersTaxRateRef,
-    ordersDescriptionRef,
+    offersCurIDRef,
+    offersCurNameRef,
+    offersCurAddressRef,
+    offersCurProvDistRef,
+    offersCurTaxOfficeNoRef,
+    offersCurPhoneIRef,
+    offersCurPhoneIIRef,
+    offersCurMailRef,
 
-    ordersNameEditRef,
-    ordersUnitEditRef,
-    ordersAmountEditRef,
-    ordersPriceEditRef,
-    ordersTaxRateEditRef,
-    ordersDescriptionEditRef,
+    offersNewCurNameRef,
+    offersNewCurMailRef,
+    offersNewCurPhoneIRef,
+    offersNewCurAddressRef,
+
+    offersStockSearchInputRef,
+    offersUnitRef,
+    offersAmountRef,
+    offersPriceRef,
+    offersTaxRateRef,
+    offersDescriptionRef,
+
+    offersStockSearchInputEditRef,
+    offersUnitEditRef,
+    offersAmountEditRef,
+    offersPriceEditRef,
+    offersTaxRateEditRef,
+    offersDescriptionEditRef,
 
     componentRef,
 
@@ -856,8 +909,8 @@ const Provider = ({ children }) => {
     chooseFilteredCurrent,
     chooseFilteredStock,
     clearProductEditInputs,
-    clearOrder,
-    createOrder,
+    createOffer,
+    clearOffer,
     editProduct,
     filterCurrents,
     filterStocks,
@@ -872,15 +925,14 @@ const Provider = ({ children }) => {
     removeProduct,
     toggleFilteredCurrentTable,
     toggleFilteredStockTable,
-
   }
 
   return (
-    <OrdersContext.Provider value={orders} >
-      { children }
-    </OrdersContext.Provider>
+    <OffersContext.Provider value={offers}>
+      {children}
+    </OffersContext.Provider>
   )
 }
-export const useOrders = () => useContext(OrdersContext)
-export default Provider
 
+export const useOffers = () => useContext(OffersContext)
+export default Provider;

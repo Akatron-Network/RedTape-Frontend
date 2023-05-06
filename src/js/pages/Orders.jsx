@@ -91,8 +91,8 @@ export default function Orders() {
 
           <div className='col-span-1'><InputDefault name={"Sipariş Kaynağı"} reference={orders_data.ordersSourceRef} type={"text"} /></div>
           <div className='col-span-1'><InputSelect name={"Faturalı / Faturasız"} reference={orders_data.ordersInvoicedRef} options={["Faturalı", "Faturasız"]} func={orders_data.invoicedCheck} /></div>
-          <div className='col-span-1'><InputDate name={"Sipariş Tarihi"} reference={orders_data.ordersCurGTEDateRef} defaultValue={orders_data.date.current} /></div>
-          <div className='col-span-1'><InputDate name={"Teslim Tarihi"} reference={orders_data.ordersCurLTEDateRef} defaultValue={orders_data.date.current} /></div>
+          <div className='col-span-1'><InputDate name={"Sipariş Tarihi"} reference={orders_data.ordersGTEDateRef} defaultValue={orders_data.date.current} /></div>
+          <div className='col-span-1'><InputDate name={"Teslim Tarihi"} reference={orders_data.ordersLTEDateRef} defaultValue={orders_data.date.current} /></div>
           
         </div>
 
@@ -152,7 +152,7 @@ export default function Orders() {
         <PrintPDFModal />  
 
         <div className='hidden'>
-          <RenderPDF reference={orders_data.componentRef} data={orders_data.print_pdf_rows} />
+          <RenderPDF reference={orders_data.componentRef} data={orders_data.print_pdf_rows} evenOdd={"even"} />
         </div>
       </div>
     </>

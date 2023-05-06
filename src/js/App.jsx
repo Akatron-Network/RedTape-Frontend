@@ -8,6 +8,7 @@ import OrdersProvider from './context/OrdersContext'
 import OrdersEntryProvider from './context/OrdersEntryContext'
 import TasksProvider from './context/TasksContext';
 import DashboardProvider from './context/DashboardContext'
+import OffersProvider from './context/OffersContext'
 
 
 function App() {
@@ -23,9 +24,11 @@ function App() {
                   <OrdersProvider>
                     <OrdersEntryProvider>
                       <TasksProvider>
+                        <OffersProvider>
 
-                        <AllRoutes />
+                          <AllRoutes />
 
+                        </OffersProvider>
                       </TasksProvider>
                     </OrdersEntryProvider>
                   </OrdersProvider>
