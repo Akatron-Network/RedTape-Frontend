@@ -861,7 +861,7 @@ const Provider = ({ children }) => {
   //- Offers Context Data
   const offers = {
     
-    //, Refs
+    //- Refs
     offersNewCurCheckedRef,
 
     offersCurSearchInputRef,
@@ -900,11 +900,11 @@ const Provider = ({ children }) => {
 
     componentRef,
 
-    //, States, Variables etc.
+    //- States, Variables etc.
     ...state,
     dispatch,
 
-    //, Functions
+    //- Functions
     addProduct,
     chooseFilteredCurrent,
     chooseFilteredStock,

@@ -690,7 +690,7 @@ const Provider = ({ children }) => {
 
   const tasks = {
 
-    //, Refs
+    //- Refs
     assignedTableUserRef,
     editTasksDescriptionRef,
     editTasksFinishDate,
@@ -707,11 +707,11 @@ const Provider = ({ children }) => {
     editTaskOrderCurLTEDateRef,
 
 
-    //, States, Variables etc.
+    //- States, Variables etc.
     ...state,
     dispatch,
 
-    //, Functions
+    //- Functions
     addStep,
     adminCheck,
     createOrEditTask,

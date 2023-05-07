@@ -1,11 +1,11 @@
 import React from 'react'
 import { useMain } from '../../context/MainContext';
-import { useOrdersEntry } from '../../context/OrdersEntryContext'
+import { useOffersEntry } from '../../context/OffersEntryContext'
 import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
 import Tooltip from '../items/Tooltip';
 
-export default function OrdersEntryTable() {
-  const { table_columns, filtered_orders, all_currents, getOrderDetails, removeOrder, printPDF } = useOrdersEntry();
+export default function OffersEntryTable() {
+  const { table_columns, filtered_offers, all_currents, getOfferDetails, removeOffer, printPDF } = useOffersEntry();
   const { funcLoad } = useMain();
   
   return (
@@ -31,14 +31,23 @@ export default function OrdersEntryTable() {
           </tr>
         </thead>
         <tbody>
-          {filtered_orders.map((p, i) => {
+          {filtered_offers.map((p, i) => {
 
             let cur_name = "";
             for (let c of all_currents) {
-              if (p.details.current_id === c.details.id) {
-                cur_name = c.details.name
+              if (p.details.current_id !== null) {
+                if (p.details.current_id === c.details.id) {
+                  cur_name = c.details.name
+                }
+              }
+              else {
+                cur_name = p.details.unregistered_current.name
               }
             }
+
+            let cur_id = "Yeni Müşteri";
+            let state_cls = "py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold"
+            if (p.details.current_id !== null) { cur_id = p.details.current_id; state_cls = "py-[0.20rem] px-2 text-prussian_blue text-[13px]" }
 
             if (i%2 === 0) { var row_cls = "bg-white border-b h-9 border-alica_blue hover:bg-steel_blue_light transition duration-300" }
             else { var row_cls = "bg-alica_blue_light border-b h-9 border-alica_blue hover:bg-steel_blue_light transition duration-300" }
@@ -48,8 +57,8 @@ export default function OrdersEntryTable() {
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {p.details.id}
                 </td>
-                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
-                  {p.details.current_id}
+                <td className={state_cls}>
+                  {cur_id}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {cur_name}
@@ -74,10 +83,10 @@ export default function OrdersEntryTable() {
                     <button type='button' onClick={() => funcLoad(printPDF, p)} className='ml-1 render-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-print"></i></button>
                   </Tooltip>
                   <Tooltip message={"Siparişi Düzenle"}>
-                    <button type='button' onClick={() => funcLoad(getOrderDetails, p.details.id)} className='ml-1 golden-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+                    <button type='button' onClick={() => funcLoad(getOfferDetails, p.details.id)} className='ml-1 golden-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
                   </Tooltip>
                   <Tooltip message={"Siparişi Sil"}>
-                    <button type='button' onClick={() => funcLoad(removeOrder, p.details.id)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+                    <button type='button' onClick={() => funcLoad(removeOffer, p.details.id)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </Tooltip>
                 </td>
               </tr>
@@ -86,7 +95,7 @@ export default function OrdersEntryTable() {
         </tbody>
       </table>
       <nav className="flex justify-between items-center py-2 px-3 bg-indigo_dye h-10 bottom-[-1px] sticky" aria-label="Table navigation">
-        <span className="text-sm font-normal text-steel_blue">Toplamda <span className="font-normal text-alica_blue_middle">{filtered_orders.length}</span> kayıt bulunmaktadır.</span>
+        <span className="text-sm font-normal text-steel_blue">Toplamda <span className="font-normal text-alica_blue_middle">{filtered_offers.length}</span> kayıt bulunmaktadır.</span>
       </nav>
     </div>
     

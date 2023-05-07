@@ -69,7 +69,7 @@ export default function CurrentActivity() {
 
   return (
     <>
-      <PageMainTitle title={"Cari Hareket Paneli"} />
+      <PageMainTitle title={"Cari Hareket Paneli"} icon={<i className="fa-solid fa-address-card"></i>} />
       <PageSubTitle title={"Cari Bilgileri"} />
 
       <div className='grid grid-cols-3 md:gap-5 auto-rows-max'>

@@ -265,7 +265,7 @@ const Provider = ({ children }) => {
 
   const stock = {
 
-    //, Refs
+    //- Refs
     stockNameRef,
     stockMaterialRef,
     stockProductGroupRef,
@@ -292,11 +292,11 @@ const Provider = ({ children }) => {
     stockCodeIIIEditRef,
     stockCodeIVEditRef,
 
-    //, States, Variables etc.
+    //- States, Variables etc.
     ...state,
     dispatch,
 
-    //, Functions
+    //- Functions
     clearStockEditInputs,
     clearStockInputs,
     createStock,

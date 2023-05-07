@@ -77,13 +77,13 @@ const Provider = ({ children }) => {
   
   const dashboard = {
 
-    //, Refs
+    //- Refs
 
-    //, States, Variables etc.
+    //- States, Variables etc.
     ...state,
     dispatch,
 
-    //, Functions
+    //- Functions
     resizeCheck,
     showDashboard,
 

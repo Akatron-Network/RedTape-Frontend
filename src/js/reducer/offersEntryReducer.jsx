@@ -8,10 +8,10 @@ export default function reducer(state, action) {
         table_columns: action.value
       }
 
-    case 'ALL_ORDERS':
+    case 'ALL_OFFERS':
       return {
         ...state,
-        all_orders: action.value
+        all_offers: action.value
       }
 
     case 'ALL_CURRENTS':
@@ -26,28 +26,28 @@ export default function reducer(state, action) {
         all_stocks: action.value
       }
 
-    case 'RENDER_ORDERS_TABLE':
+    // case 'RENDER_OFFERS_TABLE':
+    //   return {
+    //     ...state,
+    //     render_offers_table: action.value
+    //   }
+    
+    case 'GET_OFFER_DETAILS':
       return {
         ...state,
-        render_orders_table: action.value
-      }
-      
-    case 'GET_ORDER_DETAILS':
-      return {
-        ...state,
-        get_order_details: action.value
-      }
-
-    case 'GET_ORDER_ITEMS':
-      return {
-        ...state,
-        get_order_items: action.value
+        get_offer_details: action.value
       }
 
-    case 'GET_ORDER_MODAL':
+    case 'GET_OFFER_ITEMS':
       return {
         ...state,
-        get_order_modal: action.value
+        get_offer_items: action.value
+      }
+
+    case 'GET_OFFER_MODAL':
+      return {
+        ...state,
+        get_offer_modal: action.value
       }
 
     case 'ENTRY_PRODUCT_DETAILS':
@@ -68,10 +68,10 @@ export default function reducer(state, action) {
         entry_product_units: action.value
       }
 
-    case 'ADD_ENTRY_ORDER_PRODUCT_MODAL':
+    case 'ADD_ENTRY_OFFER_PRODUCT_MODAL':
       return {
         ...state,
-        add_entry_order_product_modal: action.value
+        add_entry_offer_product_modal: action.value
       }
 
     case 'FILTERED_STOCKS':
@@ -80,10 +80,10 @@ export default function reducer(state, action) {
         filtered_stocks: action.value
       }
 
-    case 'FILTERED_ORDERS':
+    case 'FILTERED_OFFERS':
       return {
         ...state,
-        filtered_orders: action.value
+        filtered_offers: action.value
       }
 
     case 'CHOSEN_STOCK':

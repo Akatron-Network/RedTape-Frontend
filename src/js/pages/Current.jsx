@@ -28,7 +28,7 @@ export default function Current() {
 
   return (
     <>
-      <PageMainTitle title={"Cari Kayıt Paneli"} />
+      <PageMainTitle title={"Cari Kayıt Paneli"} icon={<i className="fa-solid fa-user-pen"></i>} />
 
       <div className='grid md:grid-cols-3 md:gap-20 grid-cols-1'>
         <div className='grid grid-cols-1 gap-[2px] col-span-1 auto-rows-max'>          

@@ -13,6 +13,7 @@ import Tasks from './pages/Tasks'
 import Test from './pages/Test'
 import Dashboard from "./components/main-items/Dashboard";
 import Offers from "./pages/Offers";
+import OffersEntry from "./pages/OffersEntry";
 
 export default function AllRoutes() {
   return (
@@ -29,6 +30,7 @@ export default function AllRoutes() {
           <Route path="tasks" element={<Tasks />} />
           <Route path="admin-panel" element={<AdminPanel />} />
           <Route path="offers" element={<Offers />} />
+          <Route path="offers-entry" element={<OffersEntry />} />
           {/* <Route index={true} element={<Collections />} />
           <Route path=":colID" element={<Folders />} />
           <Route path=":colID/:foldID" element={<Files />} />

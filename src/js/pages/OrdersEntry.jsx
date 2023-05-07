@@ -45,7 +45,7 @@ export default function OrdersEntry() {
   
   return (
     <>
-      <PageMainTitle title={"Sipariş Kayıtları Paneli"} />
+      <PageMainTitle title={"Sipariş Kayıtları Paneli"} icon={<i className="fa-solid fa-clipboard"></i>} />
       
       <div className="flex flex-row justify-between mb-1">
         <PageSubTitle title={"Sipariş Tablosu"} />

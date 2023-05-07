@@ -62,7 +62,7 @@ export default function Orders() {
   
   return (
     <>
-      <PageMainTitle title={"Sipariş Giriş Paneli"} />
+      <PageMainTitle title={"Sipariş Giriş Paneli"} icon={<i className="fa-solid fa-dolly"></i>} />
 
       <div className='grid md:grid-cols-3 md:gap-5 auto-rows-max'>
         <div className='col-span-1'><PageSubTitle title={"Sipariş Üst Bilgileri"} /></div>

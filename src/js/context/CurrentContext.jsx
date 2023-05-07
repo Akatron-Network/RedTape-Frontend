@@ -363,7 +363,7 @@ const Provider = ({ children }) => {
   //- Current Context Data
   const current = {
     
-    //, Refs
+    //- Refs
     currentNameRef,
     currentAddressRef,
     currentProvinceRef,
@@ -398,11 +398,11 @@ const Provider = ({ children }) => {
     currentCodeIVEditRef,
     currentDescriptionEditRef,
 
-    //, States, Variables etc.
+    //- States, Variables etc.
     ...state,
     dispatch,
 
-    //, Functions
+    //- Functions
     clearCurrentEditInputs,
     clearCurrentInputs,
     createCurrent,

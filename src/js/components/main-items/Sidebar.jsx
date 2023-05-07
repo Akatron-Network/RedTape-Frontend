@@ -38,6 +38,14 @@ export default function Sidebar() {
     : "transition-all duration-500 -translate-x-64 w-[221px] pt-[52px] fixed h-screen bg-prussian_blue p-2 px-0 z-40 shadow-sidebar"} aria-label="Sidebar">
       <ul className="space-y-2 trans px-2">
 
+        <li>
+          <Link to={"/dashboard"} className="sidebar-elm">
+            <div className='text-center w-6'>
+              <i className="fa-solid fa-house-chimney"></i>
+            </div>
+            <span className="sidebar-elm-text">Anasayfa</span>
+          </Link>
+        </li>
 
         {admin ? 
           <>
@@ -101,6 +109,15 @@ export default function Sidebar() {
                   <i className="fa-solid fa-tags"></i>
                 </div>
                 <span className="sidebar-elm-text">Teklif</span>
+              </Link>
+            </li>
+
+            <li>
+              <Link to={"/offers-entry"} className="sidebar-elm">
+                <div className='text-center w-6'>
+                  <i className="fa-solid fa-receipt"></i>
+                </div>
+                <span className="sidebar-elm-text">Teklif Kayıtları</span>
               </Link>
             </li>
           </>

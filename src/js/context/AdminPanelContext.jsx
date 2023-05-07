@@ -193,17 +193,17 @@ const Provider = ({ children }) => {
 
   const admin_panel = {
 
-    //, Refs
+    //- Refs
     userNameRef,
     userPasswordRef,
     userNameEditRef,
     userPasswordEditRef,
 
-    //, States, Variables etc.
+    //- States, Variables etc.
     ...state,
     dispatch,
 
-    //, Functions
+    //- Functions
     clearUserEditInputs,
     clearUserInputs,
     createUser,

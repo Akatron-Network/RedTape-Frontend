@@ -18,7 +18,7 @@ export default function Stock() {
 
   return (
     <>
-      <PageMainTitle title={"Stok Kayıt Paneli"} />
+      <PageMainTitle title={"Stok Kayıt Paneli"} icon={<i className="fa-solid fa-boxes-packing"></i>} />
 
       <div className='grid md:grid-cols-3 md:gap-20 grid-cols-1'>
         <div className='grid grid-cols-1 gap-[2px] col-span-1 auto-rows-max'>          

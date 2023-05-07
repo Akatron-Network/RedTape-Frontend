@@ -25,7 +25,7 @@ export default function Tasks() {
 
   return (
     <div> {/* className='pb-40' */}
-      <PageMainTitle title={"Görev Takip Paneli"} />
+      <PageMainTitle title={"Görev Takip Paneli"} icon={<i className="fa-solid fa-clipboard-question"></i>} />
 
       {tasks_data.admin_check.admin ? 
         <div className='mb-10'>

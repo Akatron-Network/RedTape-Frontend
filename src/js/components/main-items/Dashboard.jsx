@@ -30,7 +30,7 @@ export default function Dashboard() {
     <>
     {adminAll ? 
       <>
-        <PageMainTitle title={"Gösterge Paneli"} />
+        <PageMainTitle title={"Gösterge Paneli"} icon={<i className="fa-solid fa-chart-line"></i>} />
         
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
           

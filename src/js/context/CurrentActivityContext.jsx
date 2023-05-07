@@ -443,7 +443,7 @@ const Provider = ({children}) => {
   //- Current Activity Context Data
   const current_activity = {
 
-    //, Refs
+    //- Refs
     curActGTEDateRef,
     curActLTEDateRef,
     curActSearchInputRef,
@@ -469,11 +469,11 @@ const Provider = ({children}) => {
     curActDebtAmountEditRef,
     curActBalanceEditRef,
 
-    //, States, Variables etc.
+    //- States, Variables etc.
     ...state,
     dispatch,
 
-    //, Functions
+    //- Functions
     chooseFilteredCurrent,
     clearCurActEntryInputs,
     clearCurActEditInputs,

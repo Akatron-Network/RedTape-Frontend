@@ -815,7 +815,7 @@ const Provider = ({ children }) => {
   }
 
   const orders = {
-    //, Refs
+    //- Refs
     ordersCurSearchInputRef,
     ordersSourceRef,
     ordersInvoicedRef,
@@ -847,11 +847,11 @@ const Provider = ({ children }) => {
 
     componentRef,
 
-    //, States, Variables etc.
+    //- States, Variables etc.
     ...state,
     dispatch,
 
-    //, Functions
+    //- Functions
     addProduct,
     chooseFilteredCurrent,
     chooseFilteredStock,

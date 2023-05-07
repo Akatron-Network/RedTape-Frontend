@@ -64,7 +64,9 @@ export default function Offers() {
   
   return (
     <>
-      <PageMainTitle title={"Teklif Paneli"} />
+    
+      
+      <PageMainTitle title={"Teklif Paneli"} icon={<i className="fa-solid fa-tags"></i>} />
 
       <div className='grid md:grid-cols-3 md:gap-5 auto-rows-max'>
 
@@ -177,7 +179,7 @@ export default function Offers() {
         <EditOffersProductModal />
         <PrintOffersPDFModal />  
 
-        <div className=''>
+        <div className='hidden'>
           <RenderPDF reference={offers_data.componentRef} data={offers_data.print_pdf_rows} evenOdd={"odd"} />
         </div>
          

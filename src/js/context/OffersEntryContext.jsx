@@ -1,34 +1,33 @@
-import { createContext, useContext, useReducer, useRef, useEffect } from "react";
-import Current from "../libraries/models/Current";
+import { createContext, useContext, useEffect, useReducer, useRef } from "react";
+import offersEntryReducer from '../reducer/offersEntryReducer';
+import Offers from '../libraries/models/Offers';
 import Stock from "../libraries/models/Stock";
-import Orders from "../libraries/models/Orders";
-import ordersEntryReducer from '../reducer/ordersEntryReducer'
-import {Modal} from 'flowbite';
+import Current from "../libraries/models/Current";
 import { useReactToPrint } from "react-to-print";
+import {Modal} from 'flowbite';
+
 import CurrencyFormat from "../libraries/tools/CurrencyFormat";
 
-const OrdersEntryContext = createContext();
+const OffersEntryContext = createContext();
 
-const Provider = ({children}) => {
-
+const Provider = ({ children }) => {
   //b State and Ref Management ----------------------------------------
-  const [state, dispatch] = useReducer(ordersEntryReducer, {
-    all_orders: [],
+  const [state, dispatch] = useReducer(offersEntryReducer, {
+    add_entry_offer_product_modal: {},
     all_currents: [],
+    all_offers: [],
     all_stocks: [],
-    get_order_details: {},
-    get_order_items: [],
-    get_order_modal: {},
-    entry_product_details: {},
-    add_entry_order_product_modal: {},
-    entry_product_modal: {},
-    entry_product_units: [],
-    filtered_stocks: [],
-    filtered_orders: [],
-    invoiced: false,
     chosen_stock: {},
     chosen_stock_units: [],
-    toggle_filtered_stock_table: false,
+    entry_product_details: {},
+    entry_product_modal: {},
+    entry_product_units: [],
+    filtered_offers: [],
+    filtered_stocks: [],
+    get_offer_details: {},
+    get_offer_items: [],
+    get_offer_modal: {},
+    invoiced: false,
     print_pdf_rows: {
       subtotal: 0,
       tax: 0,
@@ -42,15 +41,16 @@ const Provider = ({children}) => {
         id: "",
       }
     },
-    table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ KAYNAĞI", "FATURA DURUMU", "SİPARİŞ TARİHİ", "TESLİM TARİHİ", "TOPLAM TUTAR"],
     show_table_columns: ["", "ÜRÜN AD", "MALZEME", "ÜRÜN GRUBU", "BİRİM", "MİKTAR", "BİRİM FİYAT", "TUTAR", "KDV ORAN", "KDV TUTAR", "TOPLAM TUTAR", "AÇIKLAMA"],
+    table_columns: ["SİPARİŞ KODU", "CARİ KOD", "CARİ İSİM", "SİPARİŞ KAYNAĞI", "FATURA DURUMU", "SİPARİŞ TARİHİ", "TESLİM TARİHİ", "TOPLAM TUTAR"],
+    toggle_filtered_stock_table: false,
   })
 
-  const ordersEntryCurrentNameEditRef = useRef("")
-  const ordersEntryOrderSourceEditRef = useRef("")
-  const ordersEntryInvoicedEditRef = useRef("")
-  const ordersEntryDateEditRef = useRef("")
-  const ordersEntryDeliveryDateEditRef = useRef("")
+  const offersEntryCurrentNameEditRef = useRef("")
+  const offersEntryOfferSourceEditRef = useRef("")
+  const offersEntryInvoicedEditRef = useRef("")
+  const offersEntryDateEditRef = useRef("")
+  const offersEntryDeliveryDateEditRef = useRef("")
 
   const entryProductNameEditRef = useRef("")
   const entryProductUnitEditRef = useRef("")
@@ -59,43 +59,44 @@ const Provider = ({children}) => {
   const entryProductTaxRateEditRef = useRef("")
   const entryProductDescriptionEditRef = useRef("")
 
-  const addOrderEntryProductUnitEditRef = useRef("")
-  const addOrderEntryProductAmountEditRef = useRef("")
-  const addOrderEntryProductPriceEditRef = useRef("")
-  const addOrderEntryProductTaxRateEditRef = useRef("")
-  const addOrderEntryProductDescriptionEditRef = useRef("")
+  const addOfferEntryProductUnitEditRef = useRef("")
+  const addOfferEntryProductAmountEditRef = useRef("")
+  const addOfferEntryProductPriceEditRef = useRef("")
+  const addOfferEntryProductTaxRateEditRef = useRef("")
+  const addOfferEntryProductDescriptionEditRef = useRef("")
 
-  const addOrdersEntryProductSearchInputRef = useRef("")
+  const addOffersEntryProductSearchInputRef = useRef("")
 
   const componentRef = useRef(null)
 
   //b Functions -------------------------------------------------------
-  const printPDF = (order) => {
+  //b Functions -------------------------------------------------------
+  const printPDF = (offer) => {
     let head_info = {};
     for(let c of state.all_currents) {
-      if (order.details.current_id === c.id) {
+      if (offer.details.current_id === c.id) {
         head_info = {
           current_name: c.details.name,
           phone: c.details.phone,
-          date: order.details.date.split("T")[0],
-          delivery_date: order.details.delivery_date.split("T")[0],
-          id: order.id
+          date: offer.details.date.split("T")[0],
+          delivery_date: offer.details.delivery_date.split("T")[0],
+          id: offer.id
         }
       }
     }
 
     let subtotal = 0;
     let tax = 0;
-    for (let i of order.details.items) {
+    for (let i of offer.details.items) {
       subtotal = subtotal + (i.amount * i.price)
       tax = tax + ((i.amount * i.price) * i.tax_rate)
     }
     
     let rows = {
-      list: order.items,
+      list: offer.items,
       subtotal: subtotal,
       tax: tax,
-      total: order.details.total_fee,
+      total: offer.details.total_fee,
       head_info:head_info
     }
 
@@ -113,7 +114,7 @@ const Provider = ({children}) => {
   
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: 'Sipariş',
+    documentTitle: 'Teklif',
   });
 
   //- Main Table Funcs
@@ -154,7 +155,7 @@ const Provider = ({children}) => {
     })
   }
   
-  const showOrders = async () => {
+  const showOffers = async () => {
     let query = {
       skip: 0,
       take: 1000,
@@ -162,47 +163,50 @@ const Provider = ({children}) => {
       orderBy: {id: "desc"}
     }
 
-    let resp = await Orders.showOrders(query);
+    let resp = await Offers.showOffers(query);
 
     dispatch({
-      type: "ALL_ORDERS",
+      type: "ALL_OFFERS",
       value: resp
     })
 
     dispatch({
-      type: 'FILTERED_ORDERS',
+      type: 'FILTERED_OFFERS',
       value: resp
     })
   }
 
-  const removeOrder = async (id) => {
-    let remove = await Orders.removeOrder(id);
+  const removeOffer = async (id) => {
+    let remove = await Offers.removeOffer(id);
 
-    await showOrders();
+    await showOffers();
   }
 
-  //- Edit Orders
-  const getOrderDetails = async (id) => {
+  //- Edit Offers
+  const getOfferDetails = async (id) => {
     let dt = [];
 
-    for (let o of state.all_orders) {
+    for (let o of state.all_offers) {
       if (o.id === id) dt = o
     }
 
     dispatch({
-      type: 'GET_ORDER_ITEMS',
+      type: 'GET_OFFER_ITEMS',
       value: dt.items
     })
 
     dispatch({
-      type: 'GET_ORDER_DETAILS',
+      type: 'GET_OFFER_DETAILS',
       value: dt
     })
 
-    
-
-    for (let c of state.all_currents) {
-      if (c.id === dt.details.current_id) var cur_name = c.details.id + " / " + c.details.name
+    if (dt.details.current_id !== null) {
+      for (let c of state.all_currents) {
+        if (c.id === dt.details.current_id) var cur_name = c.details.id + " / " + c.details.name
+      }
+    }
+    else {
+      var cur_name = dt.details.unregistered_current.name
     }
 
     let invoiced = "Faturalı";
@@ -215,20 +219,20 @@ const Provider = ({children}) => {
     let date = dt.details.date.split("T")[0]
     let delivery_date = dt.details.delivery_date.split("T")[0]
 
-    ordersEntryCurrentNameEditRef.current.innerHTML = cur_name
-    ordersEntryOrderSourceEditRef.current.value = dt.details.order_source
-    ordersEntryInvoicedEditRef.current.value = invoiced
-    ordersEntryDateEditRef.current.value = date
-    ordersEntryDeliveryDateEditRef.current.value = delivery_date
+    offersEntryCurrentNameEditRef.current.innerHTML = cur_name
+    offersEntryOfferSourceEditRef.current.value = dt.details.order_source
+    offersEntryInvoicedEditRef.current.value = invoiced
+    offersEntryDateEditRef.current.value = date
+    offersEntryDeliveryDateEditRef.current.value = delivery_date
 
-    let show_get_order_details_modal = showModal("showOrdersEntryModal", "GET_ORDER_MODAL");
-    show_get_order_details_modal.show();
+    let show_get_offer_details_modal = showModal("showOffersEntryModal", "GET_OFFER_MODAL");
+    show_get_offer_details_modal.show();
   }
 
   const getProductDetails = async (id) => {
     let dt = [];
 
-    for (let o of state.get_order_items) {
+    for (let o of state.get_offer_items) {
       if (o.id === id) dt = o
     }
 
@@ -260,34 +264,34 @@ const Provider = ({children}) => {
     entryProductTaxRateEditRef.current.value = tax_rate
     entryProductDescriptionEditRef.current.value = dt.description
     
-    let entry_product_modal = showModal("editOrdersEntryProductModal", "ENTRY_PRODUCT_MODAL");
+    let entry_product_modal = showModal("editOffersEntryProductModal", "ENTRY_PRODUCT_MODAL");
     entry_product_modal.show();
   }
 
-  const editOrdersEntry = async (dt) => {
+  const editOffersEntry = async (dt) => {
     let invoiced = true;
-    if (ordersEntryInvoicedEditRef.current.value === "Faturasız") invoiced = false;
+    if (offersEntryInvoicedEditRef.current.value === "Faturasız") invoiced = false;
 
     let details = {
-      date: ordersEntryDateEditRef.current.value + "T00:00:00.000Z",
-      delivery_date: ordersEntryDeliveryDateEditRef.current.value + "T00:00:00.000Z",
-      order_source: ordersEntryOrderSourceEditRef.current.value,
+      date: offersEntryDateEditRef.current.value + "T00:00:00.000Z",
+      delivery_date: offersEntryDeliveryDateEditRef.current.value + "T00:00:00.000Z",
+      order_source: offersEntryOfferSourceEditRef.current.value,
       invoiced: invoiced,
-      items: state.get_order_items
+      items: state.get_offer_items
     }
 
-    let o = await Orders.getOrder(dt.id)
+    let o = await Offers.getOffer(dt.id)
 
-    let edit = await o.editOrder(details);
+    let edit = await o.editOffer(details);
 
     if(edit.Success) {
-      hideGetOrderDetailsModal()
-      showOrders();
+      hideGetOfferDetailsModal()
+      showOffers();
     }
   }
 
   const editEntryProduct = async (dt) => {
-    let items = [...state.get_order_items]
+    let items = [...state.get_offer_items]
 
     for (let ind in items) {
       let i = items[ind]
@@ -304,7 +308,7 @@ const Provider = ({children}) => {
     }
 
     dispatch({
-      type: "GET_ORDER_ITEMS",
+      type: "GET_OFFER_ITEMS",
       value: items
     })
 
@@ -312,7 +316,7 @@ const Provider = ({children}) => {
   }
 
   const removeProduct = async (id) => {
-    let items = [...state.get_order_items]
+    let items = [...state.get_offer_items]
 
     for (let ind in items) {
       let i = items[ind]
@@ -326,46 +330,46 @@ const Provider = ({children}) => {
     }
 
     dispatch({
-      type: 'GET_ORDER_ITEMS',
+      type: 'GET_OFFER_ITEMS',
       value: items,
     })
 
   }
 
-  const addOrderEntryProduct = () => {
-    let items = [...state.get_order_items]                                          //. Get product list    
+  const addOfferEntryProduct = () => {
+    let items = [...state.get_offer_items]                                          //. Get product list    
 
     for (let p in items) {                                                          //. Every time a product is added rearrange row numbers
       items[p].row = parseInt(p) + 1 
     }
 
     let tax_rate = 0;
-    if(state.invoiced) ((addOrderEntryProductTaxRateEditRef.current.value).replace("%", "") / 100)
-    let amount_sum = ((parseFloat(addOrderEntryProductAmountEditRef.current.value)) * (parseFloat(addOrderEntryProductPriceEditRef.current.value)));
+    if(state.invoiced) ((addOfferEntryProductTaxRateEditRef.current.value).replace("%", "") / 100)
+    let amount_sum = ((parseFloat(addOfferEntryProductAmountEditRef.current.value)) * (parseFloat(addOfferEntryProductPriceEditRef.current.value)));
     let tax_sum = (parseFloat(amount_sum) * parseFloat(tax_rate));
     let total = parseFloat(amount_sum + tax_sum).toFixed(2)
 
     let new_product = {                                                             //. Create new product
       row: (items.length + 1),                                                      //. Row number one more than list length
       stock_id: state.chosen_stock.details.id,
-      unit: addOrderEntryProductUnitEditRef.current.value,                          //. Birim
-      amount: parseFloat(addOrderEntryProductAmountEditRef.current.value),          //. Miktar
-      price: parseFloat(addOrderEntryProductPriceEditRef.current.value),            //. Birim Fiyat
+      unit: addOfferEntryProductUnitEditRef.current.value,                          //. Birim
+      amount: parseFloat(addOfferEntryProductAmountEditRef.current.value),          //. Miktar
+      price: parseFloat(addOfferEntryProductPriceEditRef.current.value),            //. Birim Fiyat
       tax_rate: parseFloat(tax_rate),                                               //. Kdv Oranı
-      description: addOrderEntryProductDescriptionEditRef.current.value,            //. Açıklama
+      description: addOfferEntryProductDescriptionEditRef.current.value,            //. Açıklama
     }
 
     items.push(new_product);                                                        //. Rearrange new product list
 
     dispatch({
-      type: 'GET_ORDER_ITEMS',
+      type: 'GET_OFFER_ITEMS',
       value: items,
     })
 
-    hideAddEntryOrderProductModal();
+    hideAddEntryOfferProductModal();
   }
 
-  const clearAddOrderEntryProduct = () => {
+  const clearAddOfferEntryProduct = () => {
 
     dispatch({
       type: 'CHOSEN_STOCK',
@@ -376,13 +380,13 @@ const Provider = ({children}) => {
       type: 'CHOSEN_STOCK_UNITS',
       value: []
     })
-    addOrdersEntryProductSearchInputRef.current.value = ""
+    addOffersEntryProductSearchInputRef.current.value = ""
 
-    addOrderEntryProductUnitEditRef.current.value = "default"
-    addOrderEntryProductAmountEditRef.current.value = ""
-    addOrderEntryProductPriceEditRef.current.value = ""
-    addOrderEntryProductTaxRateEditRef.current.value = "%0"
-    addOrderEntryProductDescriptionEditRef.current.value = ""
+    addOfferEntryProductUnitEditRef.current.value = "default"
+    addOfferEntryProductAmountEditRef.current.value = ""
+    addOfferEntryProductPriceEditRef.current.value = ""
+    addOfferEntryProductTaxRateEditRef.current.value = "%0"
+    addOfferEntryProductDescriptionEditRef.current.value = ""
   }
 
   const invoicedCheck = (value) => {
@@ -392,7 +396,7 @@ const Provider = ({children}) => {
         value: false
       })
 
-      let items = [...state.get_order_items]
+      let items = [...state.get_offer_items]
       if (items.length > 0) {
     
         entryProductTaxRateEditRef.current.value = "%0";
@@ -406,7 +410,7 @@ const Provider = ({children}) => {
         }
   
         dispatch({
-          type: "GET_ORDER_ITEMS",
+          type: "GET_OFFER_ITEMS",
           value: items
         })
 
@@ -423,9 +427,9 @@ const Provider = ({children}) => {
   const totalFee = () => {
     let total_fee = 0;
 
-    if (state.get_order_items.length > 0) {
+    if (state.get_offer_items.length > 0) {
 
-      for (let o of state.get_order_items) {
+      for (let o of state.get_offer_items) {
         total_fee = total_fee + (o.amount * o.price) * (1 + o.tax_rate)
       }
 
@@ -437,7 +441,7 @@ const Provider = ({children}) => {
   //- Stocks Autocomplete
   const toggleFilteredStockTable = (e) => {
 
-    if(e.target.id !== 'add_entry_order_product_button' && e.target.id !== 'add_entry_order_product_input' && e.target.id !== 'add_entry_order_product_button_icon') {
+    if(e.target.id !== 'add_entry_offer_product_button' && e.target.id !== 'add_entry_offer_product_input' && e.target.id !== 'add_entry_offer_product_button_icon') {
       dispatch({
         type: 'TOGGLE_FILTERED_STOCK_TABLE',
         value: false
@@ -470,10 +474,7 @@ const Provider = ({children}) => {
           (source.details.name).toLocaleUpperCase('TR').includes(searchWord) ||
           (source.details.material).toLocaleUpperCase('TR').includes(searchWord) ||
           (source.details.product_group).toLocaleUpperCase('TR').includes(searchWord);
-      } 
-      // else {
-      //   condition = source.id.toLocaleUpperCase('TR').includes(searchWord);
-      // }
+      }
 
       return condition;
     });
@@ -498,7 +499,7 @@ const Provider = ({children}) => {
       value: false
     })
 
-    addOrdersEntryProductSearchInputRef.current.value = st.details.id + " - " + st.details.name
+    addOffersEntryProductSearchInputRef.current.value = st.details.id + " - " + st.details.name
 
     printStockDetails(st);
   }
@@ -518,6 +519,37 @@ const Provider = ({children}) => {
     }
   }
 
+  //- Table Search Funcs
+  const filterOffers = async (event) => {
+    const searchWord = event.target.value.toLocaleUpperCase('TR');
+
+    const newFilter = state.all_offers.filter((source) => {
+      var condition = false;
+
+      if (source.details.current_id !== null) {
+        for (let c of state.all_currents) {
+          if (c.details.name.toString().toLocaleUpperCase('TR').includes(searchWord)) {
+            if (source.details.current_id === c.id) {
+              condition = true
+            }
+          }
+        }
+      }
+      else {
+        if (source.details.unregistered_current.name.toString().toLocaleUpperCase('TR').includes(searchWord)) {
+          condition = true
+        }
+      }
+
+      return condition;
+    });
+    
+    dispatch({
+      type: 'FILTERED_OFFERS',
+      value: newFilter
+    })
+  }
+
   //- Modal Funcs
   const showModal = (id, type) => {
     const options = {
@@ -535,26 +567,26 @@ const Provider = ({children}) => {
     return modal;
   }
 
-  const showAddEntryOrderProductModal = () => {
-    let add_entry_order_product_modal = showModal("addOrderEntryProductModal", "ADD_ENTRY_ORDER_PRODUCT_MODAL");
-    add_entry_order_product_modal.show();
+  const showAddEntryOfferProductModal = () => {
+    let add_entry_offer_product_modal = showModal("addOfferEntryProductModal", "ADD_ENTRY_OFFER_PRODUCT_MODAL");
+    add_entry_offer_product_modal.show();
   }
 
-  const hideGetOrderDetailsModal = () => {
-    state.get_order_modal.hide();
+  const hideGetOfferDetailsModal = () => {
+    state.get_offer_modal.hide();
 
     dispatch({
-      type: 'GET_ORDER_ITEMS',
+      type: 'GET_OFFER_ITEMS',
       value: []
     })
 
     dispatch({
-      type: 'GET_ORDER_DETAILS',
+      type: 'GET_OFFER_DETAILS',
       value: {}
     })
 
     dispatch({
-      type: 'GET_ORDER_MODAL',
+      type: 'GET_OFFER_MODAL',
       value: {}
     })
   }
@@ -573,43 +605,19 @@ const Provider = ({children}) => {
     })
   }
 
-  const hideAddEntryOrderProductModal = () => {
-    state.add_entry_order_product_modal.hide();
-    clearAddOrderEntryProduct();
+  const hideAddEntryOfferProductModal = () => {
+    state.add_entry_offer_product_modal.hide();
+    clearAddOfferEntryProduct();
   }
-
-  //- Table Search Funcs
-  const filterOrders = async (event) => {
-    const searchWord = event.target.value.toLocaleUpperCase('TR');
-
-    const newFilter = state.all_orders.filter((source) => {
-      var condition = false;
-
-      for (let c of state.all_currents) {
-        if (c.details.name.toString().toLocaleUpperCase('TR').includes(searchWord)) {
-          if (source.details.current_id === c.id) {
-            condition = true
-          }
-        }
-      }
-
-      return condition;
-    });
-    
-    dispatch({
-      type: 'FILTERED_ORDERS',
-      value: newFilter
-    })
-  }
-
-  const orders_entry = {
+  
+  const offers_entry = {
 
     //- Refs
-    ordersEntryCurrentNameEditRef,
-    ordersEntryOrderSourceEditRef,
-    ordersEntryInvoicedEditRef,
-    ordersEntryDateEditRef,
-    ordersEntryDeliveryDateEditRef,
+    offersEntryCurrentNameEditRef,
+    offersEntryOfferSourceEditRef,
+    offersEntryInvoicedEditRef,
+    offersEntryDateEditRef,
+    offersEntryDeliveryDateEditRef,
 
     entryProductNameEditRef,
     entryProductUnitEditRef,
@@ -618,13 +626,13 @@ const Provider = ({children}) => {
     entryProductTaxRateEditRef,
     entryProductDescriptionEditRef,
 
-    addOrderEntryProductUnitEditRef,
-    addOrderEntryProductAmountEditRef,
-    addOrderEntryProductPriceEditRef,
-    addOrderEntryProductTaxRateEditRef,
-    addOrderEntryProductDescriptionEditRef,
+    addOfferEntryProductUnitEditRef,
+    addOfferEntryProductAmountEditRef,
+    addOfferEntryProductPriceEditRef,
+    addOfferEntryProductTaxRateEditRef,
+    addOfferEntryProductDescriptionEditRef,
 
-    addOrdersEntryProductSearchInputRef,
+    addOffersEntryProductSearchInputRef,
 
     componentRef,
 
@@ -633,35 +641,36 @@ const Provider = ({children}) => {
     dispatch,
 
     //- Functions
-    addOrderEntryProduct,
+    addOfferEntryProduct,
     chooseFilteredStock,
     editEntryProduct,
-    editOrdersEntry,
+    editOffersEntry,
     filterStocks,
-    filterOrders,
-    getOrderDetails,
+    filterOffers,
+    getOfferDetails,
     getProductDetails,
-    hideAddEntryOrderProductModal,
+    hideAddEntryOfferProductModal,
     hideEntryProductDetailsModal,
-    hideGetOrderDetailsModal,
+    hideGetOfferDetailsModal,
     invoicedCheck,
     printPDF,
-    removeOrder,
+    removeOffer,
     removeProduct,
-    showAddEntryOrderProductModal,
+    showAddEntryOfferProductModal,
     showCurrents,
     showStocks,
-    showOrders,
+    showOffers,
     toggleFilteredStockTable,
     totalFee,
+
   }
   
   return (
-    <OrdersEntryContext.Provider value={orders_entry}>
+    <OffersEntryContext.Provider value={offers_entry} >
       {children}
-    </OrdersEntryContext.Provider>
+    </OffersEntryContext.Provider>
   )
 }
 
-export const useOrdersEntry = () => useContext(OrdersEntryContext)
-export default Provider
+export const useOffersEntry = () => useContext(OffersEntryContext)
+export default Provider;
