@@ -5,7 +5,7 @@ import CurrencyFormat from '../../libraries/tools/CurrencyFormat';
 import Tooltip from '../items/Tooltip';
 
 export default function OffersEntryTable() {
-  const { table_columns, filtered_offers, all_currents, getOfferDetails, removeOffer, printPDF } = useOffersEntry();
+  const { table_columns, filtered_offers, all_currents, getOfferDetails, removeOffer, printPDF, createOrderFromOffer } = useOffersEntry();
   const { funcLoad } = useMain();
   
   return (
@@ -100,6 +100,10 @@ export default function OffersEntryTable() {
                       <li onClick={() => funcLoad(printPDF, p)} className="text-not_tahsil_dark transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
                         <i className="fa-solid fa-envelope mr-2 w-4 text-center"></i>Mail Gönder
                       </li>
+                      <li onClick={() => funcLoad(createOrderFromOffer, p.details.id)} className="text-violet-500 transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer">
+                        <i className="fa-solid fa-bag-shopping mr-2 w-4 text-center"></i>Sipariş Oluştur
+                      </li>
+                      <hr />
                       <li onClick={() => funcLoad(getOfferDetails, p.details.id)} className="text-queen_blue transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer">
                         <i className="fa-solid fa-pen-to-square mr-2 w-4 text-center"></i>Teklifi Düzenle
                       </li>

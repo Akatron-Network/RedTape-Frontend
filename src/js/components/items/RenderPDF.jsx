@@ -27,7 +27,7 @@ export default function RenderPDF(props) {
               <span className="truncate text-sm items-center font-medium text-esprint_gray px-1 py-[6px]"><span className='font-bold text-esprint_red'>Müşteri İsim-Soyisim:</span>&nbsp;{props.data.head_info.current_name}</span>
             </div>
             <div className='w-fit text-right truncate'>
-              <span className="min-w-[120px] truncate text-sm items-center font-medium text-esprint_gray px-1 py-[6px]"><span className='font-bold text-esprint_red'>Sipariş Tarihi:</span>&nbsp;{props.data.head_info.date}</span>
+              <span className="min-w-[120px] truncate text-sm items-center font-medium text-esprint_gray px-1 py-[6px]"><span className='font-bold text-esprint_red'>{props.code}Tarihi:</span>&nbsp;{props.data.head_info.date}</span>
             </div>
           </div>
           <div className='flex flex-row justify-between'>
@@ -130,7 +130,7 @@ export default function RenderPDF(props) {
               <img className='w-[35%]' src={logo} alt="" />
               <div className='flex w-[65%] justify-center'>
                 <h1 className='h-fit text-3xl text-esprint_gray'>{props.title}</h1>
-                <h1 className='h-fit text-sm text-esprint_gray absolute right-1 bottom-0 font-bold'><span className='text-esprint_red font-bold'>{props.code}:</span>&nbsp;{props.data.head_info.id}</h1>
+                <h1 className='h-fit text-sm text-esprint_gray absolute right-1 bottom-0 font-bold'><span className='text-esprint_red font-bold'>{props.code}Kodu:</span>&nbsp;{props.data.head_info.id}</h1>
               </div>
             </div>
             <div className='h-[445px] overflow-hidden'>
@@ -145,7 +145,7 @@ export default function RenderPDF(props) {
               <img className='w-[35%]' src={logo} alt="" />
               <div className='flex w-[65%] justify-center'>
                 <h1 className='h-fit text-3xl text-esprint_gray'>{props.title}</h1>
-                <h1 className='h-fit text-sm text-esprint_gray absolute right-1 bottom-0 font-bold'><span className='text-esprint_red font-bold'>{props.code}:</span>&nbsp;{props.data.head_info.id}</h1>
+                <h1 className='h-fit text-sm text-esprint_gray absolute right-1 bottom-0 font-bold'><span className='text-esprint_red font-bold'>{props.code}Kodu:</span>&nbsp;{props.data.head_info.id}</h1>
               </div>
             </div>
             <div className='h-[445px] overflow-hidden'>
@@ -161,7 +161,7 @@ export default function RenderPDF(props) {
             <img className='w-[35%]' src={logo} alt="" />
             <div className='flex w-[65%] justify-center'>
               <h1 className='h-fit text-3xl text-esprint_gray'>{props.title}</h1>
-              <h1 className='h-fit text-sm text-esprint_gray absolute right-1 bottom-0 font-bold'><span className='text-esprint_red font-bold'>{props.code}:</span>&nbsp;{props.data.head_info.id}</h1>
+              <h1 className='h-fit text-sm text-esprint_gray absolute right-1 bottom-0 font-bold'><span className='text-esprint_red font-bold'>{props.code}Kodu:</span>&nbsp;{props.data.head_info.id}</h1>
             </div>
           </div>
           <div className='h-[445px] overflow-hidden'>

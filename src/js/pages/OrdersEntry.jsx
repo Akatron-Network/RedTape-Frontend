@@ -61,7 +61,7 @@ export default function OrdersEntry() {
       <AddOrderEntryProductModal />
       
       <div className='hidden'>
-        <RenderPDF reference={orders_entry_data.componentRef} data={orders_entry_data.print_pdf_rows} stocks={orders_entry_data.all_stocks} evenOdd={"even"} title={"SİPARİŞ FORMU"} code={"Sipariş Kodu"} />
+        <RenderPDF reference={orders_entry_data.componentRef} data={orders_entry_data.print_pdf_rows} stocks={orders_entry_data.all_stocks} evenOdd={"even"} title={"SİPARİŞ FORMU"} code={"Sipariş "} />
       </div>
     </>
   )

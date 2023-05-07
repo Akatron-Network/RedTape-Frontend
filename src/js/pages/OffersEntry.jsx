@@ -61,7 +61,7 @@ export default function OffersEntry() {
       <AddOfferEntryProductModal />
       
       <div className='hidden'>
-        <RenderPDF reference={offers_entry_data.componentRef} data={offers_entry_data.print_pdf_rows} stocks={offers_entry_data.all_stocks} evenOdd={"odd"} title={"TEKLİF FORMU"} code={"Teklif Kodu"} />
+        <RenderPDF reference={offers_entry_data.componentRef} data={offers_entry_data.print_pdf_rows} stocks={offers_entry_data.all_stocks} evenOdd={"odd"} title={"TEKLİF FORMU"} code={"Teklif "} />
       </div>
     </>
   )

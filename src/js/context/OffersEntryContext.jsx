@@ -438,6 +438,16 @@ const Provider = ({ children }) => {
     return CurrencyFormat(total_fee);
   }
 
+  //- Create Order from Offer
+  const createOrderFromOffer = (id) => {
+    let dt = [];
+
+    for (let o of state.all_offers) {
+      if (o.id === id) dt = o
+    }
+    console.log(dt);
+  }
+
   //- Stocks Autocomplete
   const toggleFilteredStockTable = (e) => {
 
@@ -643,6 +653,7 @@ const Provider = ({ children }) => {
     //- Functions
     addOfferEntryProduct,
     chooseFilteredStock,
+    createOrderFromOffer,
     editEntryProduct,
     editOffersEntry,
     filterStocks,

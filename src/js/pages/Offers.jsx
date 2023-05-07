@@ -180,7 +180,7 @@ export default function Offers() {
         <PrintOffersPDFModal />  
 
         <div className='hidden'>
-          <RenderPDF reference={offers_data.componentRef} data={offers_data.print_pdf_rows} evenOdd={"odd"} title={"TEKLİF FORMU"} code={"Teklif Kodu"} />
+          <RenderPDF reference={offers_data.componentRef} data={offers_data.print_pdf_rows} evenOdd={"odd"} title={"TEKLİF FORMU"} code={"Teklif "} />
         </div>
          
       </div>
