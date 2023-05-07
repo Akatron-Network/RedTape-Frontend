@@ -10,7 +10,7 @@ export default function OffersEntryTable() {
   
   return (
     
-    <div className="shadow-table overflow-auto max-h-[730px] rounded-md border border-alica_blue">
+    <div className={filtered_offers.length !== 0 ? "shadow-table overflow-auto max-h-[730px] min-h-[416.38px] rounded-md bg-ghost_white border border-alica_blue relative" : "shadow-table overflow-auto max-h-[730px] min-h-[416.38px] rounded-md border border-alica_blue relative"}>
       <table className="w-full text-sm text-left text-pine_tree">
 
         <thead>
@@ -49,6 +49,14 @@ export default function OffersEntryTable() {
             let state_cls = "py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold"
             if (p.details.current_id !== null) { cur_id = p.details.current_id; state_cls = "py-[0.20rem] px-2 text-prussian_blue text-[13px]" }
 
+
+            let queue = false;
+            let ln = filtered_offers.length;
+
+            if(ln > 5) {
+              if (i === ln - 1 || i === ln - 2 || i === ln - 3 || i === ln - 4) queue = true
+            }
+
             if (i%2 === 0) { var row_cls = "bg-white border-b h-9 border-alica_blue hover:bg-steel_blue_light transition duration-300" }
             else { var row_cls = "bg-alica_blue_light border-b h-9 border-alica_blue hover:bg-steel_blue_light transition duration-300" }
             
@@ -79,6 +87,29 @@ export default function OffersEntryTable() {
                   {CurrencyFormat(p.details.total_fee)} <i className="fa-solid fa-turkish-lira-sign"></i>
                 </td>
                 <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
+                  <div className="dropdown relative inline-block">
+                    <button type='button' onClick={() => {}} className='save-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-bars"></i></button>
+                    <ul className={!queue ? "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-[15px] -mt-[15px] w-max text-left bg-white rounded" : "dropdown-menu duration-500 shadow-table absolute hidden text-oxford_blue z-[2] right-3 -mt-[211px] w-max text-left bg-white rounded"}>
+                      
+                      <li onClick={() => funcLoad(printPDF, p)} className="text-blues transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
+                        <i className="fa-solid fa-print mr-2 w-4 text-center"></i>Yazdır
+                      </li>
+                      <li onClick={() => funcLoad(printPDF, p)} className="text-sea_green transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
+                        <i className="fa-solid fa-comment-sms mr-2 w-4 text-center"></i>SMS Gönder
+                      </li>
+                      <li onClick={() => funcLoad(printPDF, p)} className="text-not_tahsil_dark transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
+                        <i className="fa-solid fa-envelope mr-2 w-4 text-center"></i>Mail Gönder
+                      </li>
+                      <li onClick={() => funcLoad(getOfferDetails, p.details.id)} className="text-queen_blue transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer">
+                        <i className="fa-solid fa-pen-to-square mr-2 w-4 text-center"></i>Teklifi Düzenle
+                      </li>
+                      <li onClick={() => funcLoad(removeOffer, p.details.id)} className=" text-eggplant transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer">
+                        <i className="fa-solid fa-xmark mr-2 w-4 text-center"></i>Teklifi Sill
+                      </li>
+                    </ul>
+                  </div>
+                </td>
+                {/* <td className="py-[0.20rem] px-1 text-prussian_blue text-right">
                   <Tooltip message={"Yazdır"}>
                     <button type='button' onClick={() => funcLoad(printPDF, p)} className='ml-1 render-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-print"></i></button>
                   </Tooltip>
@@ -88,13 +119,13 @@ export default function OffersEntryTable() {
                   <Tooltip message={"Siparişi Sil"}>
                     <button type='button' onClick={() => funcLoad(removeOffer, p.details.id)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-xmark"></i></button>
                   </Tooltip>
-                </td>
+                </td> */}
               </tr>
             )
           })}
         </tbody>
       </table>
-      <nav className="flex justify-between items-center py-2 px-3 bg-indigo_dye h-10 bottom-[-1px] sticky" aria-label="Table navigation">
+      <nav className={filtered_offers.length > 8 || filtered_offers.length === 0 ? "flex justify-between items-center py-2 px-3 z-[1] bg-indigo_dye h-10 bottom-[0] sticky" : "flex justify-between items-center py-2 px-3 z-[1] bg-indigo_dye h-10 bottom-[0] absolute w-full"} aria-label="Table navigation">
         <span className="text-sm font-normal text-steel_blue">Toplamda <span className="font-normal text-alica_blue_middle">{filtered_offers.length}</span> kayıt bulunmaktadır.</span>
       </nav>
     </div>

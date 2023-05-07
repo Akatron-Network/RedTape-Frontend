@@ -152,7 +152,7 @@ export default function Orders() {
         <PrintPDFModal />  
 
         <div className='hidden'>
-          <RenderPDF reference={orders_data.componentRef} data={orders_data.print_pdf_rows} evenOdd={"even"} />
+          <RenderPDF reference={orders_data.componentRef} data={orders_data.print_pdf_rows} evenOdd={"even"} title={"SİPARİŞ FORMU"} code={"Sipariş Kodu"} />
         </div>
       </div>
     </>
