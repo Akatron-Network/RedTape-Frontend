@@ -38,11 +38,12 @@ module.exports = {
         not_tahsil_light: "#E79468",
         not_tahsil_dark: "#E37B43",
         
-
         modal_bg: "#0000006E",
+        html_bg: "#F0F2F1",
         dark_modal_bg: "#000000BF",
         esprint_red: "#AC0B03",
         esprint_gray: "#1A1A18",
+
 
         //, fogra_dark: "#0A131F",
         //, fogra: "#0E1B2B",

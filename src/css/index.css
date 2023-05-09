@@ -6,7 +6,7 @@
   html {
     /* font-family: 'Cabin', sans-serif; */
     @apply
-      bg-ghost_white/* bg-ghost_white */
+      bg-html_bg/* bg-ghost_white */
       font-roboto
   }
 
@@ -37,6 +37,7 @@
   .sidebar-elm-text {
     @apply
       ml-2
+      truncate
   }
 
   .save-btn {

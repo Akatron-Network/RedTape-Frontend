@@ -15,7 +15,7 @@ export default function AssignedTasksTable() {
           <tr>
             {assigned_tasks_table_columns.map((c, i) => {
               let cls = "p-2 h-10 font-normal text-xs sticky top-0 text-ghost_white bg-indigo_dye z-[1]"
-              if(c === "SİPARİŞ DURUMU") cls= "p-2 h-10 font-normal text-xs text-center sticky top-0 text-ghost_white bg-indigo_dye z-[1]"
+              if(c === "SİPARİŞ DURUMU") cls= "p-2 h-10 font-normal min-w-[102px] text-xs text-center sticky top-0 text-ghost_white bg-indigo_dye z-[1]"
               if(c === "TAHSİLAT DURUMU") cls= "p-2 h-10 font-normal text-xs text-right sticky top-0 text-ghost_white bg-indigo_dye z-[1]"
               if(c === "TOPLAM TUTAR") cls= "p-2 pr-5 h-10 font-normal text-xs text-right sticky top-0 text-ghost_white bg-indigo_dye z-[1]"
               if(c === "TOPLAM TUTAR" && !admin_check.admin)  cls= "p-2 pr-5 h-10 font-normal text-xs text-right sticky top-0 text-ghost_white bg-indigo_dye z-[1] hidden"
@@ -72,7 +72,7 @@ export default function AssignedTasksTable() {
             // else if (p.details.state === "Tamamlandı") row_cls = "bg-green-400 border-b h-9 border-alica_blue hover:bg-green-500 transition duration-300"
             // else if (p.details.state === "Gecikti") row_cls = "bg-gray-400 border-b h-9 border-alica_blue hover:bg-gray-500 transition duration-300"
             
-            let state_cls = "px-4 py-1 rounded-md text-fogra w-[90%] shadow-md text-center border border-alica_blue_light";
+            let state_cls = "px-4 py-1 rounded-md text-fogra w-[90%] shadow-md text-center border border-alica_blue_light m-auto";
             if (p.details.state === "İptal Edildi") state_cls += " bg-eggplant_light"
             else if (p.details.state === "Tamamlandı") state_cls += " bg-sea_green_light"
             else if (p.details.state === "Gecikti") state_cls += " bg-gray-400"
@@ -103,7 +103,7 @@ export default function AssignedTasksTable() {
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px]">
                   {responsible_username}
                 </td>
-                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold flex justify-center items-center h-[inherit]">
+                <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] font-bold justify-center items-center">
                   <div className={state_cls}>
                     {p.details.state}
                   </div>
