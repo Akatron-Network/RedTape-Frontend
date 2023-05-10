@@ -7,7 +7,7 @@
     /* font-family: 'Cabin', sans-serif; */
     @apply
       bg-html_bg/* bg-ghost_white */
-      font-roboto
+      font-rubik
   }
 
   aside li {

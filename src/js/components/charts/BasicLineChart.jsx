@@ -49,12 +49,11 @@ export default class BasicLineChart extends Component {
   }
 
   render() {
-
     var state = {
           
       series: [{
           name: "Ciro",
-          data: Object.values(this.context.dashboard_charts_info.line)
+          data: this.context.dashboard_charts_info.line,  //Object.values(this.context.dashboard_charts_info.line)
       }],
       options: {
         chart: {
@@ -65,7 +64,7 @@ export default class BasicLineChart extends Component {
           },
           locales: [tr],
           defaultLocale: 'tr',
-          fontFamily: 'Roboto Slab, serif',
+          fontFamily: 'Rubik, sans-serif',
           toolbar:{
             tools: {
               download: true,
@@ -112,7 +111,7 @@ export default class BasicLineChart extends Component {
           },
         },
         xaxis: {
-          categories: Object.keys(this.context.dashboard_charts_info.line),
+          type: 'datetime',
           labels: {
             show: true,
             rotate: -45,

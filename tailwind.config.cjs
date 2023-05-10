@@ -79,7 +79,8 @@ module.exports = {
       fontFamily: {
         'raleway': ['Raleway' , 'cursive'],
         'righteous': ['Righteous' , 'cursive'],
-        'roboto': ['Roboto Slab' , 'serif']
+        'roboto': ['Roboto Slab' , 'serif'],
+        'rubik': ['Rubik', 'sans-serif']
       },
 
       boxShadow: {

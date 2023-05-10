@@ -15,8 +15,9 @@ export default function Navbar() {
     <header className="bg-oxford_blue shadow-navbar w-full z-50 fixed">
       <div className="container mx-[3px] flex flex-wrap p-2 px-[11px] flex-row items-center">
         <Link to={"/dashboard"} className="flex title-font font-medium items-center mb-0">
-          <img className='h-7' src="/src/img/red-tape-logo.png" alt="Verna Logo" />
-          <span className="mx-3 text-xl text-steel_blue font-roboto">VERNA</span>
+          <img className='h-9 contrast-50' src="/src/img/verna logo-01.png" alt="Verna Logo" />
+          <img className='h-6 w-16 contrast-50 ml-2' src="/src/img/verna logo-02.png" alt="Verna Logo" />
+          {/* <span className="mx-3 text-xl text-steel_blue font-roboto">VERNA</span> */}
         </Link>
 
         <div className="h-7 border-r border-indigo_dye pr-[3px] pl-8 mr-2 ml-4" >

@@ -8,6 +8,14 @@ export default function OffersTable() {
   const {table_columns, product_list, removeProduct, getProductDetails, table_total} = useOffers();
   const { funcLoad } = useMain();
   
+  //. For Tax-Sum and Sub-Sum
+  var nav_tax_sum = 0;
+  var nav_sum = 0;
+  for (let i of product_list) {
+    nav_tax_sum = nav_tax_sum + ((i.amount * i.price) * i.tax_rate)
+    nav_sum = nav_sum + (i.amount * i.price)
+  }
+
   return (
     
     <div className="overflow-auto max-h-[639px] shadow-table rounded-md border border-alica_blue">
@@ -68,7 +76,7 @@ export default function OffersTable() {
                   %{(p.tax_rate) * 100}
                 </td>
                 <td className="py-[0.20rem] px-2 text-prussian_blue text-[13px] text-right">
-                  {p.tax_sum === 0 ? "-" :  <>{CurrencyFormat(p.tax_sum)} <i className="fa-solid fa-turkish-lira-sign"></i></>}
+                  {p.tax_sum === 0 ? "0,00" : CurrencyFormat(p.tax_sum)} <i className="fa-solid fa-turkish-lira-sign"></i>
                 </td>
                 <td className="py-[0.20rem] pl-2 pr-5 text-prussian_blue text-[13px] text-right font-bold">
                   {CurrencyFormat(p.total)} <i className="fa-solid fa-turkish-lira-sign"></i>
@@ -89,10 +97,15 @@ export default function OffersTable() {
           })}
 
         </tbody>
-      </table>
-      <nav className="flex justify-between items-center py-2 px-3 bg-indigo_dye h-10 sticky bottom-0" aria-label="Table navigation">
+      </table>    
+      <nav className="flex justify-between items-center py-2 px-3 bg-indigo_dye h-fit sticky bottom-0" aria-label="Table navigation">
         <span className="text-sm font-normal text-steel_blue">Toplamda <span className="font-normal text-alica_blue_middle">{product_list.length}</span> kayıt bulunmaktadır.</span>
-        <span className="text-sm font-normal text-steel_blue">Toplam tutar <span className="font-normal text-alica_blue_middle">{table_total === 0 ? "0" : CurrencyFormat(table_total)}</span> <i className="fa-solid fa-turkish-lira-sign"></i></span>
+        <div className="flex flex-col text-right">
+          <span className="text-sm font-normal text-steel_blue">Ara Toplam <span className="font-normal tracking-wide text-alica_blue_middle">{nav_sum === 0 ? "0,00" : CurrencyFormat(nav_sum)}</span> <i className="fa-solid fa-turkish-lira-sign"></i></span>
+          <span className="text-sm font-normal text-steel_blue">KDV Tutar <span className="font-normal tracking-wide text-alica_blue_middle">{nav_tax_sum === 0 ? "0,00" : CurrencyFormat(nav_tax_sum)}</span> <i className="fa-solid fa-turkish-lira-sign"></i></span>
+          <hr className='border-mn_blue my-[2px]'/>
+          <span className="text-sm font-bold text-steel_blue">Toplam Tutar <span className="font-bold tracking-wide text-alica_blue_middle">{table_total === 0 ? "0,00" : CurrencyFormat(table_total)}</span> <i className="fa-solid fa-turkish-lira-sign"></i></span>
+        </div>
       </nav>
     </div>
   )

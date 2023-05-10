@@ -94,9 +94,6 @@ export default function OffersEntryTable() {
                       <li onClick={() => funcLoad(printPDF, p)} className="text-blues transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
                         <i className="fa-solid fa-print mr-2 w-4 text-center"></i>Yazdır
                       </li>
-                      <li onClick={() => funcLoad(printPDF, p)} className="text-sea_green transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
-                        <i className="fa-solid fa-comment-sms mr-2 w-4 text-center"></i>SMS Gönder
-                      </li>
                       <li onClick={() => funcLoad(printPDF, p)} className="text-not_tahsil_dark transition duration-200 hover:bg-alica_blue_light py-1 px-3 block truncate border-b-0 cursor-pointer rounded-t">
                         <i className="fa-solid fa-envelope mr-2 w-4 text-center"></i>Mail Gönder
                       </li>

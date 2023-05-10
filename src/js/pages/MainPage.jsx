@@ -15,7 +15,7 @@ export default function MainPage() {
       <LoadingModal />
       <ErrorModal />
 
-      <div id='outlet' className='pt-16 pb-4 px-6'> {/* ml-245px*/}
+      <div id='outlet' className='pt-[72px] pb-4 px-6'> {/* ml-245px*/}
         <Outlet />
       </div>
 

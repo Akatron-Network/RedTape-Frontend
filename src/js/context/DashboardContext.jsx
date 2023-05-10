@@ -8,7 +8,7 @@ const Provider = ({ children }) => {
   const [state, dispatch] = useReducer(dashboardReducer, {
     dashboard_cards_info: {},
     dashboard_charts_info: {
-      line: {},
+      line: [],
       table: {},
     },
   });
@@ -35,32 +35,50 @@ const Provider = ({ children }) => {
 
   const getMonthlySales = (dt) => {
     let sales = dt.details.sales_data_month
-    let time = {}
+    let time = []
 
     for (let s of sales) {
 
-      let m = parseInt(s.month)
+      // let m = parseInt(s.month)
+      // let y = s.year
+      // let t = m + " " + y
+
+      // if (m === 1) t = "Ocak " + y
+      // if (m === 2) t = "Şubat " + y
+      // if (m === 3) t = "Mart " + y
+      // if (m === 4) t = "Nisan " + y
+      // if (m === 5) t = "Mayıs " + y
+      // if (m === 6) t = "Haziran " + y
+      // if (m === 7) t = "Temmuz " + y
+      // if (m === 8) t = "Ağustos " + y
+      // if (m === 9) t = "Eylül " + y
+      // if (m === 10) t = "Ekim " + y
+      // if (m === 11) t = "Kasım " + y
+      // if (m === 12) t = "Aralık " + y
+
+      // if (time[t] === undefined) time[t] = 0;
+      // time[t] = Number((time[t] + s.balance).toFixed(2));
+
       let y = s.year
-      let t = m + " " + y
+      let m = s.month
+      let d = s.day
 
-      if (m === 1) t = "Ocak " + y
-      if (m === 2) t = "Şubat " + y
-      if (m === 3) t = "Mart " + y
-      if (m === 4) t = "Nisan " + y
-      if (m === 5) t = "Mayıs " + y
-      if (m === 6) t = "Haziran " + y
-      if (m === 7) t = "Temmuz " + y
-      if (m === 8) t = "Ağustos " + y
-      if (m === 9) t = "Eylül " + y
-      if (m === 10) t = "Ekim " + y
-      if (m === 11) t = "Kasım " + y
-      if (m === 12) t = "Aralık " + y
+      if (d < 10) {
+        d = "0" + d
+      }
 
-      if (time[t] === undefined) time[t] = 0;
-      time[t] = Number((time[t] + s.balance).toFixed(2));
+      if (m < 10) {
+        m = "0" + m
+      }
+
+      let t = y + "-" + m + "-" + d
+      let date = new Date(t)
+      time.push([date.getTime(), Number((s.sum).toFixed(2))])
     }
     
-    return time;
+    let timeBoard = time.sort((a, b) => a[0] - b[0])
+    
+    return timeBoard;
   }
 
   const resizeCheck = () => {

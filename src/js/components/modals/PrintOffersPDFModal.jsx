@@ -19,14 +19,12 @@ export default function PrintOffersPDFModal() {
               
               <p className='w-full text-center'>Teklif oluşturma başarıyla tamamlandı!</p>
 
-              <button onClick={handlePrint} className='save-btn text-base flex items-center p-2 px-3 relative left-1/2 -translate-x-1/2'>
-                <i className="fa-solid fa-print text-lg mr-2"></i>Yazdır
-              </button>
 
               <div className='flex flex-row justify-center gap-2'>
-                <button onClick={handlePrint} className='render-btn text-base flex items-center p-2 px-3'>
-                  <i className="fa-solid fa-comment-sms text-lg mr-2"></i>SMS Gönder
+                <button onClick={handlePrint} className='save-btn text-base flex items-center p-2 px-3'>
+                  <i className="fa-solid fa-print text-lg mr-2"></i>Yazdır
                 </button>
+
                 <button onClick={handlePrint} className='clear-btn text-base flex items-center p-2 px-3'>
                   <i className="fa-solid fa-envelope text-lg mr-2"></i>Mail Gönder
                 </button>
