@@ -17,7 +17,7 @@ export default function ShowOffersTable() {
   return (
     
     <div className="overflow-auto max-h-[639px] shadow-table rounded-md border border-alica_blue">
-      <table className="w-full text-sm text-left text-pine_tree">
+      <table className="w-full text-sm text-left">
 
         <thead>
           <tr>
