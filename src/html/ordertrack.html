@@ -104,6 +104,10 @@
       border-radius: 8px;
       box-shadow: 1px 1px 10px -2px rgb(150,150,150,1)
     }
+    
+    table {
+      box-shadow: 1px 1px 10px -2px rgb(150,150,150,1);
+    }
 
     table thead tr th {
       padding: 8px !important;
@@ -112,6 +116,7 @@
       color: var(--ghost_white);
       background-color: var(--indigo_dye) !important;
       font-weight: 400;
+      border: 0
     }
 
     table th:first-child{
@@ -211,20 +216,19 @@
 
     <div class="border p-3 mt-3 cards">
       <h3 class="text-center mb-3">Ürünler</h3>
-      <div style="border-radius: 6px;">
-        <table class="table table-hover m-0" style="font-size: 14px; width: 100%; text-align: left;">
-          <thead style="background-color: var(--alica_blue_middle);">
-            <tr>
-              <th>#</th>
-              <th>ÜRÜN</th>
-              <th>AÇIKLAMA</th>
-              <th class="text-end">MİKTAR</th>
-              <th>BİRİM</th>
-            </tr>
-          </thead>
-          <tbody id="order-items"></tbody>
-        </table>
-      </div>
+      <table class="table table-hover m-0" style="font-size: 14px; width: 100%; text-align: left;">
+        <thead style="background-color: var(--alica_blue_middle);">
+          <tr>
+            <th>ÜRÜN AD</th>
+            <th>AÇIKLAMA</th>
+            <th>MİKTAR</th>
+            <th>FİYAT</th>
+            <th>KDV ORAN</th>
+            <th class="text-center">TUTAR (KDV' siz)</th>
+          </tr>
+        </thead>
+        <tbody id="order-items"></tbody>
+      </table>
     </div>
 
 
@@ -241,7 +245,6 @@
   <script>
 
     var api_url = "http://93.180.133.185:999"
-
 
     function setById(id, data) {
       let elm = $('#' + id)
