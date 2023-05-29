@@ -103,7 +103,7 @@ export default function Sidebar() {
               </Link>
             </li>
           
-            <li>
+            {/* <li>
               <Link to={"/offers"} className="sidebar-elm">
                 <div className='text-center w-6'>
                   <i className="fa-solid fa-tags"></i>
@@ -119,7 +119,7 @@ export default function Sidebar() {
                 </div>
                 <span className="sidebar-elm-text">Teklif Kayıtları</span>
               </Link>
-            </li>
+            </li> */}
           </>
         : undefined}
 
