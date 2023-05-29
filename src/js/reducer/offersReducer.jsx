@@ -32,12 +32,6 @@ export default function reducer(state, action) {
         toggle_filtered_current_table: action.value
       }
 
-    case 'INVOICED':
-      return {
-        ...state,
-        invoiced: action.value
-      }
-
     case 'ALL_STOCKS':
       return {
         ...state,
