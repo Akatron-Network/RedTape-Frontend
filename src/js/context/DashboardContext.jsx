@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useMemo, useReducer } from "react";
 import dashboardReducer from '../reducer/dashboardReducer'
 import Dashboard from "../libraries/models/Dashboard";
 
@@ -15,10 +15,10 @@ const Provider = ({ children }) => {
 
   const showDashboard = async () => {
     let dt = await Dashboard.showDashboard();
-    let get_months = getMonthlySales(dt);
+    let get_sales = getSales(dt, "daily");
 
     let charts_info = {
-      line: get_months,
+      line: get_sales,
       table: dt.details.current_final_balances,
     }
     
@@ -33,9 +33,28 @@ const Provider = ({ children }) => {
     })
   }
 
-  const getMonthlySales = (dt) => {
-    let sales = dt.details.sales_data_month
+  const changeChartType = async (type) => {
+    let dt = await Dashboard.showDashboard();
+    let get_sales = getSales(dt, type);
+
+    let charts_info = {
+      ...state.dashboard_charts_info,
+      line: get_sales,
+    }
+    
+    dispatch({
+      type: 'DASHBOARD_CHARTS_INFO',
+      value: charts_info
+    })
+  }
+
+  const getSales = (dt, type) => {
+    let sales = dt.details.sales_daily
     let time = []
+
+    if (type === "monthly") {
+      sales = dt.details.sales_monthly
+    }
 
     for (let s of sales) {
 
@@ -62,6 +81,10 @@ const Provider = ({ children }) => {
       let y = s.year
       let m = s.month
       let d = s.day
+      
+      if (type === "monthly") {
+        d = new Date(y, m , 0).getDate();
+      }
 
       if (d < 10) {
         d = "0" + d
@@ -78,30 +101,147 @@ const Provider = ({ children }) => {
     
     let timeBoard = time.sort((a, b) => a[0] - b[0])
     
+    if (type === "daily") {
+      if (!document.getElementById("daily_sales").classList.contains('bg-ciro_blue')) {
+        document.getElementById("daily_sales").classList.add('text-white')
+        document.getElementById("daily_sales").classList.add('bg-ciro_blue')
+        document.getElementById("daily_sales").classList.remove('hover:text-gray-700')
+        document.getElementById("daily_sales").classList.remove('hover:bg-gray-100')
+        document.getElementById("daily_sales").classList.remove('text-gray-500')
+
+        document.getElementById("monthly_sales").classList.remove('bg-ciro_blue')
+        document.getElementById("monthly_sales").classList.remove('bg-ciro_blue')
+        document.getElementById("monthly_sales").classList.add('hover:text-gray-700')
+        document.getElementById("monthly_sales").classList.add('hover:bg-gray-100')
+        document.getElementById("monthly_sales").classList.add('text-gray-500')
+      }
+    }
+    else if (type === "monthly") {
+      if (!document.getElementById("monthly_sales").classList.contains('bg-ciro_blue')) {
+        document.getElementById("monthly_sales").classList.add('text-white')
+        document.getElementById("monthly_sales").classList.add('bg-ciro_blue')
+        document.getElementById("monthly_sales").classList.remove('hover:text-gray-700')
+        document.getElementById("monthly_sales").classList.remove('hover:bg-gray-100')
+        document.getElementById("monthly_sales").classList.remove('text-gray-500')
+
+        document.getElementById("daily_sales").classList.remove('bg-ciro_blue')
+        document.getElementById("daily_sales").classList.remove('bg-ciro_blue')
+        document.getElementById("daily_sales").classList.add('hover:text-gray-700')
+        document.getElementById("daily_sales").classList.add('hover:bg-gray-100')
+        document.getElementById("daily_sales").classList.add('text-gray-500')
+      }
+    }
+
     return timeBoard;
   }
 
   const resizeCheck = () => {
-    document.getElementById('table_chart_card').style.height = document.getElementById('line_chart_card').offsetHeight + "px"
+    // document.getElementById('table_chart_card').style.height = document.getElementById('line_chart_card').offsetHeight + "px"
     
-    if (document.getElementById('line_chart_card').offsetHeight > document.getElementById('table_chart_card_table').offsetHeight) {
-      document.getElementById('table_chart_card_table').style.height = "fit-content"
-    }
-    else {
-      document.getElementById('table_chart_card_table').style.height = document.getElementById('line_chart_card').offsetHeight - 80 + "px"
-    }
+    // if (document.getElementById('line_chart_card').offsetHeight > document.getElementById('table_chart_card_table').offsetHeight) {
+    //   document.getElementById('table_chart_card_table').style.height = "fit-content"
+    // }
+    // else {
+    //   document.getElementById('table_chart_card_table').style.height = document.getElementById('line_chart_card').offsetHeight - 80 + "px"
+    // }
     
   }
   
+  const columns = useMemo(
+    () => [
+      {
+        accessorFn: (row) => row?.current?.details?.name ?? "",
+        id: 'current_name',
+        header: 'Cari Ad'
+      },
+      {
+        accessorKey: 'balance',
+        header: 'Net Bakiye',
+        enableGlobalFilter: false,
+        enableColumnFilter: false,
+        muiTableBodyCellProps: ({ cell }) => ({
+          sx: {
+            backgroundColor: cell.getValue() > 0 ? 'rgba(22, 184, 44, 0.5)' : '#E34744',
+            textAlign: "right"
+          }
+        })
+      },
+      // {
+      //   accessorKey: 'date',
+      //   header: 'Tarih',
+      //   enableGlobalFilter: false,
+      //   enableColumnFilter: false,
+      //   Cell: ({ cell }) => {
+      //     let cell_value = cell.getValue().split("T")[0]
+      //     cell_value = cell_value.split("-").reverse().join(".");
+          
+      //     return (
+      //       <span>{cell_value}</span>
+      //     )
+      //   }
+      // },
+      // {
+      //   accessorFn: (row) => row?.current?.nets_code ?? "",
+      //   id: 'nets_code',
+      //   header: 'Cari Kod'
+      // },
+      // {
+      //   accessorFn: (row) => row?.current?.name ?? "",
+      //   id: 'name',
+      //   header: 'Cari Ad'
+      // },
+      // {
+      //   accessorKey: 'total_fee',
+      //   header: 'Tutar',
+      //   enableGlobalFilter: false,
+      //   enableColumnFilter: false,
+      //   Cell: ({ cell }) => {
+      //     let cell_value = cell.getValue().toFixed(2)
+          
+      //     return (
+      //       <span>{cell_value} &nbsp;₺</span>
+      //     )
+      //   }
+      // },
+      // {
+      //   accessorKey: 'control_error',
+      //   header: 'Hata',
+      //   enableGlobalFilter: false,
+      //   enableColumnFilter: false,
+      //   Cell: ({ cell }) => {
+      //     if (cell.getValue() !== null) {
+      //       let cell_value = cell.getValue()
+
+      //       return (
+      //         <button className="hs-tooltip inline-block [--trigger:focus] [--placement:left]">
+      //           <div className="hs-tooltip-toggle block text-center">
+      //             <span className="transition-all text-red-500 font-bold dark:hover:text-red-600 hover:text-red-700">
+      //             <i className="fa-solid fa-arrow-left"></i> &nbsp; Hatayı Görüntüle
+      //             </span>
+      //             <p className="hs-tooltip-content hs-tooltip-shown:opacity-100 max-h-[300px] max-w-[600px] overflow-y-auto whitespace-break-spaces hs-tooltip-shown:visible text-red-600 dark:text-red-500 opacity-0 left-0 top-0 cursor-text select-text transition-opacity inline-block absolute invisible z-10 py-3 px-4 bg-white border text-sm rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700" role="tooltip">
+      //               {cell_value}
+      //             </p>
+      //           </div>
+      //         </button>
+      //       )
+      //     }
+      //   }
+      // },
+    ],
+    [],
+  );
+
   const dashboard = {
 
     //- Refs
 
     //- States, Variables etc.
+    columns,
     ...state,
     dispatch,
 
     //- Functions
+    changeChartType,
     resizeCheck,
     showDashboard,
 

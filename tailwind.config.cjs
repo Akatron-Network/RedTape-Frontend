@@ -17,6 +17,7 @@ module.exports = {
         mn_blue: "#3A5F63",
         queen_blue: "#4C7273",
         shadow_blue: "#699692",
+        ciro_blue: "#499F9E",
         steel_blue: "#8ABCB2",
         steel_blue_light: "#ABC8C3",
         alica_blue: "#BECFCD",

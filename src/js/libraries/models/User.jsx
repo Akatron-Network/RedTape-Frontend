@@ -49,13 +49,17 @@ export default class User {
   static async showUser(query) {
     let q = Request.userRequest();
     let whereStringify = JSON.stringify(query)
-    
+
     let show = await q.get({
       query: whereStringify
     })
 
     let obj = show.Data.map(r => new User(r.username, r.user_details));
     return obj;
+
+    // let show = await q.get(query)
+    // return show; //. For MUI tables
+
   }
 
   static async getUserDetails(username) {

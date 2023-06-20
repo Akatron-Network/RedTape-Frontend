@@ -7,6 +7,7 @@ import Table from '../components/items/Table';
 import EditUserModal from '../components/modals/EditUserModal';
 import { useMain } from '../context/MainContext';
 import { useNavigate } from 'react-router-dom';
+import AdminPanelTable from '../components/tables/AdminPanelTable'
 
 export default function AdminPanel() {
   const admin_panel_data = useAdminPanel();
@@ -49,6 +50,7 @@ export default function AdminPanel() {
         <div className='grid grid-cols-1 gap-1 col-span-2 h-fit'>
           <PageSubTitle title={"Kullanıcı Tablosu"} /> 
           <Table data={admin_panel_data.render_table} />
+          {/* <AdminPanelTable /> */}
         </div>
 
         <EditUserModal />

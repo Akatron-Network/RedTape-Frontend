@@ -98,6 +98,8 @@ export default class Table {
 
                     if (r === "debt" || r === "amount" || r === "cumulative_balance" || r === "balance") {      //. Differenct css for keys
 
+                      cls = "py-[0.20rem] px-3 text-prussian_blue text-right"
+                      
                       if (r === "debt" && d.details["balance"] > 0) {             //. Render in BORÇ TUTARI column
                         val = d.details["balance"]
                         cls = "py-[0.20rem] px-3 text-prussian_blue text-right"

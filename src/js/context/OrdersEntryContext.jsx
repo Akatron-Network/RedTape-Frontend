@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer, useRef, useEffect } from "react";
+import { createContext, useContext, useReducer, useRef, useEffect, useMemo } from "react";
 import Current from "../libraries/models/Current";
 import Stock from "../libraries/models/Stock";
 import Orders from "../libraries/models/Orders";
@@ -6,6 +6,8 @@ import ordersEntryReducer from '../reducer/ordersEntryReducer'
 import {Modal} from 'flowbite';
 import { useReactToPrint } from "react-to-print";
 import CurrencyFormat from "../libraries/tools/CurrencyFormat";
+import Tooltip from "../components/items/Tooltip";
+import { useMain } from "./MainContext";
 
 const OrdersEntryContext = createContext();
 
@@ -197,9 +199,7 @@ const Provider = ({children}) => {
     dispatch({
       type: 'GET_ORDER_DETAILS',
       value: dt
-    })
-
-    
+    })    
 
     for (let c of state.all_currents) {
       if (c.id === dt.details.current_id) var cur_name = c.details.id + " / " + c.details.name
@@ -317,7 +317,7 @@ const Provider = ({children}) => {
     for (let ind in items) {
       let i = items[ind]
       if (id === i.id) {
-        items.splice(i,1)
+        items.splice(ind,1)
       }
     }
     
@@ -602,6 +602,173 @@ const Provider = ({children}) => {
     })
   }
 
+  const { funcLoad } = useMain();
+
+  const columns = useMemo(
+    () => [
+      {
+        accessorFn: (row) => row?.details?.id ?? "",
+        id: 'id',
+        header: 'Sipariş Kodu'
+      },
+      {
+        accessorFn: (row) => row?.details?.current_id ?? "",
+        id: 'current_id',
+        header: 'Cari Kod'
+      },
+      {
+        accessorFn: (row) => row?.details?.order_source ?? "",
+        id: 'order_source',
+        header: 'Sipariş Kaynağı'
+      },
+      {
+        accessorFn: (row) => row?.details?.invoiced ?? "",
+        header: 'Fatura Durumu',
+        enableGlobalFilter: false,
+        enableColumnFilter: false,
+        Cell: ({ cell }) => {
+          let cell_value = "Faturalı"
+
+          if (!cell.getValue()) { cell_value = "Faturasız" }
+        
+          return (
+            <span>{cell_value}</span>
+          )
+        }
+      },
+      {
+        accessorFn: (row) => row?.details?.date ?? "",
+        header: 'Sipariş Tarihi',
+        enableGlobalFilter: false,
+        enableColumnFilter: false,
+        Cell: ({ cell }) => {
+          let cell_value = cell.getValue().split("T")[0]
+        
+          return (
+            <span>{cell_value}</span>
+          )
+        }
+      },
+      {
+        accessorFn: (row) => row?.details?.delivery_date ?? "",
+        header: 'Teslim Tarihi',
+        enableGlobalFilter: false,
+        enableColumnFilter: false,
+        Cell: ({ cell }) => {
+          let cell_value = cell.getValue().split("T")[0]
+        
+          return (
+            <span>{cell_value}</span>
+          )
+        }
+      },
+      {
+        accessorFn: (row) => row?.details?.total_fee ?? "",
+        header: 'Toplam Tutar',
+        enableGlobalFilter: false,
+        enableColumnFilter: false,
+        muiTableBodyCellProps: {
+          sx: {
+            textAlign: "right",
+            color: '#314F85',
+            fontWeight: 'bold'
+          }
+        },
+        Cell: ({ cell }) => {
+          let cell_value = CurrencyFormat(cell.getValue())
+        
+          return (
+            <span>{cell_value} <i className="fa-solid fa-turkish-lira-sign"></i></span>
+          )
+        }
+      },
+      {
+        // accessorKey: 'control_error',
+        id: "buttons",
+        header: '',
+        enableGlobalFilter: false,
+        enableColumnFilter: false,
+        Cell: ({ cell }) => {
+          return (
+            <>
+              <Tooltip message={"Yazdır"}>
+                <button type='button' onClick={() => funcLoad(printPDF, cell.row.original)} className='ml-1 render-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-print"></i></button>
+              </Tooltip>
+              <Tooltip message={"Siparişi Düzenle"}>
+                <button type='button' onClick={() => funcLoad(getOrderDetails, cell.row.original.details.id)} className='ml-1 golden-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-pen-to-square"></i></button>
+              </Tooltip>
+              <Tooltip message={"Siparişi Sil"}>
+                <button type='button' onClick={() => funcLoad(removeOrder, cell.row.original.details.id)} className='ml-1 danger-btn shadow-md px-1 w-8 rounded-md active:scale-90'><i className="fa-solid fa-xmark"></i></button>
+              </Tooltip>
+            </>
+          )
+        }
+      },
+      // {
+      //   accessorKey: 'date',
+      //   header: 'Tarih',
+      //   enableGlobalFilter: false,
+      //   enableColumnFilter: false,
+      //   Cell: ({ cell }) => {
+      //     let cell_value = cell.getValue().split("T")[0]
+      //     cell_value = cell_value.split("-").reverse().join(".");
+          
+      //     return (
+      //       <span>{cell_value}</span>
+      //     )
+      //   }
+      // },
+      // {
+      //   accessorFn: (row) => row?.current?.nets_code ?? "",
+      //   id: 'nets_code',
+      //   header: 'Cari Kod'
+      // },
+      // {
+      //   accessorFn: (row) => row?.current?.name ?? "",
+      //   id: 'name',
+      //   header: 'Cari Ad'
+      // },
+      // {
+      //   accessorKey: 'total_fee',
+      //   header: 'Tutar',
+      //   enableGlobalFilter: false,
+      //   enableColumnFilter: false,
+      //   Cell: ({ cell }) => {
+      //     let cell_value = cell.getValue().toFixed(2)
+          
+      //     return (
+      //       <span>{cell_value} &nbsp;₺</span>
+      //     )
+      //   }
+      // },
+      // {
+      //   accessorKey: 'control_error',
+      //   header: 'Hata',
+      //   enableGlobalFilter: false,
+      //   enableColumnFilter: false,
+      //   Cell: ({ cell }) => {
+      //     if (cell.getValue() !== null) {
+      //       let cell_value = cell.getValue()
+
+      //       return (
+      //         <button className="hs-tooltip inline-block [--trigger:focus] [--placement:left]">
+      //           <div className="hs-tooltip-toggle block text-center">
+      //             <span className="transition-all text-red-500 font-bold dark:hover:text-red-600 hover:text-red-700">
+      //             <i className="fa-solid fa-arrow-left"></i> &nbsp; Hatayı Görüntüle
+      //             </span>
+      //             <p className="hs-tooltip-content hs-tooltip-shown:opacity-100 max-h-[300px] max-w-[600px] overflow-y-auto whitespace-break-spaces hs-tooltip-shown:visible text-red-600 dark:text-red-500 opacity-0 left-0 top-0 cursor-text select-text transition-opacity inline-block absolute invisible z-10 py-3 px-4 bg-white border text-sm rounded-md shadow-md dark:bg-gray-900 dark:border-gray-700" role="tooltip">
+      //               {cell_value}
+      //             </p>
+      //           </div>
+      //         </button>
+      //       )
+      //     }
+      //   }
+      // },
+    ],
+    [],
+  );
+
   const orders_entry = {
 
     //- Refs
@@ -629,6 +796,7 @@ const Provider = ({children}) => {
     componentRef,
 
     //- States, Variables etc.
+    columns,
     ...state,
     dispatch,
 

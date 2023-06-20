@@ -445,7 +445,6 @@ const Provider = ({ children }) => {
     for (let o of state.all_offers) {
       if (o.id === id) dt = o
     }
-    console.log(dt);
   }
 
   //- Stocks Autocomplete

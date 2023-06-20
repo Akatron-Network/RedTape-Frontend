@@ -8,7 +8,7 @@ import DashboardTable from '../charts/DashboardTable';
 
 
 export default function Dashboard() {
-  const { showDashboard, dashboard_cards_info, dashboard_charts_info, resizeCheck } = useDashboard();
+  const { showDashboard, dashboard_cards_info, dashboard_charts_info, resizeCheck, changeChartType } = useDashboard();
   const { funcLoad, adminCheck, adminAll } = useMain();
 
   useEffect(() => {
@@ -82,7 +82,22 @@ export default function Dashboard() {
             </div>
           </Link>
 
-          <div id='line_chart_card' className="transition duration-300 shadow-xl rounded-lg col-span-2 bg-white pt-5 px-5 h-fit">
+          <div id='line_chart_card' className="transition duration-300 shadow-xl rounded-lg col-span-2 bg-white pt-1 px-5 h-fit">
+
+            <div className='flex gap-4 items-center'>
+              <div className='py-4 text-gray-600'>Ciro Takibi</div>
+
+              <ul className="flex flex-wrap text-sm font-medium text-center border border-ciro_blue rounded-lg">
+                <li className="w-[70px]">
+                  <button id='daily_sales' onClick={() => funcLoad(changeChartType, "daily")} className="inline-block px-2 py-1 w-full rounded-l-md transition-all">Günlük</button>
+                </li>
+                <li className="w-[70px]">
+                  <button id='monthly_sales' onClick={() => funcLoad(changeChartType, "monthly")} className="inline-block px-2 py-1 w-full rounded-r-md transition-all">Aylık</button>
+                </li>
+              </ul>
+
+            </div>
+
             <div className="inline items-center">
               <BasicLineChart data={dashboard_charts_info} />
             </div>
@@ -92,6 +107,7 @@ export default function Dashboard() {
             <div className='pb-4 text-gray-600'>Cari Aktif Bakiye</div>
             <div className="inline items-center">
               <DashboardTable />
+              {/* <TableMain /> */}
             </div>
           </div>
           

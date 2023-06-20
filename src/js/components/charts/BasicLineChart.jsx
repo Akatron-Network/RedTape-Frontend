@@ -84,15 +84,15 @@ export default class BasicLineChart extends Component {
         stroke: {
           curve: 'straight'
         },
-        title: {
-          text: 'Aylık Ciro Takibi',
-          align: 'left',
-          style: {
-            fontSize:  '16px',
-            fontWeight:  'semi-bold',
-            color:  '#4B5563'
-          },
-        },
+        // title: {
+        //   text: 'Aylık Ciro Takibi',
+        //   align: 'left',
+        //   style: {
+        //     fontSize:  '16px',
+        //     fontWeight:  'semi-bold',
+        //     color:  '#4B5563'
+        //   },
+        // },
         theme: {
           mode: 'light', 
           palette: 'palette5', 

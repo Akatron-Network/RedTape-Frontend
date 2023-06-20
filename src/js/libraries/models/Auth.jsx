@@ -1,4 +1,3 @@
-//+ register(?) - deleteOwnUser(?)
 import Request from '../Request'
 
 export default class Auth {
@@ -42,9 +41,9 @@ export default class Auth {
   //b STATIC CONSTRUCT METHODS ------------------------------------------------
 
   static async login(username, password) {
-    let q = Request.loginRequest();                  //. Create an object
+    let q = Request.loginRequest();                     //. Create an object
 
-    let get = await q.get({                          //. get GET Func
+    let get = await q.get({                             //. get GET Func
       username: username,
       password: password
     })
