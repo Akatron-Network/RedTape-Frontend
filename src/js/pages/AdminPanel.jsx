@@ -7,7 +7,7 @@ import Table from '../components/items/Table';
 import EditUserModal from '../components/modals/EditUserModal';
 import { useMain } from '../context/MainContext';
 import { useNavigate } from 'react-router-dom';
-import AdminPanelTable from '../components/tables/AdminPanelTable'
+// import AdminPanelTable from '../components/tables/AdminPanelTable'
 
 export default function AdminPanel() {
   const admin_panel_data = useAdminPanel();
