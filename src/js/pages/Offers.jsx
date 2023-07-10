@@ -165,7 +165,7 @@ export default function Offers() {
           <div className='col-span-2 lg:col-span-1'><InputSelectNoSpan name={"Birim"} reference={offers_data.offersUnitRef} options={offers_data.chosen_stock_units} /></div>
           <div className='col-span-3 lg:col-span-1'><InputDefaultNoSpan name={"Miktar"} reference={offers_data.offersAmountRef} type={"number"} /></div>
           <div className='col-span-2 lg:col-span-1'><InputDefaultNoSpan name={"Birim Fiyat"} reference={offers_data.offersPriceRef} type={"number"} /></div>
-          <div className={offers_data.invoiced !== true ? "col-span-2 lg:col-span-1 opacity-40 pointer-events-none" : "col-span-2 lg:col-span-1"}><InputSelectNoSpan name={"KDV Oranı"} reference={offers_data.offersTaxRateRef} options={["%0", "%8", "%18"]} /></div>
+          <div className={offers_data.invoiced !== true ? "col-span-2 lg:col-span-1 opacity-40 pointer-events-none" : "col-span-2 lg:col-span-1"}><InputSelectNoSpan name={"KDV Oranı"} reference={offers_data.offersTaxRateRef} options={["%0", "%10", "%20"]} /></div>
           <div className='col-span-4 lg:col-span-2'><InputDefaultNoSpan name={"Açıklama"} reference={offers_data.offersDescriptionRef} type={"text"} /></div>       
 
           <button className='col-span-2 lg:col-span-1 truncate clear-btn w-full' onClick={() => funcLoad(offers_data.addProduct)}><i className="fa-solid fa-plus mr-2"></i>Ürün Ekle</button>

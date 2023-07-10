@@ -61,7 +61,7 @@ export default function RenderPDF(props) {
 
                   if (i > 10) return;
                   else {
-                    let tax_rate = "%8";
+                    let tax_rate = "%10";
                     if (p.tax_rate === 0) tax_rate = "-"
                     else {tax_rate = "%" + (p.tax_rate) * 100}
 

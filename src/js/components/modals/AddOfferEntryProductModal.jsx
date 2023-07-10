@@ -45,7 +45,7 @@ export default function AddOfferEntryProductModal() {
               <div className='col-span-2'><InputSelect name={"Birim"} reference={offers_entry_data.addOfferEntryProductUnitEditRef} options={offers_entry_data.chosen_stock_units} func={() => {}} /></div>
               <div className='col-span-2'><InputDefault name={"Miktar"} reference={offers_entry_data.addOfferEntryProductAmountEditRef} type={"number"} /></div>
               <div className='col-span-2'><InputDefault name={"Birim Fiyat"} reference={offers_entry_data.addOfferEntryProductPriceEditRef} type={"number"} /></div>
-              <div className={offers_entry_data.invoiced !== true ? "col-span-2 opacity-40 pointer-events-none" : "col-span-2"}><InputSelect name={"KDV Oranı"} reference={offers_entry_data.addOfferEntryProductTaxRateEditRef} options={["%0", "%8", "%18"]} func={() => {}} /></div>
+              <div className={offers_entry_data.invoiced !== true ? "col-span-2 opacity-40 pointer-events-none" : "col-span-2"}><InputSelect name={"KDV Oranı"} reference={offers_entry_data.addOfferEntryProductTaxRateEditRef} options={["%0", "%10", "%20"]} func={() => {}} /></div>
               <div className='col-span-2'><InputDefault name={"Açıklama"} reference={offers_entry_data.addOfferEntryProductDescriptionEditRef} type={"text"} /></div>
             
             </div>

@@ -254,8 +254,8 @@ const Provider = ({ children }) => {
     })
 
     let tax_rate = "%0"
-    if (dt.tax_rate === 0.18) tax_rate = "%18"
-    else if (dt.tax_rate === 0.8) tax_rate = "%8"
+    if (dt.tax_rate === 0.20) tax_rate = "%20"
+    else if (dt.tax_rate === 0.10) tax_rate = "%10"
 
     entryProductNameEditRef.current.innerHTML = name
     entryProductUnitEditRef.current.value = dt.unit
@@ -344,7 +344,7 @@ const Provider = ({ children }) => {
     }
 
     let tax_rate = 0;
-    if(state.invoiced) ((addOfferEntryProductTaxRateEditRef.current.value).replace("%", "") / 100)
+    if(state.invoiced) (tax_rate = (addOfferEntryProductTaxRateEditRef.current.value).replace("%", "") / 100)
     let amount_sum = ((parseFloat(addOfferEntryProductAmountEditRef.current.value)) * (parseFloat(addOfferEntryProductPriceEditRef.current.value)));
     let tax_sum = (parseFloat(amount_sum) * parseFloat(tax_rate));
     let total = parseFloat(amount_sum + tax_sum).toFixed(2)

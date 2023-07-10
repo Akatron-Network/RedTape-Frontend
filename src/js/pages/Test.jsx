@@ -347,7 +347,7 @@ export default function Test() {
           unit: "AD",
           amount: 24.5,
           price: 4.10,
-          tax_rate: 0.18,
+          tax_rate: 0.20,
           description: "Test Açıklama"
         }
       ]
