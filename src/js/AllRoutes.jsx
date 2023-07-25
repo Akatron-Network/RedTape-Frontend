@@ -31,12 +31,7 @@ export default function AllRoutes() {
           <Route path="admin-panel" element={<AdminPanel />} />
           <Route path="offers" element={<Offers />} />
           <Route path="offers-entry" element={<OffersEntry />} />
-          {/* <Route index={true} element={<Collections />} />
-          <Route path=":colID" element={<Folders />} />
-          <Route path=":colID/:foldID" element={<Files />} />
-          <Route path=":colID/:foldID/:fileID" element={<ChartLayout />} /> */}
         </Route>
-        {/* <Route path="/test" element={<Test />} /> */}
       </Routes>
     </BrowserRouter>
   )
