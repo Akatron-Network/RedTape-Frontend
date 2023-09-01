@@ -289,6 +289,7 @@ const Provider = ({children}) => {
       }
 
     let cur_act = await act.getData(0, 1000, where);
+    console.log(cur_act);
 
     dispatch({                  //. Set all current activities
       type: 'CURRENT_ACTIVITY',
